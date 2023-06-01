@@ -31,13 +31,13 @@
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		      <img src="/racket/images/jang1.jpg" class="d-block w-100" alt="Image">
+		      <img src="/racket/images/event1.jpg" class="d-block w-100" alt="Image">
 		    </div>
 		    <div class="carousel-item">
-		      <img src="/racket/images/jang2.jpg" class="d-block w-100" alt="Image">
+		      <img src="/racket/images/event2.jpg" class="d-block w-100" alt="Image">
 		    </div>
 		    <div class="carousel-item">
-		      <img src="/racket/images/jang3.jpg" class="d-block w-100" alt="Image">
+		      <img src="/racket/images/event3.jpg" class="d-block w-100" alt="Image">
 		    </div>
 		  </div>
 		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -53,13 +53,13 @@
    <!-- 검색바 -->
     <div class="container mt-5">
         <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="검색" aria-label="검색">
-            <button class="btn btn-outline-success" type="submit">검색</button>
+            <input class="form-control me-2" type="search" placeholder="구장을 검색하세요" aria-label="검색">
+            <button class="btn btn-outline-success" type="submit" id="search">검색</button>
         </form>
     </div>
     
     
-	<div class="container mt-5">
+	<!-- <div class="container mt-5">
     <p>날짜를 선택해주세요:</p>
     <input type="text" class="form-control" id="datePickerImg">
     <script>
@@ -72,7 +72,7 @@
     </script>
 	</div>
 	
-    <!-- 달력 -->
+    달력
     <div class="container mt-5">
         <p>날짜를 선택해주세요:</p>
         <input type="text" class="form-control" id="datePicker">
@@ -81,6 +81,6 @@
         </script>
     </div>
 	
-    <script type="text/javascript" src="../test/date.js"></script>
+    <script type="text/javascript" src="../test/date.js"></script> !-->
 </body>
 </html>

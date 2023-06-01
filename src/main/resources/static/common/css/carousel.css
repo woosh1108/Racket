@@ -1,9 +1,15 @@
 @charset "UTF-8";
 
 /* 캐러셀(이미지슬라이드) 이미지 크기변경 */
+
+#carouselExampleIndicators{
+	margin-top:30px;
+	z-index: 0;
+}
 .carousel-inner {
 	width: auto;
-	height: 800px; /* 이미지 높이 변경 */
+	height: 600px; /* 이미지 높이 변경 */
+	
 }
 
 .carousel-item {

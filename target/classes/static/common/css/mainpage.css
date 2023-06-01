@@ -1,6 +1,27 @@
 @charset "UTF-8";
-/* body{
-	padding-top: 200px;
-	padding-left: 300px;
-	padding-right: 300px;
-} */
+
+div[class="container"]{
+	text-align: center;
+	padding-left:400px;
+	margin: 0 auto;
+}
+.form-control{
+	width: 70%;
+	height:45px;
+	text-align: center;
+	font-size: 20pt;
+	margin-right: 30px;
+}
+.d-flex{ /* 중앙정렬 */
+	display: flex;
+  	justify-content: center;
+}
+.btn{
+	width:80px;
+	height:45px;
+	font-size: 18pt;
+	text-align: center;
+}
+#search{
+	margin-left: 15px;
+}

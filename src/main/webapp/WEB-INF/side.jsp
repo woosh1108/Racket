@@ -16,18 +16,18 @@
 	</label>
 	<div class="sidebar">
 		<ul class="menu">
-			<li><img alt="" src="../images/test/page.png"><a href="#">사이트 소개</a></li>
-			<li><img alt="" src="../images/test/megaphone.png"><a href="#">공지사항</a></li>
-			<li><img alt="" src="../images/test/management.png"><a href="#">강사신청</a></li>
-			<li><img alt="" src="../images/test/man-playing-badminton.png"><a href="#">체육관 예약</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/page.png">사이트 소개</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/megaphone.png">공지사항</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/management.png">강사신청</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/man-playing-badminton.png">체육관 예약</a></li>
 			<hr/>
-			<li><img alt="" src="../images/test/conversation.png"><a href="#">운동모집게시판</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/conversation.png">운동모집게시판</a></li>
 			<hr/>
-			<li><img alt="" src="../images/test/question-and-answer.png"><a href="#">문의하기</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/question-and-answer.png">문의하기</a></li>
 			<hr/>
-			<li><img alt="" src="../images/test/instagram.png"><a href="#">인스타그램</a></li>
-			<li><img alt="" src="../images/test/youtube.png"><a href="#">유튜브</a></li>
-			<li><img alt="" src="../images/test/facebook.png"><a href="#">페이스북</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/instagram.png"> Instagram</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/youtube.png"> Youtube</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/facebook.png"> Facebook</a></li>
 		</ul>
 	</div>
 	
