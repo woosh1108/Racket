@@ -1,6 +1,16 @@
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+h1{
+    padding: 0 auto;
+    margin: 0 auto;
+}
 body {
     margin: 0;
-    font-family: 'Source Sans Pro';
+    font-family: 'ONE-Mobile-POP';
 }
 a {
     text-decoration: 0;
@@ -11,15 +21,18 @@ a {
     height:80px;
     justify-content: space-between;
     align-items: center;
-    background-color: #263343;
+    background-color: #4C6A96;
     color:white;
     padding: 8px 12px;
 }
 .nav_logo img{
+	display:inline-block;
     height:70px;
-    wdith:70px;
     cursor: pointer;
     filter:invert(100%);
+    position: absolute;
+	left: 400px;
+	top: 5px;
 }
 .nav_logo i {
     color: orangered;
@@ -56,7 +69,11 @@ a {
 }
 .nav_links img{
 	filter:invert(100%);
+	position: absolute;
+	right:500px;
+	top:15px;
 }
+
 @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -68,6 +85,7 @@ a {
         align-items: center;
         width: 100%;
     }
+    
     .nav_links {
         display: none;
         align-items: flex-end;
@@ -83,4 +101,61 @@ a {
         display: flex;
     }
 
+}
+
+.group1
+{
+width:80px;
+height:50px;
+}
+.rectangle1{
+	position:absolute;
+	top:15px;
+	right:600px;
+	background-color:#8ea6fc;
+	height:50px;
+	width:80px;
+	border-radius:10px;
+	box-sizing: border-box;
+}
+.rectangle1 h1{
+	padding-top:12px;
+	text-align: center;
+	justify-content: center;
+	font-size: 16pt;
+	font-family: ONE-Mobile-POP;
+}
+.rectangle2{
+	position:absolute;
+	top:15px;
+	right:470px;
+	background-color:#2A58FA;
+	height:50px;
+	width:120px;
+	border-radius:10px;
+	box-sizing: border-box;
+	
+}
+.rectangle2 h1{
+	padding-top:12px;
+	text-align: center;
+	justify-content: center;
+	font-size: 16pt;
+	font-family: ONE-Mobile-POP;
+}
+.header-link:link{
+	text-decoration: none;
+	color: black;
+}
+.login
+{
+color:#000000;
+text-align:center;
+vertical-align:text-middle;
+font-size:16px;
+font-family:Inter;
+line-height:auto;
+border-style:hidden;
+outline:none;
+width:80px;
 }

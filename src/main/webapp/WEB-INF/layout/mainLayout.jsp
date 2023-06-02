@@ -21,35 +21,42 @@
 	body{
 		color: black;
 	}
-	/*  #toparea{
-		padding: 30px;
-	}  */
-	/* body{
-		background-color: #edeef1
-	} */
+	#wrapper{
+	  height: auto;
+	  min-height: 100%;
+	  
+	  /* padding-bottom: 600px; */
+	}
+	.content{
+		padding-top: 50px;
+	}
+		
 </style>
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-		<!-- 이곳에 top화면을 연결하세요" -->
-		<tiles:insertAttribute name="header"></tiles:insertAttribute>
+	<div id='wrapper'>
+		<div>
+			<!-- 이곳에 top화면을 연결하세요" -->
+			<tiles:insertAttribute name="header"></tiles:insertAttribute>
+		</div>
+		<div>
+				<tiles:insertAttribute name="side"></tiles:insertAttribute>
+				<div class="row" style="margin-left: auto;margin-right: auto;">
+					<div class="col-sm-2"></div>
+				 	<div class="content col-sm-9" height: 800px;">
+						<tiles:insertAttribute name="content"></tiles:insertAttribute>
+				 		<!-- 이곳에 content화면을 연결하세요" -->		 	</div>
+				 		
+				</div>
+		</div>	 
 	</div>
-	<div>
-			<tiles:insertAttribute name="side"></tiles:insertAttribute>
-			<div class="row" style="margin-left: auto;margin-right: auto;">
-				<div class="col-sm-2"></div>
-			 	<div class="col-sm-8" height: 800px;">
-					<tiles:insertAttribute name="content"></tiles:insertAttribute>
-			 		<!-- 이곳에 content화면을 연결하세요" -->		 	</div>
-			 		
-			</div>
-			 
-	</div>
-	<div>
+	
+	
 		<!-- 이곳에 footer화면을 연결하세요" -->
+		
 		<tiles:insertAttribute name="footer"></tiles:insertAttribute>
-	</div>
+	
 </body>
 </html>
 

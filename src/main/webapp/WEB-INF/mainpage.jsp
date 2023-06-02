@@ -20,6 +20,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 	<link href="/racket/common/css/carousel.css" rel="stylesheet">
 	<link href="/racket/common/css/mainpage.css" rel="stylesheet">
+	
 </head>
 <body>
     <!-- Carousel / 슬라이드바 -->
@@ -50,15 +51,268 @@
 		  </button>
 	</div>
     
+    <!-- 날짜 -->
+    <!-- <div class="container mt-5">
+    	<table class="calendar" border="1">
+    		<tr>
+    			<td>06.02</td>
+    			<td>06.03</td>
+    			<td>06.04</td>
+    			<td>06.05</td>
+    			<td>06.06</td>
+    			<td>06.07</td>
+    			<td>06.08</td>
+    			<td>06.09</td>
+    			<td>06.10</td>
+    			<td>06.11</td>
+    		</tr>
+    	</table>
+    </div> -->
+    
+    <div class="calendar">
+			<!-- 1월 -->
+			<div class="calendar__month">
+				<div class="calendar__day">월</div>
+				<div class="calendar__date">1</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">화</div>
+				<div class="calendar__date">2</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">수</div>
+				<div class="calendar__date">3</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">목</div>
+				<div class="calendar__date">4</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">금</div>
+				<div class="calendar__date">5</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">토</div>
+				<div class="calendar__date">6</div>
+			</div>
+			<div class="calendar__month today">
+				<div class="calendar__day">일</div>
+				<div class="calendar__date">7</div>
+			</div>
+			<!-- 2월 -->
+			<div class="calendar__month">
+				<div class="calendar__day">월</div>
+				<div class="calendar__date">8</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">화</div>
+				<div class="calendar__date">9</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">수</div>
+				<div class="calendar__date">10</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">목</div>
+				<div class="calendar__date">11</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">금</div>
+				<div class="calendar__date">12</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">토</div>
+				<div class="calendar__date">13</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">일</div>
+				<div class="calendar__date">14</div>
+			</div>
+			<!-- 3월 -->
+			<div class="calendar__month">
+				<div class="calendar__day">월</div>
+				<div class="calendar__date">15</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">화</div>
+				<div class="calendar__date">16</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">수</div>
+				<div class="calendar__date">17</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">목</div>
+				<div class="calendar__date">18</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">금</div>
+				<div class="calendar__date">19</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">토</div>
+				<div class="calendar__date">20</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">일</div>
+				<div class="calendar__date">21</div>
+			</div>
+			<!-- 4월 -->
+			<div class="calendar__month">
+				<div class="calendar__day">월</div>
+				<div class="calendar__date">22</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">화</div>
+				<div class="calendar__date">23</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">수</div>
+				<div class="calendar__date">24</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">목</div>
+				<div class="calendar__date">25</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">금</div>
+				<div class="calendar__date">26</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">토</div>
+				<div class="calendar__date">27</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">일</div>
+				<div class="calendar__date">28</div>
+			</div>
+			<!-- 5월 -->
+			<div class="calendar__month">
+				<div class="calendar__day">월</div>
+				<div class="calendar__date">29</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">화</div>
+				<div class="calendar__date">30</div>
+			</div>
+			<div class="calendar__month">
+				<div class="calendar__day">수</div>
+				<div class="calendar__date">31</div>
+			</div>
+		</div>
+    	
+    
    <!-- 검색바 -->
     <div class="container mt-5">
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="구장을 검색하세요" aria-label="검색">
             <button class="btn btn-outline-success" type="submit" id="search">검색</button>
         </form>
-    </div>
-    
-    
+   </div>
+   
+   <!-- 구장 소개 -->
+   <h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   <div class="stadium">
+   		<div class="stadium-pic"><img src="/racket/images/stadium1.jpg" class="stadium-picture"/></div>
+   		<div class="stadium-info">
+   			<h3>별빛바람구장123</h3>
+   			<h4>장소 : XX번지</h4>
+   			<h4>평점 : 5점</h4>
+   			<h2>13000 원</h2>
+   		</div>
+   </div>
+   
+   
 	<!-- <div class="container mt-5">
     <p>날짜를 선택해주세요:</p>
     <input type="text" class="form-control" id="datePickerImg">

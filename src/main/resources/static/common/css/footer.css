@@ -17,7 +17,7 @@ footer .footerOuter>hr{
     margin-bottom: 5vh;
 }
 footer .footerOuter h5{
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     margin-bottom: 15px;
 }
@@ -25,7 +25,7 @@ footer .footerContentDiv{
     width: 100%;
     display: flex;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.65;
 }
 
@@ -73,7 +73,7 @@ footer .footerIconMenu{
 
 footer .footerContentRightDiv .date{
     color: #aaa;
-    font-size: 11px;
+    font-size: 12px;
     margin-left: 5px;
 }
 footer .footerMenuDiv a{
@@ -93,13 +93,13 @@ footer .companyDescDiv ul{
     color:#787878;
 }
 footer .companyDescDiv ul>li{
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.65;
     padding-right: 10px;
 }
 footer .copyright{
     color:#aaa;
-    font-size:11px;
+    font-size:12px;
     margin-top:15px;
 }
 
