@@ -37,24 +37,20 @@
 				</div>
 				<div class="footerContentRightDiv">
 					<div class="footerMenuDiv">
-						<h5>소개</h5>
+						<h3>소개</h3>
 						<a href="#">사이트 소개</a>
 						<!-- <a href="#">2022년 8월 휴무 일정 안내<span class="date">07.27</span></a>
 						<a href="#">2022년 6월 휴무 일정 안내<span class="date">05.31</span></a> -->
 					</div>
 					<div class="footerMenuDiv">
-						<h5>제휴사</h5>
+						<h3>제휴사</h3>
 						<a href="#">제휴사 소개</a>
 						<a href="#">제휴사 신청하기</a>
 					</div>
 					<div class="footerMenuDiv">
-						<h5>지원</h5>
+						<h3>지원</h3>
 						<a href="#">공지사항</a>
 						<a href="#">이벤트</a>
-					</div>
-					<div style="display:flex; flex-direction: column; " class="footerIconMenu">
-						<a href="https://ko-kr.facebook.com/">facebook</a>
-						<a href="https://www.instagram.com/">instagram</a>
 					</div>
 				</div>
 			</div>

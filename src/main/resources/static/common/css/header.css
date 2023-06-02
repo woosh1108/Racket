@@ -16,6 +16,7 @@ a {
     text-decoration: 0;
     color: white;
 }
+
 .navbar {
     display: flex;
     height:80px;
@@ -25,17 +26,16 @@ a {
     color:white;
     padding: 8px 12px;
 }
-.nav_logo img{
-	display:inline-block;
-    height:70px;
-    cursor: pointer;
-    filter:invert(100%);
-    position: absolute;
-	left: 400px;
-	top: 5px;
+.nav_logo{
+	relative;
 }
-.nav_logo i {
-    color: orangered;
+.nav_logo img{
+  height: 70px;
+  filter: invert(100%);
+  position: absolute;
+  top: 50%; /* 수정: 상단을 부모요소 기준 50%로 지정 */
+  left: 17vw;
+  transform: translateY(-50%); /*: 로고 위치를 상단에서 50% 높이의 중간 찾기 */
 }
 .nav_item {
     display: flex;
@@ -73,8 +73,33 @@ a {
 	right:500px;
 	top:15px;
 }
-
-@media screen and (max-width: 768px) {
+.nav_main img{
+	display:block;
+	width:10%;
+    height:100px;
+    cursor: pointer;
+    /* filter:invert(100%); */
+    position: absolute;
+	left: 45%;
+	top: -5px;
+	box-sizing: border-box;
+}
+@media screen and (max-width: 1024px) {
+    /* 코드 추가 */
+    .nav_logo {
+        position: absolute;
+        left: 5%;
+    }
+    .rectangle1 {
+        position: absolute;
+        right: 22%;
+    }
+    .rectangle2 {
+        position: absolute;
+        right: 10%;
+    }
+}
+/* @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
@@ -101,22 +126,37 @@ a {
         display: flex;
     }
 
-}
+} */
 
-.group1
+@media screen and (max-width: 480px) {
+    /* 코드 추가 */
+    .nav_logo {
+        position: absolute;
+        left: 5%;
+    }
+    .rectangle1 {
+        position: absolute;
+        right: 22%;
+        top: 40%;
+    }
+    .rectangle2 {
+        position: absolute;
+        right: 10%;
+        top: 40%;
+    }
+}
+/* .group1
 {
 width:80px;
 height:50px;
-}
+} */
 .rectangle1{
-	position:absolute;
-	top:15px;
-	right:600px;
-	background-color:#8ea6fc;
-	height:50px;
-	width:80px;
-	border-radius:10px;
-	box-sizing: border-box;
+   background-color: #8ea6fc;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px; 
+  box-sizing: border-box;
+
 }
 .rectangle1 h1{
 	padding-top:12px;
@@ -126,15 +166,12 @@ height:50px;
 	font-family: ONE-Mobile-POP;
 }
 .rectangle2{
-	position:absolute;
-	top:15px;
-	right:470px;
-	background-color:#2A58FA;
-	height:50px;
-	width:120px;
-	border-radius:10px;
-	box-sizing: border-box;
-	
+  background-color: #2A58FA;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  box-sizing: border-box;
+		
 }
 .rectangle2 h1{
 	padding-top:12px;
@@ -158,4 +195,23 @@ line-height:auto;
 border-style:hidden;
 outline:none;
 width:80px;
+}
+
+.rectangle1 {
+  margin-right: 2vw;    /* 추가: 사각형 사이에 오른쪽 마진 적용 */
+}
+
+.group1 {
+  position: absolute;
+  top: 1vh;
+  right: calc(50% - 350px); /* 수정: 오른쪽 위치 조절 */
+  width: 80px;
+  height: 50px;
+}
+.group2 {
+  position: absolute;
+  top: 1vh;
+  right: calc(50% - 500px); /* 수정: 오른쪽 위치 조절 */
+  width: 120px;
+  height: 50px;
 }

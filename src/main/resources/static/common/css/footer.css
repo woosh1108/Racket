@@ -37,6 +37,7 @@ footer .deskLinkDiv{
     padding-top:10px;
     width: 100%;
     height: 100%;
+    font-size: 13pt;
 }
 footer .deskLinkDiv a{
     margin-right:10px;
@@ -73,13 +74,14 @@ footer .footerIconMenu{
 
 footer .footerContentRightDiv .date{
     color: #aaa;
-    font-size: 12px;
+    font-size: 10px;
     margin-left: 5px;
 }
 footer .footerMenuDiv a{
     display: block;
     text-decoration: none;
     color:black;
+    font-size: 10pt;
 }
 
 footer .companyDescDiv{

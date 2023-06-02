@@ -18,7 +18,7 @@
 		<ul class="menu">
 			<li><a href="#"><img alt="" src="/racket/images/page.png">사이트 소개</a></li>
 			<li><a href="#"><img alt="" src="/racket/images/megaphone.png">공지사항</a></li>
-			<li><a href="#"><img alt="" src="/racket/images/management.png">강사신청</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/score-board.png">전체구장보기</a></li>
 			<li><a href="#"><img alt="" src="/racket/images/man-playing-badminton.png">체육관 예약</a></li>
 			<hr/>
 			<li><a href="#"><img alt="" src="/racket/images/conversation.png">운동모집게시판</a></li>
