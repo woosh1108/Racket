@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+/* 바디테그 전체에 박스를 입힘 */
+.recruitment_read_body_container {
+	width: 95%; /* 컨테이너의 너비 */
+	margin: 0 auto; /* 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
+	border: 1px solid #ccc; /* 컨테이너에 테두리 설정 */
+	padding: 20px; /* 컨테이너의 내부 여백 설정 */
+	border-radius: 10px; /* 모서리 둥글기를 10px로 설정 */
+	/* 폰트 */
+	font-family: 'Kanit', sans-serif;
+}
+
+/* 상단에 있는 카테고리랑 검색바 */
+.recruitment_read_select {
+	margin-top: 30px;
+}
+/* 자유게시판 운동모집게시판 양옆으로 붙게 */
+.recruitment_board_category li {
+	display: inline;
+	margin-right: 10px;
+	font-size: 15pt;
+}
+
+/* 카테고리와 글 제목 하이퍼링크 밑줄 안 보이게 */
+.recruitment_board_category a {
+	text-decoration: none;
+	color: inherit;
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+.recruitment_board_content a {
+	text-decoration: none;
+	color: inherit;
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+.recruitment_board_category a:hover {
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+.recruitment_board_content a:hover {
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+/* 카테고리 */
+.recruitment_board_category {
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+}
+
+/* 내용작성 input에 대한 css */
+.recruitment_read_content input {
+	width: 100%;
+	height: 500px;
+	overflow: visible;
+	text-overflow: ellipsis;
+}
+
+/* 등록취소버튼 */
+.recruitment_read_reaction button {
+	background-color: white;
+	border: 2px solid #000000;
+	color: #333;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 8px 16px;
+	transition: all 0.3s ease;
+	width: 100px;
+	height: 40px;
+	margin-top: 10px;
+}
+/* 등록취소버튼 가운데정렬 */
+.recruitment_read_reaction {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
