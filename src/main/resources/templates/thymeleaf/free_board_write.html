@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="hppt://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>글쓰기</title>
+		<!-- 뷰포트 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- js -->
+		<script type="text/javascript" src="/common/js/free_board_write.js"></script>
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="/common/css/free_board_write.css">
+		<!-- 부트스트랩 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<!-- 폰트 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div class="free_board_select">
+			<ul class="free_board_category">
+				<li>
+					<a class="free_board_category_button_free" href="/free" target="_self" style="font-weight: bold;">자유게시판</a>
+				</li>
+				<li>
+					<a class="free_board_category_button_recruitment" href="/recruitment" target="_self">운동모집게시판</a>
+				</li>
+			</ul>
+		 </div>
+		<div class="free_write_body_container">
+			<h4>자유게시판</h4>
+			<hr/>
+			<div class="free_write_info">
+				작성자: <span th:text="${freeId}"></span>
+				<br/>
+				<input type="text" id="title" name="title" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
+				<hr/>
+			</div>
+			<div class="free_write_content">
+				<label>내용</label> 
+				<input type="text">
+			</div>
+			<div class="free_write_reaction">
+				<button type="reset" class="reset_btn" onclick="window.location.href='/racket/src/main/resources/templates/thymeleaf/free_board.html'">취소</button>
+				<button type="submit" class="success_btn"  onclick="window.location.href='/racket/src/main/resources/templates/thymeleaf/free_board.html'">등록</button>
+			</div>
+		</div>
+	</body>
+</html>
