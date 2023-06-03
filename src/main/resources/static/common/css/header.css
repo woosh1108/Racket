@@ -19,7 +19,7 @@ a {
 
 .navbar {
     display: flex;
-    height:80px;
+    height:100px;
     justify-content: space-between;
     align-items: center;
     background-color: #4C6A96;
@@ -30,11 +30,11 @@ a {
 	relative;
 }
 .nav_logo img{
-  height: 70px;
+  height: 100px;
   filter: invert(100%);
   position: absolute;
   top: 50%; /* 수정: 상단을 부모요소 기준 50%로 지정 */
-  left: 17vw;
+  left: 1vw;
   transform: translateY(-50%); /*: 로고 위치를 상단에서 50% 높이의 중간 찾기 */
 }
 .nav_item {
@@ -74,15 +74,12 @@ a {
 	top:15px;
 }
 .nav_main img{
-	display:block;
-	width:10%;
-    height:100px;
-    cursor: pointer;
-    /* filter:invert(100%); */
-    position: absolute;
-	left: 45%;
-	top: -5px;
-	box-sizing: border-box;
+  height: 160px;
+  filter: invert(100%);
+  position: absolute;
+  top: 50%; /* 수정: 상단을 부모요소 기준 50%로 지정 */
+  left: 45vw;
+  transform: translateY(-45%); /*: 로고 위치를 상단에서 50% 높이의 중간 찾기 */
 }
 @media screen and (max-width: 1024px) {
     /* 코드 추가 */
@@ -156,7 +153,8 @@ height:50px;
   width: 100%;
   border-radius: 10px; 
   box-sizing: border-box;
-
+  top: 50%; /* 수정: 상단을 부모요소 기준 50%로 지정 */
+  transform: translateY(20%); /*: 로고 위치를 상단에서 50% 높이의 중간 찾기 */
 }
 .rectangle1 h1{
 	padding-top:12px;
@@ -171,7 +169,8 @@ height:50px;
   width: 100%;
   border-radius: 10px;
   box-sizing: border-box;
-		
+  top: 50%; /* 수정: 상단을 부모요소 기준 50%로 지정 */
+  transform: translateY(20%); /*: 로고 위치를 상단에서 50% 높이의 중간 찾기 */
 }
 .rectangle2 h1{
 	padding-top:12px;
@@ -204,14 +203,14 @@ width:80px;
 .group1 {
   position: absolute;
   top: 1vh;
-  right: calc(50% - 350px); /* 수정: 오른쪽 위치 조절 */
+  right: calc(17%); /* 수정: 오른쪽 위치 조절 */
   width: 80px;
   height: 50px;
 }
 .group2 {
   position: absolute;
   top: 1vh;
-  right: calc(50% - 500px); /* 수정: 오른쪽 위치 조절 */
+  right: calc(10%); /* 수정: 오른쪽 위치 조절 */
   width: 120px;
   height: 50px;
 }

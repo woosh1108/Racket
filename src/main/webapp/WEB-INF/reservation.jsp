@@ -10,6 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
+<link rel="stylesheet" href="/racket/common/css/side.css"/>
 <noscript>
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
@@ -40,11 +41,8 @@
 <link rel="stylesheet" href="/racket/common/css/header.css"/>
 <link rel="stylesheet" type="text/css"
 	href="/racket/common/css/footer.css" />
-<link rel="stylesheet" href="/racket/common/css/side.css"/>
-
 </head>
 <body class="is-preload">
-
 
 
 	<!-- Form -->

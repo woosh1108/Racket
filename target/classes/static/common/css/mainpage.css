@@ -4,6 +4,11 @@ div[class="container"]{
 	padding-left:400px;
 	margin: 0 auto;
 }
+#container{
+	border-radius: 15px;
+	padding:40px 60px 60px 60px;
+	background-color: #F6F6F6;
+}
 .form-control{
 	width: 70%;
 	height:45px;

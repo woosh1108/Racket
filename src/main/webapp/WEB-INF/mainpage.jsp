@@ -20,9 +20,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 	<link href="/racket/common/css/carousel.css" rel="stylesheet">
 	<link href="/racket/common/css/mainpage.css" rel="stylesheet">
-	
 </head>
 <body>
+<div class="border" id="container">
     <!-- Carousel / 슬라이드바 -->
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 		  <div class="carousel-indicators">
@@ -336,5 +336,6 @@
     </div>
 	
     <script type="text/javascript" src="../test/date.js"></script> !-->
+    </div>
 </body>
 </html>
