@@ -2,11 +2,13 @@
 
 /* 바디테그 전체에 박스를 입힘 */
 .recruitment_body_container {
-	width: 95%; /* 컨테이너의 너비 */
-	margin: 0 auto; /* 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
+	width: 1200px; /* 컨테이너의 너비 */
+	/* margin: 0 auto; 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
+	margin: 50px auto;
 	border: 1px solid #ccc; /* 컨테이너에 테두리 설정 */
 	padding: 20px; /* 컨테이너의 내부 여백 설정 */
 	border-radius: 10px; /* 모서리 둥글기를 10px로 설정 */
+	height: auto;
 	
 	/* 폰트 */
 	font-family: 'Kanit', sans-serif;
@@ -21,6 +23,37 @@
 	display: inline;
 	margin-right: 10px;
 	font-size: 15pt;
+}
+
+.recruitment_board_content strong {
+	font-size: 2rem;
+}
+
+/* 검색버튼 */
+.recruitment_board_top {
+	font-size: 0;
+	margin-top: 20px;
+}
+
+.recruitment_board_top input {
+	display: inline-block;
+	width: 150px;
+	height: 35px;
+	margin-left: 810px;
+	margin-bottom: 20px;
+	font-size: 1rem;
+	border: 1px solid #000000;
+	border-right: 0;
+}
+
+.recruitment_board_top button {
+	display: inline-block;
+	width: 50px;
+	height: 35px;
+	margin-bottom: 20px;
+	font-size: 1rem;
+	border: 1px solid #000000;
+	color: #000;
 }
 
 
@@ -45,27 +78,11 @@
 	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
 }
 
-
-
-/* 검색박스랑 검색버튼 붙게끔 + 검색박스 오른쪽 배치 */
-.recruitment_search_input_wrapper {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-  margin-left: 870px;
-}
-
 /*  */
 .recruitment_board_category {
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
-}
-
-
-.recruitment_search_button img {
-	width: 20px;
-	height: 20px;
 }
 
 /* 상단에 있는 카테고리랑 검색바 끝 */
@@ -88,71 +105,93 @@ tbody th, tbody td {
 }
 
 /* thead 위쪽에 선을 추가. */
-thead {
-	border-top: 1px solid black;
-	background-color: #D8D8D8;
+thead tr th {
+	border-top: 2px solid #000000;
+	background-color: #fff;
 }
 
 /* 테이블 끝 */
 
 
-/* 페이지번호와 글쓰기버튼 시작*/
-.recruitment_pagination a {
-	/* a태그 박스처리 */
-	display: inline-block;
-	padding: 5px 10px;
-	background-color: white;
-	color: black;
-	text-decoration: none;
-	margin-right: 5px;
-	text-align: center; /* 페이지 번호를 가운데 정렬 */
-	margin-top: 10px;
-	/* border-radius: 5px; */
-}
-
-.recruitment_pagination {
-	display: flex;
-	justify-content: center; /* 페이지번호를 가운데로 정렬 */
-	flex: 1; /* 페이지번호가 남은 공간을 모두 차지하도록 설정 */
-}
-
-.recruitment_pagination_and_write {
-	display: flex;
-	justify-content: space-between; /* 페이지번호와 글쓰기 버튼을 양옆으로 배치 */
-	align-items: center; /* 수직 가운데 정렬 */
-}
 
 /* 글쓰기 버튼(하이퍼링크) */
 .recruitment_write a{	
 	/* 하이퍼링크 밑줄 안 보이게, 색깔 검정색 */
 	text-decoration: none;
 	color: inherit;
-	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+	color: white; /* 링크의 텍스트 색상을 검은색으로 유지 */
 	text-align: center;
 }
 
 .recruitment_write a:hover {
-	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+	color: white; /* 링크의 텍스트 색상을 검은색으로 유지 */
 }
 
 /* 페이지번호와 글쓰기버튼 끝*/
 
 
-
-
+/*  */
+.recruitment_write {
+	text-align: center;
+	margin-top: 10px;
+}
 
 /* 글쓰기 버튼 테스트 */
 .recruitment_write_button {
-	background-color: white;
+	background-color: black;
 	border: 2px solid #000000;
 	color: #333;
 	cursor: pointer;
 	font-size: 15px;
 	font-weight: bold;
 	padding: 8px 16px;
-	transition: all 0.3s ease;
 	width: 100px;
 	height: 40px;
 	margin-top: 10px;
+	border-radius: 4px;
 }
 
+/* 페이지버튼 */
+
+.recruitment_board_page {
+	margin-top: 30px;
+	text-align: center;
+	font-size: 0;
+}
+.recruitment_board_page a {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #ddd;
+	border-left: 0;
+	vertical-align: middle;
+	text-decoration: none;
+	color: #000;
+	line-height: 100%;
+	box-sizing: border-box;
+}
+
+.recruitment_board_page a:hover {
+	color: black;
+}
+
+.recruitment_board_page a.button {
+	padding-top: 7px;
+	font-size: 1.2rem;
+}
+
+.recruitment_board_page a.num {
+	padding-top: 6px;
+	font-size: 1.4rem;
+}
+
+.recruitment_board_page a.num.on {
+	border-color: #000;
+	background-color: #000;
+	color: #fff;
+	
+}
+
+.recruitment_board_page a:first-child {
+	border-left: 1px solid #ddd;
+}
