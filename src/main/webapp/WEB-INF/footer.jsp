@@ -37,18 +37,18 @@
 				</div>
 				<div class="footerContentRightDiv">
 					<div class="footerMenuDiv">
-						<h3>소개</h3>
+						<h3 class="footerMenuname">소개</h3>
 						<a href="#">사이트 소개</a>
 						<!-- <a href="#">2022년 8월 휴무 일정 안내<span class="date">07.27</span></a>
 						<a href="#">2022년 6월 휴무 일정 안내<span class="date">05.31</span></a> -->
 					</div>
 					<div class="footerMenuDiv">
-						<h3>제휴사</h3>
+						<h3 class="footerMenuname">제휴사</h3>
 						<a href="#">제휴사 소개</a>
 						<a href="#">제휴사 신청하기</a>
 					</div>
 					<div class="footerMenuDiv">
-						<h3>지원</h3>
+						<h3 class="footerMenuname">지원</h3>
 						<a href="#">공지사항</a>
 						<a href="#">이벤트</a>
 					</div>

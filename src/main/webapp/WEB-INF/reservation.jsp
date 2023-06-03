@@ -45,54 +45,7 @@
 </head>
 <body class="is-preload">
 
-	<nav class="navbar">
-		<div class="nav_logo">
-			<img src="/racket/images/logo1.png"></a>
-		</div>
-		<ul class="nav_item">
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-		</ul>
 
-		<ul class="nav_links">
-			<li><a href="#"><img src="/racket/images/sign-in.png"
-					style="width: 50px" style="height:50px"></a></li>
-		</ul>
-	</nav>
-
-	<input type="checkbox" id="menuicon">
-	<label for="menuicon"> <span></span> <span></span> <span></span>
-	</label>
-	<div class="sidebar">
-		<ul class="menu">
-			<li><a href="#"><img alt="" src="/racket/images/page.png">사이트
-					소개</a></li>
-			<li><a href="#"><img alt=""
-					src="/racket/images/megaphone.png">공지사항</a></li>
-			<li><a href="#"><img alt=""
-					src="/racket/images/management.png">강사신청</a></li>
-			<li><a href="#"><img alt=""
-					src="/racket/images/man-playing-badminton.png">체육관 예약</a></li>
-			<hr />
-			<li><a href="#"><img alt=""
-					src="/racket/images/conversation.png">운동모집게시판</a></li>
-			<hr />
-			<li><a href="#"><img alt=""
-					src="/racket/images/question-and-answer.png">문의하기</a></li>
-			<hr />
-			<li><a href="#"><img alt=""
-					src="/racket/images/instagram.png"> Instagram</a></li>
-			<li><a href="#"><img alt="" src="/racket/images/youtube.png">
-					Youtube</a></li>
-			<li><a href="#"><img alt="" src="/racket/images/facebook.png">
-					Facebook</a></li>
-		</ul>
-	</div>
 
 	<!-- Form -->
 	<div class="col-lg-3"
@@ -196,68 +149,6 @@
 	</div>
 
 
-	<footer>
-		<div class="footerOuter">
-			<hr>
-			<div class="footerContentDiv">
-				<div class="footerContentLeftDiv">
-					<div class="deskLinkDiv">
-						<a href="#">개인정보취급방침
-							<div class="footerTextUnderline"></div>
-						</a><a href="#">이용약관
-							<div class="footerTextUnderline"></div>
-						</a><a href="#">문의게시판
-							<div class="footerTextUnderline"></div>
-						</a><a href="#">취소 및 환불 정책
-							<div class="footerTextUnderline"></div>
-						</a>
-					</div>
-					<div class="deskInfo">
-						<p>
-							월~금 : 09:00 - 18:00 (점심시간 12:00-13:00) 공휴일&주말 : 1:1 채팅상담만 가능 <br>
-							환불, 변경 접수 : 09:00-17:00
-						</p>
-					</div>
-				</div>
-				<div class="footerContentRightDiv">
-					<div class="footerMenuDiv">
-						<h5>소개</h5>
-						<a href="#">사이트 소개</a>
-						<!-- <a href="#">2022년 8월 휴무 일정 안내<span class="date">07.27</span></a>
-						<a href="#">2022년 6월 휴무 일정 안내<span class="date">05.31</span></a> -->
-					</div>
-					<div class="footerMenuDiv">
-						<h5>제휴사</h5>
-						<a href="#">제휴사 소개</a> <a href="#">제휴사 신청하기</a>
-					</div>
-					<div class="footerMenuDiv">
-						<h5>지원</h5>
-						<a href="#">공지사항</a> <a href="#">이벤트</a>
-					</div>
-					<div style="display: flex; flex-direction: column;"
-						class="footerIconMenu">
-						<a href="https://ko-kr.facebook.com/">facebook</a> <a
-							href="https://www.instagram.com/">instagram</a>
-					</div>
-				</div>
-			</div>
-			<div class="companyDescDiv">
-				<ul>
-					<li>상호 Racket</li>
-					<li>파이널 2조</li>
-					<li>경기도 세종시 멀티캠퍼스 학원</li>
-					<li>사업자등록번호 ###-##-#####</li>
-					<li>통신판매업신고번호 제####-@@@@-#### 호</li>
-					<li>이메일 <a href="#">jhjoo0221@naver.com</a></li>
-					<li>주소: ##### 경기도 세종시 5층 Racket사</li>
-					<li>입금계좌: 농협은행 ###-####-####-## XXX</li>
-					<li>제휴 문의: jhjoo0221@naver.com</li>
-				</ul>
-				<p class="copyright">© 2023 Racket, Inc. All rights reserved.</p>
-				<p class="copyright">해당 서비스에 대한 책임과 민원처리는 'Racket(주)'에 있습니다.</p>
-			</div>
-		</div>
-	</footer>
 
 	<!-- Scripts -->
 	<script src="/racket/common/assets/js/jquery.min.js"></script>

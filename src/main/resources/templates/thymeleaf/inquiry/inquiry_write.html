@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="common/css/inquirywrite.css">
+<link rel="stylesheet" href="common/css/styles.min.css" />
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-body">
+				<h2 class="card-title fw-semibold mb-4">문의 게시판</h2>
+				<form>
+					<div>
+						<label for="title">제목</label> <input type="text" id="title"
+							name="title">
+					</div>
+					<div>
+						<label for="title">문의 카테고리</label> <select>
+							<option>카테고리1</option>
+							<option>카테고리2</option>
+							<option>카테고리3</option>
+							<option>카테고리4</option>
+						</select>
+					</div>
+					<div>
+						<label for="content">내용</label>
+						<textarea id="content" name="content"></textarea>
+					</div>
+					<div>
+						<button type="submit">작성</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

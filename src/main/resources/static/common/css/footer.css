@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 footer{
     background-color: white;
     max-width: 100%;
@@ -5,6 +11,7 @@ footer{
     margin-top:30px;
     font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
     clear: both;
+    font-family: ONE-Mobile-POP;
 }
 footer .footerOuter{
     width:97%;

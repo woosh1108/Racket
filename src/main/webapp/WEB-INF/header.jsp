@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/racket/common/css/header.css">
 <script>
 	function openAgreementPopup() {
-		window.open("/racket/test", "", "width=600,height=500");
+		window.open("/racket/signagree", "", "width=600,height=500");
 		return false; // 이벤트를 취소하여 더이상 진행되지 않도록 합니다.
 	}
 </script>
@@ -40,7 +40,7 @@
 			<div id='login' class='login'></div>
 		</div>
 		<div id='group2' class='group2'>
-			<a href="/test" onclick="return openAgreementPopup();"
+			<a href="/signagree" onclick="return openAgreementPopup();"
 				class="header-link">
 				<div id='rectangle2' class='rectangle2'>
 					<h1>회원가입</h1>

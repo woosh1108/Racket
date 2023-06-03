@@ -21,8 +21,10 @@
 	<definition name="main" extends="mainTemplate">
 	</definition>
 	
-	<definition name="register" extends="mainTemplate">
-	<put-attribute name="content" value="/WEB-INF/sign-up.jsp"/>
+	<definition name="reservation" extends="mainTemplate">
+	<put-attribute name="content" value="/WEB-INF/reservation.jsp"/>
 	</definition>
-	
+	<definition name="blacklist" extends="mainTemplate">
+	<put-attribute name="content" value="/WEB-INF/blacklist.jsp"/>
+	</definition>
 </tiles-definitions>
