@@ -2,7 +2,9 @@ package com.multi.racket.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class FreeBoardController {
@@ -28,11 +30,23 @@ public class FreeBoardController {
 	}
 	
 	@RequestMapping("/free_read")
-	public String freeBoardRead( ) {
+	public String freeBoardRead(Model model) {
+		model.addAttribute("freeReadNo", "1");
+		model.addAttribute("freeReadId", "park001");
+		model.addAttribute("freeReadDate", "2023.05.31");
 		return "thymeleaf/free_board_read";
 	}
 	
 	//여기다가 리스트로 보드 데이터 뿌려줘야함
+	
+	
+	
+	//dto에 있는 필드를 불러와
+	@PostMapping("/free_read")
+	public String postWrite() {
+		
+		return "redirect:/racket/free_read?bno="; // + read.getBno();
+	}
 	
 	
 }	

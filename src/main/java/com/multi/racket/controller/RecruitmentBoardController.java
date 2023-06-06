@@ -2,6 +2,7 @@ package com.multi.racket.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -22,4 +23,11 @@ public class RecruitmentBoardController {
 		model.addAttribute("recruitmentContent", "같이하실분은 연락주세여~~~~~");
 		return "thymeleaf/recruitment_board_read";
 	}
+	
+		//dto에 있는 필드를 불러와
+		@PostMapping("/recruitment_read")
+		public String postWrite() {
+			
+			return "redirect:/racket/recruitment_read?bno="; // + read.getBno();
+		}
 }
