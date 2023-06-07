@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,40 +19,11 @@
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
 
-
-<!-- 달력 -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
-	rel="stylesheet">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap"
-	rel="stylesheet">
-
-
-<link rel="stylesheet" href="/racket/common/assets/fonts/icomoon/style.css">
-
-<link rel="stylesheet" href="/racket/common/assets/css/rome.css">
-
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="/racket/common/assets/css/bootstrap.min.css">
-
-<!-- Style -->
-<link rel="stylesheet" href="/racket/common/assets/css/style.css">
-
-
-<!-- 추가 -->
-<link rel="stylesheet" href="/racket/common/css/header.css">
-<link rel="stylesheet" type="text/css"
-	href="/racket/common/css/footer.css" />
-<link rel="stylesheet" href="/racket/common/css/side.css">
-
-
-
 <style type="text/css">
+th {
+	text-align: center;
+}
+
 tr td {
 	vertical-align: middle;
 }
@@ -63,20 +35,17 @@ td a {
 td label {
 	vertical-align: middle;
 }
-menuicon{
-	
-}
 </style>
-
 
 </head>
 <body class="is-preload">
 
+
 	<!-- Wrapper -->
-	
+	<div id="wrapper">
 
 		<!-- Table -->
-		<div class="col-lg-10"
+		<div class="col-lg-11"
 			style="position: relative; float: right; margin-right: 60px; margin-top: 60px;">
 			<div class="box" style="padding: 20px; margin: 20px;">
 				<div class="table-wrapper">
@@ -146,19 +115,11 @@ menuicon{
 										data-bs-toggle="modal" data-bs-target="#exampleModal">사유</button></td>
 							</tr>
 						</tbody>
-						<!-- <tfoot>
-						<tr>
-							<td colspan="2"></td>
-							<td>100.00</td>
-						</tr>
-					</tfoot> -->
 					</table>
 				</div>
 			</div>
 		</div>
-
 		
-
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -179,7 +140,7 @@ menuicon{
 		</div>
 
 	</div>
-
+	
 	<!-- Scripts -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
