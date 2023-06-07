@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/racket/common/css/sign-agreement.css">
+
+</head>
+<body>
+ <h1>회원가입 동의 form</h1>
+    <form>
+    	<div class="all-agree">
+	        <label>
+	            <input type="checkbox" id="all_agree" onclick="toggleAllCheckboxes()">
+	          	 전체동의
+	        </label>
+        </div>
+        <br>
+
+        <label>
+            <input type="checkbox" id="terms_agree" class="child-checkbox" onclick="validateForm()">
+            이용약관 동의(필수)
+            <span onclick="toggleDetails('details1')">&#x25BC;</span>
+        </label>
+        <div id="details1" class="details">이용약관 내용</div>
+        <br>
+
+        <label>
+            <input type="checkbox" id="privacy_agree" class="child-checkbox" onclick="validateForm()">
+            개인정보 수집 및 이용동의(필수)
+            <span onclick="toggleDetails('details2')">&#x25BC;</span>
+        </label>
+        <div id="details2" class="details">개인정보 수집 및 이용 내용</div>
+        <br>
+
+        <label>
+            <input type="checkbox" id="third_party_agree" class="child-checkbox">
+            제 3자 제공 동의서(선택)
+            <span onclick="toggleDetails('details3')">&#x25BC;</span>
+        </label>
+        <div id="details3" class="details">제 3자 제공 동의서 내용</div>
+        <br>
+		<button type="button" id="continue" onclick="gotoNextPage()">계속하기(이동)</button>
+		
+    </form>
+    <script type="text/javascript" src="/racket/common/js/sign-agreement.js"></script>
+</body>
+</html>

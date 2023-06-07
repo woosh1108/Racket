@@ -24,20 +24,5 @@ public class TestController {
 		return "blacklist";
 	}
 	
-	// 회원가입 폼
-		@GetMapping("/next")
-		public String next() {
-			return "register";
-		}
 	
-		// 회원가입 동의
-		@GetMapping("/signagree")
-		public String signagree() {
-			return "/sign-agreement";
-		}
-		// 회원가입 인증
-		@RequestMapping("/signauth")
-		public String signaauth() {
-			return "signAuth";
-		}
 }
