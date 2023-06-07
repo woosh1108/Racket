@@ -8,7 +8,7 @@
 *{
 	font-family: ONE-Mobile-POP;
 }
-input[id="menuicon"]{
+#menuicon{
 	display:none;
 }
 input[id="menuicon"] + label {
@@ -107,3 +107,4 @@ input[id="menuicon"]:checked + label + div{
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
+

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+strong {
+	color: black;
+}
+
 /* 바디테그 전체에 박스를 입힘 */
 .free_body_container {
 	width: 1200px; /* 컨테이너의 너비 */
@@ -9,6 +13,7 @@
 	padding: 20px; /* 컨테이너의 내부 여백 설정 */
 	border-radius: 10px; /* 모서리 둥글기를 10px로 설정 */
 	height: auto;
+	margin-top: 150px;
 	
 	/* 폰트 */
 	font-family: 'Kanit', sans-serif;
@@ -44,6 +49,8 @@
 	font-size: 1rem;
 	border: 1px solid #000000;
 	border-right: 0;
+	border-top-left-radius: 7px;
+  	border-bottom-left-radius: 7px;
 }
 
 .free_board_top button {
@@ -54,6 +61,8 @@
 	font-size: 1rem;
 	border: 1px solid #000000;
 	color: #000;
+	border-top-right-radius: 7px;
+  	border-bottom-right-radius: 7px;
 }
 
 
@@ -76,7 +85,13 @@
 
 .free_board_content a:hover {
 	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+	border-color: black;
 }
+
+.btn-group .btn {
+  border-color: black;
+}
+
 
 /*  */
 .free_board_category {
@@ -102,6 +117,7 @@ thead th {
 
 tbody th, tbody td {
 	border-bottom: 1px solid black;
+	
 }
 
 /* thead 위쪽에 선을 추가. */

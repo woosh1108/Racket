@@ -13,6 +13,7 @@
 
 
 <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
+<link rel="stylesheet" href="/racket/common/css/side.css"/>
 <noscript>
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
