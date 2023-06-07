@@ -9,7 +9,7 @@ target
 pom.properties
 .classpath
 MANIFEST.MF
-
+application.properties
 ### Eclipse ###
 .metadata
 bin/
