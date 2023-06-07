@@ -87,8 +87,7 @@
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
 		</dependency>
-		
-		<!-- thymeleaf 레이아웃 -->
+		<!-- 타임리프 레이아웃 라이브러리 -->
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>

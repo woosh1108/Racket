@@ -15,35 +15,204 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
+		
+		<!-- include libraries(jQuery, bootstrap) -->
+		<!-- 스마트에디터 -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- include summernote css/js -->
+		<!-- 스마트에디터 -->
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+		
+		<!-- 헤더 -->
+		<link rel="stylesheet" href="/racket/common/css/header.css">
+    	<style type="text/css"></style>
+		
+		<!-- 푸터 -->
+		<link rel="stylesheet" type="text/css" href="/racket/common/css/footer.css"/>
+		
+		<!-- 사이드바 -->
+		<link rel="stylesheet" href="/racket/common/css/side.css">
+		<!-- 스마트에디터 -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#summernote').summernote ({
+			        placeholder: '내용을 입력하세요.',
+			        tabsize: 2,
+			        height: 500
+				});
+			});
+			//등록버튼
+			function submitForm() {
+		           var title = document.getElementById("title").value;
+		           var content = $('#summernote').summernote('code');
+		            
+		           var xhr = new XMLHttpRequest();
+		           xhr.open("POST", "/free", true);
+		           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		           xhr.onreadystatechange = function() {
+		               if (xhr.readyState === XMLHttpRequest.DONE) {
+		                   if (xhr.status === 200) {
+		                       alert("글이 등록되었습니다.");
+		                       window.location.href = "/racket/free";
+		                   } else {
+		                       alert("글 등록에 실패하였습니다. 다시 작성해주세요.");
+		                       window.location.href = "/racket/free_write";
+		                   }
+		               }
+		           };
+		           var data = "title=" + encodeURIComponent(title) + "&editordata=" + encodeURIComponent(content);
+		           xhr.send(data);
+		       }
+			//취소버튼 누르면 자유게시판 페이지로 넘어감
+			 function cancel() {
+             	window.location.href = "/racket/free";
+        	}
+		</script>
 	</head>
 	<body>
-		<div class="free_board_select">
-			<ul class="free_board_category">
-				<li>
-					<a class="free_board_category_button_free" href="/racket/free" target="_self" style="font-weight: bold;">자유게시판</a>
-				</li>
-				<li>
-					<a class="free_board_category_button_recruitment" href="/racket/recruitment" target="_self">운동모집게시판</a>
-				</li>
-			</ul>
-		 </div>
-		<div class="free_write_body_container">
-			<h4>자유게시판</h4>
+	<!-- 헤더 -->
+	<nav class="navbar">
+		<div class="nav_logo">
+			<a href="/racket/main"><img src="/racket/images/logo1.png"></a>
+		</div>
+		<div class="nav_main">
+			<a href="/racket/main"><img src="/racket/images/racket.png"></a>
+		</div>
+		<!-- <ul class="nav_item">
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+        </ul> -->
+		<div id='group1' class='group1'>
+			<a href="#" class="header-link">
+				<div id="rectangle1" class="rectangle1">
+					<h1>로그인</h1>
+				</div>
+			</a>
+			<div id='login' class='login'></div>
+		</div>
+		<div id='group2' class='group2'>
+			<a href="/signagree" onclick="return openAgreementPopup();"
+				class="header-link">
+				<div id='rectangle2' class='rectangle2'>
+					<h1>회원가입</h1>
+				</div>
+			</a>
+			<div id='sign-in' class='sign-in'></div>
+		</div>
+	</nav>
+	<!-- 사이드바 -->
+	<input type="checkbox" id="menuicon">
+	<label for="menuicon">
+		<span></span>
+		<span></span>
+		<span></span>
+	</label>
+	<div class="sidebar">
+		<ul class="menu">
+			<li><a href="#"><img alt="" src="/racket/images/page.png">사이트 소개</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/megaphone.png">공지사항</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/score-board.png">전체구장보기</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/man-playing-badminton.png">체육관 예약</a></li>
 			<hr/>
+			<li><a href="#"><img alt="" src="/racket/images/conversation.png">운동모집게시판</a></li>
+			<hr/>
+			<li><a href="#"><img alt="" src="/racket/images/question-and-answer.png">문의하기</a></li>
+			<hr/>
+			<li><a href="#"><img alt="" src="/racket/images/instagram.png"> Instagram</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/youtube.png"> Youtube</a></li>
+			<li><a href="#"><img alt="" src="/racket/images/facebook.png"> Facebook</a></li>
+		</ul>
+	</div>
+		<div class="free_write_body_container">
+			<strong>자유게시판</strong>
+			<hr/>
+			<form method="post" action="/racket/free">
 			<div class="free_write_info">
 				작성자: <span th:text="${freeId}"></span>
 				<br/>
-				<input type="text" id="title" name="title" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
+				제목: <input type="text" id="title" name="title" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
 				<hr/>
 			</div>
 			<div class="free_write_content">
 				<label>내용</label> 
-				<input type="text">
+  				<textarea id="summernote" name="editordata"></textarea>
 			</div>
 			<div class="free_write_reaction">
-				<button type="reset" class="reset_btn" onclick="window.location.href='/racket/src/main/resources/templates/thymeleaf/free_board.html'">취소</button>
-				<button type="submit" class="success_btn"  onclick="window.location.href='/racket/src/main/resources/templates/thymeleaf/free_board.html'">등록</button>
+				<input type="reset" class="reset_btn" value="취소" onclick="cancel()">
+				<input type="submit" class="success_btn" value="등록" onclick="submitForm()">
+			</div>
+			</form>
+		</div>
+		<footer>
+		<div class="footerOuter">
+			<hr>
+			<div class="footerContentDiv">
+				<div class="footerContentLeftDiv">
+					<div class="deskLinkDiv">
+						<a href="#">개인정보취급방침
+							<div class="footerTextUnderline"></div>
+						</a><a href="#">이용약관
+							<div class="footerTextUnderline"></div>
+						</a><a href="#">문의게시판
+							<div class="footerTextUnderline"></div>
+						</a><a href="#">취소 및 환불 정책
+							<div class="footerTextUnderline"></div>
+						</a>
+					</div>
+					<div class="deskInfo">
+						<p>
+							월~금 : 09:00 - 18:00 (점심시간 12:00-13:00) 공휴일&주말 : 1:1 채팅상담만 가능 <br> 환불, 변경 접수 : 09:00-17:00
+						</p>
+					</div>
+				</div>
+				<div class="footerContentRightDiv">
+					<div class="footerMenuDiv">
+						<h5>소개</h5>
+						<a href="#">사이트 소개</a>
+						<a href="#">2022년 8월 휴무 일정 안내<span class="date">07.27</span></a>
+						<a href="#">2022년 6월 휴무 일정 안내<span class="date">05.31</span></a>
+					</div>
+					<div class="footerMenuDiv">
+						<h5>제휴사</h5>
+						<a href="#">제휴사 소개</a>
+						<a href="#">제휴사 신청하기</a>
+					</div>
+					<div class="footerMenuDiv">
+						<h5>지원</h5>
+						<a href="#">공지사항</a>
+						<a href="#">이벤트</a>
+					</div>
+					<div style="display:flex; flex-direction: column; " class="footerIconMenu">
+						<a href="https://ko-kr.facebook.com/">facebook</a>
+						<a href="https://www.instagram.com/">instagram</a>
+					</div>
+				</div>
+			</div>
+			<div class="companyDescDiv">
+				<ul>
+					<li>상호 Racket</li>
+					<li>파이널 2조</li>
+					<li>경기도 세종시 멀티캠퍼스 학원</li>
+					<li>사업자등록번호 ###-##-#####</li>
+					<li>통신판매업신고번호 제####-@@@@-#### 호</li>
+					<li>이메일 <a href="#">jhjoo0221@naver.com</a></li>
+					<li>주소: ##### 경기도 세종시 5층 Racket사</li>
+					<li>입금계좌: 농협은행 ###-####-####-## XXX</li>
+					<li>제휴 문의: jhjoo0221@naver.com</li>
+				</ul>
+				<p class="copyright">© 2023 Racket, Inc. All rights reserved.</p>
+				<p class="copyright">해당 서비스에 대한 책임과 민원처리는 'Racket(주)'에 있습니다.</p>
 			</div>
 		</div>
+	</footer>
 	</body>
 </html>

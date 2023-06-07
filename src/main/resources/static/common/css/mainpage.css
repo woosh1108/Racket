@@ -4,6 +4,11 @@ div[class="container"]{
 	padding-left:400px;
 	margin: 0 auto;
 }
+
+.mainContent {
+	margin-top: 6%;
+}
+
 #container{
 	border-radius: 15px;
 	padding:40px 60px 60px 60px;
