@@ -8,12 +8,12 @@
 <link rel="stylesheet" href="/racket/common/css/side.css">
 </head>
 <body>
-	<input type="checkbox" id="menuicon">
+	<!-- <input type="checkbox" id="menuicon">
 	<label for="menuicon">
 		<span></span>
 		<span></span>
 		<span></span>
-	</label>
+	</label> -->
 	<div class="sidebar">
 		<ul class="menu">
 			<li><a href="#"><img alt="" src="/racket/images/page.png">사이트 소개</a></li>

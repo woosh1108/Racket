@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +9,9 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
 <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
 <link rel="stylesheet" href="/racket/common/css/side.css"/>
 <noscript>
@@ -27,30 +30,35 @@
 	rel="stylesheet">
 
 
-<link rel="stylesheet" href="/racket/common/assets/fonts/icomoon/style.css">
+<link rel="stylesheet"
+	href="/racket/common/assets/fonts/icomoon/style.css">
 
 <link rel="stylesheet" href="/racket/common/assets/css/rome.css">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="/racket/common/assets/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/racket/common/assets/css/bootstrap.min.css">
 
 <!-- Style -->
 <link rel="stylesheet" href="/racket/common/assets/css/style.css">
 
-<!-- 기본 -->
-<link rel="stylesheet" href="/racket/common/css/header.css"/>
-<link rel="stylesheet" type="text/css"
-	href="/racket/common/css/footer.css" />
+
+<script>
+	function openAgreementPopup() {
+		window.open("/racket/test", "", "width=600,height=500");
+		return false; // 이벤트를 취소하여 더이상 진행되지 않도록 합니다.
+	}
+</script>
+
 </head>
 <body class="is-preload">
 
 
 	<!-- Form -->
-	<div class="col-lg-3"
-		style="position: relative; float: right; margin-right: 60px; margin-top: 60px;">
-		<div class="box" style="padding: 20px; margin: 20px;">
+	<div class="col-lg-4" style="position: relative; float: right;">
+		<div class="box" style="padding: 20px; margin: 20px; margin-top: 0px;">
 			<form method="post" action="#">
-			
+
 				<div class="field">
 					<div class="form-group">
 						<input type="text" class="priority-low" id="input" value="대여 날짜"
@@ -96,10 +104,13 @@
 						type="radio" id="mixing" name="priority2" /> <label for="mixing">혼합</label>
 				</div>
 				<br />
-				
+
 				<div class="field">
 					<div class="box" style="padding: 20px;">
-						<p style="text-align: center; color: black;"><code style="color: #47D3E5">02 / 05</code> 명</p>
+						<p style="text-align: center; color: black;">
+							<code style="color: #47D3E5">02 / 05</code>
+							명
+						</p>
 					</div>
 				</div>
 
@@ -111,8 +122,8 @@
 
 
 				<div class="field" style="text-align: center;">
-					<a href="#"> <input type="button" name="submit"
-						id="submit" value="예약하기" />
+					<a href="#"> <input type="button" name="submit" id="submit"
+						value="예약하기" />
 					</a>
 				</div>
 
@@ -121,15 +132,15 @@
 		</div>
 	</div>
 
-	<div class="col-lg-7"
-		style="position: relative; float: right; margin: 20px; margin-top: 80px;">
+
+	<div class="col-lg-8" style="position: relative; float: right;">
 
 		<div class="image fit">
-			<img src="/racket/images/event1.jpg" alt="" />
+			<img src="/racket/images/reservationPark.jpg" alt="" />
 		</div>
 		<section>
 			<div class="box">
-				<p style="color: black;">주소: 서울특별시 광진구</p>				
+				<p style="color: black;">주소: 서울특별시 광진구</p>
 				<p style="color: black;">운영시간: 10:00 ~ 22:00</p>
 				<p style="color: black;">전화번호: 010-1234-5678</p>
 				<p style="color: black;">시간당 가격: 20,000원</p>
@@ -145,7 +156,6 @@
 
 		</section>
 	</div>
-
 
 
 	<!-- Scripts -->

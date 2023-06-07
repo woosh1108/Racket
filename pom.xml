@@ -88,6 +88,11 @@
 		    <artifactId>spring-context-support</artifactId>
 		</dependency>
 		
+		<!-- thymeleaf 레이아웃 -->
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

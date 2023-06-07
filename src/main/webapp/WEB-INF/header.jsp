@@ -15,7 +15,7 @@
 </script>
 </head>
 <body>
-	<nav class="navbar">
+	<nav class="navbar fixed-top">
 		<div class="nav_logo">
 			<a href="/racket/main"><img src="/racket/images/logo1.png"></a>
 		</div>
