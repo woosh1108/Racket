@@ -12,4 +12,14 @@ public class InquiryController {
 	public String inqwrite() {
 		return "thymeleaf/inquiry/inquiry_write";
 	}
+	
+	@RequestMapping("/report")
+	public String report() {
+		return "thymeleaf/inquiry/report";
+	}
+	
+	@RequestMapping("/inquiryread")
+	public String inqread() {
+		return "thymeleaf/inquiry/inquiry_read";
+	}
 }
