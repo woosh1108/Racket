@@ -184,6 +184,10 @@ height:50px;
 	text-decoration: none;
 	color: black;
 }
+.header-link:visited{
+	text-decoration: none;
+	color: black;
+}
 .login
 {
 color:#000000;
@@ -204,7 +208,7 @@ width:80px;
 .group1 {
   position: absolute;
   top: 1vh;
-  right: calc(17%); /* 수정: 오른쪽 위치 조절 */
+  right: calc(18%); /* 수정: 오른쪽 위치 조절 */
   width: 80px;
   height: 50px;
 }

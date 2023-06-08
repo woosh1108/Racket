@@ -7,13 +7,14 @@ div[class="container"]{
 
 .mainContent {
 	margin-top: 6%;
+	margin-left: 3%;
+}
+.flex-container{
+	display:flex;
+	/* text-align: center;
+	justify-content: center; */
 }
 
-#container{
-	border-radius: 15px;
-	padding:40px 60px 60px 60px;
-	background-color: #F6F6F6;
-}
 .form-control{
 	width: 70%;
 	height:45px;
@@ -24,6 +25,9 @@ div[class="container"]{
 .d-flex{ /* 중앙정렬 */
 	display: flex;
   	justify-content: center;
+  	width:1000px;
+  	margin-left: calc(3%);
+  	margin-top: 5%;
 }
 .btn{
 	width:80px;

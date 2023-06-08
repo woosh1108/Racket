@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestController {
 	@GetMapping("/main")
 	public String index() {
-		return "thymeleaf/index";
+		return "thymeleaf/main/mainpage";
 	}
 
 	// 구장 예약하기
@@ -22,6 +22,9 @@ public class TestController {
 	public String blacklist() {
 		return "blacklist";
 	}
-	
+	@GetMapping("/test1")
+	public String test1() {
+		return "thymeleaf/include/calendar";
+	}
 	
 }

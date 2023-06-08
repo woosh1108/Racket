@@ -5,6 +5,7 @@
 #carouselExampleIndicators{
 	margin-top:30px;
 	z-index: 0;
+	margin-bottom: 20px;
 }
 .carousel-inner {
 	width: auto;
