@@ -1,0 +1,9 @@
+@charset "UTF-8";
+.container{
+	justify-content: center;
+	text-align: center;
+}
+.mainContent {
+	margin-top: 6%;
+	margin-left: 3%;
+}

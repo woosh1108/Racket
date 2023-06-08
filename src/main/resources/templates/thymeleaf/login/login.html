@@ -10,11 +10,12 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<link rel="stylesheet" href="/racket/common/css/login.css">
 </head>
 <body>
 	<th:block layout:fragment="content">
-		<div class="container" style="margin-bottom: 100px; margin-left: -150px; margin-top: 50px;" >
+		<!-- <div class="container" style="margin-bottom: 100px; margin-left: -150px; margin-top: 50px;" > -->
+		<div class="container">
 			<div align="center">
 				<img alt="" src="/racket/images/racket.png">
 			</div>
@@ -36,7 +37,7 @@
 							style="width: 32%" type="reset" class="btn btn-outline-dark">비밀번호
 							찾기</button>
 						<!-- 지현님메핑경로넣기 -->
-						<button onclick="" id="btnJoin" style="width: 32%" type="reset"
+						<button onclick="openAgreementPopup()" id="btnJoin" style="width: 32%" type="reset"
 							class="btn btn-outline-dark">회원가입</button>
 					</div>
 					<div align="center" style="margin-top: 8px">
@@ -51,5 +52,11 @@
 			</div>
 		</div>
 	</th:block>
+	<script>
+	function openAgreementPopup() {
+		window.open("/racket/signauth", "", "width=600,height=500");
+		return false; // 이벤트를 취소하여 더이상 진행되지 않도록 합니다.
+	}
+</script>
 </body>
 </html>
