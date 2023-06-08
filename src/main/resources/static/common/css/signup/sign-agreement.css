@@ -1,16 +1,18 @@
 @charset "UTF-8";
-body{
-	margin:20%;
-}
- .details {
-            display: none;
-        }
 
-        .show {
-            display: block;
-        }
-        .all-agree{
-        	padding:10px;
-        	border: 1px solid gray;
-        }
-       
+body {
+	margin: 20%;
+}
+
+.details {
+    display: none;
+}
+
+.details.show {
+    display: block;
+}
+
+.all-agree {
+	padding: 10px;
+	border: 1px solid gray;
+}
