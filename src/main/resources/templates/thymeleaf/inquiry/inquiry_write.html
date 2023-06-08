@@ -3,34 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="common/css/inquirywrite.css">
-<link rel="stylesheet" href="common/css/styles.min.css" />
+<link rel="stylesheet" type="text/css" href="common/css/inquirywrite.css">   
+<link rel="stylesheet" href="common/css/styles.css"/>
+<script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js">
+</script>
+<style type="text/css">
+	div {
+	  margin-bottom: 20px; 
+	}
+	select {
+  		margin-bottom: 10px;
+	}
+</style>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="card">
 			<div class="card-body">
-				<h2 class="card-title fw-semibold mb-4">문의 게시판</h2>
+				<div style="margin-bottom: 70px;">
+					<h3 class="card-title fw-semibold mb-4" style="font-size: 30px">문의>글쓰기</h3>
+				</div>
 				<form>
 					<div>
-						<label for="title">제목</label> <input type="text" id="title"
-							name="title">
-					</div>
-					<div>
-						<label for="title">문의 카테고리</label> <select>
-							<option>카테고리1</option>
-							<option>카테고리2</option>
-							<option>카테고리3</option>
-							<option>카테고리4</option>
+						<label for="title" style="font-size: 30px">문의 카테고리</label> 
+						<p>
+						<select style="font-size: 20px; width: 80px; height: 45px">
+							<option>충전</option>
+							<option>환불</option>
+							<option>제재</option>
+							<option>기타</option>
 						</select>
+						</p>
 					</div>
 					<div>
-						<label for="content">내용</label>
-						<textarea id="content" name="content"></textarea>
+						<label for="title" style="font-size: 30px">제목</label> 
+						<input type="text" id="title"name="title">
 					</div>
+					
 					<div>
-						<button type="submit">작성</button>
+						<label for="content" style="font-size: 30px">내용</label>
+						<textarea name="ir1" id="ir1" rows="10" cols="90"></textarea>
+					</div>
+					<div align="right">
+						<button type="submit" style="border-radius: 6px">작성</button>
 					</div>
 				</form>
 			</div>

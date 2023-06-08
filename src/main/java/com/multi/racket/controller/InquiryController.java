@@ -17,4 +17,9 @@ public class InquiryController {
 	public String report() {
 		return "thymeleaf/inquiry/report";
 	}
+	
+	@RequestMapping("/inquiryread")
+	public String inqread() {
+		return "thymeleaf/inquiry/inquiry_read";
+	}
 }
