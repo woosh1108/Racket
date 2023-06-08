@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.mainContent {
+	margin-top: 6%;
+	margin-left: 3%;
+}
+.email-form h2{
+	justify-content: center;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.input-group {
+	display: inline-flex;
+	align-items: center;
+	justify-content:center;
+	width:30%;
+}
+.container .logo{
+	text-align: center;
+	justify-content: center;
+}
+.email-validation {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content:center;
+	margin-top: 10px;
+}
+
+#mail-check-btn, #mail-send-btn {
+	margin-left: 10px;
+}
+#next-btn, #cancel-btn {
+	width:100px;
+	margin-left: 20px;
+	
+}
+.mail-check-input {
+	width: 100%;
+}

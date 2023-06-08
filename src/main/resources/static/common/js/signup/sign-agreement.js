@@ -24,7 +24,7 @@
         }
         function gotoNextPage() {
             // 원래 페이지(샘플 페이지)의 URL을 변경하고 싶은 페이지로 변경합니다.
-            window.opener.location.href = "/racket/next";
+            window.opener.location.href = "/racket/signauth";
             // 팝업창을 닫습니다.
             window.close();
         }

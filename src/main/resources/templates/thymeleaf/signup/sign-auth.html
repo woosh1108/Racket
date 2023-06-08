@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
- .input-group {
-      display: inline-flex;
-      align-items: center;
-    }
-    .email-validation {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-top: 10px;
-    }
-    #mail-check-btn, #next-btn {
-      margin-left: 10px;
-    }
-    .mail-check-input {
-      width: 100%;
-    }
-</style>
-<script type="text/javascript">
+<!-- <style type="text/css">
+.input-group {
+	display: inline-flex;
+	align-items: center;
+}
+
+.email-validation {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 10px;
+}
+
+#mail-check-btn, #next-btn {
+	margin-left: 10px;
+}
+
+.mail-check-input {
+	width: 100%;
+}
+</style> -->
+<link rel="stylesheet" href="/racket/common/css/signup/sign-auth.css">
+<!-- <script type="text/javascript">
 	$('#mail-Check-Btn').click(function() {
 		const eamil = $('#userEmail1').val() + $('#userEmail2').val(); // 이메일 주소값 얻어오기!
 		console.log('완성된 이메일 : ' + eamil); // 이메일 오는지 확인
@@ -38,38 +44,47 @@
 			}
 		}); // end ajax
 	}); // end send eamil
-</script>
+</script> -->
 </head>
 <body>
-<div class="container">
+	<th:block layout:fragment="content">
+		<div class="container">
 
-		<div>
-			<img src="/racket/images/racket.png">
+			<div class="logo">
+				<img src="/racket/images/racket.png">
+			</div>
+			<div class="form-group email-form">
+				<h2>이메일</h2>
+				<div class="email-validation">
+					<div class="input-group">
+						<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일"> 
+							<select class="form-control" name="userEmail2" id="userEmail2">
+								<option>@naver.com</option>
+								<option>@daum.net</option>
+								<option>@gmail.com</option>
+								<option>@hanmail.com</option>
+								<option>@yahoo.co.kr</option>
+							</select>
+						<button type="button" class="btn btn-primary" id="mail-send-btn">본인인증</button>
+					</div>
+				</div>
+				<div class="email-validation">
+					<div class="input-group">
+						<input class="form-control mail-check-input"
+							placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+						<button type="button" class="btn btn-secondary" id="mail-check-btn" disabled>확인</button>
+					</div>
+					
+				</div>
+				<div class="email-validation">
+						<!-- <button type="button" class="btn btn-success" id="next-btn" disabled>다음</button> -->
+						<a class="btn btn-success" id="next-btn" href="/racket/signup">다음</a>
+						<a type="button" class="btn btn-danger" id="cancel-btn" href="/racket/main">취소</a>
+					</div>
+				<span id="mail-check-warn"></span>
+			</div>
 		</div>
-		<div class="form-group email-form">
-    <label for="email">이메일</label>
-    <div class="email-validation">
-      <div class="input-group">
-        <input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일">
-        <select class="form-control" name="userEmail2" id="userEmail2">
-          <option>@naver.com</option>
-          <option>@daum.net</option>
-          <option>@gmail.com</option>
-          <option>@hanmail.com</option>
-          <option>@yahoo.co.kr</option>
-        </select>
-        <button type="button" class="btn btn-primary" id="mail-check-btn">본인인증</button>
-      </div>
-      </div> 
-        <div class="email-validation">
-      <div class="input-group">
-        <input class="form-control mail-check-input"
-          placeholder="인증번호 6자리를 입력주세요!" disabled="disabled" maxlength="6">
-        <button type="button" class="btn btn-success" id="next-btn" disabled>다음</button>
-      </div>
-     </div>
-    <span id="mail-check-warn"></span>
-  </div>
-	</div>
+	</th:block>
+	<script type="text/javascript" src="/racket/common/js/signup/sign-auth.js"></script>
 </body>
 </html>

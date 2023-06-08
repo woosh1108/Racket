@@ -22,9 +22,5 @@ public class TestController {
 	public String blacklist() {
 		return "blacklist";
 	}
-	@GetMapping("/test1")
-	public String test1() {
-		return "thymeleaf/include/calendar";
-	}
 	
 }

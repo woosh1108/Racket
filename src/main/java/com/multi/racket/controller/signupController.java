@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class signupController {
 	// 회원가입 폼
-			@GetMapping("/next")
+			@GetMapping("/signup")
 			public String next() {
-				return "register";
+				return "thymeleaf/signup/signup";
 			}
 		
 			// 회원가입 동의
@@ -19,9 +19,9 @@ public class signupController {
 			// 회원가입 인증
 			@RequestMapping("/signauth")
 			public String signaauth() {
-				return "signAuth";
+				return "thymeleaf/signup/sign-auth";
 			}
-			@GetMapping("/test")
+			@GetMapping("/agreepopup")
 			public String test() {
 				return "thymeleaf/signup/sign-agreement";
 			}
