@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시설 정보보기</title>
+</head>
+<body>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/racket/common/css/stadium/stadium.css" />
+	</th:block>
+	<th:block layout:fragment="script">
+		<!-- <link rel="stylesheet" href="/racket/common/css/stadiumDetail.css" /> -->
+	</th:block>
+	<!-- 컨텐츠 영역 -->
+	<th:block layout:fragment="content">
+		<main class="mt-5">
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">시설 정보보기</h1>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="dropdown float-right">
+							<select name="type">
+								<option value="name" selected>지역</option>
+								<option value="tel">아직 아무것도..</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-10 text-end">
+						<form name="search-form" autocomplete="off">
+							<select name="type">
+								<option value="name" selected>구장검색</option>
+								<option value="tel">지역명</option>
+							</select> <input type="text" name="keyword" value="" size="20"
+								title="검색할 내용을 입력하세요" />
+							<button class="Btn-Gray Xs" type="submit"
+								onclick="goPage('1'); return false;">검색</button>
+						</form>
+					</div>
+				</div>
+				<div>
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up">
+						<div class="image"
+							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
+						<div class="text">
+	
+							<h3 class="font-weight-light">
+								<a href="stadiumdetail">독산 배드민턴 체육관</a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05">
+										<span class="time">서울 금천구 독산로54길 102-82</span><br />
+										운영시간 : <span class="stadium_time"></span><br />
+										코트수 : <span class="court">1</span><br />
+	
+								</span>
+							</div>
+	
+	
+			
+	
+						</div>
+					</div>
+	
+	
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up">
+						<div class="image"
+							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
+						<div class="text">
+	
+							<h3 class="font-weight-light">
+								<a href="single-post.html">경기체육관</a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05"><small>By Mike
+										Smith <span class="sep">/</span> 16 September 2017 <span
+										class="sep">/</span> 1:30:20
+								</small></span>
+							</div>
+							<div>
+							 	<p>뭐야</p>
+							</div>
+	
+						</div>
+					</div>
+	
+	
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up">
+						<div class="image"
+							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
+						<div class="text">
+	
+							<h3 class="font-weight-light">
+								<a href="single-post.html">경기체육관</a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05"><small>By Mike
+										Smith <span class="sep">/</span> 16 September 2017 <span
+										class="sep">/</span> 1:30:20
+								</small></span>
+							</div>
+	
+	
+							
+						</div>
+					</div>
+	
+	
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up">
+						<div class="image"
+							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
+						<div class="text">
+	
+							<h3 class="font-weight-light">
+								<a href="single-post.html">경기체육관</a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05"><small>By Mike
+										Smith <span class="sep">/</span> 16 September 2017 <span
+										class="sep">/</span> 1:30:20
+								</small></span>
+							</div>
+	
+	
+							
+						</div>
+					</div>
+	
+	
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up">
+						<div class="image"
+							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
+						<div class="text">
+	
+							<h3 class="font-weight-light">
+								<a href="single-post.html">경기체육관</a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05"><small>By Mike
+										Smith <span class="sep">/</span> 16 September 2017 <span
+										class="sep">/</span> 1:30:20
+								</small></span>
+							</div>
+	
+	
+							
+						</div>
+					</div>
+	
+	
+				</div>
+				<div class="container" data-aos="fade-up">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<div class="site-block-27">
+								<ul>
+									<li><a href="#" class="icon-keyboard_arrow_left"></a></li>
+									<li class="active"><span>1</span></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">5</a></li>
+									<li><a href="#" class="icon-keyboard_arrow_right"></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</main>
+	</th:block>
+</body>
+</html>
