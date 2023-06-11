@@ -1,10 +1,10 @@
 package com.multi.racket.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -40,6 +40,7 @@ public class memberDTO {
 	@NonNull
 	private String memberGrade;
 	@NonNull
+	@ColumnDefault("0")
 	private String memberAuth;
 	@NonNull
 	private String memberStatus;
