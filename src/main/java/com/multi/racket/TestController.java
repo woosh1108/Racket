@@ -10,7 +10,10 @@ public class TestController {
 	public String index() {
 		return "thymeleaf/main/mainpage";
 	}
-
+	@GetMapping("/main_intro")
+	public String main_intro() {
+		return "thymeleaf/main/main_intro";
+	}
 	// 관리자페이지 - 블랙리스트
 
 		@GetMapping("/blacklist")

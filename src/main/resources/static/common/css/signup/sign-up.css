@@ -40,3 +40,6 @@
 .grade{
 	width:110px;
 }
+input[type=password]{
+        font-family:"굴림";
+    }

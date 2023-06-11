@@ -5,21 +5,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class InquiryController {
 	@RequestMapping("/inquiryboard")
 	public String inqboard() {
-		return "thymeleaf/inquiry/inquiryboard";
+		return "thymeleaf/inq/inquiryboard";
 	}
 	
 	@RequestMapping("/inquirywrite")
 	public String inqwrite() {
-		return "thymeleaf/inquiry/inquiry_write";
+		return "thymeleaf/inq/inquirywrite";
 	}
 	
 	@RequestMapping("/report")
 	public String report() {
-		return "thymeleaf/inquiry/report";
+		return "thymeleaf/inq/report";
 	}
 	
 	@RequestMapping("/inquiryread")
 	public String inqread() {
-		return "thymeleaf/inquiry/inquiry_read";
+		return "thymeleaf/inq/inquiryread";
+	}
+	
+	@RequestMapping("/admin_user")
+	public String user() {
+		return "thymeleaf/inq/admin_user";
+	}
+	
+	@RequestMapping("/admin_register")
+	public String register() {
+		return "thymeleaf/inq/admin_register";
 	}
 }

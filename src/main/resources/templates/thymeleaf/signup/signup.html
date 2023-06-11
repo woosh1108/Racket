@@ -4,16 +4,10 @@
 	layout:decorate="~{thymeleaf/layout/mainLayout}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<!-- jQuery and jQuery UI JS -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/racket/common/css/signup/sign-up.css">
+<title>회원가입</title>
+	<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/racket/common/css/signup/sign-up.css">
+	</th:block>
     <script>
 	    function validateForm() {
 	    }
@@ -26,71 +20,72 @@
 <body>
 <th:block layout:fragment="content">
 <div class="container mt-5">
-        <form action="submitForm" th:action="@{/submitForm}" method="POST" onsubmit="return validateForm();" class="shadow p-3 mb-5 bg-body rounded">
+		<!-- <form action="/racket/signup" th:action="@{/submitForm}" method="POST" onsubmit="return validateForm();" class="shadow p-3 mb-5 bg-body rounded"> -->
+        <form action="/racket/signup" method="POST" onsubmit="return validateForm();" class="shadow p-3 mb-5 bg-body rounded">
             <h2 class="mb-3">회원가입</h2>
              <div class="mb-3 form-group">
-                <label for="member_id" class="form-label">아이디:</label>
+                <label for="memberId" class="form-label">아이디:</label>
                 <div class="input-group">
                     <!-- <input type="text" id="member_id" name="member_id" th:id="${member.member_id}" class="form-control" required> -->
-                    <input type="text" id="member_id" name="member_id" class="form-control" required>
+                    <input type="text" id="memberId" name="memberId" class="form-control" required>
                     <button type="button" onclick="checkDuplicateId();" class="btn btn-secondary" id="dpcheck">중복체크</button>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="member_pass" class="form-label">비밀번호:</label>
-                <input type="password" id="member_pass" name="member_pass" class="form-control" required>
+                <label for="memberPass" class="form-label">비밀번호:</label>
+                <input type="password" id="memberPass" name="memberPass" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="member_name" class="form-label">이름:</label>
-                <input type="text" id="member_name" name="member_name" class="form-control" required>
+                <label for="memberName" class="form-label">이름:</label>
+                <input type="text" id="memberName" name="memberName" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="member_nick" class="form-label">닉네임:</label>
-                <input type="text" id="member_nick" name="member_nick" class="form-control">
+                <label for="memberNick" class="form-label">닉네임:</label>
+                <input type="text" id="memberNick" name="memberNick" class="form-control">
             </div>
             <div class="mb-3">
-                <label for="member_age" class="form-label">나이:</label>
-                <input type="number" id="member_age" name="member_age" class="form-control" required>
+                <label for="memberAge" class="form-label">나이:</label>
+                <input type="number" id="memberAge" name="memberAge" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="member_phone" class="form-label">전화번호:</label>
-                <input type="tel" id="member_phone" name="member_phone" class="form-control">
+                <label for="memberPhone" class="form-label">전화번호:</label>
+                <input type="tel" id="memberPhone" name="memberPhone" class="form-control">
             </div>
 
             <div class="mb-3">
-                <label for="member_gender" class="form-label">성별:</label>
-                <select id="member_gender" name="member_gender" class="form-select">
+                <label for="memberGender" class="form-label">성별:</label>
+                <select id="memberGender" name="memberGender" class="form-select">
                     <option value="남">남</option>
                     <option value="여">여</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="member_addr" class="form-label">주소:</label>
-                <input type="text" id="member_addr" name="member_addr" class="form-control">
+                <label for="memberAddr" class="form-label">주소:</label>
+                <input type="text" id="memberAddr" name="memberAddr" class="form-control">
             </div>
              <div class="mb-3">
-                <label for="member_email" class="form-label">이메일:</label>
-                <input type="email" id="member_email" name="member_email" class="form-control" required>
+                <label for="memberEmail" class="form-label">이메일:</label>
+                <input type="email" id="memberEmail" name="memberEmail" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="member_grade" class="form-label">등급:</label>
+                <label for="memberGrade" class="form-label">등급:</label>
                 <!-- <input type="text" id="member_grade" name="member_grade" class="form-control"> -->
-                <select id="member_grade" name="member_grade" class="form-select grade">
+                <select id="memberGrade" name="memberGrade" class="form-select grade">
                     <option value="남">초보</option>
                     <option value="여">중수</option>
                     <option value="여">고수</option>
                 </select>
             </div>
             <div class="mb-3">
-                <input type="checkbox" name="member_auth" value="0" class="member_auth">
-                <label for="member_auth" class="form-label">강사권한</label>
+                <input type="checkbox" name="memberAuth" value="0" class="memberAuth">
+                <label for="memberAuth" class="form-label">강사권한</label>
 
             </div>
 
-            <input type="hidden" name="member_status" value="0">
-            <input type="hidden" name="member_absence" value="0">
+            <input type="hidden" name="memberStatus" value="0">
+            <input type="hidden" name="memberAbsence" value="0">
 
-            <input type="hidden" id="member_reg" name="member_reg" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+            <input type="hidden" id="memberReg" name="memberReg" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
 
             <button type="submit" class="btn btn-primary" id="regist">회원가입</button>
         </form>
