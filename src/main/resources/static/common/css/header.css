@@ -23,8 +23,8 @@ a {
     height:100px;
     justify-content: space-between;
     align-items: center;
-    background-color: #4C6A96;
-    color:white;
+    background-color: #134C43;
+    color:#FFFDE1;
     padding: 8px 12px;
 }
 .nav_logo{
@@ -149,7 +149,6 @@ width:80px;
 height:50px;
 } */
 .rectangle1{
-   background-color: #8ea6fc;
   height: 100%;
   width: 100%;
   border-radius: 10px; 
@@ -159,13 +158,13 @@ height:50px;
 }
 .rectangle1 h1{
 	padding-top:12px;
+    color:#FFFDE1;
 	text-align: center;
 	justify-content: center;
 	font-size: 16pt;
 	font-family: ONE-Mobile-POP;
 }
 .rectangle2{
-  background-color: #2A58FA;
   height: 100%;
   width: 100%;
   border-radius: 10px;
@@ -182,11 +181,11 @@ height:50px;
 }
 .header-link:link{
 	text-decoration: none;
-	color: black;
+    color:#FFFDE1;
 }
 .header-link:visited{
 	text-decoration: none;
-	color: black;
+    color:#FFFDE1;
 }
 .login
 {
