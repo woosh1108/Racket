@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{thymeleaf/layout/mainLayout}">
 <head>
-<title>reservation</title>
+<title>강습 예약하기</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -51,8 +51,8 @@
 	<!-- Wrapper -->
 	<div id="wrapper" style="margin:50px; margin-top: 180px;">
 	<!-- Form -->
-	<div class="col-lg-4" style="position: relative; float: right;">
-		<div class="box" style="padding: 20px; margin: 20px; margin-top: 0px;">
+	<div class="col-lg-4" style="position: relative; float: right;" id="scroll">
+		<div class="box" style="padding: 20px; margin: 0px;">
 			<form method="post" action="#">
 
 				<div class="field">
@@ -84,10 +84,10 @@
 
 				<br />
 				<div class="field">
-					<div class="box" style="padding: 20px;">
+					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
 							강사 
-							<code style="color: #47D3E5">이클립</code>
+							<code style="color: #134C43">이클립</code>
 						</p>
 					</div>
 				</div>
@@ -104,17 +104,17 @@
 				<br/>
 
 				<div class="field">
-					<div class="box" style="padding: 20px;">
+					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
 							최대 인원
-							<code style="color: #47D3E5">4</code>
+							<code style="color: #134C43">4</code>
 							명
 						</p>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="box" style="padding: 20px;">
+					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">강습비용</p>
 					</div>
 				</div>
@@ -132,7 +132,7 @@
 	</div>
 
 
-	<div class="col-lg-8" style="position: relative; float: right;">
+	<div class="col-lg-8" style="position: relative; float: right;" id="reservation">
 		<div class="image fit">
 			<img src="/racket/images/reservationPark.jpg" alt="" />
 		</div>
@@ -150,7 +150,7 @@
 		
 		<!-- 강사 정보 -->
 		<section>
-			<div class="box">
+			<div class="box" style="margin-bottom: 72px;">
 				<blockquote><h3>강사</h3></blockquote>
 				<p style="color: black;">강사: 이클립</p>
 				<p style="color: black;">전화번호: 010-1234-5678</p>
@@ -179,6 +179,7 @@
 	<script src="/racket/common/assets/js/breakpoints.min.js"></script>
 	<script src="/racket/common/assets/js/util.js"></script>
 	<script src="/racket/common/assets/js/main.js"></script>
+	<script src="/racket/common/assets/js/scroll.js"></script>
 
 	<!-- Note: Only needed for demo purposes. Delete for production sites. -->
 	<script src="/racket/common/assets/js/demo.js"></script>
