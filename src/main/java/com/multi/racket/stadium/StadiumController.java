@@ -9,13 +9,18 @@ public class StadiumController {
 
 
 	@RequestMapping("/stadium")
-    public String getTime(Model model) {
-        return "thymeleaf/stadium";
+    public String stadium(Model model) {
+        return "thymeleaf/stadium/stadium";
     }
 	
 	//나중에 id값으로 들어가게 매핑 변경해야함.
 	@RequestMapping("/stadiumdetail")
     public String stadiumdetail() {
-        return "thymeleaf/stadiumDetail";
+        return "thymeleaf/stadium/stadiumDetail";
+    }
+	
+	@RequestMapping("/court")
+    public String court() {
+        return "thymeleaf/stadium/court";
     }
 }

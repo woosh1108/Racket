@@ -30,12 +30,6 @@ div[class="container"]{
   	margin-left: calc(3%);
   	margin-top: 5%;
 }
-.btn{
-	width:80px;
-	height:45px;
-	font-size: 18pt;
-	text-align: center;
-}
 #search{
 	margin-left: 15px;
 }
