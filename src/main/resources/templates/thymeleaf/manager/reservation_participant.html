@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{thymeleaf/layout/mainLayout}">
 <head>
-<title>reservation participant</title>
+<title>예약 참여하기</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -51,8 +51,8 @@
 	<!-- Wrapper -->
 	<div id="wrapper" style="margin:50px; margin-top: 180px;">
 	<!-- Form -->
-	<div class="col-lg-4" style="position: relative; float: right;">
-		<div class="box" style="padding: 20px; margin: 20px; margin-top: 0px;">
+	<div class="col-lg-4" style="position: relative; float: right;" id="scroll">
+		<div class="box" style="padding: 20px; margin: 0px;">
 			<form method="post" action="#">
 
 				<div class="field">
@@ -82,7 +82,7 @@
 					</select>
 				</div>
 
-				<br /> <br />
+				<br /><br />
 
 				<!-- 경기방식 -->
 				<div class="field" style="text-align: center;">
@@ -103,26 +103,26 @@
 				<br />
 
 				<div class="field">
-					<div class="box" style="padding: 20px;">
+					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
-							등급
-							<code style="color: #47D3E5">초보</code>
+							등급 제한
+							<code style="color: #134C43">초보</code>
 						</p>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="box" style="padding: 20px;">
+					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
 							참여 인원
-							<code style="color: #47D3E5">1 / 4</code>
+							<code style="color: #134C43">1 / 4</code>
 							명
 						</p>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="box" style="padding: 20px;">
+					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">40,000원</p>
 					</div>
 				</div>
@@ -140,14 +140,14 @@
 	</div>
 
 
-	<div class="col-lg-8" style="position: relative; float: right;">
+	<div class="col-lg-8" style="position: relative; float: right; padding: 0px;"id="reservation">
 
 		<div class="image fit">
 			<img src="/racket/images/reservationPark.jpg" alt="" />
 		</div>
 
 		<section>
-			<div class="box">
+			<div class="box" style="margin-bottom: 12px;">
 				<blockquote><h3>체육관 정보</h3></blockquote>
 				<p style="color: black;">이름: 한빛 체육관</p>
 				<p style="color: black;">주소: 서울특별시 광진구</p>
@@ -167,7 +167,6 @@
 		</section>
 	</div>
 
-
 	<!-- Scripts -->
 	<script src="/racket/common/assets/js/jquery.min.js"></script>
 	<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
@@ -176,6 +175,7 @@
 	<script src="/racket/common/assets/js/breakpoints.min.js"></script>
 	<script src="/racket/common/assets/js/util.js"></script>
 	<script src="/racket/common/assets/js/main.js"></script>
+	<script src="/racket/common/assets/js/scroll.js"></script>
 
 	<!-- Note: Only needed for demo purposes. Delete for production sites. -->
 	<script src="/racket/common/assets/js/demo.js"></script>
