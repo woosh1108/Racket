@@ -1,7 +1,8 @@
 package com.multi.racket.reservation;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
+@Controller
 public class reservationController {
 	// 구장 예약하기
 	@GetMapping("/reservation")

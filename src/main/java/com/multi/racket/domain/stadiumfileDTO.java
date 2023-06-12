@@ -1,7 +1,5 @@
 package com.multi.racket.domain;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,5 +19,5 @@ public class stadiumfileDTO {
 	private int stadiumNo;
 	private String fileOriginalname;
 	private String fileStorename;
-	private String stadiumFileno;
+	private String stadiumFileNum;
 }
