@@ -44,10 +44,5 @@ public class TestController {
 		public String lessonParticipant() {
 			return "thymeleaf/manager/lesson_participant";
 		}
-		
-	@GetMapping("/test1")
-	public String test1() {
-		return "thymeleaf/include/calendar";
-	}
 	
 }
