@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" type="text/css" href="common/css/inquirywrite.css"> 
+		<link rel="stylesheet" href="common/css/styles.css"/>
+		<style type="text/css">
+  			table {
+  				border-collapse: separate;
+ 				border-spacing: 50px;
+			}
+		</style>
+	</th:block>
+	<th:block layout:fragment="content">
+		<div class="container-fluid" style="margin-top: 120px; margin-left: 50px">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title fw-semibold mb-4" style="font-size: 30px">문의</h2>
+            <div>
+            <table>
+            	<thead>
+	            	<th width="100">No</th>
+	            	<th width="600">제목</th>
+	            	<th width="150">아이디</th>
+	            	<th width="100">작성 시간</th>
+            	</thead>
+            	<tbody>
+            		<tr>
+            			<td>1</td>
+            			<td><a href="">제목1</a></td>
+            			<td>아이디1</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>2</td>
+            			<td><a href="">제목2</a></td>
+            			<td>아이디2</td>
+            			<td>2023-06-01</td>
+            		</tr>	
+            		<tr>
+            			<td>3</td>
+            			<td><a href="">제목3</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>4</td>
+            			<td><a href="">제목4</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>5</td>
+            			<td><a href="">제목5</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>6</td>
+            			<td><a href="">제목6</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>7</td>
+            			<td><a href="">제목7</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>8</td>
+            			<td><a href="">제목8</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>9</td>
+            			<td><a href="">제목9</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            		<tr>
+            			<td>10</td>
+            			<td><a href="">제목10</a></td>
+            			<td>아이디3</td>
+            			<td>2023-06-01</td>
+            		</tr>
+            	</tbody>	
+            </table>
+            </div>
+            <div align="center" style="margin-bottom: 40px">
+            	<input style="height: 40px; width: 250px; font-size: 17px"><span style="margin-left: 15px"><button type="submit" style="border-radius: 6px">검색</button></span>
+            </div>
+            <div align="right">
+				<button type="submit" style="border-radius: 6px" onclick="/racket/inquirywrite">글쓰기</button>
+			</div>
+          </div>
+        </div>
+      </div>	
+	</th:block>
+</body>
+</html>

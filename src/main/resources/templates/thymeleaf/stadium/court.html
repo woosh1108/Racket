@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>라켓 - 코트 정보</title>
+</head>
+<body>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/racket/common/css/stadium/court.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+	</th:block>
+	<th:block layout:fragment="content">
+	<div class="container-fluid px-4">
+			<!-- 체육관 사진 -->
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="/racket/images/stadiumexam.jpg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/racket/images/stadiumexam.jpg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/racket/images/stadiumexam.jpg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/racket/images/stadiumexam.jpg">
+					</div>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-pagination"></div>
+			</div>
+			
+			<div class="ul-sticksdy">
+			<div class="col-md-12">
+			<div class="content-wrapper">
+
+				<div class="court_detail">
+					<div class="court_info_layer">
+						<div class="court_sub_menu_wrapper">
+							<ul class="court_sub_menu">
+								<li class="menu_home on" onclick="go_menu('name')">코트정보</li>
+								<li class="menu_price" onclick="go_menu('price')">안내사항</li>
+								<li class="menu_conv" onclick="go_menu('gym_info')">편의시설</li>
+								<li class="menu_qna" onclick="go_menu('qna')">질문하기</li>
+								<li class="menu_review" onclick="go_menu('review')">리뷰</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col-md-6">
+					<div class="rounded">
+					<div class="court_infos_wrapper">
+							<div class="court_info">
+								<h3>안내 사항</h3>
+								
+								<p>[주차]</p>
+								<p>20대 이상 가능</p>
+								<p></p>
+								<p>[ 대여 상세 ]</p>
+								<p>- 농구공 사용 가능 / 전자휘슬 / 유니폼 상하의(각 1,000원씩) /대형 전광판(24초계시기
+									포함)</p>
+
+								<p>[ 물, 음료 ]</p>
+								<p>- 정규코트 4층에서는 식수만 섭취가능</p>
+								<p>- 물,음료 판매하고 있습니다!!</p>
+
+								<p>[샤워시설]</p>
+								<p>무료이용</p>
+
+								<p>[행사 및 촬영대관]</p>
+								<p>관리자에게 문의요망-기본4시간</p>
+
+								<p>[그 외 문의사항은 카톡채널을 이용해주세요]</p>
+								<p>- 카카오톡 채널 : TOMO GYM 검색</p>
+
+								<p>-코트 입장시 꼭 실내 운동화 착용 필수</p>
+								<p>-마스크 착용 필수</p>
+								<p>-흡연시 꼭 외부신발로 갈아신어 주시고 건물 외부에서 흡연 부탁드립니다.</p>
+								<p>-체육관 이용 5분전 입장가능합니다.</p>
+
+
+								<hr />
+								
+								
+							</div>
+							<div class="stadium_info" id="stadium_info_price">
+								<h2>대관료</h2>
+								<div class="stadium_info_contents">토요일 9시 ~ 11시 예약은 9시 15분 부터
+									사용가능하세요! 이점 양해 부탁드려요!</div>
+								
+				
+							</div>
+							<hr />
+
+							<div class="stadium_info" id="stadium_info_conv">
+								<h2>편의시설</h2>
+								<ul class="stadium_conv_list">
+									<li class="stadium_conv code0001">무료 주차</li>
+									<li class="stadium_conv code0003">샤워실</li>
+									<li class="stadium_conv code0007">정수기</li>
+									<li class="stadium_conv code0008">와이파이</li>
+									<li class="stadium_conv code0012">냉난방</li>
+									<li class="stadium_conv code0014">화장실</li>
+								</ul>
+
+							</div>
+
+							<div class="stadium_info review">
+								<h2>사용자 리뷰</h2>
+								<div class="stadium_review_list">
+									<ul></ul>
+								</div>
+								<div class="stadium_review_empty">리뷰가 존재하지 않습니다.</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="ul-sticky rounded">
+					<h2>체육관정보</h2>
+					<div class="name">
+						<h4>상암체육관</h4>
+					</div>
+					<div class="gym_addr">
+						주소 : 경기 고양시 덕양구 화전동 162-4
+						<span name="map"><a href="#" id="mapButton"><img src="/racket/images/navermap.png"></a></span>
+					</div>
+					<div class="gym_rate">
+						<span class="star"></span> <span class="rate_text">평점 : 5.0</span>
+					</div>
+					<div class="price_total">
+						<span class="price">금액 : 20000원</span>
+					</div>
+					<div class="float-right">
+						<button type="button" class="button fit">예약</button>
+					</div>
+				</div>
+						
+					</div>
+				</div>
+		
+		</div>
+
+
+
+		<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+		<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=tvskdufl5a"></script>
+		<script type="text/javascript" src="/racket/common/js/stadium/court.js" ></script>
+	</th:block>
+</body>
+</html>

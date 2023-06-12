@@ -802,3 +802,7 @@ a:hover {
 	color: #fff;
 	border: 1px solid transparent;
 }
+.mainContent {
+	margin-top: 6%;
+	margin-left: 3%;
+}

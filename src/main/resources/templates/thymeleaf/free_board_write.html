@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="hppt://www.thymeleaf.org">
+<html xmlns:th="hppt://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
 	<head>
 		<meta charset="UTF-8">
 		<title>글쓰기</title>
@@ -74,6 +76,7 @@
 		</script>
 	</head>
 	<body>
+	<th:block layout:fragment="content">
 	<!-- 헤더 -->
 	<nav class="navbar">
 		<div class="nav_logo">
@@ -152,7 +155,7 @@
 			</div>
 			</form>
 		</div>
-		<footer>
+		<!-- <footer>
 		<div class="footerOuter">
 			<hr>
 			<div class="footerContentDiv">
@@ -213,6 +216,7 @@
 				<p class="copyright">해당 서비스에 대한 책임과 민원처리는 'Racket(주)'에 있습니다.</p>
 			</div>
 		</div>
-	</footer>
+	</footer> -->
+	</th:block>
 	</body>
 </html>

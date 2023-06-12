@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div {
+		margin-bottom: 30px;
+	}
+</style>
+</head>
+<body>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" type="text/css" href="common/css/inquirywrite.css">
+		<style type="text/css">
+			div {
+				margin-bottom: 30px;
+			}
+		</style>
+		<link rel="stylesheet" href="common/css/styles.css"/>
+	</th:block>
+	<th:block layout:fragment="content">
+		<div class="container-fluid" style="margin-top: 120px; margin-left: 50px">
+    	<div class="card">
+        	<div class="card-body">
+				<div>
+					<form>
+						<div>
+							<h3>신고 인원을 체크해주세요</h3>
+						</div>
+						<div>
+							<p>
+								<input type="checkbox"> 이름 1
+							</p> 
+							<p>
+								<input type="checkbox"> 이름 2
+							</p>
+							<p>
+								<input type="checkbox"> 이름 3
+							</p>
+							<p>
+								<input type="checkbox"> 이름 4
+							</p>
+							
+						</div>
+						<div>
+							<button type="submit" style="border-radius: 6px">신고</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>	
+	</th:block>
+</body>
+</html>

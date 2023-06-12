@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert title here</title>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/racket/common/css/main_intro.css">
+</th:block>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<div class="container">
+			<div class="logo-container">
+				<img src="/racket/images/racket.png" alt="배드민턴 로고" class="logo" />
+			</div>
+				<img src="/racket/images/site_intro.png" alt="인트로 카드" class="intro_logo">
+			
+		</div>
+	</th:block>
+</body>
+</html>
