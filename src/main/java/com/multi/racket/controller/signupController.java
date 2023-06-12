@@ -12,13 +12,12 @@ import com.multi.racket.signup.SignUpService;
 @Controller
 public class signupController {
 	SignUpService service;
-
+	
 	@Autowired
 	public signupController(SignUpService service) {
 		super();
 		this.service = service;
 	}
-
 
 	// 회원가입 인증
 	@RequestMapping("/signauth")
@@ -44,5 +43,10 @@ public class signupController {
 	public String signup(memberDTO member) {
 		service.member_insert(member);
 		return "thymeleaf/main/mainpage";
+	}
+	
+	@GetMapping("/associate")
+	public String associate() {
+		return "thymeleaf/signup/associate";
 	}
 }
