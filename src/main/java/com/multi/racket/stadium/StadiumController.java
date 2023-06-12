@@ -18,4 +18,9 @@ public class StadiumController {
     public String stadiumdetail() {
         return "thymeleaf/stadiumDetail";
     }
+	
+	@RequestMapping("/court")
+    public String court() {
+        return "thymeleaf/court";
+    }
 }
