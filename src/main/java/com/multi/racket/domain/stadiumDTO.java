@@ -23,4 +23,5 @@ public class stadiumDTO {
 	private String stadiumAddr;
 	private String stadiumTime;
 	private String stadiumFee;
+
 }
