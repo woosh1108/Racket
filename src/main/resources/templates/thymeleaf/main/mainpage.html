@@ -77,10 +77,10 @@
 		<h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
 					<hr/>
 					<tr th:each="stadium:${stadiumlist}">
-						<td>구장 이름 : <span th:text="${stadium.stadiumName}"></span><br></td>
-						<td>구장 주소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
+						<td><span th:text="${stadium.stadiumName}"></span><br></td>
+						<td>장소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
 						<td>구장 이용시간 : <span th:text="${stadium.stadiumTime}"></span><br></td>
-						<td>구장 비용 : <span th:text="${stadium.stadiumFee}"></span><br></td>
+						<td>구장 이용비 : <span th:text="${stadium.stadiumFee}"></span> 원<br></td>
 						<hr/>
 						<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
 					</tr>

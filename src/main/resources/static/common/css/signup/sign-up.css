@@ -1,41 +1,57 @@
 @charset "UTF-8";
-.form-label{
+
+.form-label {
 	margin-top: 5px;
-	width:80px;
-}
-#regist{
-	width:100px;
-}
-.form-select{
-	width:65px;
-}
-.form-control{
-	width:30%;
+	width: 80px;
 }
 
+#regist {
+	width: 100px;
+}
+
+.form-select {
+	width: 65px;
+}
+
+.form-control {
+	width: 30%;
+}
 /* 새롭게 추가한 CSS */
 .form-group {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 }
+
 .input-group {
-    display: flex;
-    align-items: center;
-    width:400px;
+	display: flex;
+	align-items: center;
+	width: 300px;
 }
-.input-group > .form-control {
-    margin-right: 10px;
+
+.input-group>.form-control {
+	margin-right: 10px;
 }
-.member_auth{
+
+.member_auth {
 	margin-right: 15px;
 }
-#member_id{
-	width:300px;
+
+#member_id {
+	width: 300px;
 }
-.grade{
-	width:110px;
+
+.grade {
+	width: 110px;
 }
-input[type=password]{
-        font-family:"굴림";
-    }
+
+input[type=password] {
+	font-family: "굴림";
+}
+
+.duplicated-id{
+	display: none;
+}
+.available-id{
+	display: none;
+}
