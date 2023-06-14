@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<title>구장 제휴글 작성</title>
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/racket/common/css/signup/associate.css">
+</th:block>
+<script>
+	function validateForm() {
+	}
+	function checkId() {
+		// 여기에 아이디 회원이 있는지 확인하는 코드를 작성하십시오.
+		// 표준 예제를 찾으려면 AJAX 및 백엔드 서 통신을 고려하십시오.
+	}
+</script>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<div class="container mt-5">
+			<!-- <form action="/racket/signup" th:action="@{/submitForm}" method="POST" onsubmit="return validateForm();" class="shadow p-3 mb-5 bg-body rounded"> -->
+			<form action="/racket/associate" method="POST"
+				onsubmit="return validateForm();"
+				class="shadow p-3 mb-5 bg-body rounded">
+				<h2 class="mb-3">구장 제휴 문의</h2>
+				<div class="mb-3 form-group">
+					<label for="memberId" class="form-label">아이디:</label>
+					<div class="input-group">
+						<!-- <input type="text" id="member_id" name="member_id" th:id="${member.member_id}" class="form-control" required> -->
+						<input type="text" id="memberId" name="memberId"
+							class="form-control" required>
+						<button type="button" onclick="checkId();"
+							class="btn btn-secondary" id="idCheck">회원체크</button>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="stadiumName" class="form-label">구장 이름:</label> <input
+						type="text" id="stadiumName" name="stadiumName"
+						class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label for="stadiumAddr" class="form-label">구장 주소:</label> <input
+						type="text" id="stadiumAddr" name="stadiumAddr"
+						class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label for="stadiumTime" class="form-label" style="width:100px;">구장 대여 시간:</label>
+						<select id="stadiumTime" name="stadiumTime" class="form-select">
+		                    <option value="06:00~08:00">06:00~08:00</option>
+		                    <option value="08:00~10:00">08:00~10:00</option>
+		                    <option value="10:00~12:00">10:00~12:00</option>
+		                    <option value="12:00~14:00">12:00~14:00</option>
+		                    <option value="14:00~16:00">14:00~16:00</option>
+		                    <option value="16:00~18:00">16:00~18:00</option>
+		                    <option value="18:00~20:00">18:00~20:00</option>
+		                    <option value="20:00~22:00">20:00~22:00</option>
+		                </select>
+				</div>
+				<div class="mb-3">
+					<label for="stadiumFee" class="form-label" style="width:100px;">구장 대여 비용:</label> <input
+						type="text" id="stadiumFee" name="stadiumFee"
+						class="form-control" required>
+				</div>
+				<div class="mb-3">
+					<label for="court" class="form-label">대여 코트 수:</label> <input
+						type="number" id="court" name="court" class="form-control">
+				</div>
+
+		<input type="hidden" name="associateCount" value="0">
+		<input type="hidden" id="associateRegdate" name="associateRegdate"
+			th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+
+		<button type="submit" class="btn btn-primary" id="associate">구장 제휴서 제출</button>
+		</form>
+		</div>
+	</th:block>
+</body>
+</html>

@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,6 +20,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @Entity
 @Table(name = "member2")
+@DynamicInsert
 public class memberDTO {
 	@NonNull
 	@Id
@@ -40,7 +42,6 @@ public class memberDTO {
 	@NonNull
 	private String memberGrade;
 	@NonNull
-	@ColumnDefault("0")
 	private String memberAuth;
 	@NonNull
 	private String memberStatus;

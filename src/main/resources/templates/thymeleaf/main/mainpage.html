@@ -75,6 +75,15 @@
 		
 		<!-- 구장 소개 -->
 		<h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
+					<hr/>
+					<tr th:each="stadium:${stadiumlist}">
+						<td>구장 이름 : <span th:text="${stadium.stadiumName}"></span><br></td>
+						<td>구장 주소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
+						<td>구장 이용시간 : <span th:text="${stadium.stadiumTime}"></span><br></td>
+						<td>구장 비용 : <span th:text="${stadium.stadiumFee}"></span><br></td>
+						<hr/>
+						<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
+					</tr>
 		<div class="stadium">
 			<div class="stadium-pic">
 				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />

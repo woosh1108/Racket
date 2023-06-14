@@ -1,0 +1,43 @@
+@charset "UTF-8";
+.form-label{
+	margin-top: 5px;
+	width:80px;
+}
+#regist{
+	width:100px;
+}
+.form-select{
+	width:180px;
+}
+.form-control{
+	width:30%;
+}
+.stadiumTime{
+	width:200px;
+}
+/* 새롭게 추가한 CSS */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    width:400px;
+}
+.input-group > .form-control {
+    margin-right: 10px;
+}
+.member_auth{
+	margin-right: 15px;
+}
+#member_id{
+	width:300px;
+}
+.grade{
+	width:110px;
+}
+input[type=password]{
+        font-family:"굴림";
+    }
