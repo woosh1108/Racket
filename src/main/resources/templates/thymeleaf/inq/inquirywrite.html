@@ -27,11 +27,12 @@
 				<div style="margin-bottom: 70px;">
 					<h3 class="card-title fw-semibold mb-4" style="font-size: 30px">문의>글쓰기</h3>
 				</div>
-				<form>
+				<form action="/racket/inquiry_write" method="post"
+					enctype="multipart/form-data">
 					<div style="margin-bottom: 30px;">
 						<label for="title" style="font-size: 30px">문의 카테고리</label> 
 						<p>
-						<select style="font-size: 20px; width: 180px; height: 45px">
+						<select name="inqCategory" style="font-size: 20px; width: 180px; height: 45px">
 							<option>충전</option>
 							<option>환불</option>
 							<option>제재</option>
@@ -41,12 +42,12 @@
 					</div>
 					<div style="margin-bottom: 30px;">
 						<label for="title" style="font-size: 30px">제목</label> 
-						<input type="text" id="title"name="title">
+						<input type="text" id="title" name="inqTitle">
 					</div>
 					
 					<div style="margin-bottom: 30px;">
 						<label for="content" style="font-size: 30px">내용</label>
-						<textarea name="ir1" id="ir1" rows="10" cols="90"></textarea>
+						<textarea name="inqContent" id="ir1" rows="10" cols="90"></textarea>
 					</div>
 					<div align="right">
 						<button type="submit" style="border-radius: 6px">작성</button>

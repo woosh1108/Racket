@@ -25,26 +25,26 @@
 			<div class="card">
 				<div class="card-body">
 					<div style="margin-bottom: 60px;">
-						<h3 class="card-title fw-semibold mb-4" style="font-size: 30px">문의>글읽기</h3>
+						<h3 class="card-title fw-semibold mb-4" style="font-size: 30px">문의 > 글읽기</h3>
 					</div>
 					<div>
 						<table style="width: 1000px; height: 150px">
 							<tr>
 								<th width="100px">제목</th>
-								<td>제목1</td>
+								<td><span th:text="${inquiry.inqTitle }"></span></td>
 							</tr>
 							<tr>
 								<th width="100px">작성자</th>
-								<td>아이디</td>
+								<td><span th:text="id123"></span></td>
 							</tr>
 							<tr>
 								<th width="100px">분류</th>
-								<td>카테고리</td>
+								<td><span th:text="${inquiry.inqCategory }"></span></td>
 							</tr>
 						</table>
 					</div>
 					<br />
-					<div style="margin-left: 10px; margin-bottom: 40px">내용</div>
+					<div style="margin-left: 10px; margin-bottom: 40px"><span th:text="${inquiry.inqContent }"></span></div>
 					<div align="right">
 						<span>
 							<button type="submit" style="border-radius: 6px"
