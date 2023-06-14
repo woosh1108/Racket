@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.emailCertified.MailSendService;
 import com.multi.racket.signup.SignUpService;
 
 @Controller
-public class signupController {
+public class SignupController {
 	SignUpService service;
 	MailSendService mailservice;
-
 //	EmailService emailservice;
 //	@Autowired
 //	public signupController(SignUpService service) {
@@ -29,7 +28,7 @@ public class signupController {
 //		this.emailservice = emailservice;
 //	}
 	@Autowired
-	public signupController(SignUpService service, MailSendService mailservice) {
+	public SignupController(SignUpService service, MailSendService mailservice) {
 		super();
 		this.service = service;
 		this.mailservice = mailservice;
@@ -56,7 +55,7 @@ public class signupController {
 
 	// insert - 회원등록하기 api
 	@PostMapping("/signup")
-	public String signup(memberDTO member) {
+	public String signup(MemberDTO member) {
 		service.member_insert(member);
 		return "thymeleaf/main/mainpage";
 	}
@@ -87,7 +86,8 @@ public class signupController {
 //    }
 	// 회원가입 페이지 이동
 	@GetMapping("/userJoin")
-	public void userJoin() {
+	public String userJoin() {
+		return "thymeleaf/signup/sign-auth";
 	}
 
 	// 이메일 인증

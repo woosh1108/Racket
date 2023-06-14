@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.multi.racket.domain.stadiumDTO;
+import com.multi.racket.domain.StadiumDTO;
 @Service
 @Transactional
 public class AssociateServiceImpl implements AssociateService {
@@ -18,7 +18,7 @@ public class AssociateServiceImpl implements AssociateService {
 	}
 
 	@Override
-	public List<stadiumDTO> findAll() {
+	public List<StadiumDTO> findAll() {
 		return dao.findAll();
 	}
 

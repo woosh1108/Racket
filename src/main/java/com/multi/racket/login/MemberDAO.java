@@ -1,8 +1,8 @@
 package com.multi.racket.login;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 
 public interface MemberDAO {
-	memberDTO login(String memberId, String memberPass);
+	MemberDTO login(String memberId, String memberPass);
 	
 }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 @Service
 @Transactional
 public class SignUpServiceImpl implements SignUpService {
@@ -16,7 +16,7 @@ public class SignUpServiceImpl implements SignUpService {
 	}
 
 	@Override
-	public memberDTO member_insert(memberDTO member) {
+	public MemberDTO member_insert(MemberDTO member) {
 		return dao.member_insert(member);
 	}
 

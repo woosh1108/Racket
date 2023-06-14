@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.multi.racket.domain.stadiumDTO;
+import com.multi.racket.domain.StadiumDTO;
 @Repository
 public class AssociateDAOImpl implements AssociateDAO {
 	private EntityManager entityManager;
@@ -18,9 +18,9 @@ public class AssociateDAOImpl implements AssociateDAO {
 	}
 
 	@Override
-	public List<stadiumDTO> findAll() {
+	public List<StadiumDTO> findAll() {
 		String jpql = "select stadium from stadiumDTO as stadium";
-		List<stadiumDTO> list = entityManager.createQuery(jpql,stadiumDTO.class)
+		List<StadiumDTO> list = entityManager.createQuery(jpql,StadiumDTO.class)
 			         					   .getResultList();
 		return list;
 	}

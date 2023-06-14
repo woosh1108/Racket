@@ -21,7 +21,7 @@ import lombok.NonNull;
 @Entity
 @Table(name = "member2")
 @DynamicInsert
-public class memberDTO {
+public class MemberDTO {
 	@NonNull
 	@Id
 	private String memberId;

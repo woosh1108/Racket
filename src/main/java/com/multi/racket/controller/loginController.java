@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.login.MemberService;
 
 @Controller
@@ -27,7 +27,7 @@ public class loginController {
 	@PostMapping("/login.do")
 	public String login(@RequestParam("memberId") String memberId, @RequestParam("memberPass") String memberPass,
 			Model model, HttpServletRequest request) {
-		memberDTO user = service.login(memberId, memberPass);
+		MemberDTO user = service.login(memberId, memberPass);
 		if (user != null) {
 			// 로그인 성공
 			model.addAttribute("user", user);

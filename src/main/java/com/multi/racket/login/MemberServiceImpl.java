@@ -3,7 +3,7 @@ package com.multi.racket.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public memberDTO login(String memberId, String memberPass) {
+	public MemberDTO login(String memberId, String memberPass) {
 		// TODO Auto-generated method stub
 		return dao.login(memberId, memberPass);
 	}

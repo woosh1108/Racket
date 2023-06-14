@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="stadium")
-public class stadiumDTO {
+public class StadiumDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String stadiumNo;

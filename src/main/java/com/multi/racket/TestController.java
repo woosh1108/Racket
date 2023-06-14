@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.multi.racket.associate.AssociateService;
-import com.multi.racket.domain.stadiumDTO;
+import com.multi.racket.domain.StadiumDTO;
 
 @Controller
 public class TestController {
@@ -23,7 +22,7 @@ public class TestController {
 
 	@GetMapping("/main")
 	public String index_test(Model model) {
-		List<stadiumDTO> list = assoservice.findAll();
+		List<StadiumDTO> list = assoservice.findAll();
 		model.addAttribute("stadiumlist",list);
 		return "thymeleaf/main/mainpage";
 	}
