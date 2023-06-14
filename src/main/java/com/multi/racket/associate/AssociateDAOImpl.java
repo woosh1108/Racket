@@ -19,7 +19,7 @@ public class AssociateDAOImpl implements AssociateDAO {
 
 	@Override
 	public List<StadiumDTO> findAll() {
-		String jpql = "select stadium from stadiumDTO as stadium";
+		String jpql = "select stadium from StadiumDTO as stadium";
 		List<StadiumDTO> list = entityManager.createQuery(jpql,StadiumDTO.class)
 			         					   .getResultList();
 		return list;

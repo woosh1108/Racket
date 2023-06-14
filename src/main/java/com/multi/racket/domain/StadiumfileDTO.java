@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "stadiumfile")
-public class stadiumfileDTO {
+public class StadiumfileDTO {
 	@Id
 	private int stadiumFileNo;
 	private int stadiumNo;
