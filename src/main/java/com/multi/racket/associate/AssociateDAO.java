@@ -2,9 +2,8 @@ package com.multi.racket.associate;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import com.multi.racket.domain.stadiumDTO;
+import com.multi.racket.domain.StadiumDTO;
 
 public interface AssociateDAO {
-	public List<stadiumDTO> findAll() ;
+	public List<StadiumDTO> findAll() ;
 }

@@ -1,7 +1,7 @@
 package com.multi.racket.signup;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 
 public interface SignUpService {
-	public memberDTO member_insert(memberDTO member);
+	public MemberDTO member_insert(MemberDTO member);
 }

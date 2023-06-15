@@ -3,7 +3,7 @@ package com.multi.racket.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.multi.racket.domain.memberDTO;
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.repository.MemberRepository;
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -11,7 +11,7 @@ public class MemberDAOImpl implements MemberDAO {
     MemberRepository memberRepository;
 
 	@Override
-	public memberDTO login(String memberId, String memberPass) {
+	public MemberDTO login(String memberId, String memberPass) {
 		// TODO Auto-generated method stub
 		return memberRepository.findByMemberIdAndMemberPass(memberId, memberPass);
 	}

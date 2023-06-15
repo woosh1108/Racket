@@ -33,3 +33,10 @@
 .mail-check-input {
 	width: 100%;
 }
+.email-check{
+	margin-top:7px;
+	text-align: center;
+}
+.duplicated-email,.available-email{
+	display: none;
+}
