@@ -1,9 +1,7 @@
 package com.multi.racket.controller;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.multi.racket.domain.InquiryDTO;
@@ -16,13 +14,6 @@ public class InquiryController {
 	public InquiryController(InquiryService service) {
 		super();
 		this.service = service;
-	}
-
-	@GetMapping("/inquiryboard")
-	public String inqboard(Model model) {
-		List<InquiryDTO> list = service.findAll();
-		model.addAttribute("inquirylist",list);
-		return "thymeleaf/inq/inquiryboard";
 	}
 	
 	@RequestMapping("/inquiryread")
