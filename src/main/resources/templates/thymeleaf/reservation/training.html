@@ -57,22 +57,22 @@
 		<div id="wrapper"
 			style="margin: 50px; margin-top: 180px; margin-bottom: 0px;">
 			<!-- Form -->
-			<div class="col-lg-4" style="position: relative; float: right;"
-				id="scroll">
-				<div class="box" style="padding: 20px; margin: 0px;">
-					<form method="post" action="#">
+			<form method="post" action="/racket/training/insert">
+				<div class="col-lg-4" style="position: relative; float: right;"
+					id="scroll">
+					<div class="box" style="padding: 20px; margin: 0px;">
 
 						<div class="field">
 							<div class="form-group">
 								<input type="text" class="priority-low" id="input" value="대여 날짜"
-									style="text-align: center;">
+									style="text-align: center;" name="trainingDate">
 							</div>
 						</div>
 
 						<div class="field">
-							<select name="department" id="department"
+							<select name="courtHourNo" id="department"
 								style="text-align: center;">
-								<option value="">- 강습시간 -</option>
+								<option value="" disabled selected>- 강습시간 -</option>
 								<option value="1">00:00 ~ 02:00</option>
 								<option value="2">02:00 ~ 04:00</option>
 								<option value="3">04:00 ~ 06:00</option>
@@ -98,9 +98,9 @@
 						</div>
 
 						<div class="field">
-							<select name="department" id="department"
+							<select name="gradeSetting" id="department"
 								style="text-align: center;">
-								<option value="">- 강의수준 -</option>
+								<option value="" disabled selected>- 강의수준 -</option>
 								<option value="1">입문</option>
 								<option value="1">초급</option>
 								<option value="1">중급</option>
@@ -111,8 +111,10 @@
 						<div class="field">
 							<div class="box" style="padding: 15px;">
 								<p style="text-align: center; color: black;">
-									최대 인원 <code style="color: #134C43" id="value">1</code><input type="range" class="form-range" min="1" max="20"
-										id="customRange2" onchange="updateSliderValue()" value="1">
+									최대 인원
+									<code style="color: #134C43" id="value">1</code>
+									<input type="range" class="form-range" min="1" max="10"
+										id="customRange2" onchange="updateSliderValue()" value="1" name="trainingMax">
 								</p>
 							</div>
 						</div>
@@ -124,64 +126,63 @@
 						</div>
 
 						<div class="field" style="text-align: center;">
-							<a href="#"> <input type="button" name="submit" id="submit"
-								value="강습하기" />
-							</a>
+							<input type=submit name="submit" id="submit" value="강습하기" />
 						</div>
 
-					</form>
 
-				</div>
-			</div>
-
-
-			<div class="col-lg-8" style="position: relative; float: right;"
-				id="reservation">
-
-				<div class="image fit">
-					<img src="/racket/images/reservationPark.jpg" alt="" />
-				</div>
-				<!-- 체육관 정보 -->
-				<section>
-					<div class="box">
-						<blockquote>
-							<h3>체육관 정보</h3>
-						</blockquote>
-						<p style="color: black;">이름: 한빛 체육관</p>
-						<p style="color: black;">주소: 서울특별시 광진구</p>
-						<p style="color: black;">전화번호: 010-1234-5678</p>
-						<p style="color: black;">시간당 가격: 20,000원</p>
 					</div>
-				</section>
+				</div>
 
-				<!-- 강사 정보 -->
-				<section>
-					<div class="box" style="margin-bottom: 88px;">
-						<blockquote>
-							<h3>강사</h3>
-						</blockquote>
-						<p style="color: black;">강사: 이클립</p>
-						<p style="color: black;">전화번호: 010-1234-5678</p>
-						<p style="color: black;">강사 등급: 고수</p>
-						<div class="field">
-							<p style="color: black;">
-								<label for="name">강의비용</label>
-							</p>
-							<input type="text" name="name" id="name" value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
-						</div>
-						<br />
-						<div class="field">
-							<p style="color: black;">
-								<label for="message">강의 내용</label>
-								<textarea name="message" id="message" rows="6"></textarea>
-						</div>
+
+				<div class="col-lg-8" style="position: relative; float: right;"
+					id="reservation">
+
+					<div class="image fit">
+						<img src="/racket/images/reservationPark.jpg" alt="" />
 					</div>
-				</section>
-			</div>
+					<!-- 체육관 정보 -->
+					<section>
+						<div class="box">
+							<blockquote>
+								<h3>체육관 정보</h3>
+							</blockquote>
+							<p style="color: black;">이름: 한빛 체육관</p>
+							<p style="color: black;">주소: 서울특별시 광진구</p>
+							<p style="color: black;">전화번호: 010-1234-5678</p>
+							<p style="color: black;">시간당 가격: 20,000원</p>
+						</div>
+					</section>
 
+					<!-- 강사 정보 -->
+					<section>
+						<div class="box" style="margin-bottom: 88px;">
+							<blockquote>
+								<h3>강사</h3>
+							</blockquote>
+							<p style="color: black;">강사: </p>
+							<p style="color: black;">전화번호: </p>
+							<p style="color: black;">강사 등급: </p>
+							<div class="field">
+								<p style="color: black;">
+									<label for="name">강의비용</label>
+								</p>
+								<input type="text" name="trainingFee" id="trainingFee" value=""
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+							</div>
+							<br />
+							<div class="field">
+								<p style="color: black;">
+									<label for="message">강의 내용</label>
+									<textarea name="trainingContent" id="trainingContent" rows="6"></textarea>
+							</div>
+						</div>
+					</section>
+				</div>
+
+			</form>
 
 			<!-- Scripts -->
-			<script src="/racket/common/assets/js/jquery.min.js"></script>
+			<script src="/racket/common/assets/js/jquery.min.js"></script> 
 			<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
 			<script src="/racket/common/assets/js/jquery.scrolly.min.js"></script>
 			<script src="/racket/common/assets/js/browser.min.js"></script>

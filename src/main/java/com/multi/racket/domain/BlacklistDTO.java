@@ -14,16 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "reservation")
-public class reservationDTO {
+@Table(name = "blacklist")
+public class BlacklistDTO {
 	@Id
-	private int reservationNo;
+	private int blacklistNo;
 	private String memberId;
-	private int courtHourNo;
-	private String reservationContent;
-	private Timestamp reservationDate;
-	private String reservationStatus;
-	private int reservationMet;
-	private int gradeSetting;
-	private int peopleNum;
+	private String blacklistReason;
+	private Timestamp blackDate;
+	private Timestamp blackTime;
 }

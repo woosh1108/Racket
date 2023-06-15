@@ -76,12 +76,12 @@
 		
 		<!-- 달력 -->
 		<!-- 이메일 인증 -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>mail</artifactId>
 		    <version>1.4.7</version>
 		</dependency>
-		
+		 -->
 		<!-- 이메일 인증 -->
 		<dependency>
 		    <groupId>org.springframework</groupId>

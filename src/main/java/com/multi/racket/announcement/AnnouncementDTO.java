@@ -9,46 +9,58 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 
+
+
+@DynamicInsert
 @Entity
 @Table(name = "announcement")
+@Component
 public class AnnouncementDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int announcementNo;
 	private String memberId;
+	@NotNull
 	private String announcementTitle;
+	@NotNull
 	private String announcementContent;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-	@Column(nullable = false)
+	@Column(nullable = false, name = "announcement_date")
 	@NotNull
 	@CreationTimestamp
 	private Date announcementDate;
-//	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-//	@Column(nullable = false)
-//	@UpdateTimestamp
-//	private Date announcementModifyDate;
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private int announcementViews;
-
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@Column(name = "announcement_modify_date")
+	@UpdateTimestamp
+	private Date announcementModifyDate;
+	@ColumnDefault("0")
+//	@Builder.Default
+	private Integer announcementViews=0;
+	
+		
 	public AnnouncementDTO() {
 
 	}
 
 	public AnnouncementDTO(int announcementNo, String memberId, String announcementTitle, String announcementContent,
-			Date announcementDate, int announcementViews) {
+			Date announcementDate, Date announcementModifyDate, Integer announcementViews) {
 		super();
 		this.announcementNo = announcementNo;
 		this.memberId = memberId;
 		this.announcementTitle = announcementTitle;
 		this.announcementContent = announcementContent;
 		this.announcementDate = announcementDate;
+		this.announcementModifyDate = announcementModifyDate;
 		this.announcementViews = announcementViews;
 	}
 
@@ -56,7 +68,8 @@ public class AnnouncementDTO {
 	public String toString() {
 		return "AnnouncementDTO [announcementNo=" + announcementNo + ", memberId=" + memberId + ", announcementTitle="
 				+ announcementTitle + ", announcementContent=" + announcementContent + ", announcementDate="
-				+ announcementDate + ", announcementViews=" + announcementViews + "]";
+				+ announcementDate + ", announcementModifyDate=" + announcementModifyDate + ", announcementViews="
+				+ announcementViews + "]";
 	}
 
 	public int getAnnouncementNo() {
@@ -88,7 +101,11 @@ public class AnnouncementDTO {
 	}
 
 	public void setAnnouncementContent(String announcementContent) {
-		this.announcementContent = announcementContent;
+		if (announcementContent == null) {
+            this.announcementContent = ""; // 또는 다른 기본값을 설정
+        } else {
+            this.announcementContent = announcementContent;
+        }
 	}
 
 	public Date getAnnouncementDate() {
@@ -99,12 +116,19 @@ public class AnnouncementDTO {
 		this.announcementDate = announcementDate;
 	}
 
-	public int getAnnouncementViews() {
+	public Date getAnnouncementModifyDate() {
+		return announcementModifyDate;
+	}
+
+	public void setAnnouncementModifyDate(Date announcementModifyDate) {
+		this.announcementModifyDate = announcementModifyDate;
+	}
+
+	public Integer getAnnouncementViews() {
 		return announcementViews;
 	}
 
-	public void setAnnouncementViews(int announcementViews) {
+	public void setAnnouncementViews(Integer announcementViews) {
 		this.announcementViews = announcementViews;
 	}
-	
 }

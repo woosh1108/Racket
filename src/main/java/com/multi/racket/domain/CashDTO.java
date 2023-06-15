@@ -14,12 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "blacklist")
-public class blacklistDTO {
+@Table(name = "cash")
+public class CashDTO {
 	@Id
-	private int blacklistNo;
+	private int cashNo;
+	private int paymentInfoNo;
 	private String memberId;
-	private String blacklistReason;
-	private Timestamp blackDate;
-	private Timestamp blackTime;
+	private int totalAmount;
+	private int amountSpent;
+	private int field;
 }

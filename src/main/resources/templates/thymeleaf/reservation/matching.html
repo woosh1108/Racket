@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<title>예약 참여하기</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="stylesheet" href="/racket/common/assets/css/main.css" />
+<link rel="stylesheet" href="/racket/common/css/side.css" />
+<noscript>
+	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
+</noscript>
+
+<!-- 달력 -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+	rel="stylesheet">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap"
+	rel="stylesheet">
+
+
+<link rel="stylesheet"
+	href="/racket/common/assets/fonts/icomoon/style.css">
+
+<link rel="stylesheet" href="/racket/common/assets/css/rome.css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="/racket/common/assets/css/bootstrap.min.css">
+
+<!-- Style -->
+<link rel="stylesheet" href="/racket/common/assets/css/style.css">
+
+</head>
+<body class="is-preload">
+
+	<th:block layout:fragment="content">
+
+
+	<!-- Wrapper -->
+	<div id="wrapper" style="margin:50px; margin-top: 180px;">
+	<!-- Form -->
+	<div class="col-lg-4" style="position: relative; float: right;" id="scroll">
+		<div class="box" style="padding: 20px; margin: 0px;">
+			<form method="post" action="#">
+
+				<div class="field">
+					<div class="form-group">
+						<input type="text" class="priority-low" id="input" value="대여 날짜"
+							style="text-align: center;">
+					</div>
+				</div>
+
+
+				<div class="field">
+					<select name="courtHourNo" id="department"
+						style="text-align: center;">
+						<option value="" disabled selected>- 대여시간 -</option>
+						<option value="1">00:00 ~ 02:00</option>
+						<option value="2">02:00 ~ 04:00</option>
+						<option value="3">04:00 ~ 06:00</option>
+						<option value="4">06:00 ~ 08:00</option>
+						<option value="5">08:00 ~ 10:00</option>
+						<option value="6">10:00 ~ 12:00</option>
+						<option value="7">12:00 ~ 14:00</option>
+						<option value="8">14:00 ~ 16:00</option>
+						<option value="9">16:00 ~ 18:00</option>
+						<option value="10">18:00 ~ 20:00</option>
+						<option value="10">20:00 ~ 22:00</option>
+						<option value="11">22:00 ~ 24:00</option>
+					</select>
+				</div>
+
+				<br /><br />
+
+				<!-- 경기방식 -->
+				<div class="field" style="text-align: center;">
+					<input type="radio" id="priority-low" name="reservationMet" value="2" disabled selected checked /> <label
+						for="priority-low">단식</label> <input type="radio"
+						id="priority-normal" name="reservationMet" value="4"  disabled selected/> <label
+						for="priority-normal">복식</label>
+				</div>
+				<br />
+
+				<!-- 성별 -->
+				<div class="field" style="text-align: center;">
+<input type="radio" id="woman" name="reservationGender" value="여성" disabled selected checked /> <label for="woman">여성</label>
+<input type="radio" id="man" name="reservationGender" value="남성"  disabled selected/> <label for="man">남성</label>
+<input type="radio" id="mixing" name="reservationGender" value="혼합"  disabled selected/> <label for="mixing">혼합</label>
+				</div>
+				<br />
+
+				<div class="field">
+					<div class="box" style="padding: 15px;">
+						<p style="text-align: center; color: black;">
+							등급 제한
+							<code style="color: #134C43">초보</code>
+						</p>
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="box" style="padding: 15px;">
+						<p style="text-align: center; color: black;">
+							참여 인원
+							<code style="color: #134C43">1 / 4</code>
+							명
+						</p>
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="box" style="padding: 15px;">
+						<p style="text-align: center; color: black;">0원</p>
+					</div>
+				</div>
+
+
+				<div class="field" style="text-align: center;">
+					<input type="submit" name="submit" id="submit"
+						value="예약하기" />
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+
+
+	<div class="col-lg-8" style="position: relative; float: right; padding: 0px;"id="reservation">
+
+		<div class="image fit">
+			<img src="/racket/images/reservationPark.jpg" alt="" />
+		</div>
+
+		<section>
+			<div class="box" style="margin-bottom: 12px;">
+				<blockquote><h3>체육관 정보</h3></blockquote>
+				<p style="color: black;">이름: 한빛 체육관</p>
+				<p style="color: black;">주소: 서울특별시 광진구</p>
+				<p style="color: black;">운영시간: 10:00 ~ 22:00</p>
+				<p style="color: black;">전화번호: 010-1234-5678</p>
+				<p style="color: black;">시간당 가격: 20,000원</p>
+				<p style="color: black;">소개: Felis sagittis eget tempus primis
+					in faucibus vestibulum. Blandit adipiscing eu felis iaculis
+					volutpat ac adipiscing accumsan eu faucibus. Integer ac
+					pellentesque praesent tincidunt felis sagittis eget. tempus
+					euismod. Magna sed etiam ante ipsum primis in faucibus vestibulum.
+					Blandit adipiscing eu ipsum primis in faucibus vestibulum. Blandit
+					adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu
+					faucibus lorem ipsum dolor sit amet nullam.</p>
+			</div>
+
+		</section>
+	</div>
+
+	<!-- Scripts -->
+	<script src="/racket/common/assets/js/jquery.min.js"></script>
+	<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/racket/common/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/racket/common/assets/js/browser.min.js"></script>
+	<script src="/racket/common/assets/js/breakpoints.min.js"></script>
+	<script src="/racket/common/assets/js/util.js"></script>
+	<script src="/racket/common/assets/js/main.js"></script>
+	<script src="/racket/common/assets/js/scroll.js"></script>
+
+	<!-- Note: Only needed for demo purposes. Delete for production sites. -->
+	<script src="/racket/common/assets/js/demo.js"></script>
+
+
+	<!-- 달력 -->
+	<script src="/racket/common/assets/js/jquery-3.3.1.min.js"></script>
+	<script src="/racket/common/assets/js/popper.min.js"></script>
+	<script src="/racket/common/assets/js/bootstrap.min.js"></script>
+	<script src="/racket/common/assets/js/rome.js"></script>
+	<script src="/racket/common/assets/js/main.js"></script>
+</div>
+</th:block>
+</body>
+</html>

@@ -45,154 +45,172 @@
 <!-- 추가된 스타일 -->
 <style>
 #scroll {
-  overflow-y: auto;
-  max-height: calc(100vh - 180px); /* footer가 가리지 않도록 최대 높이 설정 */
+	overflow-y: auto;
+	max-height: calc(100vh - 180px); /* footer가 가리지 않도록 최대 높이 설정 */
 }
 </style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
+  radioButtons.forEach(function(radioButton) {
+    radioButton.addEventListener('change', peopleNumValue);
+  });
 
+  function peopleNumValue() {
+    var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
+    document.getElementById("peopleNumVal").textContent = selectedValue + "명";
+    document.getElementById("peopleNum").value = selectedValue;
+    
+  }
+});
+</script>
+
+</script>
 </head>
 <body class="is-preload">
 
 	<th:block layout:fragment="content">
-	<!-- Wrapper -->
-	<div id="wrapper" style="margin:50px; margin-top: 180px;">
-	
-	<!-- Form -->
-	<div class="col-lg-4" style="position: relative; float: right;" id="scroll">
-		<div class="box" style="padding: 20px; margin: 0px;">
-			<form method="post" action="#">
+		<!-- Wrapper -->
+		<div id="wrapper" style="margin: 50px; margin-top: 180px;">
 
-				<div class="field">
-					<div class="form-group">
-						<input type="text" class="priority-low" id="input" value="대여 날짜"
-							style="text-align: center;">
+			<!-- Form -->
+			<form method="post" action="/racket/reservation/insert">
+				<div class="col-lg-4" style="position: relative; float: right;"
+					id="scroll">
+					<div class="box" style="padding: 20px; margin: 0px;">
+
+						<div class="field">
+							<div class="form-group">
+								<input type="text" class="priority-low" id="input"
+									style="text-align: center;" name="reservationDate" value="대여 날짜">
+							</div>
+						</div>
+
+
+						<div class="field">
+							<select name="courtHourNo" id="department"
+								style="text-align: center;">
+								<option value="" disabled selected>- 대여시간 -</option>
+								<option value="1">00:00 ~ 02:00</option>
+								<option value="2">02:00 ~ 04:00</option>
+								<option value="3">04:00 ~ 06:00</option>
+								<option value="4">06:00 ~ 08:00</option>
+								<option value="5">08:00 ~ 10:00</option>
+								<option value="6">10:00 ~ 12:00</option>
+								<option value="7">12:00 ~ 14:00</option>
+								<option value="8">14:00 ~ 16:00</option>
+								<option value="9">16:00 ~ 18:00</option>
+								<option value="10">18:00 ~ 20:00</option>
+								<option value="10">20:00 ~ 22:00</option>
+								<option value="11">22:00 ~ 24:00</option>
+							</select>
+						</div>
+
+						<br /> <br />
+
+						<!-- 경기방식 -->
+						<div class="field" style="text-align: center;">
+							<input type="radio" id="priority-low" name="reservationMet"
+								value="2" checked /> <label for="priority-low">단식</label> <input
+								type="radio" id="priority-normal" name="reservationMet"
+								value="4" /> <label for="priority-normal">복식</label>
+						</div>
+						<br />
+
+						<!-- 성별 -->
+						<div class="field" style="text-align: center;">
+							<input type="radio" id="woman" name="reservationGender" value="여성" checked /> <label
+								for="woman">여성</label> <input type="radio" id="man"
+								name="reservationGender" value="남성" /> <label for="man">남성</label> <input
+								type="radio" id="mixing" name="reservationGender" value="혼합" /> <label
+								for="mixing">혼합</label>
+						</div>
+						<br />
+
+						<div class="field">
+							<select name="gradeSetting" id="department"
+								style="text-align: center;">
+								<option value="" disabled selected>- 등급 제한 -</option>
+								<option value="1">초보</option>
+								<option value="2">중수</option>
+								<option value="3">고수</option>
+							</select>
+						</div>
+						<br />
+						<div class="field">
+							<div class="box" style="padding: 15px;">
+								<p style="text-align: center; color: black;">
+									참여 인원
+									<code style="color: #134C43" id="peopleNumVal"
+										onchange="peopleNumValue()">2명</code><input type="hidden" name="peopleNum" id="peopleNum" value="2">
+								</p>
+							</div>
+						</div>
+						<input type="hidden" name="reservationStatus" value="매칭중">
+
+						<div class="field">
+							<div class="box" style="padding: 15px;">
+								<p style="text-align: center; color: black;">0원</p>
+							</div>
+						</div>
+
+
+						<div class="field" style="text-align: center;">
+							<input type="submit" name="submit" id="submit" value="예약하기" />
+						</div>
 					</div>
 				</div>
 
 
-				<div class="field">
-					<select name="department" id="department"
-						style="text-align: center;">
-						<option value="">- 대여시간 -</option>
-						<option value="1">00:00 ~ 02:00</option>
-						<option value="2">02:00 ~ 04:00</option>
-						<option value="3">04:00 ~ 06:00</option>
-						<option value="4">06:00 ~ 08:00</option>
-						<option value="5">08:00 ~ 10:00</option>
-						<option value="6">10:00 ~ 12:00</option>
-						<option value="7">12:00 ~ 14:00</option>
-						<option value="8">14:00 ~ 16:00</option>
-						<option value="9">16:00 ~ 18:00</option>
-						<option value="10">18:00 ~ 20:00</option>
-						<option value="10">20:00 ~ 22:00</option>
-						<option value="11">22:00 ~ 24:00</option>
-					</select>
-				</div>
-				
-				<br /> <br />
-
-				<!-- 경기방식 -->
-				<div class="field" style="text-align: center;">
-					<input type="radio" id="priority-low" name="priority" checked /> <label
-						for="priority-low">단식</label> <input type="radio"
-						id="priority-normal" name="priority" /> <label
-						for="priority-normal">복식</label>
-				</div>
-				<br />
-
-				<!-- 성별 -->
-				<div class="field" style="text-align: center;">
-					<input type="radio" id="woman" name="priority2" checked /> <label
-						for="woman">여성</label> <input type="radio" id="man"
-						name="priority2" /> <label for="man">남성</label> <input
-						type="radio" id="mixing" name="priority2" /> <label for="mixing">혼합</label>
-				</div>
-				<br />
-
-				<div class="field">
-					<select name="department" id="department"
-						style="text-align: center;">
-						<option value="">- 등급 제한 -</option>
-						<option value="1">초보</option>
-						<option value="1">중수</option>
-						<option value="1">고수</option>
-					</select>
-				</div>
-				<br/>
-				<div class="field">
-					<div class="box" style="padding: 15px;">
-						<p style="text-align: center; color: black;">
-							참여 인원
-							<code style="color: #134C43">4</code>
-							명
-						</p>
+				<div class="col-lg-8" style="position: relative; float: right;"
+					id="reservation">
+					<div class="image fit">
+						<img src="/racket/images/reservationPark.jpg" alt="" />
 					</div>
+					<section>
+						<div class="box" style="margin-bottom: 30px;">
+							<blockquote>
+								<h3>체육관 정보</h3>
+							</blockquote>
+							<p style="color: black;">이름: </p>
+							<p style="color: black;">주소: </p>
+							<p style="color: black;">운영시간: </p>
+							<p style="color: black;">전화번호: </p>
+							<p style="color: black;">시간당 가격: </p>
+							<div class="field">
+								<p style="color: black;">
+									<label for="message">모집 내용</label>
+									<textarea name="reservationContent" id="reservationContent"
+										rows="6"></textarea>
+							</div>
+						</div>
+
+					</section>
 				</div>
 
-				<div class="field">
-					<div class="box" style="padding: 15px;">
-						<p style="text-align: center; color: black;">40,000원</p>
-					</div>
-				</div>
-
-
-				<div class="field" style="text-align: center;">
-					<a href="#"> <input type="button" name="submit" id="submit"
-						value="예약하기" />
-					</a>
-				</div>
 			</form>
+			<!-- Scripts -->
+			<script src="/racket/common/assets/js/jquery.min.js"></script>
+			<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/racket/common/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/racket/common/assets/js/browser.min.js"></script>
+			<script src="/racket/common/assets/js/breakpoints.min.js"></script>
+			<script src="/racket/common/assets/js/util.js"></script>
+			<script src="/racket/common/assets/js/main.js"></script>
+			<script src="/racket/common/assets/js/scroll.js"></script>
+
+			<!-- Note: Only needed for demo purposes. Delete for production sites. -->
+			<script src="/racket/common/assets/js/demo.js"></script>
+
+
+			<!-- 달력 -->
+			<script src="/racket/common/assets/js/jquery-3.3.1.min.js"></script>
+			<script src="/racket/common/assets/js/popper.min.js"></script>
+			<script src="/racket/common/assets/js/bootstrap.min.js"></script>
+			<script src="/racket/common/assets/js/rome.js"></script>
+			<script src="/racket/common/assets/js/main.js"></script>
 		</div>
-	</div>
-
-
-	<div class="col-lg-8" style="position: relative; float: right;" id="reservation">
-		<div class="image fit">
-			<img src="/racket/images/reservationPark.jpg" alt="" />
-		</div>
-		<section>
-			<div class="box" style="margin-bottom: 30px;">
-				<blockquote><h3>체육관 정보</h3></blockquote>
-				<p style="color: black;">이름: 한빛 체육관</p>
-				<p style="color: black;">주소: 서울특별시 광진구</p>
-				<p style="color: black;">운영시간: 10:00 ~ 22:00</p>
-				<p style="color: black;">전화번호: 010-1234-5678</p>
-				<p style="color: black;">시간당 가격: 20,000원</p>
-				<p style="color: black;">소개: Felis sagittis eget tempus primis
-					in faucibus vestibulum. Blandit adipiscing eu felis iaculis
-					volutpat ac adipiscing accumsan eu faucibus. Integer ac
-					pellentesque praesent tincidunt felis sagittis eget. tempus
-					euismod. Magna sed etiam ante ipsum primis in faucibus vestibulum.
-					Blandit adipiscing eu ipsum primis in faucibus vestibulum. Blandit
-					adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu
-					faucibus lorem ipsum dolor sit amet nullam.</p>
-			</div>
-
-		</section>
-	</div>
-
-	<!-- Scripts -->
-	<script src="/racket/common/assets/js/jquery.min.js"></script>
-	<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/racket/common/assets/js/jquery.scrolly.min.js"></script>
-	<script src="/racket/common/assets/js/browser.min.js"></script>
-	<script src="/racket/common/assets/js/breakpoints.min.js"></script>
-	<script src="/racket/common/assets/js/util.js"></script>
-	<script src="/racket/common/assets/js/main.js"></script>
-	<script src="/racket/common/assets/js/scroll.js"></script>
-
-	<!-- Note: Only needed for demo purposes. Delete for production sites. -->
-	<script src="/racket/common/assets/js/demo.js"></script>
-
-
-	<!-- 달력 -->
-	<script src="/racket/common/assets/js/jquery-3.3.1.min.js"></script>
-	<script src="/racket/common/assets/js/popper.min.js"></script>
-	<script src="/racket/common/assets/js/bootstrap.min.js"></script>
-	<script src="/racket/common/assets/js/rome.js"></script>
-	<script src="/racket/common/assets/js/main.js"></script>
-</div>
-</th:block>
+	</th:block>
 </body>
 </html>

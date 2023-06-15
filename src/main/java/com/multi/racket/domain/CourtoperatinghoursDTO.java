@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "courtoperatinghours")
-public class courtoperatinghoursDTO {
+public class CourtoperatinghoursDTO {
 	@Id
 	private int courtHourNo;
 	private int courtNo;

@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/* 바디테그 전체에 박스를 입힘 */
+.bulletin_read_body_container {
+	width: 83%; /* 컨테이너의 너비 */
+	height: auto;
+	/* margin: 0 auto; 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
+	border: 1px solid #ccc; /* 컨테이너에 테두리 설정 */
+	padding: 20px; /* 컨테이너의 내부 여백 설정 */
+	border-radius: 10px; /* 모서리 둥글기를 10px로 설정 */
+	float: right;
+	margin-left: 10rem;
+	margin-top: 10rem;
+	
+	/* 모든글씨가 갑자기 허연색으로떠서.... */
+	color: black;
+	
+	/* 폰트 */
+	font-family: 'Kanit', sans-serif;
+}
+
+/* 등록취소버튼 가운데정렬 */
+.bulletin_btn_wrap {
+	justify-content: center;
+  	align-items: center;
+  	text-align: center;
+  	margin-left: auto;
+  	margin-right: auto;
+  	margin-top: 20px;
+}
+
+.bulletin_board_title {
+	font-size: 2rem;
+}
+
+.bulletin_board_view {
+	width: 100%;
+	border-top: 2px solid black;
+	margin-top: 10px;
+}
+
+.bulletin_board_view .bulletin_title {
+	padding: 20px 15px;
+	border-bottom: 1px dashed #ddd;
+	font-size: 1.5rem;
+}
+
+.bulletin_board_view .bulletin_info {
+	padding: 15px;
+	border-bottom: 1px solid #999;
+	margin-top: 20px;
+	/* font-size: 0; */
+}
+
+.bulletin_board_view .bulletin_info dl {
+	position: relative;
+	display: inline-block;
+	padding: 0 20px;
+}
+
+.bulletin_board_view .bulletin_info dl:first-child {
+	padding-left: 0;
+}
+
+
+.bulletin_board_view .bulletin_info dl::before {
+	content: "";
+	position: absolute;
+	top: 1px;
+	left: 0;
+	display: block;
+	width: 1px;
+	height: 22px;
+	background: #ddd;
+}
+
+.bulletin_board_view .bulletin_info dl:first-child::before {
+	display: none;
+}
+
+
+.bulletin_board_view .bulletin_info dl dt, .bulletin_board_view .bulletin_info dl dd {
+	display: inline-block;
+	font-size: 1.1rem;
+}
+
+.bulletin_board_view .bulletin_info dl dt {
+	
+}
+
+.bulletin_board_view .bulletin_info dl dd {
+	margin-left: 10px;
+	color: #777;
+}
+
+.bulletin_board_view .bulletin_cont {
+	padding: 15px;
+	border-bottom: 1px solid black;
+	line-height: 160%;
+	font-size: 1.1rem;
+}

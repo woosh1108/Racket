@@ -1,5 +1,4 @@
 package com.multi.racket.inquiry;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +17,6 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public InquiryDTO insert(InquiryDTO inquiry) {
 		return dao.insert(inquiry);
-	}
-
-	@Override
-	public List<InquiryDTO> findAll() {
-		return dao.findAll();
 	}
 
 	@Override
