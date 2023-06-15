@@ -15,7 +15,7 @@ import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.login.MemberService;
 
 @Controller
-public class loginController {
+public class LoginController {
 	@Autowired
 	MemberService service;
 
@@ -30,7 +30,9 @@ public class loginController {
 		MemberDTO user = service.login(memberId, memberPass);
 		if (user != null) {
 			// 로그인 성공
-			model.addAttribute("user", user);
+			HttpSession session = request.getSession();//세션만들기
+			//세션에 데이터 공유하기
+			session.setAttribute("user",user);
 			return "thymeleaf/main/mainpage"; // 로그인 후 이동할 페이지 URL
 		} else {
 			// 로그인 실패
@@ -39,7 +41,18 @@ public class loginController {
 			return "thymeleaf/login/login"; // 로그인 페이지
 		}
 	}
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpServletRequest request) {
 
+	    HttpSession session = request.getSession();
+	    if (session != null) {
+	        session.invalidate();   // 세션 날림
+	    }
+
+	    return "redirect:/main";
+	}
+	
 	// 이메일 인증 -> 찾은 아이디 보여주기
 	@RequestMapping("/login/findId2")
 	public String findId2() {
