@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,6 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 
 
 
@@ -42,7 +42,7 @@ public class AnnouncementDTO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "announcement_modify_date")
 	@UpdateTimestamp
-	private Date announcementModifyDate=null;
+	private Date announcementModifyDate;
 	@ColumnDefault("0")
 //	@Builder.Default
 	private Integer announcementViews=0;
