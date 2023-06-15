@@ -14,14 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "training")
-public class trainingDTO {
+@Table(name = "courtoperatinghours")
+public class CourtoperatinghoursDTO {
 	@Id
-	private int trainingNo;
-	private String memberId;
 	private int courtHourNo;
-	private String trainingContent;
-	private Timestamp trainingDate;
-	private int trainingMax;
-	private int trainingFee;
+	private int courtNo;
+	private String courtStart;
+	private String courtEnd;
 }

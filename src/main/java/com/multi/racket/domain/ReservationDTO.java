@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "reservation")
-public class reservationDTO {
+public class ReservationDTO {
 	@Id
 	private int reservationNo;
 	private String memberId;

@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "blacklist")
-public class blacklistDTO {
+@Table(name = "trainingmemberlist")
+public class TrainingMemberlistDTO {
 	@Id
-	private int blacklistNo;
+	private int trainingApplyNo;
+	private int trainingNo;
 	private String memberId;
-	private String blacklistReason;
-	private Timestamp blackDate;
-	private Timestamp blackTime;
+	private Timestamp trainingDate;
 }
