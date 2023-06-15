@@ -31,7 +31,7 @@ public class InquiryController {
 	@PostMapping("/inquiry_write")
 	public String write(InquiryDTO inquiry) {
 		service.insert(inquiry);
-		return "redirect:/inquiryboard";
+		return "redirect:/inquiryboard?pageNo=0";
 	}
 	
 	@RequestMapping("/report")
