@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 //@Data
@@ -115,6 +114,5 @@ public class CashDTO {
 	public void setCashDate(Date cashDate) {
 		this.cashDate = cashDate;
 	}
-	
 	
 }

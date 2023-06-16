@@ -18,10 +18,12 @@ import lombok.NoArgsConstructor;
 public class StadiumDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String stadiumNo;
+	private int stadiumNo;
+	private String memberId;
 	private String stadiumName;
 	private String stadiumAddr;
 	private String stadiumTime;
 	private String stadiumFee;
-
+	private int stadiumStatus;
+	private String stadiumContent;
 }

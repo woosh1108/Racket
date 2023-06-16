@@ -19,16 +19,16 @@
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
-						<img src="/racket/images/stadiumexam.jpg">
+						<img src="https://picsum.photos/1321/500">
 					</div>
 					<div class="swiper-slide">
-						<img src="/racket/images/stadiumexam.jpg">
+						<img src="https://picsum.photos/1322/500">
 					</div>
 					<div class="swiper-slide">
-						<img src="/racket/images/stadiumexam.jpg">
+						<img src="https://picsum.photos/1323/500">
 					</div>
 					<div class="swiper-slide">
-						<img src="/racket/images/stadiumexam.jpg">
+						<img src="https://picsum.photos/1324/500">
 					</div>
 				</div>
 				<div class="swiper-button-next"></div>
@@ -62,28 +62,29 @@
 					<div class="stadium_infos_wrapper">
 							<div class="stadium_info">
 								<div class="stadium_info_header">
-									<div class="name"><h2>독산 배드민턴 체육관</h2></div>
+									<div class="name"><h2 th:text="${ stadium.get().stadiumName }">일반 체육관</h2></div>
 								</div>
-								<div class="stadium_addr">경기 고양시 덕양구 화전동 162-4</div>
-								<div class="stadium_addr">독산 배드민턴 체육관</div>
-								<br />
-
-								<div class="stadium_open">운영시간 : 6:00~9:30 24:00~02:00</div>
-
 								<div class="stadium_rate">
 									평점 <span class="star">&#9733;</span> <span class="rate_text">5.0</span>
 								</div>
+								<div class="stadium_addr" th:text="${ stadium.get().stadiumAddr }">경기 고양시 덕양구 화전동 162-4</div>
+								<div class="stadium_addr" th:text="${ stadium.get().stadiumName }">독산 배드민턴 체육관</div>
+								<br />
+								<div class="stadium_open">운영시간 : <span th:text="${ stadium.get().stadiumTime }">6:00~9:30</span></div>
+
+								
 								<hr />
 								
 								
 							</div>
 							<div class="stadium_info" id="stadium_info_price">
 								<h2>대관료</h2>
-								<div class="stadium_info_contents">토요일 9시 ~ 11시 예약은 9시 15분 부터
+								<div class="stadium_info_contents">
+									토요일 9시 ~ 11시 예약은 9시 15분 부터
 									사용가능하세요! 이점 양해 부탁드려요!</div>
 
 								<h2>코트수</h2>
-								<div class="stadium_info_contents">3코트</div>
+								<div class="stadium_info_contents">1코트</div>
 
 								<div class="stadium_info_contents bg_memo">저희 상암 체육관 복식 3코트 단식
 									1코트로 이루어져 있습니다!종합체육관 특성 상 건물 통대관을 저렴하게 제공하고 있어요! 많은 예약 및 관심
@@ -125,22 +126,6 @@
 							<div class="row">
 								<div class="col-md-10 align-self-center">										
 									<p>코트1</p>
-								</div>
-								<div class="col-md-2">
-									<button class="button" type="button">예약</button>
-								</div>
-							</div>
-								<div class="row">
-								<div class="col-md-10 align-self-center">										
-									<p>코트2</p>
-								</div>
-								<div class="col-md-2">
-									<button class="button" type="button">예약</button>
-								</div>
-							</div>
-								<div class="row">
-								<div class="col-md-10 align-self-center">										
-									<p>코트3</p>
 								</div>
 								<div class="col-md-2">
 									<button class="button" type="button">예약</button>

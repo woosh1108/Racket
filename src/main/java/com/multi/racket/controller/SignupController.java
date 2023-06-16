@@ -60,30 +60,7 @@ public class SignupController {
 		return "thymeleaf/main/mainpage";
 	}
 
-	@GetMapping("/associate")
-	public String associate() {
-		return "thymeleaf/signup/associate";
-	}
-//	@GetMapping("login/mailConfirm")
-//	public String mailform() {
-//		return "thymeleaf/signup/mail";
-//	}
-	// 나중에 삭제할예정
-
-//	//이메일 인증
-//		@GetMapping("/mailCheck")
-//		@ResponseBody
-//		public void mailCheck(String email) {
-//			System.out.println("이메일 인증 요청이 들어옴!");
-//			System.out.println("이메일 인증 이메일 : " + email);
-//		}
-//	@PostMapping("login/mailConfirm")
-//	@ResponseBody
-//    public String mailConfirm(@RequestBody EmailAuthRequestDto emailDto) throws MessagingException, UnsupportedEncodingException {
-//
-//        String authCode = emailservice.sendEmail(emailDto.getEmail());
-//        return authCode;
-//    }
+	
 	// 회원가입 페이지 이동
 	@GetMapping("/userJoin")
 	public String userJoin() {

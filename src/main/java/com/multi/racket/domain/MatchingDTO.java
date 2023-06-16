@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +30,6 @@ public class MatchingDTO {
 	@Column(name = "member_id")
 	private String memberId;
 	@Column(name = "match_date")
+	@CreatedDate
 	private Timestamp matchDate;
 }

@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +31,7 @@ public class BlacklistDTO {
 	@Column(name = "blacklist_reason")
 	private String blacklistReason;
 	@Column(name = "black_date")
+	@CreatedDate
 	private Timestamp blackDate;
 	@Column(name = "black_time")
 	private Timestamp blackTime;
