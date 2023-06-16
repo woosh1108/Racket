@@ -47,13 +47,15 @@
 					<div style="margin-left: 10px; margin-bottom: 40px"><span th:text="${inquiry.inqContent }"></span></div>
 					<div align="right">
 						<span>
-							<button type="submit" style="border-radius: 6px"
-								onclick="window.location.href='/racket/inquiryboard'">목록</button>
-						</span> <span>
+							<button type="submit" style="border-radius: 6px" onclick="window.location.href='/racket/inquiryboard?pageNo=0'">목록</button>
+						</span> 
+						<span>
 							<button type="submit" style="border-radius: 6px">수정</button>
-						</span> <span>
+						</span> 
+						<span>
 							<button type="submit" style="border-radius: 6px">삭제</button>
-						</span> <span>
+						</span> 
+						<span>
 							<button type="submit" style="border-radius: 6px"
 								class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#exampleModal">답변</button>

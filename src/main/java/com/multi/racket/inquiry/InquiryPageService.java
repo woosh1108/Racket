@@ -1,8 +1,7 @@
 package com.multi.racket.inquiry;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.multi.racket.domain.InquiryDTO;
+
 @Service
 public class InquiryPageService {
 	InquiryPageDAO dao;
@@ -12,8 +11,9 @@ public class InquiryPageService {
 		this.dao = dao;
 	}
 
-	public List<InquiryDTO> findAll(int pageNo) { 
+	public PageDTO findAll(int pageNo) { 
 		 return dao.findAll(pageNo); 
 	}
+
 	
 }

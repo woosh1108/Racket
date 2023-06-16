@@ -15,11 +15,12 @@ public class InquiryPageDAO {
 		this.repository = repository;
 	}
 	
-	public List<InquiryDTO> findAll(int pageNo) {
+	public PageDTO findAll(int pageNo) {		
 		PageRequest inqPage = PageRequest.of(pageNo, 10, Sort.by(Sort.Direction.DESC,"inquiryNo"));
 		Page<InquiryDTO> page = repository.findAll(inqPage);
 		List<InquiryDTO> list = page.getContent();
-		return list;
+		int totalPageNumber = page.getTotalPages(); 	
+		return new PageDTO(list,totalPageNumber);
 	}
-	
+		
 }
