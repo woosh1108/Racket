@@ -1,34 +1,50 @@
 package com.multi.racket.reservation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
+import com.multi.racket.repository.CashRepository;
+import com.multi.racket.repository.ReservationCashRepository;
+import com.multi.racket.repository.ReservationRepository;
 
 @Service
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
-	ReservationDAO dao;
+	ReservationRepository rRepository;
+	CashRepository cashRepository;
+	ReservationCashRepository rcashRepository;
+	
 
-	@Autowired
-	public ReservationServiceImpl(ReservationDAO dao) {
+	public ReservationServiceImpl(ReservationRepository rRepository,
+			CashRepository cashRepository, ReservationCashRepository rcashRepository) {
 		super();
-		this.dao = dao;
+		
+		this.rRepository = rRepository;
+		this.cashRepository = cashRepository;
+		this.rcashRepository = rcashRepository;
 	}
 
 	@Override
 	public ReservationDTO reservation(int reservationNo) {
-		return null;
+		return rRepository.findById(reservationNo).orElseGet(ReservationDTO::new);
 	}
-
+	
 	@Override
-	public ReservationDTO reservation_insert(ReservationDTO reservation) {
-		System.out.println("service : " + reservation);
-		return dao.reservation_insert(reservation);
+	public void reservation_insert(ReservationDTO reservation, CashDTO cash) throws Exception {
+	    try {
+	        System.out.println("Service 성공: " + reservation + ", " + cash);
+	        rRepository.save(reservation);
+	        cashRepository.save(cash);
+	    } catch (Exception e) {
+	        System.out.println("Service 실패");
+	        e.printStackTrace();
+	        throw new Exception("Failed to create Reservation with Cash", e);
+	    }
 	}
 
 	@Override
@@ -38,27 +54,28 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public MatchingDTO matching_insert(MatchingDTO matching) {
-		return dao.matching_insert(matching);
+		return null;
 	}
 
 	@Override
 	public TrainingDTO training(int trainingNo) {
-		return dao.training(trainingNo);
+		return null;
 	}
 
 	@Override
 	public TrainingDTO training_insert(TrainingDTO training) {
-		return dao.training_insert(training);
+		return null;
+
 	}
 
 	@Override
 	public TrainingMemberlistDTO trainingMemberlist(int trainingApplyNo) {
-		return dao.trainingMemberlist(trainingApplyNo);
+		return null;
 	}
 
 	@Override
 	public TrainingMemberlistDTO trainingMemberlist_insert(TrainingMemberlistDTO trainingMemberlist) {
-		return dao.trainingMemberlist_insert(trainingMemberlist);
+		return null;
 	}
 
 }
