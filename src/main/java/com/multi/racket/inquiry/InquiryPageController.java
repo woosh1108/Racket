@@ -15,12 +15,13 @@ public class InquiryPageController {
 		this.service = service;
 	}
 
-
 	@GetMapping("/inquiryboard")
 	public String inqboard(Model model, String pageNo) {
-		List<InquiryDTO> list = service.findAll(Integer.parseInt(pageNo));
+		PageDTO page = service.findAll(Integer.parseInt(pageNo));
+		List<InquiryDTO> list = page.getList();
+		int totalPageNumber = page.getTotalPageNumber();
 		model.addAttribute("inquirylist",list);
-		System.out.println(list);
+		model.addAttribute("totalPageNumber", totalPageNumber);
 		return "thymeleaf/inq/inquiryboard";
 	}
 	
