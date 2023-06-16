@@ -1,7 +1,5 @@
 package com.multi.racket.domain;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,16 +16,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cash")
-public class CashDTO {
+@Table(name = "paymentinfo")
+public class PaymentInfoDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int cashNo;
 	private int paymentInfoNo;
 	private String memberId;
-	private int totalAmount;
-	private int amountSpent;
-	private int charging;
 	@CreatedDate
-	private String cashDate;
+	private String paymentInfoRegdate;
+	private int paymentInfoAmount;
+	private String paymentInfoMethod;
 }

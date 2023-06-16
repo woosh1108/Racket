@@ -1,8 +1,8 @@
 package com.multi.racket.domain;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "absent")
 public class AbsentDTO {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int absentNo;
 	private int matchNo;
 	private String memberId;
