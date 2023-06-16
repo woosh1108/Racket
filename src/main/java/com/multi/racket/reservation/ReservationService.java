@@ -1,5 +1,6 @@
 package com.multi.racket.reservation;
 
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
@@ -8,9 +9,9 @@ import com.multi.racket.domain.TrainingMemberlistDTO;
 public interface ReservationService {
 	// 구장번호로 예약하기 상세조회
 	public ReservationDTO reservation(int reservationNo);
-
+	
 	// 예약하기 등록
-	public ReservationDTO reservation_insert(ReservationDTO reservation);
+	public void reservation_insert(ReservationDTO reservation, CashDTO cash) throws Exception;
 
 	// 예약 참가하기 상세조회
 	public MatchingDTO matching(int matchingNo);
