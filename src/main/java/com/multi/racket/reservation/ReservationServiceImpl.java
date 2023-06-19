@@ -34,8 +34,16 @@ public class ReservationServiceImpl implements ReservationService {
 		return rRepository.findById(reservationNo).orElseGet(ReservationDTO::new);
 	}
 	
+	// 현재 캐시 잔액 조회
 	@Override
-	public void reservation_insert(ReservationDTO reservation, CashDTO cash) throws Exception {
+    public boolean checkSufficientBalance(String memberId, int reservationFee) {
+        // 최신 total_amount 조회
+        int latestTotalAmount = cashRepository.findLatestTotalAmountByMemberId(memberId);
+        return latestTotalAmount >= reservationFee;
+    }
+	
+	@Override
+	public void reservation_insert(String memberId, ReservationDTO reservation, CashDTO cash) throws Exception {
 	    try {
 	        System.out.println("Service 성공: " + reservation + ", " + cash);
 	        rRepository.save(reservation);
