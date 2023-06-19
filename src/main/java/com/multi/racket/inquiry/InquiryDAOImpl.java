@@ -25,4 +25,19 @@ public class InquiryDAOImpl implements InquiryDAO {
 		return inquiry;
 	}
 
+	@Override
+	public InquiryDTO reply(InquiryDTO reply) {
+		InquiryDTO inquiry = entityManager.find(InquiryDTO.class, reply.getInquiryNo());
+		System.out.println(inquiry.getInquiryNo());
+		inquiry.setReplyContent(reply.getReplyContent());
+		return inquiry;
+	}
+
+	@Override
+	public void delete(int inquiryNo) {
+		InquiryDTO inquiry = entityManager.find(InquiryDTO.class, inquiryNo);
+		entityManager.remove(inquiry);
+	}
+
+
 }

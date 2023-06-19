@@ -24,4 +24,14 @@ public class InquiryServiceImpl implements InquiryService {
 		return dao.read(inquiryNo);
 	}
 
+	@Override
+	public InquiryDTO reply(InquiryDTO reply) {
+		return dao.reply(reply);
+	}
+
+	@Override
+	public void delete(int inquiryNo) {
+		dao.delete(inquiryNo);
+	}
+
 }
