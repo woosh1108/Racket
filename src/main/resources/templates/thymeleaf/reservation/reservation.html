@@ -48,23 +48,122 @@
 	overflow-y: auto;
 	max-height: calc(100vh - 180px); /* footer가 가리지 않도록 최대 높이 설정 */
 }
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
-  radioButtons.forEach(function(radioButton) {
-    radioButton.addEventListener('change', peopleNumValue);
-  });
 
-  function peopleNumValue() {
-    var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
-    document.getElementById("peopleNumVal").textContent = selectedValue + "명";
-    document.getElementById("peopleNum").value = selectedValue;
+<script type="text/javascript">
+function handleRadioChange() {
+	  var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
+	  var price = 20000/selectedValue;
+	  document.getElementById("totalAmount").value = 30000-price;
+	  document.getElementById("reservationFee").value = price;
+	  document.getElementById("reservationFeeVal").textContent = 20000/selectedValue+"원";
+	  document.getElementById("peopleNumVal").textContent = selectedValue + "명";
+	  document.getElementById("peopleNum").value = selectedValue;
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+	  var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
+	  radioButtons.forEach(function(radioButton) {
+	    radioButton.addEventListener('change', handleRadioChange);
+	  });
+	  
+	  // 초기 값 설정을 위해 이벤트 핸들러 호출
+	  handleRadioChange();
+	});
+  
+</script>
+
+<script th:inline="javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    var memberGender = /*[[${#session.getAttribute('user').memberGender}]]*/ null; // 세션에서 가져온 회원 성별 값
+    var radioButtons = document.querySelectorAll('input[type="radio"]'); // 라디오 버튼 요소
     
-  }
-});
+    radioButtons.forEach(function(radioButton) {
+      // 회원 성별 값이 남성인 경우
+      if (memberGender === '남성') {
+        if (radioButton.value === '여성') {
+          radioButton.disabled = true; // 여성 선택 비활성화
+          document.querySelector('label[for="woman"]').style.color = '#bfbfbf';
+        } else if (radioButton.value === memberGender) {
+          radioButton.checked = true; // 남성 선택
+        }
+      }
+      // 회원 성별 값이 여성인 경우
+      else if (memberGender === '여성') {
+        if (radioButton.value === '남성') {
+          radioButton.disabled = true; // 남성 선택 비활성화
+          document.querySelector('label[for="man"]').style.color = '#bfbfbf';
+        } else if (radioButton.value === memberGender) {
+          radioButton.checked = true; // 여성 선택
+        }
+      }
+      // 세션 값이 없는 경우
+      else {
+        radioButton.disabled = true; // 모든 선택 비활성화
+      }
+    })
+  })
+</script>
 
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form'); // 폼 요소 선택
+
+    // 폼 제출 시 이벤트 핸들러
+    form.addEventListener('submit', function(event) {
+      const reservationDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
+      const reservationHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
+      const recruitmentDateInput = document.getElementById('reservationContent'); // 모집날짜 입력 필드 선택
+      const gradeSettingInput = document.querySelector('select[name="gradeSetting"]'); // 등급 선택 필드 선택
+
+      const errorMessageReservationDate = reservationDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
+      const errorMessageReservationHour = reservationHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
+      const errorMessageRecruitmentDate = recruitmentDateInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
+      const errorMessageGradeSetting = gradeSettingInput.nextElementSibling; // 등급 에러 메시지 요소 선택
+
+      // 기존 에러 메시지 초기화
+      errorMessageReservationDate.textContent = '';
+      errorMessageReservationHour.textContent = '';
+      errorMessageRecruitmentDate.textContent = '';
+      errorMessageGradeSetting.textContent = '';
+
+      let hasError = false; // 에러 여부를 저장하는 변수
+
+      // 대여 날짜 필드 확인
+      if (reservationDateInput.value === '') {
+        hasError = true;
+        errorMessageReservationDate.textContent = '* 날짜를 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 대여시간 필드 확인
+      if (reservationHourInput.value === '') {
+        hasError = true;
+        errorMessageReservationHour.textContent = '* 시간을 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 모집날짜 필드 확인
+      if (recruitmentDateInput.value === '') {
+        hasError = true;
+        errorMessageRecruitmentDate.textContent = '* 모집 내용을 작성해주세요.'; // 에러 메시지 표시
+      }
+
+      // 등급 필드 확인
+      if (gradeSettingInput.value === '') {
+        hasError = true;
+        errorMessageGradeSetting.textContent = '* 등급을 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      if (hasError) {
+        event.preventDefault(); // 폼 제출 방지
+      }
+    });
+  });
 </script>
 </head>
 <body class="is-preload">
@@ -77,10 +176,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			<form method="post" action="/racket/reservation/insert">
 			
 			<!-- 임시 id값 -->
-			<input type="hidden" name="memberId" value="dd">
-			<input type="hidden" name="payment_info_no" value="1">
-			<input type="hidden" name="total_amount" value="1000">
-			
+			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
+			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
+			<input type="text" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
+			<input type="text" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+							
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
@@ -88,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						<div class="field">
 							<div class="form-group">
-								<input type="text" class="priority-low" id="input"
-									style="text-align: center;" name="reservationDate" value="대여 날짜">
+							<input type="text" class="priority-low" id="input" style="text-align: center;" name="reservationDate" placeholder="대여 날짜">
+							<span class="error-message" id="errorMessageReservationDate"></span>
 							</div>
 						</div>
 
@@ -111,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								<option value="10">20:00 ~ 22:00</option>
 								<option value="11">22:00 ~ 24:00</option>
 							</select>
+							<span class="error-message" id="errorMessageReservationHour"></span>
 						</div>
 
 						<br /> <br />
@@ -127,10 +228,10 @@ document.addEventListener('DOMContentLoaded', function() {
 						<!-- 성별 -->
 						<div class="field" style="text-align: center;">
 							<input type="radio" id="woman" name="reservationGender" value="여성" checked /> <label
-								for="woman">여성</label> <input type="radio" id="man"
-								name="reservationGender" value="남성" /> <label for="man">남성</label> <input
+								for="woman" id ="woman">여성</label> <input type="radio" id="man"
+								name="reservationGender" value="남성" /> <label for="man" id="man">남성</label> <input
 								type="radio" id="mixing" name="reservationGender" value="혼합" /> <label
-								for="mixing">혼합</label>
+								for="mixing" id="mixing">혼합</label>
 						</div>
 						<br />
 
@@ -142,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								<option value="2">중수</option>
 								<option value="3">고수</option>
 							</select>
+							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
 						<br />
 						<div class="field">
@@ -149,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								<p style="text-align: center; color: black;">
 									참여 인원
 									<code style="color: #134C43" id="peopleNumVal"
-										onchange="peopleNumValue()">2명</code>
+										onchange="handleRadioChange()">2명</code>
 								</p>
 							</div>
 						</div>
@@ -157,10 +259,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						<div class="field">
 							<div class="box" style="padding: 15px;">
-								<p style="text-align: center; color: black;">0원</p>
+								<p style="text-align: center; color: black;" id="reservationFeeVal" onchange="handleRadioChange()">0원</p>
 							</div>
 						</div>
-
 
 						<div class="field" style="text-align: center;">
 							<input type="submit" name="submit" id="submit" value="예약하기" />
@@ -188,7 +289,8 @@ document.addEventListener('DOMContentLoaded', function() {
 								<p style="color: black;">
 									<label for="message">모집 내용</label>
 									<textarea name="reservationContent" id="reservationContent"
-										rows="6"></textarea>
+										rows="6" placeholder="모집에 대한 내용을 입력해주세요."></textarea>
+										<span class="error-message" id="errorMessageRecruitmentDate"></span>
 							</div>
 						</div>
 
