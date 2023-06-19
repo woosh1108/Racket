@@ -9,6 +9,6 @@ import com.multi.racket.domain.StadiumDTO;
 //구현하는 클래스를 만들어서 매핑한다.
 //따라서 이 repository가 어떤 엔티티를 관리할 것인지 기본키의 타입이 무엇인지는 지정해야 한다.
 @Repository
-public interface StadiumPartnerShipRepository extends JpaRepository<AssociateDTO, String>{
+public interface StadiumPartnerShipRepository extends JpaRepository<StadiumDTO, String>{
 
 }

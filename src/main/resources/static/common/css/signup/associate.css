@@ -38,6 +38,10 @@
 .grade{
 	width:110px;
 }
+#stadiumContent{
+	height:200px;
+	overflow: scroll;
+}
 input[type=password]{
         font-family:"굴림";
     }

@@ -1,7 +1,7 @@
 package com.multi.racket.stadiumpartnership;
 
-import com.multi.racket.domain.AssociateDTO;
+import com.multi.racket.domain.StadiumDTO;
 
 public interface StadiumPartnerShipService {
-	public AssociateDTO partnership_insert(AssociateDTO associate);
+	public StadiumDTO partnership_insert(StadiumDTO associate);
 }
