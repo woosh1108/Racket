@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 //@Data
@@ -29,6 +31,7 @@ public class ReservationDTO {
 	private String reservationContent;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "reservation_date")
+	@CreatedDate
 	private Date reservationDate;
 	@Column(name = "reservation_status")
 	private String reservationStatus;
@@ -36,15 +39,18 @@ public class ReservationDTO {
 	private int reservationMet;
 	@Column(name = "grade_setting")
 	private int gradeSetting;
-	@Column(name = "people_num")
-	private int peopleNum;
+	@Column(name = "reservation_gender")
+	private String reservationGender;
+	@Column(name = "reservation_fee")
+	private int reservationFee;
 
 	public ReservationDTO() {
 
 	}
 
 	public ReservationDTO(int reservationNo, String memberId, int courtHourNo, String reservationContent,
-			Date reservationDate, String reservationStatus, int reservationMet, int gradeSetting, int peopleNum) {
+			Date reservationDate, String reservationStatus, int reservationMet, int gradeSetting, String reservationGender,
+			int reservationFee) {
 		super();
 		this.reservationNo = reservationNo;
 		this.memberId = memberId;
@@ -54,7 +60,8 @@ public class ReservationDTO {
 		this.reservationStatus = reservationStatus;
 		this.reservationMet = reservationMet;
 		this.gradeSetting = gradeSetting;
-		this.peopleNum = peopleNum;
+		this.reservationGender = reservationGender;
+		this.reservationFee = reservationFee;
 	}
 
 	@Override
@@ -62,7 +69,7 @@ public class ReservationDTO {
 		return "ReservationDTO [reservationNo=" + reservationNo + ", memberId=" + memberId + ", courtHourNo="
 				+ courtHourNo + ", reservationContent=" + reservationContent + ", reservationDate=" + reservationDate
 				+ ", reservationStatus=" + reservationStatus + ", reservationMet=" + reservationMet + ", gradeSetting="
-				+ gradeSetting + ", peopleNum=" + peopleNum + "]";
+				+ gradeSetting + ", reservationGender=" + reservationGender + ", reservationFee=" + reservationFee + "]";
 	}
 
 	public int getReservationNo() {
@@ -129,12 +136,19 @@ public class ReservationDTO {
 		this.gradeSetting = gradeSetting;
 	}
 
-	public int getPeopleNum() {
-		return peopleNum;
+	public String getReservationGender() {
+		return reservationGender;
 	}
 
-	public void setPeopleNum(int peopleNum) {
-		this.peopleNum = peopleNum;
+	public void setReservationGender(String reservationGender) {
+		this.reservationGender = reservationGender;
 	}
 
+	public int getReservationFee() {
+		return reservationFee;
+	}
+
+	public void setReservationFee(int reservationFee) {
+		this.reservationFee = reservationFee;
+	}
 }

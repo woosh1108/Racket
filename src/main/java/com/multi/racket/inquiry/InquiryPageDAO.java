@@ -16,7 +16,7 @@ public class InquiryPageDAO {
 	}
 	
 	public PageDTO findAll(int pageNo) {		
-		PageRequest inqPage = PageRequest.of(pageNo, 10, Sort.by(Sort.Direction.DESC,"inquiryNo"));
+		PageRequest inqPage = PageRequest.of(pageNo, 5, Sort.by(Sort.Direction.DESC,"inquiryNo"));
 		Page<InquiryDTO> page = repository.findAll(inqPage);
 		List<InquiryDTO> list = page.getContent();
 		int totalPageNumber = page.getTotalPages(); 	

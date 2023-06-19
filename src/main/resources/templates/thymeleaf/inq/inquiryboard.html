@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
-<body>
+<body>	
 	<th:block layout:fragment="css">
 		<link rel="stylesheet" type="text/css" href="common/css/inquirywrite.css"> 
 		<link rel="stylesheet" href="common/css/styles.css"/>
@@ -16,7 +17,9 @@
  				border-spacing: 50px;
 			}
 		</style>
+		
 	</th:block>
+	
 	<th:block layout:fragment="content">
 		<div class="container-fluid" style="margin-top: 120px; margin-left: 50px">
         <div class="card">
@@ -34,16 +37,28 @@
             		<tr th:each="inquiry:${inquirylist}">
             			<td><span th:text="${inquiry.inquiryNo }"></span></td>
             			<td><a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}"><span th:text="${inquiry.inqTitle }"></span></a></td>
-            			<td><span th:text="id123"></span></td>
+            			<td><span th:text="${id123}"></span></td>
             			<td><span th:text="${inquiry.inqDate }"></span></td>
             		</tr>
             	</tbody>	
             </table>
             </div>
-            <div align="center" style="font-size: 20px; margin-bottom: 30px;">
-				<a th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}" th:href="@{/inquiryboard(pageNo=${i})}" style="color: navy">
-				<span th:text="${i+1}" style="padding-right: 30px"></span>
-				</a>
+            <div style="margin-top:10px; margin-bottom: 35px">
+            	<nav aria-label="Page navigation example">
+			  	<ul class="pagination pagination-md justify-content-center">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/inquiryboard(pageNo=${i})}"><span th:text="${i+1}" style="color: navy"></span></a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  	</ul>
+				</nav>
             </div>
             <div align="center" style="margin-bottom: 40px">
             	<input style="height: 40px; width: 250px; font-size: 17px"><span style="margin-left: 15px"><button type="submit" style="border-radius: 6px">검색</button></span>
