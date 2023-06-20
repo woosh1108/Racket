@@ -7,4 +7,5 @@ import com.multi.racket.domain.StadiumDTO;
 public interface ManageService {
 	public List<StadiumDTO> findAll() ;
 	public List<StadiumDTO> find_grant() ;
+	public void update(StadiumDTO stadium);
 }

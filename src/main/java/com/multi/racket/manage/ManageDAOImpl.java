@@ -8,13 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.multi.racket.domain.StadiumDTO;
 @Repository
 public class ManageDAOImpl implements ManageDAO {
-//	private EntityManager entityManager;
-//	@Autowired
-//	public ManageDAOImpl(EntityManager entityManager) {
-//		super();
-//		this.entityManager = entityManager;
-//	}
-	
 	private ManageRepository repository;
 	@Autowired
 	public ManageDAOImpl(ManageRepository repository) {
@@ -24,29 +17,18 @@ public class ManageDAOImpl implements ManageDAO {
 
 	@Override
 	public List<StadiumDTO> findAll() {
-		return repository.findByStadiumStatus("1");
+		return repository.findAll();
 	}
 	
 	@Override
 	public List<StadiumDTO> find_grant() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByStadiumStatus(1);
 	}
-	
-//	@Override
-//	public List<StadiumDTO> find_grant() {
-//		String jpql = "select stadium from StadiumDTO as stadium where stadiumStatus='1'";
-//		List<StadiumDTO> list = entityManager.createQuery(jpql,StadiumDTO.class)
-//			         					   .getResultList();
-//		return list;
-//	}
-//
-//	@Override
-//	public List<StadiumDTO> findAll() {
-//		String jpql = "select stadium from StadiumDTO as stadium";
-//		List<StadiumDTO> list = entityManager.createQuery(jpql,StadiumDTO.class)
-//			         					   .getResultList();
-//		return list;
-//	}
+	@Override
+	public void update(StadiumDTO stadium) {
+		StadiumDTO stadiumlist = repository.findById(stadium.getStadiumNo()).orElseThrow(() -> new RuntimeException());
+		stadiumlist.setStadiumStatus(1);
+		repository.save(stadiumlist);
+	}
 	
 }

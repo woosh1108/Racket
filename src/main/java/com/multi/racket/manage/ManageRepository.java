@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.multi.racket.domain.StadiumDTO;
 
-public interface ManageRepository extends JpaRepository<StadiumDTO, String>{
-	 List<StadiumDTO> findByStadiumStatus(String stadiumStatus);
+public interface ManageRepository extends JpaRepository<StadiumDTO, Integer>{
+	 List<StadiumDTO> findByStadiumStatus(int stadiumStatus);
 }

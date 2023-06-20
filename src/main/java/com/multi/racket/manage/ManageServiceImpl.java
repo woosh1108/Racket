@@ -26,5 +26,8 @@ public class ManageServiceImpl implements ManageService {
 	public List<StadiumDTO> find_grant() {
 		return dao.find_grant();
 	}
-
+	@Override
+	public void update(StadiumDTO stadium) {
+		dao.update(stadium);
+	}
 }

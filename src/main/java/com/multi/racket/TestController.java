@@ -23,6 +23,7 @@ public class TestController {
 	@GetMapping("/main")
 	public String index_test(Model model) {
 		List<StadiumDTO> list = service.find_grant();
+//		List<StadiumDTO> list = service.findAll();
 		model.addAttribute("stadiumlist",list);
 		return "thymeleaf/main/mainpage";
 	}
