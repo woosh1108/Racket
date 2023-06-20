@@ -46,17 +46,17 @@ public class InquiryController {
 		return "redirect:/inquiryboard?pageNo=0";
 	}
 	
-	@GetMapping("/replypage")
-	public String replypage(HttpSession session, Model model, InquiryDTO inquiry) {
-		if (session.getAttribute("user") == null) {
-            return "redirect:/login";
-        } else {
-        	MemberDTO member = (MemberDTO) session.getAttribute("user");
-        	if (member.getMemberId()!="admin") {
-        		model.addAttribute("replyalert", true);
-        	}
-        }
-		return "redirect:/inquiryread?inquiryNo="+inquiry.getInquiryNo()+"&state=READ";
+	@GetMapping("/inquiry/updatepage")
+	public String inqupdatepage(int inquiryNo,Model model) {
+		InquiryDTO inquiry = service.read(inquiryNo);
+		model.addAttribute("inquiry", inquiry);
+		return "thymeleaf/inq/inquiryupdate";
+	}
+	
+	@PostMapping("/inquiry/update")
+	public String inqupdate(InquiryDTO updatedata) {
+		service.update(updatedata);
+		return "redirect:/inquiryread?inquiryNo="+updatedata.getInquiryNo()+"&state=READ";
 	}
 	
 	@PostMapping("/inquiry/reply")
