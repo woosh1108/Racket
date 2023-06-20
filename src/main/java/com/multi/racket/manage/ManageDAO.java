@@ -8,5 +8,5 @@ public interface ManageDAO {
 	public List<StadiumDTO> findAll() ;
 	public List<StadiumDTO> find_grant() ;
 //	public StadiumDTO update(StadiumDTO stadium);
-	public void update(StadiumDTO stadium);
+	public void update(List<StadiumDTO> stadiums);
 }

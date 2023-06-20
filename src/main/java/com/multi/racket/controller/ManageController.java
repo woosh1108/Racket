@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.manage.ManageService;
 
 @Controller
-public class AdminController {
+public class ManageController {
 	ManageService service;
 	@Autowired
-	public AdminController(ManageService service) {
+	public ManageController(ManageService service) {
 		super();
 		this.service = service;
 	}
@@ -32,9 +32,10 @@ public class AdminController {
 		model.addAttribute("stadiumlist",list);
 		return "thymeleaf/inq/admin_register";
 	}	
+	
 	@PostMapping("/admin/update")
-    public String updateStadiumStatus(@RequestParam("stadiumStatus") StadiumDTO stadium) {
-        service.update(stadium);
-        return "redirect:/main";  // 등록 후 페이지 리디렉션 설정
-    }
+	public String updateStadiumStatus(@RequestBody List<StadiumDTO> stadiums) {
+	    service.update(stadiums);
+	    return "redirect:/main";
+	}
 }

@@ -25,10 +25,12 @@ public class ManageDAOImpl implements ManageDAO {
 		return repository.findByStadiumStatus(1);
 	}
 	@Override
-	public void update(StadiumDTO stadium) {
-		StadiumDTO stadiumlist = repository.findById(stadium.getStadiumNo()).orElseThrow(() -> new RuntimeException());
-		stadiumlist.setStadiumStatus(1);
-		repository.save(stadiumlist);
+	public void update(List<StadiumDTO> stadiums) {
+		 for (StadiumDTO stadium : stadiums) {
+		        StadiumDTO stadiumlist = repository.findById(stadium.getStadiumNo()).orElseThrow(() -> new RuntimeException());
+		        stadiumlist.setStadiumStatus(stadium.getStadiumStatus());
+		        repository.save(stadiumlist);
+		    }
 	}
 	
 }
