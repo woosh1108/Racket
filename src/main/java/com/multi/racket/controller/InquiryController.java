@@ -25,7 +25,6 @@ public class InquiryController {
 		InquiryDTO inquiry = service.read(inquiryNo);
 		model.addAttribute("inquiry", inquiry);	
 		MemberDTO member = (MemberDTO) session.getAttribute("user");
-		System.out.println(inquiry.getMemberId());
 		model.addAttribute("member", member);	
 		return "thymeleaf/inq/inquiryread";
 	}
