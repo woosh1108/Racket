@@ -6,10 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.ReservationDTO;
-import com.multi.racket.domain.TrainingDTO;
-import com.multi.racket.domain.TrainingMemberlistDTO;
 import com.multi.racket.repository.CashRepository;
-import com.multi.racket.repository.ReservationCashRepository;
+import com.multi.racket.repository.MatchingRepository;
 import com.multi.racket.repository.ReservationRepository;
 
 @Service
@@ -17,23 +15,16 @@ import com.multi.racket.repository.ReservationRepository;
 public class ReservationServiceImpl implements ReservationService {
 	ReservationRepository rRepository;
 	CashRepository cashRepository;
-	ReservationCashRepository rcashRepository;
-	
+	MatchingRepository mRepository;
 
-	public ReservationServiceImpl(ReservationRepository rRepository,
-			CashRepository cashRepository, ReservationCashRepository rcashRepository) {
+	public ReservationServiceImpl(ReservationRepository rRepository, CashRepository cashRepository,
+			MatchingRepository mRepository) {
 		super();
-		
 		this.rRepository = rRepository;
 		this.cashRepository = cashRepository;
-		this.rcashRepository = rcashRepository;
+		this.mRepository = mRepository;
 	}
 
-	@Override
-	public ReservationDTO reservation(int reservationNo) {
-		return rRepository.findById(reservationNo).orElseGet(ReservationDTO::new);
-	}
-	
 	// 현재 캐시 잔액 조회
 	@Override
     public boolean checkSufficientBalance(String memberId, int reservationFee) {
@@ -41,6 +32,11 @@ public class ReservationServiceImpl implements ReservationService {
         int latestTotalAmount = cashRepository.findLatestTotalAmountByMemberId(memberId);
         return latestTotalAmount >= reservationFee;
     }
+	
+	@Override
+	public ReservationDTO reservation(int reservationNo) {
+		return rRepository.findById(reservationNo).orElseGet(ReservationDTO::new);
+	}
 	
 	@Override
 	public void reservation_insert(String memberId, ReservationDTO reservation, CashDTO cash) throws Exception {
@@ -57,33 +53,21 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public MatchingDTO matching(int matchingNo) {
-		return null;
+		return mRepository.findById(matchingNo).orElseGet(MatchingDTO::new);
 	}
 
 	@Override
-	public MatchingDTO matching_insert(MatchingDTO matching) {
-		return null;
+	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash) throws Exception {
+		 try {
+		        System.out.println("Service 성공: " + matching + ", " + cash);
+		        mRepository.save(matching);
+		        cashRepository.save(cash);
+		    } catch (Exception e) {
+		        System.out.println("Service 실패");
+		        e.printStackTrace();
+		        throw new Exception("Failed to create Reservation with Cash", e);
+		    }
 	}
 
-	@Override
-	public TrainingDTO training(int trainingNo) {
-		return null;
-	}
-
-	@Override
-	public TrainingDTO training_insert(TrainingDTO training) {
-		return null;
-
-	}
-
-	@Override
-	public TrainingMemberlistDTO trainingMemberlist(int trainingApplyNo) {
-		return null;
-	}
-
-	@Override
-	public TrainingMemberlistDTO trainingMemberlist_insert(TrainingMemberlistDTO trainingMemberlist) {
-		return null;
-	}
 
 }

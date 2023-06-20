@@ -42,6 +42,51 @@
 <!-- Style -->
 <link rel="stylesheet" href="/racket/common/assets/css/style.css">
 
+<style type="text/css">
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+</style>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form'); // 폼 요소 선택
+
+    // 폼 제출 시 이벤트 핸들러
+    form.addEventListener('submit', function(event) {
+      const matchingDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
+      const matchingHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
+
+      const errorMessageMatchingDate = matchingDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
+      const errorMessageMatchingHour = matchingHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
+
+      // 기존 에러 메시지 초기화
+      errorMessageMatchingDate.textContent = '';
+      errorMessageMatchingHour.textContent = '';
+
+      let hasError = false; // 에러 여부를 저장하는 변수
+
+      // 대여 날짜 필드 확인
+      if (matchingDateInput.value === '') {
+        hasError = true;
+        errorMessageMatchingDate.textContent = '* 참여할 날짜를 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 대여시간 필드 확인
+      if (matchingHourInput.value === '') {
+        hasError = true;
+        errorMessageMatchingHour.textContent = '* 참여할 시간을 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      if (hasError) {
+        event.preventDefault(); // 폼 제출 방지
+      }
+    });
+  });
+</script>
+
 </head>
 <body class="is-preload">
 
@@ -53,12 +98,19 @@
 	<!-- Form -->
 	<div class="col-lg-4" style="position: relative; float: right;" id="scroll">
 		<div class="box" style="padding: 20px; margin: 0px;">
-			<form method="post" action="#">
+			<form method="post" action="/racket/matching/insert">
+			
+			<!-- 임시 id값 -->
+			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
+			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
+			<input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
+			<input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+			
 
 				<div class="field">
 					<div class="form-group">
-						<input type="text" class="priority-low" id="input" value="대여 날짜"
-							style="text-align: center;">
+						<input type="text" class="priority-low" id="input" style="text-align: center;" placeholder="대여 날짜"  name="matchDate" >
+							<span class="error-message" id="errorMessageMatchingDate"></span>
 					</div>
 				</div>
 
@@ -80,6 +132,7 @@
 						<option value="10">20:00 ~ 22:00</option>
 						<option value="11">22:00 ~ 24:00</option>
 					</select>
+					<span class="error-message" id="errorMessageMatchingHour"></span>
 				</div>
 
 				<br /><br />
