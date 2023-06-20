@@ -5,14 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
+import com.multi.racket.member.MemberRepository;
 @Repository
 public class ManageDAOImpl implements ManageDAO {
 	private ManageRepository repository;
+	private MemberRepository memberrepository;
 	@Autowired
-	public ManageDAOImpl(ManageRepository repository) {
+	public ManageDAOImpl(ManageRepository repository, MemberRepository memberrepository) {
 		super();
 		this.repository = repository;
+		this.memberrepository = memberrepository;
 	}
 
 	@Override
@@ -31,6 +35,11 @@ public class ManageDAOImpl implements ManageDAO {
 		        stadiumlist.setStadiumStatus(stadium.getStadiumStatus());
 		        repository.save(stadiumlist);
 		    }
+	}
+
+	@Override
+	public List<MemberDTO> findUser() {
+		return memberrepository.findAll();
 	}
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
 @Service
 @Transactional
@@ -29,5 +30,10 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public void update(List<StadiumDTO> stadiums) {
 		dao.update(stadiums);
+	}
+
+	@Override
+	public List<MemberDTO> findUser() {
+		return dao.findUser();
 	}
 }

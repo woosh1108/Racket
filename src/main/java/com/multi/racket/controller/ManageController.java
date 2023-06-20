@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.manage.ManageService;
 
@@ -22,7 +23,9 @@ public class ManageController {
 	}
 
 	@RequestMapping("/admin_user")
-	public String user() {
+	public String user(Model model) {
+		List<MemberDTO> list = service.findUser();
+		model.addAttribute("memberlist",list);
 		return "thymeleaf/inq/admin_user";
 	}
 	
