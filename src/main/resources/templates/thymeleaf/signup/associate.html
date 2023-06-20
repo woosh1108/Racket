@@ -47,28 +47,30 @@
 				</div>
 				<div class="mb-3">
 					<label for="stadiumTime" class="form-label" style="width:100px;">구장 운영 시간:</label>
-					<select id="stadiumTimeStart" name="stadiumTimeStart" class="form-select" onchange="updateEndTime()">
-						<option value="06:00">06:00</option>
-						<option value="08:00">08:00</option>
-						<option value="10:00">10:00</option>
-						<option value="12:00">12:00</option>
-						<option value="14:00">14:00</option>
-						<option value="16:00">16:00</option>
-						<option value="18:00">18:00</option>
-						<option value="20:00">20:00</option>
-					</select>
-					<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
-					<select id="stadiumTimeEnd" name="stadiumTimeEnd" class="form-select">
-						<option value="08:00">08:00</option>
-						<option value="10:00">10:00</option>
-						<option value="12:00">12:00</option>
-						<option value="14:00">14:00</option>
-						<option value="16:00">16:00</option>
-						<option value="18:00">18:00</option>
-						<option value="20:00">20:00</option>
-						<option value="22:00">22:00</option>
-					</select>
+					<div class="TimeContainer">
+						<select id="stadiumTimeStart" name="stadiumTimeStart" class="form-select" onchange="updateEndTime()">
+							<option value="06:00">06:00</option>
+							<option value="08:00">08:00</option>
+							<option value="10:00">10:00</option>
+							<option value="12:00">12:00</option>
+							<option value="14:00">14:00</option>
+							<option value="16:00">16:00</option>
+							<option value="18:00">18:00</option>
+							<option value="20:00">20:00</option>
+						</select>
+						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
+						<select id="stadiumTimeEnd" name="stadiumTimeEnd" class="form-select">
+							<option value="08:00">08:00</option>
+							<option value="10:00">10:00</option>
+							<option value="12:00">12:00</option>
+							<option value="14:00">14:00</option>
+							<option value="16:00">16:00</option>
+							<option value="18:00">18:00</option>
+							<option value="20:00">20:00</option>
+							<option value="22:00">22:00</option>
+						</select>
 					<input type="hidden" id="stadiumTime" name="stadiumTime">
+					</div>
 				</div>
 				<div class="mb-3">
 					<label for="stadiumFee" class="form-label" style="width:100px;">구장 대여 비용:</label> <input

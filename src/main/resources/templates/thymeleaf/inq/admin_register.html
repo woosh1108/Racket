@@ -8,13 +8,17 @@
 </head>
 <body>
 	<th:block layout:fragment="css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
-		<link rel="stylesheet" href="/racket/common/assets/css/main.css"/>   
+		<link rel="stylesheet" href="/racket/common/assets/css/main.css"/>
 		<link rel="stylesheet" href="/racket/common/assets/css/blacklist.css" />
 		<link rel="stylesheet" href="common/css/styles.css"/>
 		<noscript>
 			<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 		</noscript>
+		<style type="text/css">
+			body{
+				font-family:'ONE-Mobile-POP';
+			}
+		</style>
 	</th:block>
 	<th:block layout:fragment="content" >
 		<div class="container-fluid" style="margin-top: 120px; margin-left: 50px">
@@ -34,11 +38,11 @@
 										<th>등록여부</th>
 										<th>구장</th>
 										<th>닉네임</th>
-										<th>날짜</th>
+										<th>구장운영시간</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<!-- <tr>
 										<td><input type="checkbox" id="1" name="1" /><label
 											for="1"></label></td>
 										<td>한빛구장</td>
@@ -79,6 +83,15 @@
 										<td>멀캠체육관</td>
 										<td>아이디6</td>
 										<td>2022년 5월 25일 18:00</td>
+									</tr> -->
+									<tr th:each="stadium:${stadiumlist}">
+										<td><input type="checkbox" id="6" name="6" /><label
+											for="6"></label></td>
+										<td><span th:text="${stadium.stadiumName}"></span><br></td>
+										<td><span th:text="${stadium.memberId}"></span><br></td>
+										<td><span th:text="${stadium.stadiumTime}"></span><br></td>
+										<!-- <td><span th:text="${stadium.stadiumFee}"></span><br></td> -->
+										<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
 									</tr>
 								</tbody>
 							</table>

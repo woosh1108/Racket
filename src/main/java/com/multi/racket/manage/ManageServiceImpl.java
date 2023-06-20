@@ -1,4 +1,4 @@
-package com.multi.racket.associate;
+package com.multi.racket.manage;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.multi.racket.domain.StadiumDTO;
 @Service
 @Transactional
-public class AssociateServiceImpl implements AssociateService {
-	AssociateDAO dao;
+public class ManageServiceImpl implements ManageService {
+	ManageDAO dao;
 	@Autowired
-	public AssociateServiceImpl(AssociateDAO dao) {
+	public ManageServiceImpl(ManageDAO dao) {
 		super();
 		this.dao = dao;
 	}
@@ -20,6 +20,11 @@ public class AssociateServiceImpl implements AssociateService {
 	@Override
 	public List<StadiumDTO> findAll() {
 		return dao.findAll();
+	}
+
+	@Override
+	public List<StadiumDTO> find_grant() {
+		return dao.find_grant();
 	}
 
 }

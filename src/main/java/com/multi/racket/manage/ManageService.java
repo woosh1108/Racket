@@ -1,9 +1,10 @@
-package com.multi.racket.associate;
+package com.multi.racket.manage;
 
 import java.util.List;
 
 import com.multi.racket.domain.StadiumDTO;
 
-public interface AssociateDAO {
+public interface ManageService {
 	public List<StadiumDTO> findAll() ;
+	public List<StadiumDTO> find_grant() ;
 }

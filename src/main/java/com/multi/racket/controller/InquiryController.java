@@ -58,14 +58,6 @@ public class InquiryController {
 		return "thymeleaf/inq/report";
 	}
 	
-	@RequestMapping("/admin_user")
-	public String user() {
-		return "thymeleaf/inq/admin_user";
-	}
 	
-	@RequestMapping("/admin_register")
-	public String register() {
-		return "thymeleaf/inq/admin_register";
-	}	
 		
 }

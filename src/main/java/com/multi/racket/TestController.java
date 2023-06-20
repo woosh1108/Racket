@@ -7,22 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.multi.racket.associate.AssociateService;
 import com.multi.racket.domain.StadiumDTO;
+import com.multi.racket.manage.ManageService;
 
 @Controller
 public class TestController {
-	AssociateService assoservice;
+	ManageService service;
 	@Autowired
-	public TestController(AssociateService assoservice) {
+	public TestController(ManageService assoservice) {
 		super();
-		this.assoservice = assoservice;
+		this.service = assoservice;
 	}
 
 
 	@GetMapping("/main")
 	public String index_test(Model model) {
-		List<StadiumDTO> list = assoservice.findAll();
+		List<StadiumDTO> list = service.find_grant();
 		model.addAttribute("stadiumlist",list);
 		return "thymeleaf/main/mainpage";
 	}

@@ -1,4 +1,4 @@
-package com.multi.racket.login;
+package com.multi.racket.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.multi.racket.domain.MemberDTO;
-import com.multi.racket.login.MemberService;
+import com.multi.racket.member.MemberService;
 
 @Controller
 @RequestMapping("/mypage") // 공유메핑명
