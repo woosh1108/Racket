@@ -1,74 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/"
+<html xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{thymeleaf/layout/mainLayout}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="/racket/common/assets/css/main.css" />
-<noscript>
-	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
-</noscript>
-<style type="text/css">
-.field{
-	margin-top: 20px;
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/racket/common/css/signup/sign-auth.css">
+</th:block>
+<script th:inline="javascript">
+let msg = [[${msg}]];
+if(msg == null){
+}else{
+	alert(msg);
 }
-</style>
+</script>
 </head>
 <body>
 	<th:block layout:fragment="content">
-		<section style="margin-top: 130px; margin-left: 150px;">
-			<header>
-				<h3>비밀번호 찾기</h3>
-			</header>
-			<div class="content">
-				<div class="box">
-
-					<div class="field">
-						<label for="name">아이디</label> <input type="text" name="name"
-							id="name" value="" />
-					</div>
-
-					<div class="field third">
-						<label for="name">이메일</label> <input type="text" name="name"
-							id="name" value="" />
-					</div>
-					<div class="field third">
-						<input type="button" name="submit" id="submit" value="인증번호발송" />
-					</div>
-
-					<div class="field third">
-						<label for="name">인증번호</label> <input type="text" name="name"
-							id="name" value="" />
-					</div>
-					<div class="field third">
-						<input type="button" name="submit" id="submit" value="인증번호 확인" />
-					</div>
-
-					<br /> <br />
-					<div class="field" style="text-align: center;">
-						<a href="/racket/login/findPass2"> <input type="button" name="submit" id="submit"
-							value="비밀번호찾기" />
-						</a>
+		<div class="container">
+			<div class="logo">
+				<img src="/racket/images/racket.png">
+			</div>
+			<div class="form-group email-form">
+				<h2>비밀번호 찾기</h2>
+				<div class="email-validation">
+					<div class="input-group">
+						<input type="text" class="form-control" name="userEmail1"
+							id="userEmail1" placeholder="이메일"> <select
+							class="form-control" name="userEmail2" id="userEmail2">
+							<option>@naver.com</option>
+							<option>@daum.net</option>
+							<option>@gmail.com</option>
+							<option>@hanmail.com</option>
+							<option>@yahoo.co.kr</option>
+						</select>
+						<button type="button" class="btn btn-primary" id="mail-send-btn">인증번호발송</button>
 					</div>
 				</div>
-
-
+				<div class="email-validation">
+					<div class="input-group">
+						<input class="form-control mail-check-input"
+							placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+						<button type="button" class="btn btn-secondary"
+							id="mail-check-btn">확인</button>
+					</div>
+				</div>
+				<form action="/racket/login/findPass_idCheck" method="post">
+					<div class="email-validation">
+						<div class="input-group">
+							<input type="text" class="form-control" name="memberId"
+								 id="memberId"  placeholder="아이디를 입력해주세요.">
+							<button type="submit" class="btn btn-primary" id="mail-send-btn">아이디
+								확인하기</button>
+						</div>
+					</div>
+				</form>
+				<div class="email-validation">
+					<!-- <button type="button" class="btn btn-success" id="next-btn" disabled>다음</button> -->
+					<button class="btn btn-success" id="next-btn"
+						href="/racket/login/findPass2">다음</button>
+					<button type="button" class="btn btn-danger" id="cancel-btn"
+						onclick="location.href='/racket/login'">취소</button>
+				</div>
+				<span id="mail-check-warn"></span>
 			</div>
-		</section>
-		<!-- Scripts -->
-		<script src="/racket/common/assets/js/jquery.min.js"></script>
-		<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
-		<script src="/racket/common/assets/js/jquery.scrolly.min.js"></script>
-		<script src="/racket/common/assets/js/browser.min.js"></script>
-		<script src="/racket/common/assets/js/breakpoints.min.js"></script>
-		<script src="/racket/common/assets/js/util.js"></script>
-		<script src="/racket/common/assets/js/main.js"></script>
-
-		<!-- Note: Only needed for demo purposes. Delete for production sites. -->
-		<script src="/racket/common/assets/js/demo.js"></script>
+		</div>
+		<th:block layout:fragment="script">
+			<script type="text/javascript"
+				src="/racket/common/js/signup/sign-auth.js"></script>
+		</th:block>
 	</th:block>
 </body>
 </html>
