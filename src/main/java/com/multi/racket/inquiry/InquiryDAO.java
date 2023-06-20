@@ -5,4 +5,5 @@ public interface InquiryDAO {
 	public InquiryDTO read(int inquiryNo);
 	public InquiryDTO reply(InquiryDTO reply);
 	public void delete(int inquiryNo);
+	public void update(InquiryDTO dto);
 }

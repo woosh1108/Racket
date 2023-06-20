@@ -39,5 +39,13 @@ public class InquiryDAOImpl implements InquiryDAO {
 		entityManager.remove(inquiry);
 	}
 
+	@Override
+	public void update(InquiryDTO updatedata) {
+		InquiryDTO inquiry = entityManager.find(InquiryDTO.class, updatedata.getInquiryNo());
+		System.out.println(updatedata.getInqContent());
+		inquiry.setInqCategory(updatedata.getInqCategory());
+		inquiry.setInqTitle(updatedata.getInqTitle());
+		inquiry.setInqContent(updatedata.getInqContent());
+	}
 
 }

@@ -5,4 +5,5 @@ public interface InquiryService {
 	public InquiryDTO read(int inquiryNo);
 	public InquiryDTO reply(InquiryDTO dto);
 	public void delete(int inquiryNo);
+	public void update(InquiryDTO dto);
 }
