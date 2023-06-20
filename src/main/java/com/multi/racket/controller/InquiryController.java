@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.multi.racket.domain.InquiryDTO;
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.inquiry.InquiryService;
 @Controller
 public class InquiryController {
@@ -20,18 +21,23 @@ public class InquiryController {
 	}
 	
 	@RequestMapping("/inquiryread")
-	public String inqread(int inquiryNo, Model model) {
+	public String inqread(int inquiryNo, Model model, HttpSession session) {
 		InquiryDTO inquiry = service.read(inquiryNo);
-		model.addAttribute("inquiry", inquiry);
+		model.addAttribute("inquiry", inquiry);	
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		System.out.println(inquiry.getMemberId());
+		model.addAttribute("member", member);	
 		return "thymeleaf/inq/inquiryread";
 	}
 	
 	@GetMapping("/inquirywrite")
-	public String inqwrite(HttpServletRequest request) {
+	public String inqwrite(Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loggedInUser") == null) {
+		if (session.getAttribute("user") == null) {
             return "redirect:/login";
         }
+		MemberDTO member = (MemberDTO)session.getAttribute("user");
+		model.addAttribute("member",member);
 		return "thymeleaf/inq/inquirywrite";
 	}
 	
@@ -41,8 +47,21 @@ public class InquiryController {
 		return "redirect:/inquiryboard?pageNo=0";
 	}
 	
+	@GetMapping("/replypage")
+	public String replypage(HttpSession session, Model model, InquiryDTO inquiry) {
+		if (session.getAttribute("user") == null) {
+            return "redirect:/login";
+        } else {
+        	MemberDTO member = (MemberDTO) session.getAttribute("user");
+        	if (member.getMemberId()!="admin") {
+        		model.addAttribute("replyalert", true);
+        	}
+        }
+		return "redirect:/inquiryread?inquiryNo="+inquiry.getInquiryNo()+"&state=READ";
+	}
+	
 	@PostMapping("/inquiry/reply")
-	public String inqreply(InquiryDTO reply) {
+	public String inqreply(InquiryDTO reply, HttpSession session) {
 		service.reply(reply);
 		return "redirect:/inquiryread?inquiryNo="+reply.getInquiryNo()+"&state=READ";
 	}

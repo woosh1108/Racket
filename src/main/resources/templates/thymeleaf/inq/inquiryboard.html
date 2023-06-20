@@ -29,15 +29,15 @@
             <table>
             	<thead>
 	            	<th width="100">No</th>
-	            	<th width="600">제목</th>
+	            	<th width="500">제목</th>
 	            	<th width="150">아이디</th>
-	            	<th width="100">작성 시간</th>
+	            	<th width="150">작성 시간</th>
             	</thead>
             	<tbody>
             		<tr th:each="inquiry:${inquirylist}">
             			<td><span th:text="${inquiry.inquiryNo }"></span></td>
             			<td><a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}"><span th:text="${inquiry.inqTitle }"></span></a></td>
-            			<td><span th:text="${id123}"></span></td>
+            			<td><span th:text="${inquiry.memberId}"></span></td>
             			<td><span th:text="${inquiry.inqDate }"></span></td>
             		</tr>
             	</tbody>	

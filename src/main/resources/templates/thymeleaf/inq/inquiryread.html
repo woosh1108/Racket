@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script th:if="${replyalert}">
+    alert('관리자만 쓸 수 있습니다'); 
+</script>
 </head>
 <body>
 	<th:block layout:fragment="css">
@@ -35,7 +38,7 @@
 							</tr>
 							<tr>
 								<th width="100px">작성자</th>
-								<td><span th:text="id123"></span></td>
+								<td><span th:text="${inquiry.memberId}"></span></td>
 							</tr>
 							<tr>
 								<th width="100px">분류</th>
@@ -47,19 +50,20 @@
 					<div style="margin-left: 10px; margin-bottom: 40px"><span th:text="${inquiry.inqContent }"></span></div>
 					<div align="right">
 						<span>
-							<button type="submit" style="border-radius: 6px" onclick="window.location.href='/racket/inquiryboard?pageNo=0'">목록</button>
+							<button type="submit" style="border-radius: 6px;" onclick="window.location.href='/racket/inquiryboard?pageNo=0'">목록</button>
 						</span> 
-						<span>
-							<button type="submit" style="border-radius: 6px">수정</button>
-						</span> 
-						<span>
-							<button type="button" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/delete(inquiryNo=${inquiry.inquiryNo})} + '\''">삭제</button>
-						</span> 
-						<span>
-							<button type="submit" style="border-radius: 6px"
-								class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#exampleModal">답변</button>
-						</span>
+						<th:block th:if="${session.user}!=null">
+							<span>
+								<button type="submit" style="border-radius: 6px" th:if="${member.memberId} == ${inquiry.memberId}">수정</button>
+							</span> 
+							<span>
+								<button type="button" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/delete(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId} or ${member.memberAuth} == 'yes'">삭제</button>
+							</span> 
+							<span>
+								<button type="submit" style="border-radius: 6px; width:65px; height: 45px; margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${member.memberAuth == 'yes'}">답변</button>
+							</span>
+						</th:block>
+						
 					</div>
 					<div style="margin-top: 30px">
 						<div style="font-size: 20px">답변</div>
