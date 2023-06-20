@@ -42,12 +42,85 @@
 <!-- Style -->
 <link rel="stylesheet" href="/racket/common/assets/css/style.css">
 
+<style type="text/css">
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+</style>
+
 <script>
 	function updateSliderValue() {
 		var sliderValue = document.getElementById("customRange2").value;
 		document.getElementById("value").textContent = sliderValue;
 	}
 </script>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form'); // 폼 요소 선택
+
+    // 폼 제출 시 이벤트 핸들러
+    form.addEventListener('submit', function(event) {
+      const trainingDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
+      const trainingHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
+      const gradeSettingInput = document.querySelector('select[name="gradeSetting"]'); // 등급 선택 필드 선택
+      const trainingFeeInput = document.getElementById('trainingFee'); // 모집날짜 입력 필드 선택
+      const trainingContentInput = document.getElementById('trainingContent'); // 모집날짜 입력 필드 선택
+
+      const errorMessageTrainingDate = trainingDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
+      const errorMessageTrainingHour = trainingHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
+      const errorMessageGradeSetting = gradeSettingInput.nextElementSibling; // 등급 에러 메시지 요소 선택
+      const errorMessagetrainingFee = trainingFeeInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
+      const errorMessageTrainingContent = trainingContentInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
+
+      // 기존 에러 메시지 초기화
+      errorMessageTrainingDate.textContent = '';
+      errorMessageTrainingHour.textContent = '';
+      errorMessageGradeSetting.textContent = '';
+      errorMessagetrainingFee.textContent = '';
+      errorMessageTrainingContent.textContent = '';
+
+      let hasError = false; // 에러 여부를 저장하는 변수
+
+      // 대여 날짜 필드 확인
+      if (trainingDateInput.value === '') {
+        hasError = true;
+        errorMessageTrainingDate.textContent = '* 강의 날짜를 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 대여시간 필드 확인
+      if (trainingHourInput.value === '') {
+        hasError = true;
+        errorMessageTrainingHour.textContent = '* 강의 시간을 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 등급 필드 확인
+      if (gradeSettingInput.value === '') {
+        hasError = true;
+        errorMessageGradeSetting.textContent = '* 강의 수준을 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 강의비 필드 확인
+      if (trainingFeeInput.value === '') {
+        hasError = true;
+        errorMessagetrainingFee.textContent = '* 강의비를 작성해주세요.'; // 에러 메시지 표시
+      }
+      
+      // 강의 내용 필드 확인
+      if (trainingContentInput.value === '') {
+        hasError = true;
+        errorMessageTrainingContent.textContent = '* 강의 내용을 작성해주세요.'; // 에러 메시지 표시
+      }
+
+      if (hasError) {
+        event.preventDefault(); // 폼 제출 방지
+      }
+    });
+  });
+</script>
+
 </head>
 <body class="is-preload">
 
@@ -58,14 +131,20 @@
 			style="margin: 50px; margin-top: 180px; margin-bottom: 0px;">
 			<!-- Form -->
 			<form method="post" action="/racket/training/insert">
+			<!-- 임시 id값 -->
+			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
+			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
+			<input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
+			<input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
 					<div class="box" style="padding: 20px; margin: 0px;">
 
 						<div class="field">
 							<div class="form-group">
-								<input type="text" class="priority-low" id="input" value="대여 날짜"
-									style="text-align: center;" name="trainingDate">
+								<input type="text" class="priority-low" id="input"  style="text-align: center;" name="trainingDate" placeholder="대여 날짜">
+								<span class="error-message" id="errorMessageTrainingDate"></span>
 							</div>
 						</div>
 
@@ -86,6 +165,7 @@
 								<option value="10">20:00 ~ 22:00</option>
 								<option value="11">22:00 ~ 24:00</option>
 							</select>
+							<span class="error-message" id="errorMessageTrainingHour"></span>
 						</div>
 						<br />
 						<div class="field">
@@ -102,9 +182,10 @@
 								style="text-align: center;">
 								<option value="" disabled selected>- 강의수준 -</option>
 								<option value="1">입문</option>
-								<option value="1">초급</option>
-								<option value="1">중급</option>
+								<option value="2">초급</option>
+								<option value="3">중급</option>
 							</select>
+							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
 						<br />
 
@@ -115,6 +196,7 @@
 									<code style="color: #134C43" id="value">1</code>
 									<input type="range" class="form-range" min="1" max="10"
 										id="customRange2" onchange="updateSliderValue()" value="1" name="trainingMax">
+								<span class="error-message" id="errorMessagePeople"></span>
 								</p>
 							</div>
 						</div>
@@ -167,13 +249,17 @@
 									<label for="name">강의비용</label>
 								</p>
 								<input type="text" name="trainingFee" id="trainingFee" value=""
-									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
+									 placeholder="강습비를 작성해주세요." />
+										<span class="error-message" id="errorMessagetrainingFee"></span>
 							</div>
 							<br />
 							<div class="field">
 								<p style="color: black;">
 									<label for="message">강의 내용</label>
-									<textarea name="trainingContent" id="trainingContent" rows="6"></textarea>
+									<textarea name="trainingContent" id="trainingContent" rows="6"
+									 placeholder="강습에 대한 내용을 입력해주세요." ></textarea>
+										<span class="error-message" id="errorMessagetrainingContent"></span>
 							</div>
 						</div>
 					</section>

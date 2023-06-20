@@ -119,18 +119,18 @@ function handleRadioChange() {
     form.addEventListener('submit', function(event) {
       const reservationDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
       const reservationHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
-      const recruitmentDateInput = document.getElementById('reservationContent'); // 모집날짜 입력 필드 선택
+      const reservationContentInput = document.getElementById('reservationContent'); // 모집날짜 입력 필드 선택
       const gradeSettingInput = document.querySelector('select[name="gradeSetting"]'); // 등급 선택 필드 선택
 
       const errorMessageReservationDate = reservationDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
       const errorMessageReservationHour = reservationHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
-      const errorMessageRecruitmentDate = recruitmentDateInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
+      const errorMessageReservationContent = reservationContentInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
       const errorMessageGradeSetting = gradeSettingInput.nextElementSibling; // 등급 에러 메시지 요소 선택
 
       // 기존 에러 메시지 초기화
       errorMessageReservationDate.textContent = '';
       errorMessageReservationHour.textContent = '';
-      errorMessageRecruitmentDate.textContent = '';
+      errorMessageReservationContent.textContent = '';
       errorMessageGradeSetting.textContent = '';
 
       let hasError = false; // 에러 여부를 저장하는 변수
@@ -148,9 +148,9 @@ function handleRadioChange() {
       }
 
       // 모집날짜 필드 확인
-      if (recruitmentDateInput.value === '') {
+      if (reservationContentInput.value === '') {
         hasError = true;
-        errorMessageRecruitmentDate.textContent = '* 모집 내용을 작성해주세요.'; // 에러 메시지 표시
+        errorMessageReservationContent.textContent = '* 모집 내용을 작성해주세요.'; // 에러 메시지 표시
       }
 
       // 등급 필드 확인
@@ -178,8 +178,8 @@ function handleRadioChange() {
 			<!-- 임시 id값 -->
 			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
 			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
-			<input type="text" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
-			<input type="text" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+			<input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
+			<input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
 							
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
@@ -219,7 +219,7 @@ function handleRadioChange() {
 						<!-- 경기방식 -->
 						<div class="field" style="text-align: center;">
 							<input type="radio" id="priority-low" name="reservationMet"
-								value="2" checked /> <label for="priority-low">단식</label> <input
+								 value="2" checked /> <label for="priority-low">단식</label> <input
 								type="radio" id="priority-normal" name="reservationMet"
 								value="4" /> <label for="priority-normal">복식</label>
 						</div>
@@ -290,7 +290,7 @@ function handleRadioChange() {
 									<label for="message">모집 내용</label>
 									<textarea name="reservationContent" id="reservationContent"
 										rows="6" placeholder="모집에 대한 내용을 입력해주세요."></textarea>
-										<span class="error-message" id="errorMessageRecruitmentDate"></span>
+										<span class="error-message" id="errorMessagereservationContent"></span>
 							</div>
 						</div>
 

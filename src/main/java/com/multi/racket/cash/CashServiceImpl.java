@@ -1,9 +1,11 @@
-package com.multi.racket.repository;
+package com.multi.racket.cash;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.multi.racket.domain.CashDTO;
+import com.multi.racket.repository.CashRepository;
 
 @Service
 public class CashServiceImpl implements CashService {
