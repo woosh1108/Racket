@@ -7,16 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.multi.racket.cash.CashService;
 import com.multi.racket.domain.CashDTO;
+import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
-import com.multi.racket.repository.CashService;
 import com.multi.racket.reservation.ReservationService;
 
 @Controller
 public class ReservationController {
 	ReservationService service;
 	CashService cashService;
+	
 
 	@Autowired
 	public ReservationController(ReservationService service, CashService cashService) {
@@ -25,7 +27,18 @@ public class ReservationController {
 		this.cashService = cashService;
 	}
 
+	
+	
+//	@GetMapping("/stadiums/{id}")
+//    public StadiumDetailDTO getStadiumDetails(@PathVariable int stadiumId) {
+//        return sService.getStadiumDetails(stadiumId);
+//    }
 	// 구장번호로 예약하기 상세조회
+//	@RequestMapping("/reservation/read")
+//	public StadiumDetailDTO getStadiumDetail(@PathVariable Long stadiumId) {
+//        return sService.getStadiumDetail(stadiumId);
+//    }
+
 	@RequestMapping("/reservation/read")
 	public String reservation(int reservationNo) {
 		// ReservationDTO reservation = service.reservation(reservationNo);
@@ -65,47 +78,37 @@ public class ReservationController {
 		}
 	}
 
-//	// 예약 참가하기 상세조회
-//	@GetMapping("/matching/read")
-//	public String matching(int matchingNo) {
-//		MatchingDTO matching = service.matching(matchingNo);
-//		return "thymeleaf/reservation/matching";
-//	}
-//
-//	// 예약 참가하기 등록
-//	@PostMapping("/matching/insert")
-//	public String matchingInsert(MatchingDTO matching) {
-//		service.matching_insert(matching);
-//		return "thymeleaf/reservation/matching";
-//	}
-//
-//	// 구장번호로 강습하기 상세조회
-//	@GetMapping("/training/read")
-//	public String training(int trainingNo) {
-//		TrainingDTO training = service.training(trainingNo);
-//		return "thymeleaf/reservation/training";
-//	}
-//
-//	// 강습하기 등록
-//	@RequestMapping("/training/insert")
-//	public String trainingInsert(TrainingDTO training) {
-//		service.training_insert(training);
-//		System.out.println("controller : " + training);
-//		return "thymeleaf/reservation/training";
-//	}
-//
-//	// 강습 참가하기 상세조회
-//	@GetMapping("/training/memberlist/read")
-//	public String trainingMemberlist(int trainingApplyNo) {
-//		TrainingMemberlistDTO trainingMemberlist = service.trainingMemberlist(trainingApplyNo);
-//		return "thymeleaf/reservation/training_memberlist";
-//	}
-//
-//	// 강습 참가하기 등록
-//	@PostMapping("/training/memberlist/insert")
-//	public String trainingMemberlistInsert(TrainingMemberlistDTO trainingMemberlist) {
-//		service.trainingMemberlist_insert(trainingMemberlist);
-//		return "thymeleaf/reservation/training_memberlist";
-//	}
+	// 예약 참가하기 상세조회
+	@RequestMapping("/matching/read")
+	public String matching(int matchingNo) {
+		//MatchingDTO matching = service.matching(matchingNo);
+		return "thymeleaf/reservation/matching";
+	}
+
+	// 예약 참가하기 등록
+	@PostMapping(value = "/matching/insert", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public String matchingInsert(HttpSession session,MatchingDTO matching, CashDTO cash) {
+		try {
+			MemberDTO user = (MemberDTO) session.getAttribute("user");
+			String memberId = user.getMemberId();
+
+			CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+			int totalAmount = latestCash.getTotalAmount();
+
+			//int reservationFee = reservation.getReservationFee();
+			int reservationFee = 2000;
+
+			// 잔액 비교
+			if (totalAmount >= reservationFee) {
+				service.matching_insert(memberId, matching, cash);
+				return "thymeleaf/reservation/matching";
+			} else {
+				return "redirect:/cash/recharge";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "thymeleaf/main/main_intro";
+		}
+	}
 
 }

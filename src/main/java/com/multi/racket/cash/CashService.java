@@ -1,4 +1,4 @@
-package com.multi.racket.repository;
+package com.multi.racket.cash;
 
 import com.multi.racket.domain.CashDTO;
 

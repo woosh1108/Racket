@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.multi.racket.domain.StadiumDTO;
 
-@Repository
 public interface StadiumRepository extends JpaRepository<StadiumDTO, Integer> {
 
 }
