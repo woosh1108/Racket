@@ -11,6 +11,10 @@
 <noscript>
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
+<script type="text/javascript">
+let msg = [[${session.user.memberId}]];
+console.log(msg);
+</script>
 </head>
 <body class="is-preload">
 	<th:block layout:fragment="content">
@@ -18,50 +22,58 @@
 			<section>
 				<div class="content">
 					<ul class="actions">
-						<li><a href="#" class="button">내정보</a></li>
-						<li><a href="#" class="button">정보수정</a></li>
-						<li><a href="#" class="button">충전</a></li>
-						<li><a href="#" class="button">매칭</a></li>
+						<li><a href="/racket/mypage/info" class="button">내정보</a></li>
+						<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
+						<li><a href="/racket/mypage/cash" class="button">충전</a></li>
+						<li><a href="/racket/mypage/match" class="button">매칭</a></li>
 					</ul>
 				</div>
 			</section>
 			<div class="content">
 				<div class="box">
-				<form  action="myInfo" method="post">
-					<label for="member_nick" class="form-label">아이디</label>
-					<div class="box"></div>
-					<hr />
-					<label for="member_nick" class="form-label">이름</label>
-					<div class="box"></div>
-					<hr />
-					<label for="member_nick" class="form-label">닉네임</label> <input
-						type="text" name="member_nick" id="member_nick"
-						class="form-control" placeholder="">
-					<hr />
-					<label for="member_age" class="form-label">나이</label> <input
-						type="text" name="member_age" id="member_age" class="form-control"
-						placeholder="">
-					<hr />
-					<label for="member_phone" class="form-label">전화번호</label> <input
-						type="text" name="member_phone" id="member_phone"
-						class="form-control" placeholder="">
-					<hr />
-					<label for="member_addr" class="form-label">주소</label> <input
-						type="text" name="member_addr" id="member_addr"
-						class="form-control" placeholder="">
-					<hr />
-					<label for="member_addr" class="form-label">이메일</label>
-					<div class="box"></div>
-					<hr />
-					<label for="member_addr" class="form-label">등급</label>
-					<div class="box"></div>
-					<hr />
-					<div class="field" style="text-align: center;">
-						<a href="#"> <input type="button" name="submit" id="submit"
-							value="정보수정" />
-						</a>
-					</div>
-				</form>
+					<form action="/racket/mypage/change.do" method="post">
+						<label for="memberId" class="form-label">아이디</label> <input
+							type="hidden" name="memberId" id="memberId"
+							th:value="${session.user.memberId}"> <input type="hidden"
+							name="test" id="memberId" th:value="${'test'}">
+						<div class="box" th:text="${session.user.memberId}"></div>
+						<hr />
+						<label for="memberName" class="form-label">이름</label> <input
+							type="hidden" name="memberName" id="memberName"
+							th:value="${session.user.memberName}">
+						<div class="box" th:text="${session.user.memberName}"></div>
+						<hr />
+						<label for="memberNick" class="form-label">닉네임</label> <input
+							type="text" name="memberNick" id="memberNick"
+							class="form-control" placeholder="변경할 닉네임을 입력하세요.">
+						<hr />
+						<label for="memberAge" class="form-label">나이</label> <input
+							type="text" name="memberAge" id="memberAge" class="form-control"
+							placeholder="변경할 나이를 입력하세요.">
+						<hr />
+						<label for="memberPhone" class="form-label">전화번호</label> <input
+							type="text" name="memberPhone" id="memberPhone"
+							class="form-control" placeholder="변경할 전화번호를 입력하세요.">
+						<hr />
+						<label for="memberAddr" class="form-label">주소</label> <input
+							type="text" name="memberAddr" id="memberAddr"
+							class="form-control" placeholder="변경할 주소를 입력하세요.">
+						<hr />
+						<label for="memberEmail" class="form-label">이메일</label> <input
+							type="hidden" name="memberEmail" id="memberEmail"
+							th:value="${session.user.memberEmail}">
+						<div class="box" th:text="${session.user.memberEmail}"></div>
+						<hr />
+						<label for="memberGrade" class="form-label">등급</label> <input
+							type="hidden" th:name="memberGrade" id="memberGrade"
+							th:value="${session.user.memberGrade}">
+						<div class="box" th:text="${session.user.memberGrade}"></div>
+						<hr />
+						
+						<div class="field" style="text-align: center;">
+							<input type="submit" id="submit" value="정보수정" style="text-align: center;"/>
+						</div>
+					</form>
 				</div>
 			</div>
 		</section>

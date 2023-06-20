@@ -5,11 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Racket에 오신것들 환영합니다.</title>
-	<th:block layout:fragment="css">
-		<link href="/racket/common/css/mainpage/carousel.css" rel="stylesheet">
-		<link href="/racket/common/css/mainpage/mainpage.css" rel="stylesheet">
-		<link rel="stylesheet" href="/racket/common/css/mainpage/calendar.css">
-	</th:block>
+<th:block layout:fragment="css">
+	<link href="/racket/common/css/mainpage/carousel.css" rel="stylesheet">
+	<link href="/racket/common/css/mainpage/mainpage.css" rel="stylesheet">
+	<link rel="stylesheet" href="/racket/common/css/mainpage/calendar.css">
+</th:block>
+<script th:inline="javascript">
+	let msg = [[${msg}]];
+	if(msg == null){
+	}else{
+		alert(msg);
+	}
+</script>
 </head>
 <body>
 	<th:block layout:fragment="content">
@@ -50,40 +57,39 @@
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
-		
-			<div class="Calendar">
-						<div class="Calendar-header">
-							<span onClick="prevCalendar();" style="cursor: pointer;">&#60;</span>
-							<span><span id="calYear"></span>년 <span
-								id="calMonth"></span>월</span>
-							<span onClick="nextCalendar();" style="cursor: pointer;">&#62;</span>
-						</div>
-				<table class="Calendar">
-					<tbody>
-					</tbody>
-				</table>
-			</div>
 
-			<!-- 검색바 -->
-			<div class="container mt-3">
-				<form class="d-flex">
-					<input class="form-control me-2" type="search"
-						placeholder="구장을 검색하세요" aria-label="검색">
-					<button class="btn btn-outline-success" type="submit" id="search">검색</button>
-				</form>
+		<div class="Calendar">
+			<div class="Calendar-header">
+				<span onClick="prevCalendar();" style="cursor: pointer;">&#60;</span>
+				<span><span id="calYear"></span>년 <span id="calMonth"></span>월</span>
+				<span onClick="nextCalendar();" style="cursor: pointer;">&#62;</span>
 			</div>
-		
+			<table class="Calendar">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- 검색바 -->
+		<div class="container mt-3">
+			<form class="d-flex">
+				<input class="form-control me-2" type="search"
+					placeholder="구장을 검색하세요" aria-label="검색">
+				<button class="btn btn-outline-success" type="submit" id="search">검색</button>
+			</form>
+		</div>
+
 		<!-- 구장 소개 -->
 		<h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
-					<hr/>
-					<tr th:each="stadium:${stadiumlist}">
-						<td><span th:text="${stadium.stadiumName}"></span><br></td>
-						<td>장소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
-						<td>구장 이용시간 : <span th:text="${stadium.stadiumTime}"></span><br></td>
-						<td>구장 이용비 : <span th:text="${stadium.stadiumFee}"></span> 원<br></td>
-						<hr/>
-						<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
-					</tr>
+		<hr />
+		<tr th:each="stadium:${stadiumlist}">
+			<td><span th:text="${stadium.stadiumName}"></span><br></td>
+			<td>장소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
+			<td>구장 이용시간 : <span th:text="${stadium.stadiumTime}"></span><br></td>
+			<td>구장 이용비 : <span th:text="${stadium.stadiumFee}"></span> 원<br></td>
+			<hr />
+			<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
+		</tr>
 		<div class="stadium">
 			<div class="stadium-pic">
 				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
@@ -206,7 +212,7 @@
 			</div>
 		</div>
 
-		
+
 	</th:block>
 	<th:block layout:fragment="script">
 		<script src="/racket/common/js/mainpage/calendar.js"></script>
