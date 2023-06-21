@@ -8,9 +8,12 @@ public interface MemberDAO {
 
 	// 개인정보 수정
 	public void update(MemberDTO updatedata);
+	
+	// 비밀번호 변경
+	public void updatePass(MemberDTO updateUser, String memberId, String memberPass);
 
 	// 비밀번호찾기 -> 아이디 확인
-	boolean idCheck(String memberId);
+	MemberDTO idCheck(String memberId);
 
 	// 아이디 찾기
 	MemberDTO findId(String memberName, String memberEmail);

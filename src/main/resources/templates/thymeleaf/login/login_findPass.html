@@ -9,11 +9,22 @@
 	<link rel="stylesheet" href="/racket/common/css/signup/sign-auth.css">
 </th:block>
 <script th:inline="javascript">
-let msg = [[${msg}]];
-if(msg == null){
-}else{
-	alert(msg);
-}
+$(document).ready(function(){
+	let msg = [[${msg}]];
+	if(msg == null){
+	}else{
+		alert(msg);//확인했습니다.
+		 $('#mail-check-btn').attr('disabled', true);
+	     $('#mail-send-btn').attr('disabled', true);
+	     $('#name-send-btn').attr('disabled', true);
+		$('#next-btn').attr('disabled', false); 
+	}
+	let msg1 = [[${msg1}]];
+	if(msg1 == null){
+	}else{
+		alert(msg1);
+	}
+})
 </script>
 </head>
 <body>
@@ -26,14 +37,15 @@ if(msg == null){
 				<h2>비밀번호 찾기</h2>
 				<div class="email-validation">
 					<div class="input-group">
-						<input type="text" class="form-control" name="userEmail1"
-							id="userEmail1" placeholder="이메일"> <select
-							class="form-control" name="userEmail2" id="userEmail2">
-							<option>@naver.com</option>
-							<option>@daum.net</option>
-							<option>@gmail.com</option>
-							<option>@hanmail.com</option>
-							<option>@yahoo.co.kr</option>
+						<input type="text" class="form-control" name="memberEmail1"
+							id="memberEmail1" placeholder="이메일" th:value="${memberEmail1}">
+						<select class="form-control" name="memberEmail2" id="memberEmail2"
+							th:value="${memberEmail2}">
+							<option th:selected="${memberEmail2}">@naver.com</option>
+							<option th:selected="${memberEmail2}">@daum.net</option>
+							<option th:selected="${memberEmail2}">@gmail.com</option>
+							<option th:selected="${memberEmail2}">@hanmail.com</option>
+							<option th:selected="${memberEmail2}">@yahoo.co.kr</option>
 						</select>
 						<button type="button" class="btn btn-primary" id="mail-send-btn">인증번호발송</button>
 					</div>
@@ -50,25 +62,28 @@ if(msg == null){
 					<div class="email-validation">
 						<div class="input-group">
 							<input type="text" class="form-control" name="memberId"
-								 id="memberId"  placeholder="아이디를 입력해주세요.">
-							<button type="submit" class="btn btn-primary" id="mail-send-btn">아이디
-								확인하기</button>
+								id="memberId" placeholder="아이디를 입력해주세요.">
+							<button type="submit" class="btn btn-primary" id="id-send-btn"
+								disabled=>아이디 확인하기</button>
 						</div>
 					</div>
 				</form>
 				<div class="email-validation">
 					<!-- <button type="button" class="btn btn-success" id="next-btn" disabled>다음</button> -->
-					<button class="btn btn-success" id="next-btn"
-						href="/racket/login/findPass2">다음</button>
-					<button type="button" class="btn btn-danger" id="cancel-btn"
-						onclick="location.href='/racket/login'">취소</button>
+					<form action="/racket/login/findPass2" method="post">
+						<input type="hidden" th:value="${memberId}" name="memberId" id="memberId">
+						<input type="hidden" th:value="${memberPass}" name="memberPass" id="memberPass">
+						<button class="btn btn-success" id="next-btn" disabled>다음</button>
+						<button type="button" class="btn btn-danger" id="cancel-btn"
+							onclick="location.href='/racket/login'">취소</button>
+					</form>
 				</div>
 				<span id="mail-check-warn"></span>
 			</div>
 		</div>
 		<th:block layout:fragment="script">
 			<script type="text/javascript"
-				src="/racket/common/js/signup/sign-auth.js"></script>
+				src="/racket/common/js/login/findPass.js"></script>
 		</th:block>
 	</th:block>
 </body>
