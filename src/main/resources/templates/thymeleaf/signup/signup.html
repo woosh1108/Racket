@@ -29,6 +29,7 @@
 	                alert('이미 가입되어있는 아이디입니다.');
 	                $('.duplicated-id').show(); // 중복인 경우 duplicated-id 요소를 표시
 	                $('.available-id').hide(); // available-id 요소를 숨깁니다.
+	                $('#regist').prop('disabled', true); 
 	            },
 	            error: function (jqXHR) {
 	                if (jqXHR.status === 404) {
@@ -36,6 +37,7 @@
 	                    alert('사용 가능한 아이디입니다.');
 	                    $('.available-id').show(); // 사용 가능한 아이디 available-id 요소를 표시
 	                    $('.duplicated-id').hide(); // duplicated-id 요소를 숨깁니다.
+	                    $('#regist').prop('disabled', false);
 	                } else {
 	                    // 기타 오류인 경우
 	                    alert('서버와의 통신에 문제가 발생했습니다. 다시 시도해주세요.');
