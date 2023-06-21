@@ -1,5 +1,42 @@
 @charset "UTF-8";
 
+.bulletin_btn_wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button_group {
+	display: flex;
+	flex-direction: column;
+	margin-right: 0.2rem; /* 오른쪽 마진을 10px로 설정 */
+}
+
+.button_group button {
+	background-color: white;
+	border: 0.1rem solid black;
+	width: 6rem;
+	height: 2.5rem;
+}
+
+
+.bulletin_title button {
+	border: 0.2rem solid black;
+	background-color: white;
+	width: 6rem;
+	height: 3.5rem;
+}
+
+.bulletin_title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bulletin_title strong {
+	margin-right: auto;
+}
+
 /* 바디테그 전체에 박스를 입힘 */
 .bulletin_read_body_container {
 	width: 83%; /* 컨테이너의 너비 */
@@ -11,59 +48,60 @@
 	float: right;
 	margin-left: 10rem;
 	margin-top: 10rem;
-	
 	/* 모든글씨가 갑자기 허연색으로떠서.... */
 	color: black;
-	
 	/* 폰트 */
 	font-family: 'Kanit', sans-serif;
 }
 
-/* 등록취소버튼 가운데정렬 */
+/* 수정버튼 삭제버튼 */
 .bulletin_btn_wrap {
 	justify-content: center;
-  	align-items: center;
-  	text-align: center;
-  	margin-left: auto;
-  	margin-right: auto;
-  	margin-top: 20px;
+	align-items: center;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
 }
 
-.bulletin_board_title {
+.list_btn {
+	float: right;
+}
+
+.bulletin_title {
 	font-size: 2rem;
 }
 
-.bulletin_board_view {
+.bulletin_view {
 	width: 100%;
 	border-top: 2px solid black;
 	margin-top: 10px;
 }
 
-.bulletin_board_view .bulletin_title {
+.bulletin_view .bulletin_title {
 	padding: 20px 15px;
 	border-bottom: 1px dashed #ddd;
 	font-size: 1.5rem;
 }
 
-.bulletin_board_view .bulletin_info {
+.bulletin_view .bulletin_info {
 	padding: 15px;
 	border-bottom: 1px solid #999;
 	margin-top: 20px;
 	/* font-size: 0; */
 }
 
-.bulletin_board_view .bulletin_info dl {
+.bulletin_view .bulletin_info dl {
 	position: relative;
 	display: inline-block;
 	padding: 0 20px;
 }
 
-.bulletin_board_view .bulletin_info dl:first-child {
+.bulletin_view .bulletin_info dl:first-child {
 	padding-left: 0;
 }
 
-
-.bulletin_board_view .bulletin_info dl::before {
+.bulletin_view .bulletin_info dl::before {
 	content: "";
 	position: absolute;
 	top: 1px;
@@ -74,26 +112,26 @@
 	background: #ddd;
 }
 
-.bulletin_board_view .bulletin_info dl:first-child::before {
+.bulletin_view .bulletin_info dl:first-child::before {
 	display: none;
 }
 
-
-.bulletin_board_view .bulletin_info dl dt, .bulletin_board_view .bulletin_info dl dd {
+.bulletin_view .bulletin_info dl dt, .bulletin_view .bulletin_info dl dd
+	{
 	display: inline-block;
 	font-size: 1.1rem;
 }
 
-.bulletin_board_view .bulletin_info dl dt {
+.bulletin_view .bulletin_info dl dt {
 	
 }
 
-.bulletin_board_view .bulletin_info dl dd {
+.bulletin_view .bulletin_info dl dd {
 	margin-left: 10px;
 	color: #777;
 }
 
-.bulletin_board_view .bulletin_cont {
+.bulletin_view .bulletin_cont {
 	padding: 15px;
 	border-bottom: 1px solid black;
 	line-height: 160%;

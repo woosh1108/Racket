@@ -1,9 +1,55 @@
 @charset "UTF-8";
 
-strong {
+.announcement_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1rem;
+	margin-bottom: 3%;
+}
+
+.body {
+	display: flex;
+	align-items: center;
+}
+
+.input-group {
+	display: flex;
+	align-items: center;
+}
+
+.input-group input[type="search"] {
+	margin-right: 0rem;
+	border-right-style: none;
+	width: 75%;
+}
+
+button[type="submit"] {
+	font-size: 1rem;
+	background-color: white;
+	border: 2px solid #000000;
 	color: black;
 }
 
+strong {
+	color: black;
+	font-size: 2rem;
+}
+
+.pagination {
+	margin-top: 3rem;
+	justify-content: center;
+}
+
+.pagination li {
+	display: inline-block;
+	padding: 0.5rem;
+}
+
+.pagination li a {
+	text-decoration: none;
+	color: black;
+}
 
 /* 바디테그 전체에 박스를 입힘 */
 .announcement_body_container {
@@ -16,43 +62,9 @@ strong {
 	float: right;
 	margin-left: 10rem;
 	margin-top: 10rem;
-	
 	/* 폰트 */
 	font-family: 'Kanit', sans-serif;
 	color: black;
-}
-
-.announcement_content strong {
-	font-size: 2rem;
-}
-
-/* 검색버튼 */
-.announcement_top {
-	display: inline-block;
-	font-size: 0;
-}
-
-.announcement_top input {
-	width: 90%;
-	height: 35px;
-	margin-bottom: 20px;
-	font-size: 1rem;
-	border: 1px solid #000000;
-	border-right: 0;
-	border-top-left-radius: 7px;
-  	border-bottom-left-radius: 7px;
-  	margin-top: 5%;
-}
-
-.announcement_top button {
-	width: 50px;
-	height: 35px;
-	margin-bottom: 20px;
-	font-size: 2rem;
-	border: 1px solid #000000;
-	color: #000;
-	border-top-right-radius: 7px;
-  	border-bottom-right-radius: 7px;
 }
 
 /* 카테고리와 글 제목 하이퍼링크 밑줄 안 보이게 */
@@ -79,11 +91,10 @@ strong {
 }
 
 .btn-group .btn {
-  border-color: black;
+	border-color: black;
 }
 
 /* 상단에 있는 카테고리랑 검색바 끝 */
-
 
 /* 게시판 내용 테이블 */
 table {
@@ -99,7 +110,6 @@ thead th {
 
 tbody th, tbody td {
 	border-bottom: 1px solid black;
-	
 }
 
 /* thead 위쪽에 선을 추가. */
@@ -110,10 +120,8 @@ thead tr th {
 
 /* 테이블 끝 */
 
-
-
 /* 글쓰기 버튼(하이퍼링크) */
-.announcement_write a{	
+.announcement_write a {
 	/* 하이퍼링크 밑줄 안 보이게, 색깔 검정색 */
 	text-decoration: none;
 	color: inherit;
@@ -127,7 +135,6 @@ thead tr th {
 
 /* 페이지번호와 글쓰기버튼 끝*/
 
-
 /*  */
 .announcement_write {
 	text-align: center;
@@ -136,9 +143,8 @@ thead tr th {
 
 /* 글쓰기 버튼 테스트 */
 .announcement_write_button {
-	background-color: black;
+	background-color: transparent;
 	border: 2px solid #000000;
-	color: #333;
 	cursor: pointer;
 	font-size: 15px;
 	font-weight: bold;
@@ -146,7 +152,6 @@ thead tr th {
 	width: 100px;
 	height: 40px;
 	margin-top: 10px;
-	border-radius: 4px;
 }
 
 .announcement_page a:hover {
@@ -167,7 +172,6 @@ thead tr th {
 	border-color: #000;
 	background-color: #000;
 	color: #fff;
-	
 }
 
 .announcement_page a:first-child {

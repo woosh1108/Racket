@@ -5,7 +5,7 @@ strong {
 }
 
 /* 바디테그 전체에 박스를 입힘 */
-.bulletin_write_body_container {
+.bulletin_update_body_container {
 	width: 83%; /* 컨테이너의 너비 */
 	height: auto;
 	/* margin: 0 auto; 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
@@ -19,7 +19,7 @@ strong {
 	font-family: 'Kanit', sans-serif;
 }
 /* ////  */
-.bulletin_write_info {
+.bulletin_update_info {
 	font-size: 2rem;
 	display: flex;
 }
@@ -37,13 +37,13 @@ strong {
 	margin-bottom: 0;
 }
 
-.bulletin_write_content {
+.bulletin_update_content {
 	font-size: 2rem;
 }
 /* ///end */
 
 /* 등록취소버튼 /////*/
-.bulletin_write_reaction button {
+.bulletin_update_reaction button {
 	background-color: white;
 	border: 2px solid #000000;
 	color: #333;
@@ -55,7 +55,7 @@ strong {
 	margin-top: 10px;
 }
 /* 등록취소버튼 가운데정렬 */
-.bulletin_write_reaction {
+.bulletin_update_reaction {
 	justify-content: center;
 	align-items: center;
 	text-align: center;

@@ -4,7 +4,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{thymeleaf/layout/mainLayout}">
 	<head>
 		<meta charset="UTF-8">
-		<title>글 상세보기</title>
+		<title>상세글 보기</title>
+		<!-- 파비콘 -->
+		<link rel="icon" href="/racket/images/favicon.png">
 		<!-- 뷰포트 -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- js -->
@@ -15,12 +17,8 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
-		<script type="text/javascript">
-			/* function list() {
-				alert("목록으로 넘어갑니다.");
-		    	window.location.href = "/racket/free";
-		    } */
-		</script>
+		
+		
 		<!--  -->
 		<th:block layout:fragment="css">
 			<link rel="stylesheet" href="/racket/common/css/bulletin_board_read.css" />
@@ -29,62 +27,76 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 	<body>
 	<th:block layout:fragment="content">
 		<div class="bulletin_read_body_container">
-			<div class="bulletin_board_read_wrap">
-				<div class="bulletin_board_title">
+			<div class="bulletin_read_wrap">
+				<div class="bulletin_title">
 					<strong>전체게시판</strong>
+					<form action="/racket/bulletin" method="get">
+						<button type="submit">목록</button>
+					</form>
 				</div>
-				<div class="bulletin_board_view_wrap">
-					<div class="bulletin_board_view">
-						<div class="bulletin_title">
-							축구 같이 하실분??!!
+				<div class="bulletin_view_wrap">
+					<div class="bulletin_view">
+						<div class="bulletin_title"
+						th:text="${bulletinBoard.bbTitle}">
 						</div>
 						<div class="bulletin_info">
 							<dl>
 								<dt>번호</dt>
-								<dd th:text="${count}"></dd>
+								<dd th:text="${bulletinBoard.bbNo}"></dd>
 							</dl>
 							<dl>
 								<dt>글쓴이</dt>
-								<dd th:text="${recruitmentId}"></dd>
+								<dd th:text="${bulletinBoard.memberId}"></dd>
 							</dl>
+							<!-- 수정일자는 db에만 남겨놓기로하자.. -->
 							<dl>
 								<dt>작성일</dt>
-								<dd>2023.05.31</dd>
+								<dd th:text="${bulletinBoard.bbDate}"></dd>
 							</dl>
 							<dl>
+								<!-- 조회수처리 해야함 -->
 								<dt>조회</dt>
-								<dd>27</dd>
+								<dd th:text="${bulletinBoard.bbViews}"></dd>
 							</dl>
 							<dl>
 								<dt>좋아요</dt>
-								<dd>22</dd>
+								<dd th:text="${bulletinBoard.bbViews}"></dd>
 							</dl>
 							<dl>
 								<dt>댓글</dt>
-								<dd>1</dd>
+								<dd th:text="${bulletinBoard.bbViews}"></dd>
 							</dl>
 						</div>
 						<!-- 데이터 받아오기 -->
-						<div class="bulletin_cont" th:text="${recruitmentContent}">
-							
+						<div class="bulletin_cont" th:utext="${bulletinBoard.bbContent != null ? bulletinBoard.bbContent : ''}">
+						
+						
 						</div>
-						<div class="bulletin_btn_wrap">
-							<input type="reset" class="list_btn" value="목록" onclick="list()">
-							<!-- 해당글쓴이와 로그인한 아이디가 같을때만 띄우기 -->
-							<input type="submit" class="update_btn" value="수정" onclick="">
+							<div class="bulletin_btn_wrap">
+								<div class="button_group">
+									<!-- 해당글쓴이와 로그인한 아이디가 같을때만 띄우기 -->
+									<form method="post" th:action="@{/bulletin_delete}">
+									<input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
+										<button type="submit" onclick="return confirmDelete()">삭제</button>
+									</form>
+									<script>
+	    								function confirmDelete() {
+	        								var result = confirm("정말 삭제하시겠습니까?");
+	        								return result;
+	    								}
+									</script>
+								</div>
+									<div class="button_group">
+									<form method="get" th:action="@{/bulletin_update/{bbNo}(bbNo=${bulletinBoard.bbNo})}" th:object="${bulletinBoard}">
+	    								<input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
+	    								<button type="submit">수정</button>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div >
-					<hr/>
-					<form method="post" action="/racket/bulletin_read">
-						<p><textarea rows="5" cols="50" name="content"></textarea></p>
-						<input type="hidden" name="bno" value="234">
-						<p><button type="submit">댓글 작성</button></p>
-					</form>
-				</div>
 			</div>
-		</div>
 		</th:block>
 	</body>
 </html>

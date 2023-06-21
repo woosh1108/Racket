@@ -1,13 +1,40 @@
 @charset "UTF-8";
 
+.announcement_btn_wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button_group {
+	display: flex;
+	flex-direction: column;
+	margin-right: 0.2rem; /* 오른쪽 마진을 10px로 설정 */
+}
+
+.button_group button {
+	background-color: white;
+	border: 0.1rem solid black;
+	width: 6rem;
+	height: 2.5rem;
+}
+
+
+.announcement_title button {
+	border: 0.2rem solid black;
+	background-color: white;
+	width: 6rem;
+	height: 3.5rem;
+}
+
 .announcement_title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .announcement_title strong {
-  margin-right: auto;
+	margin-right: auto;
 }
 
 /* 바디테그 전체에 박스를 입힘 */
@@ -23,7 +50,6 @@
 	margin-top: 10rem;
 	/* 모든글씨가 갑자기 허연색으로떠서.... */
 	color: black;
-	
 	/* 폰트 */
 	font-family: 'Kanit', sans-serif;
 }
@@ -31,11 +57,11 @@
 /* 수정버튼 삭제버튼 */
 .announcement_btn_wrap {
 	justify-content: center;
-  	align-items: center;
-  	text-align: center;
-  	margin-left: auto;
-  	margin-right: auto;
-  	margin-top: 20px;
+	align-items: center;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
 }
 
 .list_btn {
@@ -75,7 +101,6 @@
 	padding-left: 0;
 }
 
-
 .announcement_view .announcement_info dl::before {
 	content: "";
 	position: absolute;
@@ -91,8 +116,8 @@
 	display: none;
 }
 
-
-.announcement_view .announcement_info dl dt, .announcement_view .announcement_info dl dd {
+.announcement_view .announcement_info dl dt, .announcement_view .announcement_info dl dd
+	{
 	display: inline-block;
 	font-size: 1.1rem;
 }

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.bulletin_top {
+.announcement_search_top {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -52,7 +52,7 @@ strong {
 }
 
 /* 바디테그 전체에 박스를 입힘 */
-.bulletin_body_container {
+.announcement_search_body_container {
 	width: 83%; /* 컨테이너의 너비 */
 	height: auto;
 	/* margin: 0 auto; 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
@@ -68,24 +68,24 @@ strong {
 }
 
 /* 카테고리와 글 제목 하이퍼링크 밑줄 안 보이게 */
-.bulletin_category a {
+.announcement_search_category a {
 	text-decoration: none;
 	color: inherit;
 	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
 }
 
-.bulletin_content a {
+.announcement_search_content a {
 	text-decoration: none;
 	color: inherit;
 	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
 	font-size: 1rem;
 }
 
-.bulletin_category a:hover {
+.announcement_search_category a:hover {
 	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
 }
 
-.bulletin_content a:hover {
+.announcement_search_content a:hover {
 	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
 	border-color: black;
 }
@@ -121,7 +121,7 @@ thead tr th {
 /* 테이블 끝 */
 
 /* 글쓰기 버튼(하이퍼링크) */
-.bulletin_write a {
+.announcement_search_write a {
 	/* 하이퍼링크 밑줄 안 보이게, 색깔 검정색 */
 	text-decoration: none;
 	color: inherit;
@@ -129,22 +129,23 @@ thead tr th {
 	text-align: center;
 }
 
-.bulletin_write a:hover {
+.announcement_search_write a:hover {
 	color: white; /* 링크의 텍스트 색상을 검은색으로 유지 */
 }
 
 /* 페이지번호와 글쓰기버튼 끝*/
 
 /*  */
-.bulletin_write {
+.announcement_search_write {
 	text-align: center;
 	margin-top: 10px;
 }
 
 /* 글쓰기 버튼 테스트 */
-.bulletin_write_button {
-	background-color: transparent;
+.announcement_search_write_button {
+	background-color: black;
 	border: 2px solid #000000;
+	color: #333;
 	cursor: pointer;
 	font-size: 15px;
 	font-weight: bold;
@@ -152,28 +153,29 @@ thead tr th {
 	width: 100px;
 	height: 40px;
 	margin-top: 10px;
+	border-radius: 4px;
 }
 
-.bulletin_page a:hover {
+.announcement_search_page a:hover {
 	color: black;
 }
 
-.bulletin_page a.button {
+.announcement_search_page a.button {
 	padding-top: 7px;
 	font-size: 1.2rem;
 }
 
-.bulletin_page a.num {
+.announcement_search_page a.num {
 	padding-top: 6px;
 	font-size: 1.4rem;
 }
 
-.bulletin_page a.num.on {
+.announcement_search_page a.num.on {
 	border-color: #000;
 	background-color: #000;
 	color: #fff;
 }
 
-.bulletin_page a:first-child {
+.announcement_search_page a:first-child {
 	border-left: 1px solid #ddd;
 }

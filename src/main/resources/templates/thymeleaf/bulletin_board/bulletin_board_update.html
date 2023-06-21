@@ -4,7 +4,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{thymeleaf/layout/mainLayout}">
 	<head>
 		<meta charset="UTF-8">
-		<title>글쓰기(공지사항)</title>
+		<title>글쓰기(전체게시판)</title>
 		<!-- 뷰포트 -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- js -->
@@ -35,13 +35,11 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 			        height: 500
 				});
 			});
-			
-			//취소버튼 누르면 자유게시판 페이지로 넘어감
+			//취소버튼 누르면 전체게시판 페이지로 넘어감
 			 function cancel() {
-             	window.location.href = "/racket/announcement";
+             	window.location.href = "/racket/bulletin";
         	}
 		</script>
-		
 		<script type="text/javascript">
 		    function validateForm() {
 		      const content = document.getElementById('summernote').value;
@@ -49,39 +47,37 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		        alert('내용을 입력해주세요.');
 		        return false;
 		      }
-		      else{
-		   	  	return true;
-		      }
+		      return true;
 		    }
   		</script>
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement_update.css" />
+			<link rel="stylesheet" href="/racket/common/css/bulletin_board_update.css" />
 		</th:block>
 	</head>
 	<body>
 	<th:block layout:fragment="content">
-		<div class="announcement_update_body_container">
-			<strong>공지사항</strong>
+		<div class="bulletin_update_body_container">
+			<strong>전체게시판</strong>
 			<hr/>
-			<form method="post" th:action="@{/announcement_update}" th:object="${updatedata}" th:onsubmit="return validateForm()">
-			    <div class="announcement_update_info">
+			<form method="post" th:action="@{/bulletin_update}" th:object="${updatedata}" th:onsubmit="return validateForm()">
+			    <div class="bulletin_update_info">
 			        <!-- 작성자 정보 -->
-			        <input type="hidden" name="announcementNo" th:value="${updatedata.announcementNo}">
-			        <label class="announcement_writer">작성자: </label>
+			        <input type="hidden" name="bbNo" th:value="${updatedata.bbNo}">
+			        <label class="bulletin_writer">작성자: </label>
 			        <input type="hidden" name="memberId" th:value="${updatedata.memberId}">
-			        <p class="announcement_writer_id" th:text="${updatedata.memberId}"></p>
+			        <p class="bulletin_writer_id" th:text="${updatedata.memberId}"></p>
 			    </div>
 			    <br/>
-			    <label class="announcement_title">제목: </label>    
-			    <input type="text" id="title" name="announcementTitle" th:value="${updatedata.announcementTitle}" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
+			    <label class="bulletin_title">제목: </label>    
+			    <input type="text" id="title" name="bbTitle" th:value="${updatedata.bbTitle}" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
 			    <hr/>
-			    <div class="announcement_update_content">
+			    <div class="bulletin_update_content">
 			        <!-- 작성 내용 -->
 			        <label>작성 내용</label> 
-			        <textarea id="summernote" name="announcementContent" class="form-control" th:text="${updatedata.announcementContent}"></textarea>
+			        <textarea id="summernote" name="bbContent" class="form-control" th:text="${updatedata.bbContent}"></textarea>
 			    </div>
-			    <div class="announcement_update_reaction">
+			    <div class="bulletin_update_reaction">
 			        <!-- 취소 버튼 -->
 			        <button type="reset" class="reset_btn" value="취소" onclick="cancel()">취소</button>
 			        <!-- 등록 버튼 -->
