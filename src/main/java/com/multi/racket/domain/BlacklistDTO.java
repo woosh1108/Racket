@@ -1,15 +1,14 @@
 package com.multi.racket.domain;
 
-import java.sql.Timestamp;
 
-import javax.persistence.Column;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import lombok.AllArgsConstructor;
@@ -24,15 +23,10 @@ import lombok.NoArgsConstructor;
 public class BlacklistDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "blacklist_no")
 	private int blacklistNo;
-	@Column(name = "member_id")
 	private String memberId;
-	@Column(name = "blacklist_reason")
 	private String blacklistReason;
-	@Column(name = "black_date")
 	@CreatedDate
-	private Timestamp blackDate;
-	@Column(name = "black_time")
-	private Timestamp blackTime;
+	private Date blackDate;
+	private Date blackTime;
 }
