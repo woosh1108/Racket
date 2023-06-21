@@ -27,18 +27,14 @@ public class ReservationController {
 		this.cashService = cashService;
 	}
 
-	
-	
-//	@GetMapping("/stadiums/{id}")
-//    public StadiumDetailDTO getStadiumDetails(@PathVariable int stadiumId) {
-//        return sService.getStadiumDetails(stadiumId);
-//    }
-	// 구장번호로 예약하기 상세조회
-//	@RequestMapping("/reservation/read")
-//	public StadiumDetailDTO getStadiumDetail(@PathVariable Long stadiumId) {
-//        return sService.getStadiumDetail(stadiumId);
-//    }
 
+//	 @GetMapping("/reservation/read/{stadiumNo}")
+//	    public String getStadiumData(@PathVariable int stadiumNo, Model model) {
+//	        StadiumDTO stadium = stadiumReadService.getStadiumData(stadiumNo);
+//	        model.addAttribute("stadium", stadium);
+//	        return "thymeleaf/reservation/reservation";
+//	    }
+	
 	@RequestMapping("/reservation/read")
 	public String reservation(int reservationNo) {
 		// ReservationDTO reservation = service.reservation(reservationNo);
