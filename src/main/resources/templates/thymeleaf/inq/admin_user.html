@@ -30,65 +30,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
-							</tr>
-							<tr>
-								<td>이름1</td>
-								<td>아이디1</td>
-								<td>닉네임1</td>
-								<td>2023-06-09</td>
+							<tr th:each="member:${memberlist}">
+								<td><span th:text="${member.memberName}"></span><br></td>
+								<td><span th:text="${member.memberId}"></span><br></td>
+								<td><span th:text="${member.memberNick}"></span><br></td>
+								<td><span th:text="${member.memberReg}"></span><br></td>
 							</tr>
 						</tbody>
 					</table>

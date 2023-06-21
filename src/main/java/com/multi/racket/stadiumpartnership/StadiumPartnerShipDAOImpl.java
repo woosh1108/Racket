@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.multi.racket.domain.AssociateDTO;
+import com.multi.racket.domain.StadiumDTO;
 @Repository
 public class StadiumPartnerShipDAOImpl implements StadiumPartnerShipDAO {
 	private EntityManager entitymanager; 
@@ -17,7 +17,7 @@ public class StadiumPartnerShipDAOImpl implements StadiumPartnerShipDAO {
 
 
 	@Override
-	public AssociateDTO partnership_insert(AssociateDTO associate) {
+	public StadiumDTO partnership_insert(StadiumDTO associate) {
 		entitymanager.persist(associate);
 		return associate;
 	}

@@ -15,7 +15,6 @@ public class MailSendService {
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	private int authNumber; 
-	// 난수 발생(여러분들 맘대러)
 	
 		public void makeRandomNumber() {
 			// 난수의 범위 111111 ~ 999999 (6자리 난수)

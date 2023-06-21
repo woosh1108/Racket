@@ -54,7 +54,7 @@
 						</span> 
 						<th:block th:if="${session.user}!=null">
 							<span>
-								<button type="submit" style="border-radius: 6px" th:if="${member.memberId} == ${inquiry.memberId}">수정</button>
+								<button type="submit" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/updatepage(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId}">수정</button>
 							</span> 
 							<span>
 								<button type="button" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/delete(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId} or ${member.memberAuth} == '2'">삭제</button>

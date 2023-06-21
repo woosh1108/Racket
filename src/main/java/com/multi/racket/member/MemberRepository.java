@@ -1,4 +1,4 @@
-package com.multi.racket.repository;
+package com.multi.racket.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

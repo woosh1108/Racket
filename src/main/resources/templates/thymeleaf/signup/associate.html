@@ -46,17 +46,31 @@
 						class="form-control" required>
 				</div>
 				<div class="mb-3">
-					<label for="stadiumTime" class="form-label" style="width:100px;">구장 대여 시간:</label>
-						<select id="stadiumTime" name="stadiumTime" class="form-select">
-		                    <option value="06:00~08:00">06:00~08:00</option>
-		                    <option value="08:00~10:00">08:00~10:00</option>
-		                    <option value="10:00~12:00">10:00~12:00</option>
-		                    <option value="12:00~14:00">12:00~14:00</option>
-		                    <option value="14:00~16:00">14:00~16:00</option>
-		                    <option value="16:00~18:00">16:00~18:00</option>
-		                    <option value="18:00~20:00">18:00~20:00</option>
-		                    <option value="20:00~22:00">20:00~22:00</option>
-		                </select>
+					<label for="stadiumTime" class="form-label" style="width:100px;">구장 운영 시간:</label>
+					<div class="TimeContainer">
+						<select id="stadiumTimeStart" name="stadiumTimeStart" class="form-select" onchange="updateEndTime()">
+							<option value="06:00">06:00</option>
+							<option value="08:00">08:00</option>
+							<option value="10:00">10:00</option>
+							<option value="12:00">12:00</option>
+							<option value="14:00">14:00</option>
+							<option value="16:00">16:00</option>
+							<option value="18:00">18:00</option>
+							<option value="20:00">20:00</option>
+						</select>
+						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
+						<select id="stadiumTimeEnd" name="stadiumTimeEnd" class="form-select">
+							<option value="08:00">08:00</option>
+							<option value="10:00">10:00</option>
+							<option value="12:00">12:00</option>
+							<option value="14:00">14:00</option>
+							<option value="16:00">16:00</option>
+							<option value="18:00">18:00</option>
+							<option value="20:00">20:00</option>
+							<option value="22:00">22:00</option>
+						</select>
+					<input type="hidden" id="stadiumTime" name="stadiumTime">
+					</div>
 				</div>
 				<div class="mb-3">
 					<label for="stadiumFee" class="form-label" style="width:100px;">구장 대여 비용:</label> <input
@@ -64,17 +78,16 @@
 						class="form-control" required>
 				</div>
 				<div class="mb-3">
-					<label for="court" class="form-label">대여 코트 수:</label> <input
-						type="number" id="court" name="court" class="form-control">
+					<label for="stadiumContent" class="form-label">구장 설명 : </label> 
+					<textarea rows="5" cols="30" name="stadiumContent" id="stadiumContent" class="form-control"></textarea>
 				</div>
 
-		<input type="hidden" name="associateCount" value="0">
-		<input type="hidden" id="associateRegdate" name="associateRegdate"
-			th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
-
-		<button type="submit" class="btn btn-primary" id="associate">구장 제휴서 제출</button>
+				<input type="hidden" name="stadiumStatus" value="0">
+				<button type="submit" class="btn btn-primary" id="associate">구장 제휴서 제출</button>
 		</form>
+		<script type="text/javascript" src="/racket/common/js/signup/associate.js"></script>
 		</div>
+		
 	</th:block>
 </body>
 </html>

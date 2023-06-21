@@ -1,4 +1,4 @@
-package com.multi.racket.login;
+package com.multi.racket.member;
 
 import com.multi.racket.domain.MemberDTO;
 

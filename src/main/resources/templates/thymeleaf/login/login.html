@@ -12,6 +12,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="/racket/common/css/login.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script th:inline="javascript">
 	let msg = [[${msg}]];
 	if(msg == null){
@@ -53,13 +54,17 @@
 						<!-- 지현님메핑경로넣기 -->
 						<button id="btnLoginNaver" style="width: 49%" type="reset"
 							class="btn btn-success">네이버로그인</button>
+						
 						<!-- 지현님메핑경로넣기 -->
-						<button id="btnLoginKakao" style="width: 49%" type="reset"
-							class="btn btn-warning">카카오톡로그인</button>
+						<!-- <button id="btnLoginKakao" style="width: 49%" type="reset"
+							class="btn btn-warning">카카오톡로그인</button> -->
+							<a href="javascript:kakaoLogin();"><img src="/racket/images/kakao_login.png" alt="카카오계정 로그인"/></a>
 					</div>
 				</form>
+					 
 			</div>
 		</div>
+		<script type="text/javascript" src="/racket/common/js/login/kakaologin.js"></script>
 	</th:block>
 	<script>
 		function openAgreementPopup() {
@@ -67,5 +72,7 @@
 			return false; // 이벤트를 취소하여 더이상 진행되지 않도록 합니다.
 		}
 	</script>
+	 
+	
 </body>
 </html>

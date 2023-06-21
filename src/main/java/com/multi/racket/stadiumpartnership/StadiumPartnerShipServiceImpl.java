@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.multi.racket.domain.AssociateDTO;
+import com.multi.racket.domain.StadiumDTO;
 @Service
 @Transactional
 public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService {
@@ -16,7 +16,7 @@ public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService 
 	}
 
 	@Override
-	public AssociateDTO partnership_insert(AssociateDTO associate) {
+	public StadiumDTO partnership_insert(StadiumDTO associate) {
 		return dao.partnership_insert(associate);
 	}
 
