@@ -9,16 +9,23 @@
 	<link rel="stylesheet" href="/racket/common/css/signup/sign-auth.css">
 </th:block>
 <script th:inline="javascript">
-let msg = [[${msg}]];
-if(msg == null){
-}else{
-	alert(msg);
-}
-let msg1 = [[${msg1}]];
-if(msg1 == null){
-}else{
-	alert(msg1);
-}
+$(document).ready(function(){
+	let msg = [[${msg}]];
+	if(msg == null){
+	}else{
+		alert(msg);//확인했습니다.
+		 $('#mail-check-btn').attr('disabled', true);
+	     $('#mail-send-btn').attr('disabled', true);
+	     $('#name-send-btn').attr('disabled', true);
+		$('#next-btn').attr('disabled', false); 
+	}
+	let msg1 = [[${msg1}]];
+	if(msg1 == null){
+	}else{
+		alert(msg1);
+	}
+})
+
 </script>
 </head>
 <body>
@@ -35,9 +42,9 @@ if(msg1 == null){
 					<div class="email-validation">
 						<div class="input-group">
 							<input type="text" class="form-control" name="memberEmail1"
-								id="userEmail1" placeholder="이메일" th:value="${memberEmail1}">
-							<select class="form-control" name="memberEmail2" id="memberEmail2"
-								th:value="${memberEmail2}">
+								id="memberEmail1" placeholder="이메일" th:value="${memberEmail1}">
+							<select class="form-control" name="memberEmail2"
+								id="memberEmail2" th:value="${memberEmail2}">
 								<option th:selected="${memberEmail2}">@naver.com</option>
 								<option th:selected="${memberEmail2}">@daum.net</option>
 								<option th:selected="${memberEmail2}">@gmail.com</option>
@@ -60,14 +67,17 @@ if(msg1 == null){
 						<div class="input-group">
 							<input type="text" class="form-control" name="memberName"
 								id="memberName" placeholder="이름을 입력해주세요.">
-							<button type="submit" class="btn btn-primary" id="mail-send-btn">이름확인하기</button>
+							<button type="submit" class="btn btn-primary" id="name-send-btn"
+								disabled>이름확인하기</button>
 						</div>
 					</div>
 				</form>
 				<div class="email-validation">
 					<!-- <button type="button" class="btn btn-success" id="next-btn" disabled>다음</button> -->
-					<button class="btn btn-success" id="next-btn"
-						href="/racket/login/findId2">다음</button>
+					<form action="/racket/login/findId2" method="post">
+						<input type="hidden" th:value="${memberId}" name="memberId" id="memberId">
+						<button class="btn btn-success" id="next-btn" disabled>다음</button>
+					</form>
 					<button type="button" class="btn btn-danger" id="cancel-btn"
 						onclick="location.href='/racket/login'">취소</button>
 				</div>
@@ -76,10 +86,8 @@ if(msg1 == null){
 		</div>
 		<th:block layout:fragment="script">
 			<script type="text/javascript"
-				src="/racket/common/js/signup/sign-auth.js"></script>
+				src="/racket/common/js/login/findId.js"></script>
 		</th:block>
 	</th:block>
-
-
 </body>
 </html>
