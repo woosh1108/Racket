@@ -30,13 +30,20 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public boolean idCheck(String memberId) {
-		boolean state = memberRepository.existsById(memberId);
-		return state;
+	public MemberDTO idCheck(String memberId) {
+		MemberDTO user = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		return user;
 	}
 
 	@Override
 	public MemberDTO findId(String memberName, String memberEmail) {
 		return memberRepository.findByMemberNameAndMemberEmail(memberName, memberEmail);
+	}
+
+	@Override
+	public void updatePass(MemberDTO updateUser, String memberId, String memberPass) {
+		MemberDTO user = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		user.setMemberPass(memberPass);
+		memberRepository.save(user);
 	}
 }

@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.multi.racket.domain.MemberDTO;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberDAO dao;
 
 	public MemberServiceImpl() {
-		
+
 	}
 
 	@Autowired
@@ -30,9 +31,8 @@ public class MemberServiceImpl implements MemberService {
 		dao.update(updatedata);
 	}
 
-
 	@Override
-	public boolean idCheck(String memberId) {
+	public MemberDTO idCheck(String memberId) {
 		// TODO Auto-generated method stub
 		return dao.idCheck(memberId);
 	}
@@ -41,6 +41,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO findId(String memberName, String memberEmail) {
 		// TODO Auto-generated method stub
 		return dao.findId(memberName, memberEmail);
+	}
+
+	@Override
+	public void updatePass(MemberDTO updateUser, String memberId, String memberPass) {
+		// TODO Auto-generated method stub
+		dao.updatePass(updateUser, memberId, memberPass);
 	}
 
 }

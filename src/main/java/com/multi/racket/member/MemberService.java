@@ -9,9 +9,12 @@ public interface MemberService {
 	// 개인정보 수정하기
 	public void update(MemberDTO updatedata);
 
+	// 비밀번호 변경
+	public void updatePass(MemberDTO updateUser, String memberId, String memberPass);
+
 	// 비밀번호 찾기 -> 아이디 확인
-	public boolean idCheck(String memberId);
-	
+	MemberDTO idCheck(String memberId);
+
 	// 아이디 앚기
 	MemberDTO findId(String memberName, String memberEmail);
 }
