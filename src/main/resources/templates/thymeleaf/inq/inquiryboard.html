@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script>
 	function showAlert() {
-		alert("익명 문의글입니다");
+		alert("비공개 문의글입니다.");
 	}
 </script>
 </head>
@@ -40,15 +40,16 @@
             	<tbody>
             		<tr th:each="inquiry:${inquirylist}">
             			<td><span th:text="${inquiry.inquiryNo }"></span></td>
-            			<td>
-            				<a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}" th:unless="${inquiry.inqAnonymous == '1'}"><span th:text="${inquiry.inqTitle }"></span></a>
+            			<td>           				
             				<th:block th:if="${session.user}!=null">
+            					<a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}" th:unless="${inquiry.inqAnonymous == '1'}"><span th:text="${inquiry.inqTitle }"></span></a>
             					<a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}" th:if="${inquiry.inqAnonymous == '1'} and (${inquiry.memberId} == ${member.memberId} or ${member.memberAuth=='2'})"><span th:text="${inquiry.inqTitle }"></span></a>
+            					<a th:href="@{/inquiryboard(pageNo=0)}" th:if="${inquiry.inqAnonymous == '1'} and (${inquiry.memberId} != ${member.memberId} and ${member.memberAuth!='2'})"><span th:text="${inquiry.inqTitle }"></span><img src="/racket/images/lock.png" style="width:15px; height:15px; margin-left: 10px"></a>
             				</th:block>
-            				<a th:href="@{/inquiryboard(pageNo=0)}" onclick="showAlert()" th:if="${inquiry.inqAnonymous == '1'}">
-            					<span th:text="${inquiry.inqTitle}"></span>
-            					<img src="/racket/images/lock.png" style="width:15px; height:15px; margin-left: 10px">
-        					</a>
+            				<th:block th:if="${session.user}==null">
+            					<a th:href="@{/inquiryboard(pageNo=0)}" onclick="showAlert()" th:if="${inquiry.inqAnonymous == '1'}"><span th:text="${inquiry.inqTitle}"></span><img src="/racket/images/lock.png" style="width:15px; height:15px; margin-left: 10px"></a> 
+            					<a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}" th:unless="${inquiry.inqAnonymous == '1'}"><span th:text="${inquiry.inqTitle }"></span></a>
+            				</th:block>
             			</td>
             			<td><span th:text="${inquiry.memberId}"></span></td>
             			<td><span th:text="${inquiry.inqDate }"></span></td>
