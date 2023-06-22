@@ -4,9 +4,13 @@
 	layout:decorate="~{thymeleaf/layout/mainLayout}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script th:if="${replyalert}">
-    alert('관리자만 쓸 수 있습니다'); 
+<title>문의글 읽기</title>
+<script th:inline="javascript">
+	function confirmDelete() {
+    	if (confirm("정말로 삭제하시겠습니까?")) {
+        	window.location.href = "/racket/inquiry/delete?inquiryNo=[[${inquiry.inquiryNo}]]";
+    	}
+	}
 </script>
 </head>
 <body>
@@ -57,7 +61,7 @@
 								<button type="submit" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/updatepage(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId}">수정</button>
 							</span> 
 							<span>
-								<button type="button" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/delete(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId} or ${member.memberAuth} == '2'">삭제</button>
+								<button type="button" style="border-radius: 6px" th:onclick="javascript:confirmDelete()">삭제</button>
 							</span> 
 							<span>
 								<button type="submit" style="border-radius: 6px; width:65px; height: 45px; margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${member.memberAuth == '2'}">답변</button>
@@ -69,7 +73,7 @@
 						<div style="font-size: 20px">답변</div>
 						<div style="margin-top: 30px">
 						<div style="border-radius: 10px; background-color: #f0f0f0; padding: 10px; height: 200px">
-							안녕하세요 관리자입니다.
+							안녕하세요 관리자입니다.<br/>
 							<span th:text="${inquiry.replyContent }"></span>
 						</div>
 						</div>
