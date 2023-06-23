@@ -61,7 +61,7 @@
 								<button type="submit" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/updatepage(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId}">수정</button>
 							</span> 
 							<span>
-								<button type="button" style="border-radius: 6px" th:onclick="javascript:confirmDelete()">삭제</button>
+								<button type="button" style="border-radius: 6px" th:onclick="javascript:confirmDelete()" th:if="${member.memberId} == ${inquiry.memberId} or ${member.memberAuth}=='2'">삭제</button>
 							</span> 
 							<span>
 								<button type="submit" style="border-radius: 6px; width:65px; height: 45px; margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${member.memberAuth == '2'}">답변</button>

@@ -10,6 +10,16 @@
 		alert("비공개 문의글입니다.");
 	}
 </script>
+<script>
+	function validateSearch() {
+	    var keyword = document.getElementById("keywordInput").value;
+	    if (keyword.trim() === "") {
+	        window.location.href = "/racket/inquiryboard?pageNo=0";
+	        return false; 
+	    }
+	    return true;
+	}
+</script>
 </head>
 <body>	
 	<th:block layout:fragment="css">
@@ -35,6 +45,8 @@
 				el:'#searchBox'
 			};			
 			paginate.init('.table',options,filterOptions); //테이블 클래스
+			
+			
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 		<link rel="icon" href="/racket/images/favicon.png">
@@ -115,16 +127,19 @@
 			  	</ul>
 				</nav>
             </div>
-            <div align="center" style="margin-bottom: 40px">
-            	<input style="height: 40px; width: 250px; font-size: 17px"><span style="margin-left: 15px"><button type="submit" style="border-radius: 6px">검색</button></span>
-            </div>
+            <form action="/racket/inquiry/search?pageNo=0" method="get" onsubmit="return validateSearch()">
+	            <div align="center" style="margin-bottom: 40px">
+	            	<input name="pageNo" type="hidden" value="0">
+	            	<input id="keywordInput" name="keyword" style="height: 40px; width: 250px; font-size: 17px"><span style="margin-left: 15px"><button type="submit" style="border-radius: 6px">검색</button></span>
+	            </div>
+	        </form>
             <div align="right">
+            	<button type="submit" style="border-radius: 6px; margin-right: 10px" onclick="window.location.href='/racket/inquiryboard?pageNo=0'" th:if="${keyword!=null}">목록</button>
 				<button type="submit" style="border-radius: 6px" onclick="window.location.href='/racket/inquirywrite'">글쓰기</button>
 			</div>
           </div>
         </div>
-      </div>	
-	</th:block>
-	
+      </div>
+	</th:block>	
 </body>
 </html>
