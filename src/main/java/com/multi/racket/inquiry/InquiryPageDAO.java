@@ -22,5 +22,13 @@ public class InquiryPageDAO {
 		int totalPageNumber = page.getTotalPages(); 	
 		return new PageDTO(list,totalPageNumber);
 	}
+	
+	public PageDTO searchinq(int pageNo, String keyword) {
+		PageRequest inqPage = PageRequest.of(pageNo, 5, Sort.by(Sort.Direction.DESC,"inquiryNo"));
+		Page<InquiryDTO> page = repository.findByInqTitleContaining(keyword, inqPage);
+		List<InquiryDTO> list = page.getContent();
+		int totalPageNumber = page.getTotalPages();
+		return new PageDTO(list,totalPageNumber);
+	}
 		
 }

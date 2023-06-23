@@ -14,6 +14,10 @@ public class InquiryPageService {
 	public PageDTO findAll(int pageNo) { 
 		 return dao.findAll(pageNo); 
 	}
+	
+	public PageDTO searchinq(int pageNo, String keyword) {
+		return dao.searchinq(pageNo, keyword);
+	}
 
 	
 }
