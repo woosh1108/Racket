@@ -43,6 +43,7 @@ public class InquiryPageController {
 		model.addAttribute("member", member);
 		model.addAttribute("inquirylist", list);
 		model.addAttribute("totalPageNumber", totalPageNumber);
+		model.addAttribute("keyword",keyword);
 		return "thymeleaf/inq/inquiryboard";
 	}
 	

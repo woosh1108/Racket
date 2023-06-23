@@ -118,7 +118,7 @@
 			        <span aria-hidden="true"><i class="fas fa-angle-double-left"></i>&laquo;</span>
 			      </a>
 			    </li>
-			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/inquiryboard(pageNo=${i})}"><span th:text="${i+1}" style="color: navy"></span></a></li>
+			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/inquiryboard(pageNo=${i})}" th:if="${i+1}>=1"><span th:text="${i+1}" style="color: navy;" th:if="${i+1}>=1"></span></a></li>
 			    <li class="page-item">
 			      <a class="page-link" href="#" aria-label="Next">
 			        <span aria-hidden="true"><i class="fas fa-angle-double-right"></i>&raquo;</span>
