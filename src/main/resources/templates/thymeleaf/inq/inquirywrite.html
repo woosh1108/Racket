@@ -45,12 +45,12 @@
 						<input type="text" id="title" name="inqTitle" style="font-size: 20px">
 					</div>
 					<div style="margin-bottom: 70px;">
-						<label for="id" style="font-size: 30px; margin-right: 20px; border-right: 2px solid black; padding-right: 30px">아이디</label>
+						<label for="id" style="font-size: 30px; margin-right: 20px; border-right-width: 5px; border-right-style: solid; border-right-color: black; padding-right: 30px">아이디</label>
 						<span th:text="${member.memberId}" th:with="paramValue=${member.memberId}" style="font-size: 20px"></span>
 					</div>
 					
 					<div style="margin-bottom: 40px;">
-						<label for="content" style="font-size: 30px; border-right: 2px solid black; padding-right: 30px; margin-bottom: 20px">내용</label>
+						<label for="content" style="font-size: 30px; border-right-width: 5px; border-right-style: solid; border-right-color: black; padding-right: 30px; margin-bottom: 20px">내용</label>
 						<span style="font-size: 20px; margin-left: 20px">비공개</span>
 						<input type="checkbox" id="anonymous" name="inqAnonymous" value="1" style="width: 15px; height: 15px; margin-left: 5px">
 						<textarea name="inqContent" id="ir1" rows="10" cols="90" style="font-size: 20px"></textarea>
