@@ -1,6 +1,6 @@
 package com.multi.racket.domain;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 //@Data
 //@AllArgsConstructor
@@ -30,7 +26,7 @@ public class TrainingDTO {
 	@Column(name = "training_content")
 	private String trainingContent;
 	@Column(name = "training_date")
-	private Timestamp trainingDate;
+	private Date trainingDate;
 	@Column(name = "training_max")
 	private int trainingMax;
 	@Column(name = "training_fee")
@@ -40,7 +36,7 @@ public class TrainingDTO {
 		
 	}
 	
-	public TrainingDTO(int trainingNo, String memberId, int courtHourNo, String trainingContent, Timestamp trainingDate,
+	public TrainingDTO(int trainingNo, String memberId, int courtHourNo, String trainingContent, Date trainingDate,
 			int trainingMax, int trainingFee) {
 		super();
 		this.trainingNo = trainingNo;
@@ -83,10 +79,10 @@ public class TrainingDTO {
 	public void setTrainingContent(String trainingContent) {
 		this.trainingContent = trainingContent;
 	}
-	public Timestamp getTrainingDate() {
+	public Date getTrainingDate() {
 		return trainingDate;
 	}
-	public void setTrainingDate(Timestamp trainingDate) {
+	public void setTrainingDate(Date trainingDate) {
 		this.trainingDate = trainingDate;
 	}
 	public int getTrainingMax() {

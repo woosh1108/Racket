@@ -89,11 +89,11 @@
 		<h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
 		<hr />
 		<tr th:each="stadium:${stadiumlist}">
-			<td><span th:text="${stadium.stadiumName}"></span><br></td>
+			<td><span th:text="${stadium.stadiumName}" class="stadiumname"></span><br></td>
 			<td>장소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
 			<td>구장 이용시간 : <span th:text="${stadium.stadiumTime}"></span><br></td>
 			<td>구장 이용비 : <span th:text="${stadium.stadiumFee}"></span> 원<br></td>
-			<hr />
+			<hr/>
 			<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
 		</tr>
 		<div class="stadium">
@@ -107,116 +107,7 @@
 				<h2>13000 원</h2>
 			</div>
 		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
+		
 
 
 	</th:block>

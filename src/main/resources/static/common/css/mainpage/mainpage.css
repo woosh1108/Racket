@@ -91,6 +91,9 @@ div[class="calendar"] > tr > td{
 	font-family: sans-serif;
 	font-weight: bold;
 }
+.stadiumname{
+	font-size: 18pt;
+}
 /* 달력 전체 스타일 */
 			.calendar {
 				border-radius:30px;

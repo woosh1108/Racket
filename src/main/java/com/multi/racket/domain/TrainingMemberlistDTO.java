@@ -1,6 +1,6 @@
 package com.multi.racket.domain;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "trainingmemberlist")
+@Table(name = "trainingMemberlist")
 public class TrainingMemberlistDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +28,5 @@ public class TrainingMemberlistDTO {
 	@Column(name = "member_id")
 	private String memberId;
 	@Column(name = "training_date")
-	private Timestamp trainingDate;
+	private Date trainingDate;
 }
