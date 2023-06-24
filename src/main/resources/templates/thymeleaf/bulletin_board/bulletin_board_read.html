@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{thymeleaf/layout/mainLayout}">
-	<head>
-		<meta charset="UTF-8">
-		<title>상세글 보기</title>
-		<!-- 파비콘 -->
-		<link rel="icon" href="/racket/images/favicon.png">
-		<!-- 뷰포트 -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- js -->
-		<script type="text/javascript" src="/racket/common/js/bulletin_board_read.js"></script>
-		<!-- 부트스트랩 -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-		<!-- 폰트 -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
-		
-		
-		<!--  -->
-		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/bulletin_board_read.css" />
-		</th:block>
-	</head>
-	<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<title>상세글 보기</title>
+<!-- 파비콘 -->
+<link rel="icon" href="/racket/images/favicon.png">
+<!-- 뷰포트 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- js -->
+<script type="text/javascript"
+	src="/racket/common/js/bulletin_board_read.js"></script>
+<!-- 부트스트랩 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap"
+	rel="stylesheet">
+
+
+<!--  -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet"
+		href="/racket/common/css/bulletin_board/bulletin_board_read.css" />
+</th:block>
+</head>
+<body>
 	<th:block layout:fragment="content">
 		<div class="bulletin_read_body_container">
 			<div class="bulletin_read_wrap">
@@ -37,7 +45,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 				<div class="bulletin_view_wrap">
 					<div class="bulletin_view">
 						<div class="bulletin_title"
-						th:text="${bulletinBoard.bbTitle}">
+							th:text="${bulletinBoard != null ? bulletinBoard.bbTitle : 'No Bulletin Board'}">
 						</div>
 						<div class="bulletin_info">
 							<dl>
@@ -58,45 +66,101 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 								<dt>조회</dt>
 								<dd th:text="${bulletinBoard.bbViews}"></dd>
 							</dl>
-							<dl>
+							<!-- <dl>
 								<dt>좋아요</dt>
 								<dd th:text="${bulletinBoard.bbViews}"></dd>
-							</dl>
+							</dl> -->
 							<dl>
 								<dt>댓글</dt>
-								<dd th:text="${bulletinBoard.bbViews}"></dd>
+								<dd th:text="${replyCount}"></dd>
 							</dl>
 						</div>
 						<!-- 데이터 받아오기 -->
-						<div class="bulletin_cont" th:utext="${bulletinBoard.bbContent != null ? bulletinBoard.bbContent : ''}">
-						
-						
+						<div class="bulletin_cont"
+							th:utext="${bulletinBoard.bbContent != null ? bulletinBoard.bbContent : ''}">
+
+
 						</div>
-							<div class="bulletin_btn_wrap">
-								<div class="button_group">
-									<!-- 해당글쓴이와 로그인한 아이디가 같을때만 띄우기 -->
-									<form method="post" th:action="@{/bulletin_delete}">
-									<input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
-										<button type="submit" onclick="return confirmDelete()">삭제</button>
-									</form>
-									<script>
-	    								function confirmDelete() {
-	        								var result = confirm("정말 삭제하시겠습니까?");
-	        								return result;
-	    								}
-									</script>
-								</div>
-									<div class="button_group">
-									<form method="get" th:action="@{/bulletin_update/{bbNo}(bbNo=${bulletinBoard.bbNo})}" th:object="${bulletinBoard}">
-	    								<input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
-	    								<button type="submit">수정</button>
-									</form>
-								</div>
+						<div class="bulletin_btn_wrap">
+							<div class="button_group">
+								<form method="post" th:action="@{/bulletin_delete}">
+									<input type="hidden" name="bbNo"
+										th:value="${bulletinBoard.bbNo}" />
+									<button th:if="${isAuthor}" type="submit"
+										onclick="return confirmDelete()">삭제</button>
+								</form>
+								<script>
+									function confirmDelete() {
+										var result = confirm("정말 삭제하시겠습니까?");
+										return result;
+									}
+								</script>
 							</div>
+							<div class="button_group">
+								<form method="get"
+									th:action="@{/bulletin_update/{bbNo}(bbNo=${bulletinBoard.bbNo})}"
+									th:object="${bulletinBoard}">
+									<input type="hidden" name="bbNo"
+										th:value="${bulletinBoard.bbNo}" />
+									<button th:if="${isAuthor}" type="submit">수정</button>
+								</form>
+							</div>
+						</div>
+						<div class="reply_count">
+							<h6>
+								댓글<span th:text="${replyCount}"></span>
+							</h6>
+						</div>
+						<div id="comment_list">
+						    <input type="hidden" name="bbNo" th:value="${bbNo}" />
+						    <ul class="reply_ul" th:each="reply : ${replyList}" style="border: 1px;">
+						        <li>
+						            <div class="reply">
+						                <div class="reply_content">
+						                    <div class="reply_info">
+						                        <p class="reply_member_id" th:text="${reply.memberId}"></p>
+						                        <p class="reply_date" th:text="${reply.bbReplyWriteDate}"></p>
+						                    </div>
+						                    <div class="reply_text" th:text="${reply.bbReplyContent}"></div>
+						                </div>
+						                <div class="reply_buttons">
+						                    <form th:action="@{/bulletin_reply_delete}" method="post">
+						                        <input type="hidden" name="bbReplyNo" th:value="${reply.bbReplyNo}" />
+						                        <input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
+						                        <button th:if="${isAuthorReply}" class="button-link" type="submit" onclick="return confirmDeleteReply()">삭제</button>
+						                    </form>
+						                    <script>
+												function confirmDeleteReply() {
+													var result = confirm("댓글을 삭제하시겠습니까?");
+													return result;
+												}
+											</script>
+						                       <form th:action="@{/bulletin_reply_update/{reply.bbReplyNo}(reply.bbReplyNo=${reply.bbReplyNo})}"
+												method="get">
+											       <input type="hidden" name="bbReplyNo" th:value="${reply.bbReplyNo}" />
+							                       <input type="hidden" name="bbReplyContent" th:value="${reply.bbReplyContent}" />
+							                       <input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
+											    <button th:if="${isAuthorReply}" class="button-link" type="submit">수정</button>
+											</form>
+						                </div>
+						            </div>
+						        </li>
+						    </ul>
+						</div>
+						<div class="reply_wrap">
+							<form th:action="@{/bulletin_reply_insert}" method="post">
+								<input type="hidden" name="bbNo"
+									th:value="${bulletinBoard.bbNo}" />
+								<textarea name="content" cols="30" rows="10" class="txar"></textarea>
+								<div class="txar_right_btn">
+									<button type="submit">등록</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-		</th:block>
-	</body>
+		</div>
+	</th:block>
+</body>
 </html>

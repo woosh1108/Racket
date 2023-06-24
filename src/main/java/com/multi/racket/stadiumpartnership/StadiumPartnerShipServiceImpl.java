@@ -37,4 +37,9 @@ public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService 
 		return stadiumfile;
 	}
 
+	@Override
+	public List<StadiumFileDTO> find_file_grant(StadiumDTO stadium) {
+		return dao.find_file_grant(stadium);
+	}
+
 }

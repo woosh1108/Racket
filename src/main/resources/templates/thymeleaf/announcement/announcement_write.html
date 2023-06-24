@@ -54,7 +54,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
   		</script>
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement_write.css" />
+			<link rel="stylesheet" href="/racket/common/css/announcement/announcement_write.css" />
 		</th:block>
 	</head>
 	<body>
@@ -65,8 +65,8 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 			<form method="post" action="/racket/announcement" onsubmit="return validateForm()">
 				<div class="announcement_write_info">
 	  				<label class="announcement_writer">작성자: </label>
-	  				<input type="hidden" name="memberId" th:value="${freeId}">
-	  				<p class="announcement_writer_id" th:text="${freeId}"></p>
+	  				<input type="hidden" name="memberId" th:value="${id}">
+	  				<p class="announcement_writer_id" th:text="${id}"></p>
 				</div>
 				<br/>
 				<label class="announcement_title">제목: </label>	

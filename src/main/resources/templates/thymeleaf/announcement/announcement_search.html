@@ -20,7 +20,7 @@
 		
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement_search.css" />
+			<link rel="stylesheet" href="/racket/common/css/announcement/announcement_search.css" />
 		</th:block>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
@@ -79,7 +79,7 @@
 	  				</div>
 					<div class="announcement_search_write">
 					<!-- 관리자에게만 버튼이 보일 수 있도록 -->
-						<button type="submit" class="announcement_search_write_button"><a href="/racket/announcement_write" style="color: black;">글쓰기</a></button>
+						<button th:if="${isAdmin}" type="submit" class="announcement_search_write_button"><a href="/racket/announcement_write" style="color: black;">글쓰기</a></button>
 					</div> 
 				</div>
 			</th:block>

@@ -21,7 +21,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement_read.css" />
+			<link rel="stylesheet" href="/racket/common/css/announcement/announcement_read.css" />
 		</th:block>
 	</head>
 	<body>
@@ -69,7 +69,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 									<!-- 해당글쓴이와 로그인한 아이디가 같을때만 띄우기 -->
 									<form method="post" th:action="@{/announcement_delete}">
 									<input type="hidden" name="announcementNo" th:value="${announcement.announcementNo}" />
-										<button type="submit" onclick="return confirmDelete()">삭제</button>
+										<button th:if="${isAdmin}" type="submit" onclick="return confirmDelete()">삭제</button>
 									</form>
 									<script>
 	    								function confirmDelete() {
@@ -81,7 +81,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 									<div class="button_group">
 									<form method="get" th:action="@{/announcement_update/{announcementNo}(announcementNo=${announcement.announcementNo})}" th:object="${announcement}">
 	    								<input type="hidden" name="announcementNo" th:value="${announcement.announcementNo}" />
-	    								<button type="submit">수정</button>
+	    								<button th:if="${isAdmin}" type="submit">수정</button>
 									</form>
 								</div>
 							</div>

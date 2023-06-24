@@ -1,16 +1,17 @@
 package com.multi.racket.announcement;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
-
-import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+
+import com.multi.racket.announcement.AnnouncementDTO;
 
 @Repository
 public class AnnouncementDAOImpl implements AnnouncementDAO {
@@ -91,12 +92,21 @@ public class AnnouncementDAOImpl implements AnnouncementDAO {
 		List<AnnouncementDTO> announcementmemberId = repository.findBymemberIdContaining(data);
 		List<AnnouncementDTO> announcementTitle = repository.findByannouncementTitleContaining(data);
 		List<AnnouncementDTO> announcementContent = repository.findByannouncementContentContaining(data);
-		
+
 		List<AnnouncementDTO> result = new ArrayList<>();
 		result.addAll(announcementmemberId);
 		result.addAll(announcementTitle);
 		result.addAll(announcementContent);
-		
-		return result;
+
+		List<AnnouncementDTO> uniqueResult = new ArrayList<>();
+
+		// 글이 중복되어서 출력된다면
+		for (AnnouncementDTO announcement : result) {
+			if (!uniqueResult.contains(announcement)) {
+				uniqueResult.add(announcement);
+			}
+		}
+
+		return uniqueResult;
 	}
 }

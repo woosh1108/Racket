@@ -8,5 +8,6 @@ import com.multi.racket.domain.StadiumFileDTO;
 public interface StadiumPartnerShipService {
 	public StadiumDTO partnership_insert(StadiumDTO associate);
 	public List<StadiumFileDTO> file_insert(List<StadiumFileDTO> stadiumlist);
-	void insert(StadiumDTO stadium,List<StadiumFileDTO> stadiumfiledtolist);
+	public void insert(StadiumDTO stadium,List<StadiumFileDTO> stadiumfiledtolist);
+	public List<StadiumFileDTO> find_file_grant(StadiumDTO stadium);
 }

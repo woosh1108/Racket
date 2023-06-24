@@ -9,7 +9,7 @@ import com.multi.racket.domain.StadiumDTO;
 public interface ManageService {
 	public List<StadiumDTO> findAll() ;
 	public List<MemberDTO> findUser();
-	public List<StadiumDTO> find_grant() ;
+	public List<StadiumDTO> find_grant();
 	public void update(List<StadiumDTO> stadiums);
 	// 검색하여 전체게시판 게시글 찾기
 	public List<BulletinBoardDTO> search(String data);

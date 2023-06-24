@@ -30,6 +30,17 @@ public class StadiumPartnerShipDAOImpl implements StadiumPartnerShipDAO {
 		filerepository.saveAll(associate);
 	}
 
+	@Override
+	public List<StadiumFileDTO> find_file_grant(StadiumDTO stadium) {
+		List<StadiumFileDTO> files = filerepository.findByStadiumNoAndStadiumFileNum(stadium.getStadiumNo(), "1");
+        if (!files.isEmpty()) {
+        	return files;
+        }
+        return null;
+	}
+
+	
+
 	
 
 }

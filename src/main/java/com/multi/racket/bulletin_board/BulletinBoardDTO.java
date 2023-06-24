@@ -5,6 +5,7 @@ package com.multi.racket.bulletin_board;
 import java.sql.Date;
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +45,7 @@ public class BulletinBoardDTO {
 	private Date bbModifyDate=null;
 	@ColumnDefault("0")
 	private Integer bbViews=0;
+	
 
 	public BulletinBoardDTO() {
 
@@ -122,6 +124,5 @@ public class BulletinBoardDTO {
 	public void setBbViews(Integer bbViews) {
 		this.bbViews = bbViews;
 	}
-	
 	
 }

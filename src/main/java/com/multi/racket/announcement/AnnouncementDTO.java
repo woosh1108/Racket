@@ -1,13 +1,17 @@
- package com.multi.racket.announcement;
+package com.multi.racket.announcement;
 
 import java.sql.Date;
+import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -33,7 +37,7 @@ public class AnnouncementDTO {
 	private String announcementContent;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(nullable = false, name = "announcement_date")
-	@NotNull //나중에 import변경해야하나?
+	@NotNull // 나중에 import변경해야하나?
 	@CreationTimestamp
 	private Date announcementDate;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -123,4 +127,5 @@ public class AnnouncementDTO {
 	public void setAnnouncementViews(Integer announcementViews) {
 		this.announcementViews = announcementViews;
 	}
+
 }

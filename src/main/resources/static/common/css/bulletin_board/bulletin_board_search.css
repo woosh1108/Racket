@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+.bulletin_search_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1rem;
+	margin-bottom: 3%;
+}
+
+.body {
+	display: flex;
+	align-items: center;
+}
+
+.input-group {
+	display: flex;
+	align-items: center;
+}
+
+.input-group input[type="search"] {
+	margin-right: 0rem;
+	border-right-style: none;
+	width: 75%;
+}
+
+button[type="submit"] {
+	font-size: 1rem;
+	background-color: white;
+	border: 2px solid #000000;
+	color: black;
+}
+
+strong {
+	color: black;
+	font-size: 2rem;
+}
+
+.pagination {
+	margin-top: 3rem;
+	justify-content: center;
+}
+
+.pagination li {
+	display: inline-block;
+	padding: 0.5rem;
+}
+
+.pagination li a {
+	text-decoration: none;
+	color: black;
+}
+
+/* 바디테그 전체에 박스를 입힘 */
+.bulletin_search_body_container {
+	width: 83%; /* 컨테이너의 너비 */
+	height: auto;
+	/* margin: 0 auto; 가운데 정렬을 위해 왼쪽/오른쪽 마진을 auto로 설정 */
+	border: 1px solid #ccc; /* 컨테이너에 테두리 설정 */
+	padding: 20px; /* 컨테이너의 내부 여백 설정 */
+	border-radius: 10px; /* 모서리 둥글기를 10px로 설정 */
+	float: right;
+	margin-left: 10rem;
+	margin-top: 10rem;
+	/* 폰트 */
+	font-family: 'Kanit', sans-serif;
+	color: black;
+}
+
+/* 카테고리와 글 제목 하이퍼링크 밑줄 안 보이게 */
+.bulletin_search_category a {
+	text-decoration: none;
+	color: inherit;
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+.bulletin_search_content a {
+	text-decoration: none;
+	color: inherit;
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+	font-size: 1rem;
+}
+
+.bulletin_search_category a:hover {
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+.bulletin_search_content a:hover {
+	color: black; /* 링크의 텍스트 색상을 검은색으로 유지 */
+	border-color: black;
+}
+
+.btn-group .btn {
+	border-color: black;
+}
+
+/* 상단에 있는 카테고리랑 검색바 끝 */
+
+/* 게시판 내용 테이블 */
+table {
+	border-collapse: collapse;
+	width: 100%;
+	height: 200px;
+}
+
+thead th {
+	border-bottom: 1px solid black;
+	text-align: left;
+}
+
+tbody th, tbody td {
+	border-bottom: 1px solid black;
+}
+
+/* thead 위쪽에 선을 추가. */
+thead tr th {
+	border-top: 2px solid #000000;
+	background-color: #fff;
+}
+
+/* 테이블 끝 */
+
+/* 글쓰기 버튼(하이퍼링크) */
+.bulletin_search_write a {
+	/* 하이퍼링크 밑줄 안 보이게, 색깔 검정색 */
+	text-decoration: none;
+	color: inherit;
+	color: white; /* 링크의 텍스트 색상을 검은색으로 유지 */
+	text-align: center;
+}
+
+.bulletin_search_write a:hover {
+	color: white; /* 링크의 텍스트 색상을 검은색으로 유지 */
+}
+
+/* 페이지번호와 글쓰기버튼 끝*/
+
+/*  */
+.bulletin_search_write {
+	text-align: center;
+	margin-top: 10px;
+}
+
+/* 글쓰기 버튼 테스트 */
+.bulletin_search_write_button {
+	background-color: black;
+	border: 2px solid #000000;
+	color: #333;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 8px 16px;
+	width: 100px;
+	height: 40px;
+	margin-top: 10px;
+	border-radius: 4px;
+}
+
+.bulletin_search_page a:hover {
+	color: black;
+}
+
+.bulletin_search_page a.button {
+	padding-top: 7px;
+	font-size: 1.2rem;
+}
+
+.bulletin_search_page a.num {
+	padding-top: 6px;
+	font-size: 1.4rem;
+}
+
+.bulletin_search_page a.num.on {
+	border-color: #000;
+	background-color: #000;
+	color: #fff;
+}
+
+.bulletin_search_page a:first-child {
+	border-left: 1px solid #ddd;
+}

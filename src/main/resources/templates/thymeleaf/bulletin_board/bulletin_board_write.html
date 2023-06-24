@@ -53,7 +53,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
   		</script>
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/bulletin_board_write.css" />
+			<link rel="stylesheet" href="/racket/common/css/bulletin_board/bulletin_board_write.css" />
 		</th:block>
 	</head>
 	<body>
@@ -64,8 +64,8 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 			<form method="post" action="/racket/bulletin" onsubmit="return validateForm()">
 				<div class="bulletin_write_info">
 	  				<label class="bulletin_writer">작성자: </label>
-	  				<input type="hidden" name="memberId" th:value="${recruitmentId}">
-	  				<p class="bulletin_writer_id" th:text="${recruitmentId}"></p>
+	  				<input type="hidden" name="memberId" th:value="${id}">
+	  				<p class="bulletin_writer_id" th:text="${id}"></p>
 				</div>
 				<br/>
 				<label class="bulletin_title">제목: </label>	

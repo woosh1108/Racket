@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.announcement.AnnouncementDTO;
+
 @Service
 @Transactional
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -70,14 +72,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	public AnnouncementDTO getAnnouncement(int announcementNo) {
 		return Announcementdao.getAnnouncement(announcementNo);
 	}
-	
-	//페이지번호를 동적으로 생성하기위한 메소드
+
+	// 페이지번호를 동적으로 생성하기위한 메소드
 	@Override
 	public long getTotalPages(int pageSize) {
 		return Announcementdao.getTotalPages(pageSize);
 	}
-	
-	//검색하여 공지사항 게시글 찾기
+
+	// 검색하여 공지사항 게시글 찾기
 	@Override
 	public List<AnnouncementDTO> search(String data) {
 		return Announcementdao.search(data);

@@ -2,6 +2,7 @@ package com.multi.racket.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.racket.announcement.AnnouncementDTO;
 import com.multi.racket.announcement.AnnouncementService;
+import com.multi.racket.domain.MemberDTO;
 
 @Controller
 public class AnnouncementController {
@@ -46,12 +50,14 @@ public class AnnouncementController {
 	// 공지사항 페이지 - 공지사항 리스트
 	// 동적으로 페이지번호 생성함.
 	@GetMapping("/announcement")
-	public String announcementPage_page(@RequestParam(defaultValue = "0") String pageNo, Model model) {
+	public String announcementPage_page(@RequestParam(defaultValue = "0") String pageNo, Model model,
+			HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
 		int pageNumber = Integer.parseInt(pageNo);
 		int pageSize = 10; // 페이지 당 공지사항 수
 		if (pageNo == null) {
 			pageNo = "0"; // 기본 페이지 번호 설정
-			pageNumber = Integer.parseInt(pageNo); // 문자열을 int로 변환
+			pageNumber = Integer.parseInt(pageNo);
 		}
 
 		if (pageNumber > announcementService.getTotalPages(pageSize)) {
@@ -70,6 +76,11 @@ public class AnnouncementController {
 			model.addAttribute("hasNextPage", false);
 		}
 
+		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
+		if (member != null && member.getMemberAuth().equals("2")) {
+			model.addAttribute("isAdmin", true);
+		}
+
 		return "thymeleaf/announcement/announcement";
 	}
 
@@ -82,14 +93,15 @@ public class AnnouncementController {
 		if (title == null || title.isEmpty()) {
 			announcement.setAnnouncementTitle("제목없음");
 		}
-		
+
 		announcementService.Announcement_insert(announcement);
 		return "redirect:/announcement";
 	}
 
 	// 게시글 상세보기
 	@RequestMapping("/announcement_read")
-	public String announcementRead(Integer announcementNo, String state, Model model) {
+	public String announcementRead(Integer announcementNo, String state, Model model, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
 		AnnouncementDTO announcement = announcementService.read(announcementNo);
 		// 조회수 증가
 		int views = announcement.getAnnouncementViews();
@@ -101,23 +113,35 @@ public class AnnouncementController {
 		} else {
 			view = "";
 		}
+
+		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
+		if (member != null && member.getMemberAuth().equals("2")) {
+			model.addAttribute("isAdmin", true);
+		}
+
 		model.addAttribute("announcement", announcement);
 		return view;
 	}
 
 	// 게시글 등록 페이지
 	@GetMapping("/announcement_write")
-	public String announcementWrite(Model model) {
-		model.addAttribute("freeId", "park001"); // 나중엔 DB에서 가져와야함
-		return "thymeleaf/announcement/announcement_write";
+	public String announcementWrite(Model model, HttpSession session) {
+		// 로그인이 되어있어야 글쓰기를 할 수 있음.
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		if (member != null) {
+			String id = member.getMemberId();
+			model.addAttribute("id", id);
+			return "thymeleaf/announcement/announcement_write";
+		} else {
+			// 로그인되지 않은 경우에 대한 처리
+			return "redirect:/login"; // 로그인 페이지로 리다이렉트
+		}
 	}
 
 	// 게시글 삭제
 	@PostMapping("/announcement_delete")
 	public String announcementDelete(@RequestParam("announcementNo") int announcementNo) {
-		// 로그인이 안 되어있으면 로그인페이지로 이동할 수 있도록도 구현해야함.
 		announcementService.delete(announcementNo);
-		System.out.println(announcementNo);
 		return "redirect:/announcement";
 	}
 
@@ -139,9 +163,13 @@ public class AnnouncementController {
 
 	// 게시글 검색기능
 	@PostMapping("/announcement_search")
-	public String search(String data, Model model) {
+	public String search(String data, Model model, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
 		List<AnnouncementDTO> searchlist = announcementService.search(data);
 		model.addAttribute("searchlist", searchlist);
+		if (member != null && member.getMemberId().equals("admin")) {
+			model.addAttribute("isAdmin", true);
+		}
 		return "thymeleaf/announcement/announcement_search";
 
 	}
