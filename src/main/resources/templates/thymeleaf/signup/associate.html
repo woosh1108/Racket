@@ -28,9 +28,6 @@
 				<div class="mb-3 form-group">
 					<label for="memberId" class="form-label">아이디:</label>
 					<div class="input-group">
-						<!-- <input type="text" id="member_id" name="member_id" th:id="${member.member_id}" class="form-control" required> -->
-						<!-- <input type="text" id="memberId" name="memberId"
-							class="form-control" required onkeyup="checkId();"> -->
 							<input type="text" id="memberId" name="memberId"
 							class="form-control" required th:value="${session.user.memberId}" readonly>
 						<button type="button" onclick="checkId();"
@@ -48,6 +45,11 @@
 						class="form-control" required>
 				</div>
 				<div class="mb-3">
+					<label for="stadiumPhone" class="form-label">구장 전화번호:</label> <input
+						type="text" id="stadiumPhone" name="stadiumPhone"
+						class="form-control" required>
+				</div>
+				<div class="mb-3">
 					<label for="stadiumTime" class="form-label" style="width:100px;">구장 운영 시간:</label>
 					<div class="TimeContainer">
 						<select id="stadiumTimeStart" name="stadiumTimeStart" class="form-select" onchange="updateEndTime()">
@@ -59,6 +61,7 @@
 							<option value="16:00">16:00</option>
 							<option value="18:00">18:00</option>
 							<option value="20:00">20:00</option>
+							<option value="22:00">22:00</option>
 						</select>
 						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
 						<select id="stadiumTimeEnd" name="stadiumTimeEnd" class="form-select">
@@ -70,6 +73,7 @@
 							<option value="18:00">18:00</option>
 							<option value="20:00">20:00</option>
 							<option value="22:00">22:00</option>
+							<option value="24:00">24:00</option>
 						</select>
 					<input type="hidden" id="stadiumTime" name="stadiumTime">
 					</div>

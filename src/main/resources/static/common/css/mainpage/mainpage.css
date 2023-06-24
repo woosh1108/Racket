@@ -106,6 +106,12 @@ div[class="calendar"]>tr>td {
 
 .stadiumname {
 	font-size: 18pt;
+	color:black;
+}
+.stadiumshadow{
+	color: gray;
+	font-size: 10pt;
+	margin-left: 15px;
 }
 
 .stadiumImg {

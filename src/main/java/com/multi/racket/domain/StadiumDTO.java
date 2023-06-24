@@ -30,6 +30,7 @@ public class StadiumDTO {
 	private String memberId;
 	private String stadiumName;
 	private String stadiumAddr;
+	private String stadiumPhone;
 	private String stadiumTime;
 	private String stadiumFee;
 	private int stadiumStatus;

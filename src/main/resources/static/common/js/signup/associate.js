@@ -1,22 +1,55 @@
-function updateEndTime() {
-	var startTimeSelect = document.getElementById("stadiumTimeStart");
-	var endTimeSelect = document.getElementById("stadiumTimeEnd");
-	var startTime = startTimeSelect.value;
-	endTimeSelect.innerHTML = "";
+//function updateEndTime() {
+//	var startTimeSelect = document.getElementById("stadiumTimeStart");
+//	var endTimeSelect = document.getElementById("stadiumTimeEnd");
+//	var startTime = startTimeSelect.value;
+//	var endTime = endTimeSelect.value;
+//	endTimeSelect.innerHTML = "";
+//
+//	// 선택한 시작 시간 이후의 시간들을 두 번째 select 엘리먼트에 추가
+//	for (var i = startTimeSelect.selectedIndex; i < startTimeSelect.options.length; i++) {
+//		var option = document.createElement("option");
+//		option.text = startTimeSelect.options[i].text;
+//		option.value = startTimeSelect.options[i].value;
+//		endTimeSelect.add(option);
+//	}
+//
+//	var selectedEndTimeIndex = endTimeSelect.selectedIndex;
+//	var selectedEndTime = endTimeSelect.options[selectedEndTimeIndex].value;
+//	var stadiumTime = startTime + " ~ " + selectedEndTime;
+//	document.getElementById("stadiumTime").value = stadiumTime;
+//}
+//
+//document.getElementById("stadiumTimeEnd").addEventListener("change", updateEndTime);
+function updateEndTime(event) {
+  var startTimeSelect = document.getElementById("stadiumTimeStart");
+  var endTimeSelect = document.getElementById("stadiumTimeEnd");
+  var startTime = startTimeSelect.value;
+  var endTime = endTimeSelect.value;
 
-	// 선택한 시작 시간 이후의 시간들을 두 번째 select 엘리먼트에 추가
-	for (var i = startTimeSelect.selectedIndex; i < startTimeSelect.options.length; i++) {
-		var option = document.createElement("option");
-		option.text = startTimeSelect.options[i].text;
-		option.value = startTimeSelect.options[i].value;
-		endTimeSelect.add(option);
-	}
+  // 이벤트가 stadiumTimeEnd 엘리먼트에 의해 발생하지 않았을 경우만 endTimeSelect의 옵션을 수정
+  if (!event || event.target.id !== "stadiumTimeEnd") {
+    endTimeSelect.innerHTML = "";
 
-	var selectedEndTimeIndex = endTimeSelect.selectedIndex;
-	var selectedEndTime = endTimeSelect.options[selectedEndTimeIndex].value;
-	var stadiumTime = startTime + " ~ " + selectedEndTime;
-	document.getElementById("stadiumTime").value = stadiumTime;
+    for (var i = startTimeSelect.selectedIndex; i < startTimeSelect.options.length; i++) {
+      var option = document.createElement("option");
+      option.text = startTimeSelect.options[i].text;
+      option.value = startTimeSelect.options[i].value;
+      endTimeSelect.add(option);
+    }
+  }
+
+  var selectedEndTimeIndex = endTimeSelect.selectedIndex;
+  var selectedEndTime = endTimeSelect.options[selectedEndTimeIndex].value;
+  var stadiumTime = startTime + " ~ " + selectedEndTime;
+  document.getElementById("stadiumTime").value = stadiumTime;
 }
+
+document.getElementById("stadiumTimeStart").addEventListener("change", updateEndTime);
+document.getElementById("stadiumTimeEnd").addEventListener("change", function (event) {
+  updateEndTime(event);
+});
+
+
 
 function checkId() {
 	var memberId = $('#memberId').val();

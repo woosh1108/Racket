@@ -86,7 +86,8 @@
 		</div>
 
 		<!-- 구장 소개 -->
-		<h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
+		<h3 class="stadium-list mt-5">구장 목록</h3>
+		<span class="stadiumshadow">이름을 클릭하면 구장 정보로 넘어갑니다.</span>
 		<hr />
 		<ul>
 			<li th:each="stadium:${stadiumlist}" class="stadiumtable">
@@ -96,7 +97,9 @@
 				</div>
 				</div>
 				<div class="stadiumdiv">
+					<a th:href="@{/stadium/stadiumDetail(stadium_no=${stadium.stadiumNo }, state='READ')}" class="stadiumname">
 			        <span th:text="${stadium.stadiumName}" class="stadiumname"></span><br>
+			        </a>
 				        장소: <span th:text="${stadium.stadiumAddr}"></span><br>
 				        구장 이용시간: <span th:text="${stadium.stadiumTime}"></span><br>
 				        구장 이용비: <span th:text="${stadium.stadiumFee}"></span> 원<br>
