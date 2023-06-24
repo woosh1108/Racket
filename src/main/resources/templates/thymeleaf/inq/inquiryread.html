@@ -38,7 +38,8 @@
 						<table style="width: 1000px; height: 150px">
 							<tr>
 								<th width="100px">제목</th>
-								<td><span th:text="${inquiry.inqTitle }"></span></td>
+								<td><span th:text="${inquiry.inqTitle }" style="border-right-style: solid; border-right-color: black; padding-right: 100px;"></span></td>
+								<td style="text-align: left;"><span th:text="${inquiry.inqDate}"></span></td>
 							</tr>
 							<tr>
 								<th width="100px">작성자</th>
@@ -51,7 +52,7 @@
 						</table>
 					</div>
 					<br />
-					<div style="margin-left: 10px; margin-bottom: 40px"><span th:text="${inquiry.inqContent }"></span></div>
+					<div style="margin-top: 10px; margin-left: 10px; margin-bottom: 90px"><span th:text="${inquiry.inqContent }"></span></div>
 					<div align="right">
 						<span>
 							<button type="submit" style="border-radius: 6px;" onclick="window.location.href='/racket/inquiryboard?pageNo=0'">목록</button>
