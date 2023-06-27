@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.multi.racket.domain.MemberDTO;
+import com.multi.racket.manage.ManageService;
 import com.multi.racket.member.MemberService;
 
 @Controller
 public class LoginController {
 	@Autowired
 	MemberService service;
+	
 
 	@RequestMapping("/login")
 	public String Login() {
