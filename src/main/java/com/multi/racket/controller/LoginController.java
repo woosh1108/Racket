@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.multi.racket.domain.MemberDTO;
+import com.multi.racket.manage.ManageService;
 import com.multi.racket.member.MemberService;
 
 @Controller
 public class LoginController {
 	@Autowired
 	MemberService service;
+	
 
 	@RequestMapping("/login")
 	public String Login() {
@@ -28,7 +30,7 @@ public class LoginController {
 			// 로그인 성공
 			// 세션에 데이터 공유하기
 			session.setAttribute("user", user);
-			return "thymeleaf/main/mainpage"; // 로그인 후 이동할 페이지 URL
+			return "redirect:/main"; // 로그인 후 이동할 페이지 URL
 		} else {
 			// 로그인 실패
 			model.addAttribute("msg", "아이디 비밀번호를 확인해주세요.");
