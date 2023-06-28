@@ -1,22 +1,13 @@
-//package com.multi.racket.reservation;
-//
-//import java.util.List;
-//
-//import com.multi.racket.domain.AccountDTO;
-//import com.multi.racket.domain.CourtoperatinghoursDTO;
-//import com.multi.racket.domain.StadiumDTO;
-//import com.multi.racket.domain.StadiumFileDTO;
-//import com.multi.racket.domain.StadiumcourtDTO;
-//
-//public interface StadiumReadService {
-//	    StadiumDTO getStadiumData(int stadiumNo);
-//
-//	    List<StadiumcourtDTO> getStadiumCorutsByStadiumNo(int stadiumNo);
-//
-//	    List<CourtoperatinghoursDTO> getOperationHoursByStadiumCorutId(int stadiumCorutId);
-//
-//	    List<StadiumFileDTO> getStadiumFilesByStadiumNo(int stadiumNo);
-//
-//	    List<AccountDTO> getAccountsByStadiumNo(int stadiumNo);
-//
-//}
+package com.multi.racket.reservation;
+
+import com.multi.racket.domain.ReservationDTO;
+import com.multi.racket.domain.StadiumcourtDTO;
+import com.multi.racket.domain.TrainingDTO;
+
+public interface StadiumReadService {
+	StadiumcourtDTO getStadiumDetail(int courtNo);
+	ReservationDTO getReservationDetail(int reservationNo);
+	int getReservationParticipantCount(int reservationNo);
+	TrainingDTO getTrainingDetail(int trainingNo);
+	int getTrainingParticipantCount(int reservationNo);
+}

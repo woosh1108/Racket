@@ -1,5 +1,6 @@
 package com.multi.racket.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,16 +17,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "stadiumfile")
+@Table(name = "stadium_file")
 public class StadiumFileDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "stadium_file_no")
 	private int stadiumFileNo;
 	@ManyToOne
-    @JoinColumn(name = "stadium_file")
-    private StadiumDTO stadiumDto;
-	private int stadiumNo;
+    @JoinColumn(name = "stadium_no")
+    private StadiumDTO stadium;
 	private String fileOriginalname;
 	private String fileStorename;
 	private String stadiumFileNum;
+
+	
+
 }
