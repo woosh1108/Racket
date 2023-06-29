@@ -14,7 +14,36 @@ body {
 	font-weight: 200;
 	font-size: 1.1rem;
 }
+.stadiumImg {
+	width: 240px;
+	height: 200px;
+	border-radius: 10px;
+	margin-right: 20px;
+	justify-content: center;
+	margin-top:2px;
+}
 
+.stadiumtable {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 20px;
+	align-content: center;
+	box-sizing: border-box;
+}
+.stadiumtable{
+	height:220px;
+	border-bottom: solid 1px gray;
+}
+.stadiumdiv {
+	justify-content: center;
+	align-content: center;
+	height:120px;
+	
+}
+.stadiumname{
+	color:#3ca59d;
+	font-size: 24pt;
+}
 ::-moz-selection {
 	background: #000;
 	color: #fff;
@@ -805,4 +834,8 @@ a:hover {
 .mainContent {
 	margin-top: 6%;
 	margin-left: 3%;
+}
+.image{
+	justify-content: center;
+	text-align: center;
 }

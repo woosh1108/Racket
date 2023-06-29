@@ -8,4 +8,5 @@ import com.multi.racket.domain.StadiumFileDTO;
 
 public interface StadiumFileRepository extends JpaRepository<StadiumFileDTO, Integer> {
 	List<StadiumFileDTO> findByStadiumNoAndStadiumFileNum(int stadiumNo, String stadiumFileNum);
+	List<StadiumFileDTO> findByStadiumNo(int staidumNo);
 }

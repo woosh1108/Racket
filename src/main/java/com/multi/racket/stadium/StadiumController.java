@@ -1,5 +1,6 @@
 package com.multi.racket.stadium;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,36 +10,61 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.multi.racket.domain.StadiumDTO;
+import com.multi.racket.domain.StadiumFileDTO;
+import com.multi.racket.manage.ManageService;
+import com.multi.racket.stadiumpartnership.StadiumPartnerShipService;
 
 @Controller
 public class StadiumController {
-	StadiumService service;
+	ManageService service;
+	StadiumPartnerShipService fileservice;
+	
 	
 	@Autowired
-	public StadiumController(StadiumService service) {
+	public StadiumController(ManageService service, StadiumPartnerShipService fileservice) {
 		super();
 		this.service = service;
+		this.fileservice = fileservice;
 	}
 
 	@RequestMapping("/stadium")
     public String stadium(Model model, String pageNo) {
+//		if (pageNo == null) {
+//			pageNo = "0";
+//		}
+//		List<StadiumDTO> list = service.stadiumList(Integer.parseInt(pageNo));
+//		model.addAttribute("stadiumList",list);
+//		System.out.println("=======================================================");
+//		System.out.println(list);
+		List<StadiumDTO> list = service.find_grant();
+		List<StadiumFileDTO> filelist = new ArrayList<>();
 		if (pageNo == null) {
 			pageNo = "0";
 		}
-		List<StadiumDTO> list = service.stadiumList(Integer.parseInt(pageNo));
-		model.addAttribute("stadiumList",list);
-		System.out.println("=======================================================");
-		System.out.println(list);
+		for (StadiumDTO stadium : list) {
+			List<StadiumFileDTO> files = fileservice.find_file_grant(stadium);
+			if (files != null && !files.isEmpty()) {
+				filelist.addAll(files);
+			}
+		}
+		model.addAttribute("stadiumlist", list);
+		if (!filelist.isEmpty()) {
+			model.addAttribute("stadiumfile", filelist);
+		}
         return "thymeleaf/stadium/stadium";
     }
 	
 	//나중에 id값으로 들어가게 매핑 변경해야함.
 	@RequestMapping("/stadium/stadiumDetail")
-    public String stadiumDetail(Model model, int stadium_no, String state) {
-		Optional<StadiumDTO> stadium = service.getStadium(stadium_no);
-		model.addAttribute("stadium", stadium);
-		System.out.println("optional 넘어왔나" + stadium);
-		model.addAttribute("state", state);
+    public String stadiumDetail(Model model, int stadiumNo) {
+		StadiumDTO stadium = service.find_stadiumno(stadiumNo);
+		List<StadiumFileDTO> stadiumfile = fileservice.find_file(stadiumNo);
+		model.addAttribute("stadiumfile",stadiumfile);
+		model.addAttribute("stadium",stadium);
+//		Optional<StadiumDTO> stadium = service.getStadium(stadium_no);
+//		model.addAttribute("stadium", stadium);
+//		System.out.println("optional 넘어왔나" + stadium);
+//		model.addAttribute("state", state);
         return "thymeleaf/stadium/stadiumDetail";
     }
 	

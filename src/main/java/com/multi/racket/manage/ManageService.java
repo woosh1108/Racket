@@ -13,4 +13,5 @@ public interface ManageService {
 	public void update(List<StadiumDTO> stadiums);
 	// 검색하여 전체게시판 게시글 찾기
 	public List<BulletinBoardDTO> search(String data);
+	public StadiumDTO find_stadiumno(int stadiumNo);
 }

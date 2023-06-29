@@ -54,12 +54,13 @@
 					</div>
 				</div>
 				<div>
-					<div th:each="stadium:${stadiumList}">
+					<!-- <div th:each="stadium:${stadiumlist}">
 						
 						<div class="d-block d-md-flex podcast-entry bg-white mb-5"
 							data-aos="fade-up">
 							<div class="image"
 								style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
+								<div class="image" th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
 							<div class="text">
 	
 								<h3 class="font-weight-light">
@@ -75,9 +76,30 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+					</div> -->
+						<ul>
+							<li th:each="stadium:${stadiumlist}" class="stadiumtable">
+								<div th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
+								<div th:if="${stadium.stadiumNo == stadiumfile.stadiumNo}">
+									<a th:href="@{/stadium/stadiumDetail(stadiumNo=${stadium.stadiumNo})}" class="stadiumname">
+										<img alt="" th:src="@{'/download/racket/' + ${stadiumfile.fileStorename}}" class="stadiumImg">
+									</a>
+								</div>
+								</div>
+								<div class="stadiumdiv">
+									<a th:href="@{/stadium/stadiumDetail(stadiumNo=${stadium.stadiumNo})}" class="stadiumname">
+							        <span th:text="${stadium.stadiumName}" class="stadiumname font-weight-light"></span><br>
+							        </a>
+								        장소: <span th:text="${stadium.stadiumAddr}"></span><br>
+								        구장 이용시간: <span th:text="${stadium.stadiumTime}"></span><br>
+								        구장 연락처: <span th:text="${stadium.stadiumPhone}"></span><br> 
+								        구장 이용비: <span th:text="${stadium.stadiumFee}"></span> 원<br>
+								        
+							    </div>
+							    <hr/>
+							</li>
+						</ul>
+					<!-- <div class="d-block d-md-flex podcast-entry bg-white mb-5"
 						data-aos="fade-up">
 						<div class="image"
 							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
@@ -97,74 +119,7 @@
 							</div>
 
 						</div>
-					</div>
-
-
-					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
-						data-aos="fade-up">
-						<div class="image"
-							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
-						<div class="text">
-
-							<h3 class="font-weight-light">
-								<a href="single-post.html">경기체육관</a>
-							</h3>
-							<div class="text-white mb-3">
-								<span class="text-black-opacity-05"><small>By
-										Mike Smith <span class="sep">/</span> 16 September 2017 <span
-										class="sep">/</span> 1:30:20
-								</small></span>
-							</div>
-
-
-
-						</div>
-					</div>
-
-
-					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
-						data-aos="fade-up">
-						<div class="image"
-							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
-						<div class="text">
-
-							<h3 class="font-weight-light">
-								<a href="single-post.html">경기체육관</a>
-							</h3>
-							<div class="text-white mb-3">
-								<span class="text-black-opacity-05"><small>By
-										Mike Smith <span class="sep">/</span> 16 September 2017 <span
-										class="sep">/</span> 1:30:20
-								</small></span>
-							</div>
-
-
-
-						</div>
-					</div>
-
-
-					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
-						data-aos="fade-up">
-						<div class="image"
-							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
-						<div class="text">
-
-							<h3 class="font-weight-light">
-								<a href="single-post.html">경기체육관</a>
-							</h3>
-							<div class="text-white mb-3">
-								<span class="text-black-opacity-05"><small>By
-										Mike Smith <span class="sep">/</span> 16 September 2017 <span
-										class="sep">/</span> 1:30:20
-								</small></span>
-							</div>
-
-
-
-						</div>
-					</div>
-
+					</div> -->
 
 				</div>
 				<div class="container" data-aos="fade-up">

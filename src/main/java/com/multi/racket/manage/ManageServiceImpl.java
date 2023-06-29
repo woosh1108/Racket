@@ -43,4 +43,9 @@ public class ManageServiceImpl implements ManageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public StadiumDTO find_stadiumno(int stadiumNo) {
+		return dao.find_stadiumno(stadiumNo);
+	}
 }

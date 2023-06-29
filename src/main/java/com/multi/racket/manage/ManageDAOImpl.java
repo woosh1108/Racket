@@ -48,5 +48,10 @@ public class ManageDAOImpl implements ManageDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public StadiumDTO find_stadiumno(int stadiumNo) {
+		return repository.findByStadiumNo(stadiumNo);
+	}
 	
 }

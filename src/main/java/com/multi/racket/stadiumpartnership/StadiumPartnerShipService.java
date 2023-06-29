@@ -10,4 +10,5 @@ public interface StadiumPartnerShipService {
 	public List<StadiumFileDTO> file_insert(List<StadiumFileDTO> stadiumlist);
 	public void insert(StadiumDTO stadium,List<StadiumFileDTO> stadiumfiledtolist);
 	public List<StadiumFileDTO> find_file_grant(StadiumDTO stadium);
+	public List<StadiumFileDTO> find_file(int stadiumNo);
 }
