@@ -8,7 +8,7 @@ import com.multi.racket.domain.StadiumDTO;
 public interface StadiumDAO {
 	List<StadiumDTO> stadiumList(int pageNo);
 
-	Optional<StadiumDTO> getStadium(int stadium_no);
+	StadiumDTO getStadium(int stadium_no);
 
 	int update(StadiumDTO board);
 

@@ -99,33 +99,12 @@
 							    <hr/>
 							</li>
 						</ul>
-					<!-- <div class="d-block d-md-flex podcast-entry bg-white mb-5"
-						data-aos="fade-up">
-						<div class="image"
-							style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
-						<div class="text">
-
-							<h3 class="font-weight-light">
-								<a href="single-post.html">경기체육관</a>
-							</h3>
-							<div class="text-white mb-3">
-								<span class="text-black-opacity-05"><small>By
-										Mike Smith <span class="sep">/</span> 16 September 2017 <span
-										class="sep">/</span> 1:30:20
-								</small></span>
-							</div>
-							<div>
-								<p>뭐야</p>
-							</div>
-
-						</div>
-					</div> -->
-
+					
 				</div>
 				<div class="container" data-aos="fade-up">
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<div class="site-block-27">
+							<!-- <div class="site-block-27">
 								<ul>
 									<li><a href="#" class="icon-keyboard_arrow_left"></a></li>
 									<li class="active"><span>1</span></li>
@@ -135,7 +114,16 @@
 									<li><a href="#">5</a></li>
 									<li><a href="#" class="icon-keyboard_arrow_right"></a></li>
 								</ul>
+							</div> -->
+							<div class="pagination">
+							    <ul id="pagination_list">
+								<li th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
+							      <a th:href="@{/stadium(pageNo=${pageNo})}"><span th:text="${pageNo + 1}"></span></a>
+							    </li>
+							    </ul>
 							</div>
+							
+							
 						</div>
 					</div>
 				</div>

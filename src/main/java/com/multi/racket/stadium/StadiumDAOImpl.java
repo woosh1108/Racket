@@ -34,8 +34,11 @@ public class StadiumDAOImpl implements StadiumDAO {
 	}
 
 	@Override
-	public Optional<StadiumDTO> getStadium(int stadium_no) {
-		return repository.findById(stadium_no);
+	public StadiumDTO getStadium(int stadiumNo) {
+		StadiumDTO stadium = repository.findByStadiumNo(stadiumNo)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid stadium ID: " + stadiumNo));
+    	System.out.println("ServiceImpl: "+stadium);
+    	return stadium;
 	}
 
 	@Override

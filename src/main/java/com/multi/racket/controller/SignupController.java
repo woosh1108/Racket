@@ -18,18 +18,6 @@ import com.multi.racket.signup.SignUpService;
 public class SignupController {
 	SignUpService service;
 	MailSendService mailservice;
-//	EmailService emailservice;
-//	@Autowired
-//	public signupController(SignUpService service) {
-//		super();
-//		this.service = service;
-//	}
-//	@Autowired
-//	public signupController(SignUpService service, EmailService emailservice) {
-//		super();
-//		this.service = service;
-//		this.emailservice = emailservice;
-//	}
 	@Autowired
 	public SignupController(SignUpService service, MailSendService mailservice) {
 		super();
