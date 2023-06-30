@@ -18,8 +18,7 @@ strong {
 	/* 폰트 */
 	font-family: 'Kanit', sans-serif;
 }
-
-
+/* ////  */
 .bulletin_write_info {
 	font-size: 2rem;
 	display: flex;
@@ -41,27 +40,25 @@ strong {
 .bulletin_write_content {
 	font-size: 2rem;
 }
+/* ///end */
 
-
-/* 등록취소버튼 */
+/* 등록취소버튼 /////*/
 .bulletin_write_reaction button {
 	background-color: white;
 	border: 2px solid #000000;
 	color: #333;
 	cursor: pointer;
-	font-size: 15px;
 	font-weight: bold;
 	padding: 8px 16px;
 	width: 100px;
 	height: 40px;
 	margin-top: 10px;
-	
 }
 /* 등록취소버튼 가운데정렬 */
 .bulletin_write_reaction {
 	justify-content: center;
-  	align-items: center;
-  	text-align: center;
-  	margin-left: auto;
-  	margin-right: auto;
+	align-items: center;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
 }

@@ -35,36 +35,26 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 			        height: 500
 				});
 			});
-			//등록버튼
-			function submitForm() {
-		           var title = document.getElementById("title").value;
-		           var content = $('#summernote').summernote('code');
-		            
-		           var xhr = new XMLHttpRequest();
-		           xhr.open("POST", "/announcement", true);
-		           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		           xhr.onreadystatechange = function() {
-		               if (xhr.readyState === XMLHttpRequest.DONE) {
-		                   if (xhr.status === 200) {
-		                       alert("글이 등록되었습니다.");
-		                       window.location.href = "/racket/announcement";
-		                   } else {
-		                       alert("글 등록에 실패하였습니다. 다시 작성해주세요.");
-		                       window.location.href = "/racket/announcement_write";
-		                   }
-		               }
-		           };
-		           var data = "title=" + encodeURIComponent(title) + "&editordata=" + encodeURIComponent(content);
-		           xhr.send(data);
-		       }
-			//취소버튼 누르면 자유게시판 페이지로 넘어감
+			
+			//취소버튼 누르면 공지사항 페이지로 넘어감
 			 function cancel() {
              	window.location.href = "/racket/announcement";
         	}
 		</script>
+		
+		<script type="text/javascript">
+		    function validateForm() {
+		      const content = document.getElementById('summernote').value;
+		      if (content.trim().length === 0) {
+		        alert('내용을 입력해주세요.');
+		        return false;
+		      }
+		      return true;
+		    }
+  		</script>
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement_write.css" />
+			<link rel="stylesheet" href="/racket/common/css/announcement/announcement_write.css" />
 		</th:block>
 	</head>
 	<body>
@@ -72,15 +62,15 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<div class="announcement_write_body_container">
 			<strong>공지사항</strong>
 			<hr/>
-			<form method="post" action="/racket/announcement">
+			<form method="post" action="/racket/announcement" onsubmit="return validateForm()">
 				<div class="announcement_write_info">
 	  				<label class="announcement_writer">작성자: </label>
-	  				<input type="hidden" name="memberId" th:value="${freeId}">
-	  				<p class="announcement_writer_id" th:text="${freeId}"></p>
+	  				<input type="hidden" name="memberId" th:value="${id}">
+	  				<p class="announcement_writer_id" th:text="${id}"></p>
 				</div>
 				<br/>
 				<label class="announcement_title">제목: </label>	
-				<input type="text" id="title" name="announcementTitle" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
+				<input type="text" id="announcementTitle" name="announcementTitle" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
 				<hr/>
 				<div class="announcement_write_content">
 					<label>작성 내용</label> 

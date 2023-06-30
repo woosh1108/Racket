@@ -10,29 +10,33 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
 
 @Service
 public class FileUploadLogicService {
-//	@Value("${file.dir}")
+	@Value("${upload.path}")
 	private String uploadPath;
 	
 	public String getUploadPath(String fileName) {
 		return uploadPath + fileName;
 	}
 
-	public List<StadiumFileDTO> uploadFiles(List<MultipartFile> multipartFiles)
+	public List<StadiumFileDTO> uploadFiles(List<MultipartFile> multipartFiles,StadiumDTO stadium)
 			throws IllegalStateException, IOException {
-		List<StadiumFileDTO> filedtolist = new ArrayList<StadiumFileDTO>();
+		List<StadiumFileDTO> filetolist = new ArrayList<StadiumFileDTO>();
+		System.out.println("======================");
+		System.out.println(stadium);
+		System.out.println("======================");
 		int count = 1;
 		for (MultipartFile multipartFile : multipartFiles) {
-			String storeFilename = uploadFile(multipartFile);
 			// stadiumFileDTO 객체 생성방법..
 			// filedtolist.add(new StadiumFileDTO(null, 1,multipartFile.getOriginalFilename(), storeFilename, count + ""));
-			
+			String storeFilename = uploadFile(multipartFile);
+			filetolist.add(new StadiumFileDTO(stadium.getStadiumNo(),multipartFile.getOriginalFilename(),storeFilename,count+""));
 			count++;
 		}
-		return filedtolist;
+		return filetolist;
 	}
 
 	public String uploadFile(MultipartFile multipartFile) throws IOException {

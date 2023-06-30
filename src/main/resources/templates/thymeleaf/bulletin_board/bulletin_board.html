@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{thymeleaf/layout/mainLayout}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
 	<head>
 		<meta charset="UTF-8">
 		<title>전체게시판</title>
@@ -17,29 +17,42 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
-		<!-- 페이지네이션 -->
-		<link rel="stylesheet" href="/racket/common/css/paginate.css">
-    	<link rel="stylesheet" href="/racket/common/css/ligne.css">
-    	<script type="text/javascript" src="/racket/common/js/paginate.js"></script>
-    	
-    	<!--  -->
+		
+		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/bulletin_board.css" />
+			<link rel="stylesheet" href="/racket/common/css/bulletin_board/bulletin_board.css" />
 		</th:block>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
 	<body>
 	<th:block layout:fragment="content">
 		<div class="bulletin_body_container">
-	  		<div class="bulletin_board_content">
-	  			<div class="bulletin_board_top">
-		  			<strong>전체게시판</strong>
-		  			<div class="body">
-	            		<div class="input-group">
-	                		<label for="searchBox">검색</label>
-	                		<input type="search" id="searchBox" placeholder="검색할 내용을 입력하세요.">
-	            		</div>
+	  		<div class="bulletin_content">
+	  			<div class="bulletin_top">
+			  		<strong>전체게시판</strong>
+	        		<div class="body">
+	            		<form action="/racket/bulletin_search" method="post" onsubmit="return validateForm()">
+						    <div class="input-group">
+						        <label for="searchBox"></label>
+						        <input type="search" id="searchBox" name="data" placeholder="검색할 내용을 입력하세요.">
+						        <button type="submit">검색</button>
+						    </div>
+						</form>
+						<script>
+					    function validateForm() {
+					        var searchBox = document.getElementById("searchBox");
+					        var searchData = searchBox.value.trim();
+					
+					        if (searchData === "") {
+					            alert("검색할 내용을 입력하세요.");
+					            return false;
+					        }
+					
+					        return true;
+					    }
+					</script>
 	        		</div>
-	  			</div>
+    			</div>
 	  			<table class="table table-hover">
 	  				<thead>
 	   					 <tr>
@@ -50,95 +63,34 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 	      					<th scope="col">조회</th>
 	    				</tr>
 	  				</thead>
-	  				
 	  				<!-- 반복문으로 데이터 불러오면서 테이블 생성 -->
 	  				<tbody>
-	    				<tr>
-	      					<th scope="row">1</th>
-	      					<td><a href="/racket/bulletin_read">축구 같이 하실분??!!</a></td>
-	      					<td>park1234</td>
-	      					<td>2023.05.31</td>
-	      					<td>27</td>
+	    				<tr th:each="bulletin : ${bulletinlist}">
+	      					<th scope="row"><span th:text="${bulletin.bbNo}"></span></th>
+	      					<td>
+	      						<a th:href="@{/bulletin_read(bbNo=${bulletin.bbNo}, state='READ')}">
+    								<span th:text="${bulletin.bbTitle}"></span>
+								</a>
+							</td>
+	      					<td><span th:text="${bulletin.memberId}"></span></td>
+	      					<td><span th:text="${bulletin.bbDate}"></span></td>
+	      					<td><span th:text="${bulletin.bbViews}"></span></td>
 	    				</tr>
-	    				<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
-	   					<tr>
-	      					<th scope="row" th:text="${recruitmentboardlist}"></th>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	      					<td th:text="${recruitmentboardlist}"></td>
-	   					</tr>
 	  				</tbody>
-				</table>	
-	  		</div>
-		  	<!-- 페이지네이션 -->
-		  	<!-- <div class="free_board_page"> -->
-			<script>
-			    let options = {
-			        numberPerPage:5, //Cantidad de datos por pagina
-			        goBar:true, //Barra donde puedes digitar el numero de la pagina al que quiere ir
-			        pageCounter:true, //Contador de paginas, en cual estas, de cuantas paginas
-			    };
-			
-			    let filterOptions = {
-			        el:'#searchBox' //Caja de texto para filtrar, puede ser una clase o un ID
-			    };
-			
-			    paginate.init('.table',options,filterOptions); //테이블 클래스
-			</script>
-				<div class="bulletin_write">
-					<!-- form처리 -->
-					<button type="submit" class="bulletin_write_button"><a href="/racket/bulletin_write">글쓰기</a></button>
+					</table>	
+	  				</div>
+	  				<!-- 게시글 수에 따라서 동적으로 페이지번호 생성 -->
+					<div class="pagination">
+					    <ul id="pagination_list">
+						<li th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
+					      <a th:href="@{/bulletin(pageNo=${pageNo})}"><span th:text="${pageNo + 1}"></span></a>
+					    </li>
+					    </ul>
+					</div>
+					<div class="bulletin_write">
+						<button type="submit" class="bulletin_write_button"><a href="/racket/bulletin_write" style="color: black;">글쓰기</a></button>
+					</div> 
 				</div>
-			</div>
-		</th:block>
+			</th:block>
 	</body>
 </html>

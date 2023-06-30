@@ -1,175 +1,235 @@
 @charset "UTF-8";
-div[class="container"]{
+
+div[class="container"] {
 	text-align: center;
-	padding-left:400px;
+	padding-left: 400px;
 	margin: 0 auto;
 }
 
-.flex-container{
-	display:flex;
+.flex-container {
+	display: flex;
 }
-#member_grade{
-	width:100px;
+
+#member_grade {
+	width: 100px;
 }
-.form-control{
+
+.form-control {
 	width: 70%;
-	height:45px;
+	height: 45px;
 	text-align: center;
 	font-size: 20pt;
 	margin-right: 30px;
 }
-.d-flex{ /* 중앙정렬 */
+
+.d-flex { /* 중앙정렬 */
 	display: flex;
-  	justify-content: center;
-  	width:1000px;
-  	margin-left: calc(3%);
-  	margin-top: 5%;
+	justify-content: center;
+	width: 1000px;
+	margin-left: calc(3%);
+	margin-top: 5%;
 }
-#search{
+
+#search {
 	margin-left: 15px;
 }
 
-div[class="calendar"] > tr > td{
+div[class="calendar"]>tr>td {
 	width: 70%;
-	height:45px;
+	height: 45px;
 	text-align: center;
 	font-size: 20pt;
 	margin-right: 30px;
 }
-.stadium{
-	height:110px;
-	width:100%;
+
+.stadium {
+	height: 110px;
+	width: 100%;
 	margin-top: 30px;
-	display:flex; 
+	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: flex-start;
 	/* border: 1px solid black; */
 	border-radius: 15px;
 }
-.stadium .stadium-pic{
-	height:110px;
-	width:110px;
+
+.stadium .stadium-pic {
+	height: 110px;
+	width: 110px;
 	padding: 10px;
 	/* margin-right:20px; */
-	align-content: center;	
+	align-content: center;
 	text-align: center;
 	background-repeat: no-repeat;
-	background-size:cover;
+	background-size: cover;
 	overflow: hidden;
 	border-radius: 100%;
 }
-.stadium-list{
+
+.stadium-list {
 	margin-left: 15px;
 	font-size: 16pt;
 	font-family: sans-serif;
 	font-weight: bold;
 }
-.stadium .stadium-picture{
-	height:100%;
-	width:100%;
-	align-content: center;	
+
+.stadium .stadium-picture {
+	height: 100%;
+	width: 100%;
+	align-content: center;
 	text-align: center;
 	background-repeat: no-repeat;
-	background-size:cover;
+	background-size: cover;
 	overflow: auto;
 	border-radius: 30%;
 }
-.stadium .stadium-info{
-	width:80%;
-	padding-left:10px;
-	padding-top:10px;
+
+.stadium .stadium-info {
+	width: 80%;
+	padding-left: 10px;
+	padding-top: 10px;
 	/* border-left: 1px solid black; */
 }
-.stadium .stadium-info h3{
+
+.stadium .stadium-info h3 {
 	font-size: 14pt;
 	font-family: sans-serif;
 	font-weight: bold;
 }
-.stadium .stadium-info h2{
+
+.stadium .stadium-info h2 {
 	font-size: 16pt;
 	font-family: sans-serif;
 	font-weight: bold;
 }
-/* 달력 전체 스타일 */
-			.calendar {
-				border-radius:30px;
-				margin-top:30px;
-				display: flex;
-				flex-wrap: nowrap;
-				overflow-x: auto;
-				scroll-snap-type: x mandatory;
-				scroll-behavior: smooth;
-				-webkit-overflow-scrolling: touch;
-				width: 100%;
-				height: 120px;
-				padding: 10px;
-				box-sizing: border-box;
-				background-color: gray;
-			}
-			/* 달력 내부 스타일 */
-			.calendar__month {
-				flex: 0 0 auto;
-				width: calc(100% / 7);
-				text-align: center;
-				scroll-snap-align: center;
-				box-sizing: border-box;
-			}
-	
-			.calendar__day {
-				font-size: 24px;
-				font-weight: bold;
-				margin-bottom: 5px;
-			}
-	
-			.calendar__date {
-				font-size: 20px;
-				margin-bottom: 5px;
-			}
-	
-			/* 오늘 날짜 스타일 */
-			.today {
-				background-color: #f2f2f2;
-				border-radius: 30px;
-			}
-			
-			
-			
-			.calendar::-webkit-scrollbar {
-			  width: 3px;  /* 세로축 스크롤바 길이 */
-			  height: 10px;  /* 가로축 스크롤바 길이 */
-			}
-			.calendar::-webkit-scrollbar-track {
-			  background-color: lightblue;
-			}
-			.calendar::-webkit-scrollbar-track-piece {
-			  background-color: black;
-			}
-			.calendar::-webkit-scrollbar-thumb {
-			  border-radius: 8px;
-			  background-color: white;
-			}
-			.calendar::-webkit-scrollbar-button {
-			  background-color: darkblue;
-			  width: 20px;
-			  height: 10px;
-			}
-			.calendar::-webkit-scrollbar-button:start {
-			  background-color: #ff0000; /* Top, Left 방향의 이동버튼 */
-			}
-			.calendar::-webkit-scrollbar-button:end {
-			  background-color: #ff0000; /* Bottom, Right 방향의 이동버튼 */
-			}
-			.calendar::-webkit-scrollbar-button:vertical:increment {
-			}
-			.calendar::-webkit-scrollbar-button:vertical:decrement {
-			}
-			.calendar::-webkit-scrollbar-corner {
-			  background-color: violet; /* 우측 하단의 코너 부분 */
-			}
-			.calendar::-webkit-resizer {
-			  background-color: green;
-			}
-						
 
-			
+.stadiumname {
+	font-size: 18pt;
+	color:black;
+}
+.stadiumshadow{
+	color: gray;
+	font-size: 10pt;
+	margin-left: 15px;
+}
+
+.stadiumImg {
+	width: 110px;
+	height: 110px;
+	border-radius: 10px;
+	margin-right: 20px;
+	justify-content: center;
+	margin-top:2px;
+}
+
+.stadiumtable {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 20px;
+	align-content: center;
+	box-sizing: border-box;
+}
+.stadiumtable{
+	height:130px;
+	border-bottom: solid 1px gray;
+}
+.stadiumdiv {
+	justify-content: center;
+	align-content: center;
+	height:120px;
+	
+}
+
+.stadiumname {
+	font-weight: bold;
+}
+/* 달력 전체 스타일 */
+.calendar {
+	border-radius: 30px;
+	margin-top: 30px;
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+	width: 100%;
+	height: 120px;
+	padding: 10px;
+	box-sizing: border-box;
+	background-color: gray;
+}
+/* 달력 내부 스타일 */
+.calendar__month {
+	flex: 0 0 auto;
+	width: calc(100%/ 7);
+	text-align: center;
+	scroll-snap-align: center;
+	box-sizing: border-box;
+}
+
+.calendar__day {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.calendar__date {
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+/* 오늘 날짜 스타일 */
+.today {
+	background-color: #f2f2f2;
+	border-radius: 30px;
+}
+
+.calendar::-webkit-scrollbar {
+	width: 3px; /* 세로축 스크롤바 길이 */
+	height: 10px; /* 가로축 스크롤바 길이 */
+}
+
+.calendar::-webkit-scrollbar-track {
+	background-color: lightblue;
+}
+
+.calendar::-webkit-scrollbar-track-piece {
+	background-color: black;
+}
+
+.calendar::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	background-color: white;
+}
+
+.calendar::-webkit-scrollbar-button {
+	background-color: darkblue;
+	width: 20px;
+	height: 10px;
+}
+
+.calendar::-webkit-scrollbar-button:start {
+	background-color: #ff0000; /* Top, Left 방향의 이동버튼 */
+}
+
+.calendar::-webkit-scrollbar-button:end {
+	background-color: #ff0000; /* Bottom, Right 방향의 이동버튼 */
+}
+
+.calendar::-webkit-scrollbar-button:vertical:increment {
+	
+}
+
+.calendar::-webkit-scrollbar-button:vertical:decrement {
+	
+}
+
+.calendar::-webkit-scrollbar-corner {
+	background-color: violet; /* 우측 하단의 코너 부분 */
+}
+
+.calendar::-webkit-resizer {
+	background-color: green;
+}

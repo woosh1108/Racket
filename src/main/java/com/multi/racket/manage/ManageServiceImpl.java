@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.bulletin_board.BulletinBoardDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
 @Service
@@ -35,5 +36,16 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public List<MemberDTO> findUser() {
 		return dao.findUser();
+	}
+
+	@Override
+	public List<BulletinBoardDTO> search(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StadiumDTO find_stadiumno(int stadiumNo) {
+		return dao.find_stadiumno(stadiumNo);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.multi.racket.bulletin_board.BulletinBoardDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.member.MemberRepository;
@@ -40,6 +41,17 @@ public class ManageDAOImpl implements ManageDAO {
 	@Override
 	public List<MemberDTO> findUser() {
 		return memberrepository.findAll();
+	}
+
+	@Override
+	public List<BulletinBoardDTO> search(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StadiumDTO find_stadiumno(int stadiumNo) {
+		return repository.findByStadiumNo(stadiumNo);
 	}
 	
 }

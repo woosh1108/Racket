@@ -244,7 +244,7 @@ width:80px;
   position: absolute;
   top: 1vh;
   right: calc(18%); /* 수정: 오른쪽 위치 조절 */
-  width: 80px;
+  width: 100px;
   height: 50px;
   /* display:none; */
 }

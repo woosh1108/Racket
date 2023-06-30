@@ -17,28 +17,12 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
-		<!-- 페이지네이션 -->
-		<link rel="stylesheet" href="/racket/common/css/paginate.css">
-    	<link rel="stylesheet" href="/racket/common/css/ligne.css">
-    	<script type="text/javascript" src="/racket/common/js/paginate.js"></script>
 		
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement.css" />
+			<link rel="stylesheet" href="/racket/common/css/announcement/announcement.css" />
 		</th:block>
-		
-	<!-- 	<script>
-   		function receiveValue() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var value = urlParams.get('input_name');
-
-        // 받은 값 출력
-        console.log('전송된 값: ' + value);
-   		}
-
-    	window.onload = receiveValue;
-		</script> -->
-		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
 	<body>
 	<th:block layout:fragment="content">
@@ -47,10 +31,27 @@
 	  			<div class="announcement_top">
 			  		<strong>공지사항</strong>
 	        		<div class="body">
-	            		<div class="input-group">
-	                		<label for="searchBox">검색</label>
-	                		<input type="search" id="searchBox" placeholder="검색할 내용을 입력하세요.">
-	            		</div>
+	            		<form action="/racket/announcement_search" method="post" onsubmit="return validateForm()">
+						    <div class="input-group">
+						        <label for="searchBox"></label>
+						        <input type="search" id="searchBox" name="data" placeholder="검색할 내용을 입력하세요.">
+						        <button type="submit">검색</button>
+						    </div>
+						    
+						</form>
+						<script>
+					    function validateForm() {
+					        var searchBox = document.getElementById("searchBox");
+					        var searchData = searchBox.value.trim();
+					
+					        if (searchData === "") {
+					            alert("검색할 내용을 입력하세요.");
+					            return false;
+					        }
+					
+					        return true;
+					    }
+					</script>
 	        		</div>
     			</div>
 	  			<table class="table table-hover">
@@ -63,43 +64,35 @@
 	      					<th scope="col">조회</th>
 	    				</tr>
 	  				</thead>
-
 	  				<!-- 반복문으로 데이터 불러오면서 테이블 생성 -->
 	  				<tbody>
-	    				<tr th:each="announce:${announcementlist}">
-	      					<th scope="row"><span th:text="${announce.announcementNo}"></span></th>
+	    				<tr th:each="announcement : ${announcementlist}">
+	      					<th scope="row"><span th:text="${announcement.announcementNo}"></span></th>
 	      					<td>
-	      						<a th:href="@{/announcement_read(announcementNo=${announce.announcementNo}, state='READ')}">
-    								<span th:text="${announce.announcementTitle}"></span>
+	      						<a th:href="@{/announcement_read(announcementNo=${announcement.announcementNo}, state='READ')}">
+    								<span th:text="${announcement.announcementTitle}"></span>
 								</a>
 							</td>
-	      					<td><span th:text="${announce.memberId}"></span></td>
-	      					<td><span th:text="${announce.announcementDate}"></span></td>
-	      					<td><span th:text="${announce.announcementViews}"></span></td>
+	      					<td><span th:text="${announcement.memberId}"></span></td>
+	      					<td><span th:text="${announcement.announcementDate}"></span></td>
+	      					<td><span th:text="${announcement.announcementViews}"></span></td>
 	    				</tr>
 	  				</tbody>
-				</table>	
-	  		</div>
-	  		<!-- 페이지네이션 -->
-		  	<!-- <div class="free_board_page"> -->
-			<script>
-			    let options = {
-			        numberPerPage:5,
-			        goBar:true, 
-			        pageCounter:true, 
-			    };
-			
-			    let filterOptions = {
-			        el:'#searchBox'
-			    };
-			
-			    paginate.init('.table',options,filterOptions); //테이블 클래스
-			</script>
-				<div class="announcement_write">
-					<!-- 관리자에게만 버튼이 보일 수 있도록 -->
-					<button type="submit" class="announcement_write_button"><a href="/racket/announcement_write">글쓰기</a></button>
-				</div> 
-			</div>
-		</th:block>
+					</table>	
+	  				</div>
+	  				<!-- 게시글 수에 따라서 동적으로 페이지번호 생성 -->
+					<div class="pagination">
+					    <ul id="pagination_list">
+						<li th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
+					      <a th:href="@{/announcement(pageNo=${pageNo})}"><span th:text="${pageNo + 1}"></span></a>
+					    </li>
+					    </ul>
+					</div>
+					<div class="announcement_write">
+						<!-- 관리자에게만 버튼이 보일 수 있도록 -->
+						<button th:if="${isAdmin}" type="submit" class="announcement_write_button"><a href="/racket/announcement_write" style="color: black;">글쓰기</a></button>
+					</div> 
+				</div>
+			</th:block>
 	</body>
 </html>

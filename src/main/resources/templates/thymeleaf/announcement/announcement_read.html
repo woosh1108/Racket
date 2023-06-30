@@ -11,8 +11,6 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- js -->
 		<script type="text/javascript" src="/racket/common/js/announcement_read.js"></script>
-		<!-- css -->
-		<link rel="stylesheet" type="text/css" href="/racket/common/css/announcement_read.css">
 		<!-- 부트스트랩 -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 		<!-- 폰트 -->
@@ -23,7 +21,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/announcement.css" />
+			<link rel="stylesheet" href="/racket/common/css/announcement/announcement_read.css" />
 		</th:block>
 	</head>
 	<body>
@@ -50,6 +48,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 								<dt>글쓴이</dt>
 								<dd th:text="${announcement.memberId}"></dd>
 							</dl>
+							<!-- 수정일자는 db에만 남겨놓기로하자.. -->
 							<dl>
 								<dt>작성일</dt>
 								<dd th:text="${announcement.announcementDate}"></dd>
@@ -66,21 +65,25 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 						
 						</div>
 							<div class="announcement_btn_wrap">
-								<!-- 해당글쓴이와 로그인한 아이디가 같을때만 띄우기 -->
-								<form method="post" th:action="@{/announcement_delete}">
-								<input type="hidden" name="announcementNo" th:value="${announcement.announcementNo}" />
-									<button type="submit" onclick="return confirmDelete()">삭제</button>
-								</form>
-								<script>
-    								function confirmDelete() {
-        								var result = confirm("정말 삭제하시겠습니까?");
-        								return result;
-    								}
-								</script>
-								<form method="post" th:action="@{/announcement_update}">
-								<input type="hidden" name="announcementNo" th:value="${announcement.announcementNo}" />
-									<button type="submit">수정</button>
-								</form>
+								<div class="button_group">
+									<!-- 해당글쓴이와 로그인한 아이디가 같을때만 띄우기 -->
+									<form method="post" th:action="@{/announcement_delete}">
+									<input type="hidden" name="announcementNo" th:value="${announcement.announcementNo}" />
+										<button th:if="${isAdmin}" type="submit" onclick="return confirmDelete()">삭제</button>
+									</form>
+									<script>
+	    								function confirmDelete() {
+	        								var result = confirm("정말 삭제하시겠습니까?");
+	        								return result;
+	    								}
+									</script>
+								</div>
+									<div class="button_group">
+									<form method="get" th:action="@{/announcement_update/{announcementNo}(announcementNo=${announcement.announcementNo})}" th:object="${announcement}">
+	    								<input type="hidden" name="announcementNo" th:value="${announcement.announcementNo}" />
+	    								<button th:if="${isAdmin}" type="submit">수정</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -26,7 +26,6 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<!-- 스마트에디터 -->
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-		
 		<!-- 스마트에디터 -->
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -36,36 +35,25 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 			        height: 500
 				});
 			});
-			//등록버튼
-			function submitForm() {
-		           var title = document.getElementById("title").value;
-		           var content = $('#summernote').summernote('code');
-		            
-		           var xhr = new XMLHttpRequest();
-		           xhr.open("POST", "/bulletin", true);
-		           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		           xhr.onreadystatechange = function() {
-		               if (xhr.readyState === XMLHttpRequest.DONE) {
-		                   if (xhr.status === 200) {
-		                       alert("글이 등록되었습니다.");
-		                       window.location.href = "/racket/bulletin";
-		                   } else {
-		                       alert("글 등록에 실패하였습니다. 다시 작성해주세요.");
-		                       window.location.href = "/racket/bulletin_write";
-		                   }
-		               }
-		           };
-		           var data = "title=" + encodeURIComponent(title) + "&editordata=" + encodeURIComponent(content);
-		           xhr.send(data);
-		       }
 			//취소버튼 누르면 전체게시판 페이지로 넘어감
 			 function cancel() {
              	window.location.href = "/racket/bulletin";
         	}
 		</script>
+		
+		<script type="text/javascript">
+		    function validateForm() {
+		      const content = document.getElementById('summernote').value;
+		      if (content.trim().length === 0) {
+		        alert('내용을 입력해주세요.');
+		        return false;
+		      }
+		      return true;
+		    }
+  		</script>
 		<!--  -->
 		<th:block layout:fragment="css">
-			<link rel="stylesheet" href="/racket/common/css/bulletin_board_write.css" />
+			<link rel="stylesheet" href="/racket/common/css/bulletin_board/bulletin_board_write.css" />
 		</th:block>
 	</head>
 	<body>
@@ -73,27 +61,26 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<div class="bulletin_write_body_container">
 			<strong>전체게시판</strong>
 			<hr/>
-			<form method="post" action="/racket/bulletin">
-			<div class="bulletin_write_info">
+			<form method="post" action="/racket/bulletin" onsubmit="return validateForm()">
+				<div class="bulletin_write_info">
 	  				<label class="bulletin_writer">작성자: </label>
-	  				<input type="hidden" name="memberId" th:value="${freeId}">
-	  				<p class="bulletin_writer_id" th:text="${freeId}"></p>
+	  				<input type="hidden" name="memberId" th:value="${id}">
+	  				<p class="bulletin_writer_id" th:text="${id}"></p>
 				</div>
 				<br/>
 				<label class="bulletin_title">제목: </label>	
-				<input type="text" id="title" name="announcementTitle" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
+				<input type="text" id="bbTitle" name="bbTitle" value="" class="board_title_input" placeholder="제목을 입력해주세요." style="width: 550px;">
 				<hr/>
-				<div class="announcement_write_content">
+				<div class="bulletin_write_content">
 					<label>작성 내용</label> 
-	  				<textarea id="summernote" name="bulletinContent"></textarea>
+	  				<textarea id="summernote" name="bbContent"></textarea>
 				</div>
-			<!-- 데이터 넘기기(나중에 구현) -->
-			<div class="bulletin_write_reaction">
-				<button type="reset" class="reset_btn" value="취소" onclick="cancel()">취소</button>
-				<button type="submit" class="success_btn" value="등록">등록</button>
-			</div>
+				<div class="bulletin_write_reaction">
+					<button type="reset" class="reset_btn" value="취소" onclick="cancel()">취소</button>
+					<button type="submit" class="success_btn" value="등록">등록</button>
+				</div>
 			</form>
-		</div>
+			</div>
 		</th:block>
 	</body>
 </html>

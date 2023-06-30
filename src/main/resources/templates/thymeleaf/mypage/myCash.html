@@ -51,12 +51,34 @@ menuicon {
 			<div class="col-lg-11"
 				style="position: relative; float: right; margin-top: 130px; margin-left: 150px;">
 				<section>
-					<div class="content" style="margin-left: 20px;">
+					<div class="content">
 						<ul class="actions">
-							<li><a href="/racket/mypage/info" class="button">내정보</a></li>
+							<li>
+								<form action="/racket/mypage/info" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">내정보</button>
+								</form>
+							</li>
 							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
 							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
-							<li><a href="/racket/mypage/match" class="button">매칭</a></li>
+							<li>
+								<form action="/racket/mypage/reservation" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">예약</button>
+								</form>
+							</li>
+							<li><a href="/racket/mypage/match" class="button">매치</a></li>
+							<li>
+								<form action="/racket/mypage/training" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">강습</button>
+								</form>
+							</li>
+							<li><a href="/racket/mypage/trainingAttend" class="button">강습
+									참가</a></li>
 						</ul>
 					</div>
 				</section>

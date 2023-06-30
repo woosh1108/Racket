@@ -39,9 +39,11 @@ public class TrainingDTO {
     private CourtoperatinghoursDTO courtOperatingHours;
 	
 	private String trainingContent;
+
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@CreatedDate
 	private Date trainingDate;
+
 	private int trainingMax;
 	private int trainingFee;
 	private String trainingGrade;
@@ -59,4 +61,5 @@ public class TrainingDTO {
                 ", trainingGrade=" + trainingGrade +
                 '}';
     }
+
 }

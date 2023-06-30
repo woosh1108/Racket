@@ -51,7 +51,16 @@ input[type=password] {
 
 .duplicated-id{
 	display: none;
+	margin-left: 10px;
+	color: red;
 }
 .available-id{
 	display: none;
+	margin-left: 10px;
+	color: green;
+}
+.Idcondition{
+	font-size: 10pt;
+	color:gray;
+	margin-left: 10px;
 }

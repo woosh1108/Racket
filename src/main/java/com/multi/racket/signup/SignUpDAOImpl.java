@@ -1,24 +1,24 @@
 package com.multi.racket.signup;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.multi.racket.domain.MemberDTO;
+import com.multi.racket.repository.SignupRepository;
 @Repository
 public class SignUpDAOImpl implements SignUpDAO {
-	private EntityManager entityManager;
+	private SignupRepository repository;
 	@Autowired
-	public SignUpDAOImpl(EntityManager entityManager) {
+	public SignUpDAOImpl(SignupRepository repository) {
 		super();
-		this.entityManager = entityManager;
+		this.repository = repository;
 	}
-
-	@Override
 	public MemberDTO member_insert(MemberDTO member) {
-		entityManager.persist(member);
+		repository.save(member);
 		return member;
 	}
-
+	@Override
+	public MemberDTO findMemberByMemberId(String memberId) {
+		return repository.findMemberByMemberId(memberId);
+	}
 }

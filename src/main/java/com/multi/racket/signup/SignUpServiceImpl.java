@@ -20,4 +20,9 @@ public class SignUpServiceImpl implements SignUpService {
 		return dao.member_insert(member);
 	}
 
+	@Override
+	public MemberDTO findMemberByMemberId(String memberId) {
+		return dao.findMemberByMemberId(memberId);
+	}
+
 }

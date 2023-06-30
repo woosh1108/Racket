@@ -1,12 +1,17 @@
 package com.multi.racket.announcement;
 
 import java.sql.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -18,9 +23,6 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
-
-
-
 @DynamicInsert
 @Entity
 @Table(name = "announcement")
@@ -29,14 +31,13 @@ public class AnnouncementDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int announcementNo;
+	@NotNull
 	private String memberId;
-	@NotNull
 	private String announcementTitle;
-	@NotNull
 	private String announcementContent;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(nullable = false, name = "announcement_date")
-	@NotNull
+	@NotNull // 나중에 import변경해야하나?
 	@CreationTimestamp
 	private Date announcementDate;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -45,9 +46,8 @@ public class AnnouncementDTO {
 	private Date announcementModifyDate;
 	@ColumnDefault("0")
 //	@Builder.Default
-	private Integer announcementViews=0;
-	
-		
+	private Integer announcementViews = 0;
+
 	public AnnouncementDTO() {
 
 	}
@@ -101,11 +101,7 @@ public class AnnouncementDTO {
 	}
 
 	public void setAnnouncementContent(String announcementContent) {
-		if (announcementContent == null) {
-            this.announcementContent = ""; // 또는 다른 기본값을 설정
-        } else {
-            this.announcementContent = announcementContent;
-        }
+		this.announcementContent = announcementContent;
 	}
 
 	public Date getAnnouncementDate() {
@@ -131,4 +127,5 @@ public class AnnouncementDTO {
 	public void setAnnouncementViews(Integer announcementViews) {
 		this.announcementViews = announcementViews;
 	}
+
 }

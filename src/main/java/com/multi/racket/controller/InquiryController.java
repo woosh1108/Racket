@@ -76,6 +76,5 @@ public class InquiryController {
 		return "thymeleaf/inq/report";
 	}
 	
-	
-		
+			
 }

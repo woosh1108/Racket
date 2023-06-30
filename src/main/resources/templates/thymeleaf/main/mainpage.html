@@ -16,6 +16,12 @@
 	}else{
 		alert(msg);
 	}
+	
+	let change = [[${change}]];
+	if(change == null){
+	}else{
+		alert(change);
+	}
 </script>
 </head>
 <body>
@@ -80,137 +86,28 @@
 		</div>
 
 		<!-- 구장 소개 -->
-		<h3 class="stadium-list mt-5 mb-5">구장 목록</h3>
+		<h3 class="stadium-list mt-5">구장 목록</h3>
+		<span class="stadiumshadow">이름을 클릭하면 구장 정보로 넘어갑니다.</span>
 		<hr />
-		<tr th:each="stadium:${stadiumlist}">
-			<td><span th:text="${stadium.stadiumName}"></span><br></td>
-			<td>장소 : <span th:text="${stadium.stadiumAddr}"></span><br></td>
-			<td>구장 이용시간 : <span th:text="${stadium.stadiumTime}"></span><br></td>
-			<td>구장 이용비 : <span th:text="${stadium.stadiumFee}"></span> 원<br></td>
-			<hr />
-			<!-- <td><a th:href="@{/erp/board/delete.do(boardNo=${board.boardNo})}">삭제</a></td> -->
-		</tr>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
-		<div class="stadium">
-			<div class="stadium-pic">
-				<img src="/racket/images/stadium1.jpg" class="stadium-picture" />
-			</div>
-			<div class="stadium-info">
-				<h3>별빛바람구장123</h3>
-				<h4>장소 : XX번지</h4>
-				<h4>평점 : 5점</h4>
-				<h2>13000 원</h2>
-			</div>
-		</div>
+		<ul>
+			<li th:each="stadium:${stadiumlist}" class="stadiumtable">
+				<div th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
+				<div th:if="${stadium.stadiumNo == stadiumfile.stadiumNo}">
+					<img alt="" th:src="@{'/download/racket/' + ${stadiumfile.fileStorename}}" class="stadiumImg">
+				</div>
+				</div>
+				<div class="stadiumdiv">
+					<a th:href="@{/stadium/stadiumDetail(stadium_no=${stadium.stadiumNo }, state='READ')}" class="stadiumname">
+			        <span th:text="${stadium.stadiumName}" class="stadiumname"></span><br>
+			        </a>
+				        장소: <span th:text="${stadium.stadiumAddr}"></span><br>
+				        구장 이용시간: <span th:text="${stadium.stadiumTime}"></span><br>
+				        구장 이용비: <span th:text="${stadium.stadiumFee}"></span> 원<br>
+			    </div>
+			    <hr/>
+			</li>
+		</ul>
+		
 
 
 	</th:block>

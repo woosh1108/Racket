@@ -21,16 +21,15 @@
 	<th:block layout:fragment="content">
 		<div class="container mt-5">
 			<!-- <form action="/racket/signup" th:action="@{/submitForm}" method="POST" onsubmit="return validateForm();" class="shadow p-3 mb-5 bg-body rounded"> -->
-			<form action="/racket/associate" method="POST"
+			<form action="/racket/associate/test" method="POST" enctype="multipart/form-data"
 				onsubmit="return validateForm();"
 				class="shadow p-3 mb-5 bg-body rounded">
 				<h2 class="mb-3">구장 제휴 문의</h2>
 				<div class="mb-3 form-group">
 					<label for="memberId" class="form-label">아이디:</label>
 					<div class="input-group">
-						<!-- <input type="text" id="member_id" name="member_id" th:id="${member.member_id}" class="form-control" required> -->
-						<input type="text" id="memberId" name="memberId"
-							class="form-control" required>
+							<input type="text" id="memberId" name="memberId"
+							class="form-control" required th:value="${session.user.memberId}" readonly>
 						<button type="button" onclick="checkId();"
 							class="btn btn-secondary" id="idCheck">회원체크</button>
 					</div>
@@ -46,6 +45,11 @@
 						class="form-control" required>
 				</div>
 				<div class="mb-3">
+					<label for="stadiumPhone" class="form-label">구장 전화번호:</label> <input
+						type="text" id="stadiumPhone" name="stadiumPhone"
+						class="form-control" required>
+				</div>
+				<div class="mb-3">
 					<label for="stadiumTime" class="form-label" style="width:100px;">구장 운영 시간:</label>
 					<div class="TimeContainer">
 						<select id="stadiumTimeStart" name="stadiumTimeStart" class="form-select" onchange="updateEndTime()">
@@ -57,6 +61,7 @@
 							<option value="16:00">16:00</option>
 							<option value="18:00">18:00</option>
 							<option value="20:00">20:00</option>
+							<option value="22:00">22:00</option>
 						</select>
 						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
 						<select id="stadiumTimeEnd" name="stadiumTimeEnd" class="form-select">
@@ -68,6 +73,7 @@
 							<option value="18:00">18:00</option>
 							<option value="20:00">20:00</option>
 							<option value="22:00">22:00</option>
+							<option value="24:00">24:00</option>
 						</select>
 					<input type="hidden" id="stadiumTime" name="stadiumTime">
 					</div>
@@ -81,9 +87,13 @@
 					<label for="stadiumContent" class="form-label">구장 설명 : </label> 
 					<textarea rows="5" cols="30" name="stadiumContent" id="stadiumContent" class="form-control"></textarea>
 				</div>
-
+				 <div class="mb-3">
+                    <label for="stadiumFiles" class="form-label">구장 사진:</label>
+                    <input type="file" id="stadiumFiles" name="stadiumFiles" class="form-control" placeholder="파일선택" multiple>
+					
+                </div>
 				<input type="hidden" name="stadiumStatus" value="0">
-				<button type="submit" class="btn btn-primary" id="associate">구장 제휴서 제출</button>
+				<button type="submit" class="btn btn-primary" id="associate" disabled>구장 제휴서 제출</button>
 		</form>
 		<script type="text/javascript" src="/racket/common/js/signup/associate.js"></script>
 		</div>
