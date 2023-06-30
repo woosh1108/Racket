@@ -97,7 +97,7 @@
 				</div>
 				</div>
 				<div class="stadiumdiv">
-					<a th:href="@{/stadium/stadiumDetail(stadium_no=${stadium.stadiumNo }, state='READ')}" class="stadiumname">
+					<a th:href="@{/stadium/stadiumDetail(stadiumNo=${stadium.stadiumNo })}" class="stadiumname">
 			        <span th:text="${stadium.stadiumName}" class="stadiumname"></span><br>
 			        </a>
 				        장소: <span th:text="${stadium.stadiumAddr}"></span><br>
