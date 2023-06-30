@@ -1,6 +1,7 @@
 package com.multi.racket.stadium;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,21 +10,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.multi.racket.domain.StadiumDTO;
-import com.multi.racket.repository.StadiumCourtRepository;
 import com.multi.racket.repository.StadiumRepository;
 
 @Repository
 public class StadiumDAOImpl implements StadiumDAO {
-	StadiumCourtRepository stadiumCourtRepository;
+	
 	StadiumRepository repository;
 	
 	@Autowired
-	public StadiumDAOImpl(StadiumCourtRepository stadiumCourtRepository, StadiumRepository repository) {
+	public StadiumDAOImpl(StadiumRepository repository) {
 		super();
-		this.stadiumCourtRepository = stadiumCourtRepository;
 		this.repository = repository;
 	}
-	
 
 	@Override
 	public List<StadiumDTO> stadiumList(int pageNo) {
@@ -36,18 +34,8 @@ public class StadiumDAOImpl implements StadiumDAO {
 	}
 
 	@Override
-	public StadiumDTO getStadium(int stadiumNo) {
-		StadiumDTO stadium = repository.findByStadiumNo(stadiumNo)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid stadium ID: " + stadiumNo));
-    	System.out.println("ServiceImpl: "+stadium);
-    	return stadium;
-		//return repository.findByStadiumNo(stadiumNo);
-	}
-	
-	// 코드 갯수
-	@Override
-	public int getStadiumCourtCount(int stadiumNo) {
-		return stadiumCourtRepository.countByStadium(stadiumNo);
+	public Optional<StadiumDTO> getStadium(int stadium_no) {
+		return repository.findById(stadium_no);
 	}
 
 	@Override

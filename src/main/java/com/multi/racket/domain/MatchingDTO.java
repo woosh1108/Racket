@@ -1,6 +1,7 @@
 package com.multi.racket.domain;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,9 +25,11 @@ public class MatchingDTO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "match_no")
 	private int matchNo;
+	@Column(name = "reservation_no")
 	private int reservationNo;
+	@Column(name = "member_id")
 	private String memberId;
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@Column(name = "match_date")
 	@CreatedDate
-	private Date matchDate;
+	private Timestamp matchDate;
 }

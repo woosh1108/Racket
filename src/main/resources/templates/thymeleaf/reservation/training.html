@@ -53,7 +53,7 @@
 <script>
 	function updateSliderValue() {
 		var sliderValue = document.getElementById("customRange2").value;
-		document.getElementById("value").textContent = sliderValue+"명";
+		document.getElementById("value").textContent = sliderValue;
 	}
 </script>
 
@@ -121,41 +121,6 @@
   });
 </script>
 
-<script th:inline="javascript">
-document.addEventListener('DOMContentLoaded', function() {
-	//HTML 요소 가져오기
-	var selectElement = document.getElementById("gradeSetting");
-	var gradeSettingValueElement = document.getElementById("gradeSettingValue");
-	
-	// 드롭다운 값 변경 시 이벤트 처리
-	selectElement.addEventListener("change", function() {
-	  // 선택한 값 가져오기
-	  var selectedValue = selectElement.value;
-	  
-	  // 선택한 값 표시
-	  gradeSettingValueElement.textContent = selectedValue;
-	});
-	
-	// HTML 요소 가져오기
-	var trainingFeeInputElement = document.getElementById("trainingFee");
-	var trainingFeeValueElement = document.getElementById("trainingFeeValue");
-
-	// 입력 값 변경 시 이벤트 처리
-	trainingFeeInputElement.addEventListener("input", function() {
-	  // 입력된 값 가져오기
-	  var enteredValue = trainingFeeInputElement.value;
-	  
-	  // 값이 없을 경우 "0원"으로 설정
-	  if (enteredValue === "") {
-	    trainingFeeValueElement.textContent = "0원";
-	  } else {
-	    trainingFeeValueElement.textContent = enteredValue+"원";
-	  }
-	});
-
-})
-</script>
-
 </head>
 <body class="is-preload">
 
@@ -187,20 +152,38 @@ document.addEventListener('DOMContentLoaded', function() {
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 강습시간 -</option>
-								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}" 
-         th:sorted="${true}" th:sortby="hour.courtStart"></option>
+								<option value="1">00:00 ~ 02:00</option>
+								<option value="2">02:00 ~ 04:00</option>
+								<option value="3">04:00 ~ 06:00</option>
+								<option value="4">06:00 ~ 08:00</option>
+								<option value="5">08:00 ~ 10:00</option>
+								<option value="6">10:00 ~ 12:00</option>
+								<option value="7">12:00 ~ 14:00</option>
+								<option value="8">14:00 ~ 16:00</option>
+								<option value="9">16:00 ~ 18:00</option>
+								<option value="10">18:00 ~ 20:00</option>
+								<option value="10">20:00 ~ 22:00</option>
+								<option value="11">22:00 ~ 24:00</option>
 							</select>
 							<span class="error-message" id="errorMessageTrainingHour"></span>
 						</div>
 						<br />
+						<div class="field">
+							<div class="box" style="padding: 15px;">
+								<p style="text-align: center; color: black;">
+									강사
+									<code style="color: #134C43">이클립</code>
+								</p>
+							</div>
+						</div>
 
 						<div class="field">
-							<select name="gradeSetting" id="gradeSetting"
+							<select name="gradeSetting" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 강의수준 -</option>
-								<option value="입문">입문</option>
-								<option value="초급">초급</option>
-								<option value="중급">중급</option>
+								<option value="1">입문</option>
+								<option value="2">초급</option>
+								<option value="3">중급</option>
 							</select>
 							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
@@ -210,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							<div class="box" style="padding: 15px;">
 								<p style="text-align: center; color: black;">
 									최대 인원
-									<code style="color: #134C43" id="value">1명</code>
+									<code style="color: #134C43" id="value">1</code>
 									<input type="range" class="form-range" min="1" max="10"
 										id="customRange2" onchange="updateSliderValue()" value="1" name="trainingMax">
 								<span class="error-message" id="errorMessagePeople"></span>
@@ -220,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						<div class="field">
 							<div class="box" style="padding: 15px;">
-								<p style="text-align: center; color: black;">강습비용 <b><span id="trainingFeeValue">0원</span></b></p>
+								<p style="text-align: center; color: black;">강습비용</p>
 							</div>
 						</div>
 
@@ -235,36 +218,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				<div class="col-lg-8" style="position: relative; float: right;"
 					id="reservation">
+
 					<div class="image fit">
-						<!-- 체육관 사진 -->
-						<div class="swiper mySwiper">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide" th:each="file : ${court.stadium.files}">
-									<img th:src="${file.fileStorename[0]}" alt="Stadium Image">
-								</div>
-								<!-- 대체 이미지 -->
-							       <div th:if="${court.stadium.files.size() == 0}">
-							           <img src="/racket/images/reservationPark.jpg" alt="Alternative Image">
-						        </div>
-							</div>
-							<div class="swiper-button-next"></div>
-							<div class="swiper-button-prev"></div>
-							<div class="swiper-pagination"></div>
-						</div>
+						<img src="/racket/images/reservationPark.jpg" alt="" />
 					</div>
-					
-					<!-- 강사 정보 -->
+					<!-- 체육관 정보 -->
 					<section>
 						<div class="box">
 							<blockquote>
+								<h3>체육관 정보</h3>
+							</blockquote>
+							<p style="color: black;">이름: 한빛 체육관</p>
+							<p style="color: black;">주소: 서울특별시 광진구</p>
+							<p style="color: black;">전화번호: 010-1234-5678</p>
+							<p style="color: black;">시간당 가격: 20,000원</p>
+						</div>
+					</section>
+
+					<!-- 강사 정보 -->
+					<section>
+						<div class="box" style="margin-bottom: 88px;">
+							<blockquote>
 								<h3>강사</h3>
 							</blockquote>
-							<p style="color: black;">강사 이름 : <span th:text="${#session.getAttribute('user').memberName}"></span></p>
-							<p style="color: black;">강사 나이 : <span th:text="${#session.getAttribute('user').memberAge}+'세'"></span></p>
-							<p style="color: black;">강사 성별 : <span th:text="${#session.getAttribute('user').memberGender}"></span></p>
-							<p style="color: black;">전화번호 : <span th:text="${#session.getAttribute('user').memberPhone}"></span></p>
-							<p style="color: black;">이메일 : <span th:text="${#session.getAttribute('user').memberEmail}"></span></p>
-							<p style="color: black;">강습 수준 : <span id="gradeSettingValue"></span></p>
+							<p style="color: black;">강사: </p>
+							<p style="color: black;">전화번호: </p>
+							<p style="color: black;">강사 등급: </p>
 							<div class="field">
 								<p style="color: black;">
 									<label for="name">강의비용</label>
@@ -284,24 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
 							</div>
 						</div>
 					</section>
-					
-					<!-- 체육관 정보 -->
-					<section>
-						<div class="box">
-							<blockquote>
-								<h3>체육관 정보</h3>
-							</blockquote>
-							<p style="color: black;">구장 이름: <span th:text="${court.stadium.stadiumName}"></span></p>
-							<p style="color: black;">코트 번호: <span th:text="${court.courtName}"></span></p>
-							<p style="color: black;">구장 주소: <span th:text="${court.stadium.stadiumAddr}"></span></p>
-							<p style="color: black;">운영 시간: <span th:text="${court.stadium.stadiumTime}"></span></p>
-							<p style="color: black;">전화번호: <span th:text="${court.stadium.stadiumTel}"></span></p>
-							<p style="color: black;">시간당 가격: <span id="stadiumFee" th:value="${court.stadium.stadiumFee}" th:text="${court.stadium.stadiumFee}"></span></p>
-							<p style="color: black;">구장 소개: <span th:text="${court.stadium.stadiumContent}"></span></p>
-						</div>
-					</section>
-
-					
 				</div>
 
 			</form>

@@ -9,10 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,10 +23,10 @@ public class TrainingMemberlistDTO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "training_apply_no")
 	private int trainingApplyNo;
+	@Column(name = "training_no")
 	private int trainingNo;
+	@Column(name = "member_id")
 	private String memberId;
 	@Column(name = "training_date")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-	@CreatedDate
 	private Date trainingDate;
 }

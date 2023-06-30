@@ -1,6 +1,5 @@
 package com.multi.racket.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,11 +19,7 @@ import lombok.NoArgsConstructor;
 public class StadiumFileDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "stadium_file_no")
 	private int stadiumFileNo;
-// 	@ManyToOne
-//    @JoinColumn(name = "stadium_no")
-//    private StadiumDTO stadium;
 	@JoinColumn(name = "stadium_no")
 	private int stadiumNo;
 	private String fileOriginalname;
@@ -45,5 +40,9 @@ public class StadiumFileDTO {
 		this.fileStorename = fileStorename;
 		this.stadiumFileNum = stadiumFileNum;
 	}
-
+	
+	 
+	
+	 
+	 
 }

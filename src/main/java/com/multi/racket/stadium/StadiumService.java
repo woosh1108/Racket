@@ -1,15 +1,14 @@
 package com.multi.racket.stadium;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.multi.racket.domain.StadiumDTO;
 
 public interface StadiumService {
 	List<StadiumDTO> stadiumList(int pageNo);
 
-	StadiumDTO getStadium(int stadiumNo);
-	
-	int getStadiumCourtCount(int stadiumNo);
+	Optional<StadiumDTO> getStadium(int stadium_no);
 
 	int update(StadiumDTO board);
 

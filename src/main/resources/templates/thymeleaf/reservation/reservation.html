@@ -10,6 +10,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
 <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
 <link rel="stylesheet" href="/racket/common/css/side.css" />
 <noscript>
@@ -57,11 +59,10 @@
 <script type="text/javascript">
 function handleRadioChange() {
 	  var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
-	  var stadiumFeeValue = document.getElementById("stadiumFee").textContent;
 	  var price = 20000/selectedValue;
 	  document.getElementById("totalAmount").value = 30000-price;
 	  document.getElementById("reservationFee").value = price;
-	  document.getElementById("reservationFeeVal").textContent = stadiumFeeValue*2/selectedValue+"원";
+	  document.getElementById("reservationFeeVal").textContent = 20000/selectedValue+"원";
 	  document.getElementById("peopleNumVal").textContent = selectedValue + "명";
 	  document.getElementById("peopleNum").value = selectedValue;
 	}
@@ -191,14 +192,24 @@ function handleRadioChange() {
 							<span class="error-message" id="errorMessageReservationDate"></span>
 							</div>
 						</div>
-						
+
+
 						<div class="field">
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 대여시간 -</option>
-								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}" 
-         th:sorted="${true}" th:sortby="hour.courtStart"></option>
-
+								<option value="1">00:00 ~ 02:00</option>
+								<option value="2">02:00 ~ 04:00</option>
+								<option value="3">04:00 ~ 06:00</option>
+								<option value="4">06:00 ~ 08:00</option>
+								<option value="5">08:00 ~ 10:00</option>
+								<option value="6">10:00 ~ 12:00</option>
+								<option value="7">12:00 ~ 14:00</option>
+								<option value="8">14:00 ~ 16:00</option>
+								<option value="9">16:00 ~ 18:00</option>
+								<option value="10">18:00 ~ 20:00</option>
+								<option value="10">20:00 ~ 22:00</option>
+								<option value="11">22:00 ~ 24:00</option>
 							</select>
 							<span class="error-message" id="errorMessageReservationHour"></span>
 						</div>
@@ -228,9 +239,9 @@ function handleRadioChange() {
 							<select name="gradeSetting" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 등급 제한 -</option>
-								<option value="초보">초보</option>
-								<option value="중수">중수</option>
-								<option value="고수">고수</option>
+								<option value="1">초보</option>
+								<option value="2">중수</option>
+								<option value="3">고수</option>
 							</select>
 							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
@@ -258,38 +269,22 @@ function handleRadioChange() {
 					</div>
 				</div>
 
+
 				<div class="col-lg-8" style="position: relative; float: right;"
 					id="reservation">
 					<div class="image fit">
-						<!-- 체육관 사진 -->
-						<div class="swiper mySwiper">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide" th:each="file : ${court.stadium.files}">
-									<img th:src="${file.fileStorename[0]}" alt="Stadium Image">
-								</div>
-								<!-- 대체 이미지 -->
-						        <div th:if="${court.stadium.files.size() == 0}">
-						            <img src="/racket/images/reservationPark.jpg" alt="Alternative Image">
-						        </div>
-							</div>
-							<div class="swiper-button-next"></div>
-							<div class="swiper-button-prev"></div>
-							<div class="swiper-pagination"></div>
-						</div>
+						<img src="/racket/images/reservationPark.jpg" alt="" />
 					</div>
-					
 					<section>
-						<div class="box">
+						<div class="box" style="margin-bottom: 30px;">
 							<blockquote>
 								<h3>체육관 정보</h3>
 							</blockquote>
-							<p style="color: black;">구장 이름 : <span th:text="${court.stadium.stadiumName}"></span></p>
-							<p style="color: black;">코트 번호 : <span th:text="${court.courtName}"></span></p>
-							<p style="color: black;">구장 주소 : <span th:text="${court.stadium.stadiumAddr}"></span></p>
-							<p style="color: black;">운영 시간 : <span th:text="${court.stadium.stadiumTime}"></span></p>
-							<p style="color: black;">전화번호 : <span th:text="${court.stadium.stadiumTel}"></span></p>
-							<p style="color: black;">시간당 가격 : <span id="stadiumFee" th:value="${court.stadium.stadiumFee}" th:text="${court.stadium.stadiumFee}"></span>원</p>
-							<p style="color: black;">구장 소개: <span th:text="${court.stadium.stadiumContent}"></span></p>
+							<p style="color: black;">이름: </p>
+							<p style="color: black;">주소: </p>
+							<p style="color: black;">운영시간: </p>
+							<p style="color: black;">전화번호: </p>
+							<p style="color: black;">시간당 가격: </p>
 							<div class="field">
 								<p style="color: black;">
 									<label for="message">모집 내용</label>
@@ -300,19 +295,6 @@ function handleRadioChange() {
 						</div>
 
 					</section>
-					
-					<!-- 구장주 정보 -->
-					<section>
-						<div class="box">
-							<blockquote>
-								<h3>구장주</h3>
-							</blockquote>
-							<p style="color: black;">구장주 : <span th:text="${court.stadium.member.memberName}"></span></p>
-							<p style="color: black;">전화번호 : <span th:text="${court.stadium.member.memberPhone}"></span></p>
-							<p style="color: black;">이메일 : <span th:text="${court.stadium.member.memberEmail}"></span></p>
-						</div>
-					</section>
-					
 				</div>
 
 			</form>

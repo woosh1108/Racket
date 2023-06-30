@@ -123,27 +123,26 @@
 						                    </div>
 						                    <div class="reply_text" th:text="${reply.bbReplyContent}"></div>
 						                </div>
-										<div class="reply_buttons"  th:if="${canModifyList[__${replyStat.index}__]}">
-										<form th:action="@{/bulletin_reply_delete}" method="post" th:if="${canModifyList}">
-										    <input type="hidden" name="bbReplyNo" th:value="${reply.bbReplyNo}" />
-										    <input type="hidden" name="bbReplyContent" th:value="${reply.bbReplyContent}" />
-										    <input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
-										    <button th:if="${canModifyList}" class="button-link" type="submit" onclick="return confirmDeleteReply()">삭제</button>
-										</form>
-										    <script>
-										        function confirmDeleteReply() {
-										            var result = confirm("댓글을 삭제하시겠습니까?");
-										            return result;
-										        }
-										    </script>
-										   <form th:action="@{/bulletin_reply_update/{reply.bbReplyNo}(reply.bbReplyNo=${reply.bbReplyNo})}"
-											      method="get" th:if="${canModifyList}">
-											    <input type="hidden" name="bbReplyNo" th:value="${reply.bbReplyNo}" />
-											    <input type="hidden" name="bbReplyContent" th:value="${reply.bbReplyContent}" />
-											    <input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
-											    <button th:if="${canModifyList}" class="button-link" type="submit">수정</button>
+						                <div class="reply_buttons">
+						                    <form th:action="@{/bulletin_reply_delete}" method="post">
+						                        <input type="hidden" name="bbReplyNo" th:value="${reply.bbReplyNo}" />
+						                        <input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
+						                        <button th:if="${isAuthorReply}" class="button-link" type="submit" onclick="return confirmDeleteReply()">삭제</button>
+						                    </form>
+						                    <script>
+												function confirmDeleteReply() {
+													var result = confirm("댓글을 삭제하시겠습니까?");
+													return result;
+												}
+											</script>
+						                       <form th:action="@{/bulletin_reply_update/{reply.bbReplyNo}(reply.bbReplyNo=${reply.bbReplyNo})}"
+												method="get">
+											       <input type="hidden" name="bbReplyNo" th:value="${reply.bbReplyNo}" />
+							                       <input type="hidden" name="bbReplyContent" th:value="${reply.bbReplyContent}" />
+							                       <input type="hidden" name="bbNo" th:value="${bulletinBoard.bbNo}" />
+											    <button th:if="${isAuthorReply}" class="button-link" type="submit">수정</button>
 											</form>
-										</div>
+						                </div>
 						            </div>
 						        </li>
 						    </ul>

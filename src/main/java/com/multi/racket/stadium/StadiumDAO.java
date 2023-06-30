@@ -1,13 +1,14 @@
 package com.multi.racket.stadium;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.multi.racket.domain.StadiumDTO;
 
 public interface StadiumDAO {
 	List<StadiumDTO> stadiumList(int pageNo);
 
-	StadiumDTO getStadium(int stadiumNo);
+	Optional<StadiumDTO> getStadium(int stadium_no);
 
 	int update(StadiumDTO board);
 
@@ -16,6 +17,4 @@ public interface StadiumDAO {
 	List<StadiumDTO> search(String tag, String data);
 
 	List<StadiumDTO> getFileList(String stadium_no);
-
-	int getStadiumCourtCount(int stadiumNo);
 }
