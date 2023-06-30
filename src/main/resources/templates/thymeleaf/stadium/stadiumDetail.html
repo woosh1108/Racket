@@ -79,7 +79,7 @@
 
 								</div>
 							</div>
-
+							<br />
 
 							<div class="stadium_info" id="stadium_info_conv">
 								<h2>코트 설명</h2>
@@ -89,6 +89,36 @@
 
 							</div>
 							<hr />
+
+				<div class="col-md-6">
+					<div class="rounded" style="padding: 20px;">
+						<h2>코트</h2>
+						<div th:if="${#session.getAttribute('user').memberAuth > 0}">
+							<div class="row" th:each="court : ${stadium.courts}">
+								<h5 class="col-md-6 align-self-center">
+									<span th:text="${court.courtName}"></span>
+								</h5>
+								<h5 class="col-md-3">
+									<a th:href="@{'/reservation/read/' + ${court.courtNo}}"
+										class="button" type="button">강습</a>
+								</h5>
+								<h5 class="col-md-3">
+									<a th:href="@{'/reservation/read/' + ${court.courtNo}}"
+										class="button" type="button">예약</a>
+								</h5>
+							</div>
+						</div>
+						<div th:unless="${#session.getAttribute('user').memberAuth > 0}">
+							<div class="row" th:each="court : ${stadium.courts}">
+								<h5 class="col-md-9 align-self-center">
+									<span th:text="${court.courtName}"></span>
+								</h5>
+								<h5 class="col-md-3">
+									<a th:href="@{'/reservation/read/' + ${court.courtNo}}"
+										class="button" type="button">예약</a>
+								</h5>
+							</div>
+						</div>
 
 						</div>
 					</div>
@@ -101,21 +131,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
-
-					<div class="rounded">
-
-						<div class="row">
-							<div class="col-md-10 align-self-center">
-								<p>코트1</p>
-							</div>
-							<div class="col-md-2">
-								<button class="button" type="button">예약</button>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</div>
+
 		</div>
 
 

@@ -1,7 +1,6 @@
 package com.multi.racket.stadium;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,31 +22,31 @@ public class StadiumServiceImpl implements StadiumService {
 	}
 
 	@Override
-	public Optional<StadiumDTO> getStadium(int stadium_no) {
-		return dao.getStadium(stadium_no);
+	public StadiumDTO getStadium(int stadiumNo) {
+		return dao.getStadium(stadiumNo);
+	}
+	
+	public int getStadiumCourtCount(int stadiumNo) {
+		return dao.getStadiumCourtCount(stadiumNo);
 	}
 
 	@Override
 	public int update(StadiumDTO board) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int delete(String stadium_no) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public List<StadiumDTO> search(String tag, String data) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<StadiumDTO> getFileList(String stadium_no) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
