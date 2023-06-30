@@ -23,8 +23,8 @@ public class StadiumFileDTO {
 	@Column(name = "stadium_file_no")
 	private int stadiumFileNo;
 // 	@ManyToOne
-//     @JoinColumn(name = "stadium_no")
-//     private StadiumDTO stadium;
+//    @JoinColumn(name = "stadium_no")
+//    private StadiumDTO stadium;
 	@JoinColumn(name = "stadium_no")
 	private int stadiumNo;
 	private String fileOriginalname;

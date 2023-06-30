@@ -2,10 +2,8 @@ package com.multi.racket.domain;
 
 import java.util.List;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -75,7 +73,7 @@ public class StadiumDTO {
 	@Transient
 	@JoinColumn(name = "stadium_no")
 	@OneToMany(fetch = FetchType.EAGER)
-    private List<MultipartFile> stadiumFileDTO;
+	private List<MultipartFile> stadiumFileDTO;
 	
 //	@OneToMany(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "user_id")
