@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.multi.racket.announcement.AnnouncementDTO;
+import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
 import com.multi.racket.manage.ManageService;
@@ -28,26 +32,31 @@ public class StadiumController {
 	}
 
 	@RequestMapping("/stadium")
-    public String stadium(Model model, String pageNo) {
-//		if (pageNo == null) {
-//			pageNo = "0";
-//		}
-//		List<StadiumDTO> list = service.stadiumList(Integer.parseInt(pageNo));
-//		model.addAttribute("stadiumList",list);
-//		System.out.println("=======================================================");
-//		System.out.println(list);
-		List<StadiumDTO> list = service.find_grant();
-		List<StadiumFileDTO> filelist = new ArrayList<>();
+    public String stadium(Model model,@RequestParam(defaultValue = "0") String pageNo) {
+		
+		int pageNumber = Integer.parseInt(pageNo);
+		int pageSize = 10; // 페이지 당 공지사항 수
 		if (pageNo == null) {
-			pageNo = "0";
+			pageNo = "0"; // 기본 페이지 번호 설정
+			pageNumber = Integer.parseInt(pageNo);
 		}
-		for (StadiumDTO stadium : list) {
+
+		if (pageNumber > service.getTotalPages(pageSize)) {
+			pageNumber = 0; // 페이지 번호가 총 페이지 수를 초과하는 경우 첫 페이지로 설정
+		}
+		
+		List<StadiumDTO> stadiumlist = service.stadiumlist(pageNumber);
+//		long totalPages = service.getTotalPages(pageSize,stadiumlist.size());
+		long totalPages = service.getTotalPages(pageSize);
+		List<StadiumFileDTO> filelist = new ArrayList<>();
+		for (StadiumDTO stadium : stadiumlist) {
 			List<StadiumFileDTO> files = fileservice.find_file_grant(stadium);
 			if (files != null && !files.isEmpty()) {
 				filelist.addAll(files);
 			}
 		}
-		model.addAttribute("stadiumlist", list);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("stadiumlist", stadiumlist);
 		if (!filelist.isEmpty()) {
 			model.addAttribute("stadiumfile", filelist);
 		}

@@ -3,9 +3,11 @@ package com.multi.racket.manage;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.announcement.AnnouncementDTO;
 import com.multi.racket.bulletin_board.BulletinBoardDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
@@ -25,8 +27,8 @@ public class ManageServiceImpl implements ManageService {
 	}
 
 	@Override
-	public List<StadiumDTO> find_grant() {
-		return dao.find_grant();
+	public List<StadiumDTO> find_grant(int pageno) {
+		return dao.find_grant(pageno);
 	}
 	@Override
 	public void update(List<StadiumDTO> stadiums) {
@@ -48,4 +50,27 @@ public class ManageServiceImpl implements ManageService {
 	public StadiumDTO find_stadiumno(int stadiumNo) {
 		return dao.find_stadiumno(stadiumNo);
 	}
+
+	@Override
+	public List<StadiumDTO> stadiumlist(int pageNo) {
+		// TODO Auto-generated method stub
+		return dao.stadiumlist(pageNo);
+	}
+
+	@Override
+	public long getTotalPages(int pageSize) {
+		return dao.getTotalPages(pageSize);
+	}
+
+	@Override
+	public List<StadiumDTO> find_grant() {
+		return dao.find_grant();
+	}
+
+	@Override
+	public long getTotalPages(int pageSize, int stadiumstatus) {
+		return dao.getTotalPages(pageSize, stadiumstatus);
+	}
+
+
 }

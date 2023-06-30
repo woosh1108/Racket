@@ -839,3 +839,17 @@ a:hover {
 	justify-content: center;
 	text-align: center;
 }
+.pagination {
+	margin-top: 3rem;
+	justify-content: center;
+}
+
+.pagination li {
+	display: inline-block;
+	padding: 0.5rem;
+}
+
+.pagination li a {
+	text-decoration: none;
+	color: black;
+}

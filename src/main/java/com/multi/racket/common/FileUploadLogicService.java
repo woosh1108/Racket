@@ -30,7 +30,7 @@ public class FileUploadLogicService {
 		System.out.println("======================");
 		int count = 1;
 		for (MultipartFile multipartFile : multipartFiles) {
-			// stadiumFileDTO 객체 생성방법..
+			// stadiumFileDTO 媛앹껜 �깮�꽦諛⑸쾿..
 			// filedtolist.add(new StadiumFileDTO(null, 1,multipartFile.getOriginalFilename(), storeFilename, count + ""));
 			String storeFilename = uploadFile(multipartFile);
 			filetolist.add(new StadiumFileDTO(stadium.getStadiumNo(),multipartFile.getOriginalFilename(),storeFilename,count+""));
@@ -44,14 +44,14 @@ public class FileUploadLogicService {
 		String storeFilename = createstoreFilename(originalFileName);
 		if (!multipartFile.isEmpty()) {
 			multipartFile.transferTo(new File(getUploadPath(storeFilename)));
-			System.out.println("원본파일명:" + originalFileName);
-			System.out.println("변경된파일명:" + storeFilename);
+			System.out.println("�썝蹂명뙆�씪紐�:" + originalFileName);
+			System.out.println("蹂�寃쎈맂�뙆�씪紐�:" + storeFilename);
 		}
 		return storeFilename;
 	}
 
 	private String createstoreFilename(String originalFileName) {
-		int pos = originalFileName.lastIndexOf(".");// 시작 인덱스 지정하면 인덱스부터 끝까지 문자열 추출
+		int pos = originalFileName.lastIndexOf(".");// �떆�옉 �씤�뜳�뒪 吏��젙�븯硫� �씤�뜳�뒪遺��꽣 �걹源뚯� 臾몄옄�뿴 異붿텧
 		String ext = originalFileName.substring(pos + 1);
 		String uuid = UUID.randomUUID().toString();
 		return uuid + "." + ext;
