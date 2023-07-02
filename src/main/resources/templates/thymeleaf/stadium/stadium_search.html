@@ -81,7 +81,7 @@
 						</div>
 					</div> -->
 						<ul>
-							<li th:each="stadium:${stadiumlist}" class="stadiumtable">
+							<li th:each="stadium:${searchlist}" class="stadiumtable">
 								<div th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
 								<div th:if="${stadium.stadiumNo == stadiumfile.stadiumNo}">
 									<a th:href="@{/stadium/stadiumDetail(stadiumNo=${stadium.stadiumNo})}" class="stadiumname">
@@ -107,24 +107,6 @@
 				<div class="container" data-aos="fade-up">
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<!-- <div class="site-block-27">
-								<ul>
-									<li><a href="#" class="icon-keyboard_arrow_left"></a></li>
-									<li class="active"><span>1</span></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#" class="icon-keyboard_arrow_right"></a></li>
-								</ul>
-							</div> -->
-							<div class="pagination">
-							    <ul id="pagination_list">
-								<li th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
-							      <a th:href="@{/stadium(pageNo=${pageNo})}"><span th:text="${pageNo + 1}"></span></a>
-							    </li>
-							    </ul>
-							</div>
 							
 							
 						</div>

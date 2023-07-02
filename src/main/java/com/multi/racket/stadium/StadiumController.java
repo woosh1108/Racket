@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.multi.racket.announcement.AnnouncementDTO;
+import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
@@ -70,15 +74,25 @@ public class StadiumController {
 		List<StadiumFileDTO> stadiumfile = fileservice.find_file(stadiumNo);
 		model.addAttribute("stadiumfile",stadiumfile);
 		model.addAttribute("stadium",stadium);
-//		Optional<StadiumDTO> stadium = service.getStadium(stadium_no);
-//		model.addAttribute("stadium", stadium);
-//		System.out.println("optional 넘어왔나" + stadium);
-//		model.addAttribute("state", state);
         return "thymeleaf/stadium/stadiumDetail";
     }
 	
-	@RequestMapping("/court")
-    public String court() {
-        return "thymeleaf/stadium/court";
-    }
+	// 게시글 검색기능
+		@RequestMapping("/stadium_search")
+		public String search(String data, Model model) {
+			List<StadiumDTO> searchlist = service.search(data);
+			List<StadiumFileDTO> filelist = new ArrayList<>();
+			for (StadiumDTO stadium : searchlist) {
+				List<StadiumFileDTO> files = fileservice.find_file_grant(stadium);
+				if (files != null && !files.isEmpty()) {
+					filelist.addAll(files);
+				}
+			}
+			if (!filelist.isEmpty()) {
+				model.addAttribute("stadiumfile", filelist);
+			}
+			model.addAttribute("searchlist", searchlist);
+			return "thymeleaf/stadium/stadium_search";
+
+		}
 }

@@ -6,11 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import com.multi.racket.bulletin_board.BulletinBoardDTO;
+import com.multi.racket.announcement.AnnouncementDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.member.MemberRepository;
@@ -55,9 +54,29 @@ public class ManageDAOImpl implements ManageDAO {
 	}
 
 	@Override
-	public List<BulletinBoardDTO> search(String data) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StadiumDTO> search(String data) {
+		List<StadiumDTO> stadiumAddr = repository.findBystadiumAddrContaining(data);
+		List<StadiumDTO> stadiumName = repository.findBystadiumNameContaining(data);
+
+		List<StadiumDTO> result = new ArrayList<>();
+		result.addAll(stadiumAddr);
+		result.addAll(stadiumName);
+
+		List<StadiumDTO> uniqueResult = new ArrayList<>();
+
+		// 글이 중복되어서 출력된다면
+		for (StadiumDTO stadium : result) {
+			if(stadium.getStadiumStatus()==1) {
+	        	if (!uniqueResult.contains(stadium)) {
+					uniqueResult.add(stadium);
+					
+				}
+	        }
+			
+			
+		}
+
+		return uniqueResult;
 	}
 
 	@Override
@@ -74,7 +93,7 @@ public class ManageDAOImpl implements ManageDAO {
 		List<StadiumDTO> list = page.getContent();
 		List<StadiumDTO> statuslist = new ArrayList<StadiumDTO>();
 	    for(StadiumDTO stadium : list) {
-	        if(stadium.getStadiumStatus()==0) {
+	        if(stadium.getStadiumStatus()==1) {
 	        	System.out.println("adssasadsad"+repository.findByStadiumStatus(1));
 	            statuslist.add(stadium);
 	        }
@@ -98,6 +117,30 @@ public class ManageDAOImpl implements ManageDAO {
 	public long getTotalPages(int pageSize) {
 		long totalItems = repository.count();
 		return (totalItems + pageSize - 1) / pageSize;
+	}
+
+	@Override
+	public List<StadiumDTO> search_name(String data) {
+		List<StadiumDTO> stadiumName = repository.findBystadiumNameContaining(data);
+
+		List<StadiumDTO> result = new ArrayList<>();
+		result.addAll(stadiumName);
+
+		List<StadiumDTO> uniqueResult = new ArrayList<>();
+
+		// 글이 중복되어서 출력된다면
+		for (StadiumDTO stadium : result) {
+			if(stadium.getStadiumStatus()==1) {
+	        	if (!uniqueResult.contains(stadium)) {
+					uniqueResult.add(stadium);
+					
+				}
+	        }
+			
+			
+		}
+
+		return uniqueResult;
 	}
 
 

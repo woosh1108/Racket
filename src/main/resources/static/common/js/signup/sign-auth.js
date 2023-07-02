@@ -8,7 +8,7 @@
     }
     
     const email = userEmail1 + userEmail2;
-    console.log('완성된 이메일 : ' + email);
+//    console.log('완성된 이메일 : ' + email);
     
     const checkInput = $('.mail-check-input');
     $.ajax({
@@ -16,7 +16,7 @@
         url: '/racket/mailCheck',
         data: "email=" + email,
         success: function(data) {
-            console.log("data : " + data);
+//            console.log("data : " + data);
             checkInput.attr('disabled', false);
             code = data;
             alert('인증번호가 전송되었습니다.');
@@ -51,5 +51,9 @@
 	});
 	
 	$('#next-btn').click(function() {
+		const userEmail1 = $('#userEmail1').val();
+	    const userEmail2 = $('#userEmail2').val();
+		const email = userEmail1 + userEmail2;
+		window.localStorage.setItem("email",email);
 	    window.location.href = '/racket/signup'; // 다음 페이지로 이동
 	  });
