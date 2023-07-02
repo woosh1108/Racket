@@ -1,9 +1,13 @@
 package com.multi.racket.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +54,19 @@ public class SignupController {
 		service.member_insert(member);
 		return "thymeleaf/main/mainpage";
 	}
+	
+	// insert - 회원등록하기 뷰
+		@GetMapping("/signup_kakao")
+		public String next_kakao(Model model){
+			    return "thymeleaf/signup/signup_kakao";
+		}
 
+		// insert - 회원등록하기 api
+		@PostMapping("/signup_kakao")
+		public String signup_kakao(MemberDTO member) {
+			service.member_insert(member);
+			return "thymeleaf/main/mainpage";
+		}
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/userJoin")

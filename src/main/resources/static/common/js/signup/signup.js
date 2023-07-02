@@ -44,3 +44,15 @@
                 $('.duplicated-id').hide();
 			}
         }
+	    
+	    window.addEventListener('DOMContentLoaded', (event) => {
+	   	 function setMemberData() {
+	   		    const memberEmail = window.localStorage.getItem("email");
+	   		 document.querySelector("#memberEmail").value = memberEmail;
+	   		if(memberEmail!=null){
+		    	$('#memberEmail').prop('readonly', true);
+		    }
+	   	}
+		 setMemberData();
+		 window.localStorage.clear;
+		});

@@ -14,7 +14,8 @@ public interface ManageDAO {
 //	public StadiumDTO update(StadiumDTO stadium);
 	public void update(List<StadiumDTO> stadiums);
 	// 검색하여 전체게시판 게시글 찾기
-	public List<BulletinBoardDTO> search(String data);
+	public List<StadiumDTO> search(String data);
+	public List<StadiumDTO> search_name(String data);
 	public StadiumDTO find_stadiumno(int stadiumNo);
 	public List<StadiumDTO> stadiumlist(int pageNo);
 	public long getTotalPages(int pageSize);

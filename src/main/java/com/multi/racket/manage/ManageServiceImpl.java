@@ -41,9 +41,8 @@ public class ManageServiceImpl implements ManageService {
 	}
 
 	@Override
-	public List<BulletinBoardDTO> search(String data) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StadiumDTO> search(String data) {
+		return dao.search(data);
 	}
 
 	@Override
@@ -70,6 +69,11 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public long getTotalPages(int pageSize, int stadiumstatus) {
 		return dao.getTotalPages(pageSize, stadiumstatus);
+	}
+
+	@Override
+	public List<StadiumDTO> search_name(String data) {
+		return dao.search_name(data);
 	}
 
 
