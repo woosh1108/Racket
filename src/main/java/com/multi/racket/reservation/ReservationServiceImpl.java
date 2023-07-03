@@ -1,5 +1,6 @@
 package com.multi.racket.reservation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ public class ReservationServiceImpl implements ReservationService {
 	CashRepository cashRepository;
 	MatchingRepository mRepository;
 
+	@Autowired
 	public ReservationServiceImpl(ReservationRepository rRepository, CashRepository cashRepository,
 			MatchingRepository mRepository) {
 		super();
@@ -33,6 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
         return latestTotalAmount >= reservationFee;
     }
 	
+
 	@Override
 	public ReservationDTO reservation(int reservationNo) {
 		return rRepository.findById(reservationNo).orElseGet(ReservationDTO::new);

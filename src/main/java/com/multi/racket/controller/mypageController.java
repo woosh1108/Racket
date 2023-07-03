@@ -53,7 +53,7 @@ public class mypageController {
 			model.addAttribute("msg", "정보변경이 완료되었습니다.");
 		}
 		
-		return "thymeleaf/main/mainpage";
+		return "redirect:/main";
 	}
 
 	// 내 캐쉬내역보기 - 충전가능

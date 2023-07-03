@@ -108,39 +108,31 @@
 			
 
 				<div class="field">
-					<div class="form-group">
-						<input type="text" class="priority-low" id="input" style="text-align: center;" placeholder="대여 날짜" name="trainingDate">
-						<span class="error-message" id="errorMessageReservationDate"></span>
+					<div class="box" style="padding: 15px;">
+						<p style="text-align: center; color: black;">
+							강습 날짜
+							<code style="color: #134C43"><span th:text="${training.trainingDate}"></span></code>
+						</p>
 					</div>
 				</div>
 
 
 				<div class="field">
-					<select name="courtHourNo" id="department"
-						style="text-align: center;">
-						<option value="" disabled selected>- 강습시간 -</option>
-						<option value="1">00:00 ~ 02:00</option>
-						<option value="2">02:00 ~ 04:00</option>
-						<option value="3">04:00 ~ 06:00</option>
-						<option value="4">06:00 ~ 08:00</option>
-						<option value="5">08:00 ~ 10:00</option>
-						<option value="6">10:00 ~ 12:00</option>
-						<option value="7">12:00 ~ 14:00</option>
-						<option value="8">14:00 ~ 16:00</option>
-						<option value="9">16:00 ~ 18:00</option>
-						<option value="10">18:00 ~ 20:00</option>
-						<option value="10">20:00 ~ 22:00</option>
-						<option value="11">22:00 ~ 24:00</option>
-					</select>
-					<span class="error-message" id="errorMessageReservationHour"></span>
+					<div class="box" style="padding: 15px;">
+						<p style="text-align: center; color: black;">
+							강습 시간
+							<code style="color: #134C43"><span th:text="${courtoperatinghours.courtStart + ':00 ~ ' + courtoperatinghours.courtEnd + ':00'}"></span></code>
+						</p>
+					</div>
 				</div>
+				
 
 				<br />
 				<div class="field">
 					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
 							강사 
-							<code style="color: #134C43">이클립</code>
+							<code style="color: #134C43"><span th:text="${member.memberName}"></span></code>
 						</p>
 					</div>
 				</div>
@@ -149,8 +141,8 @@
 				<div class="field">
 					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
-							강의 수준
-							<code style="color: #134C43">입문</code>
+							강습 수준
+							<code style="color: #134C43"><span th:text="${training.trainingGrade}"></span></code>
 						</p>
 					</div>
 				</div>
@@ -159,7 +151,7 @@
 					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
 							참여 인원
-							<code style="color: #134C43">1 / 4</code>
+							<code style="color: #134C43"><span th:text="${participantCount}"></span> / <span th:text="${training.trainingMax}"></span></code>
 							명
 						</p>
 					</div>
@@ -167,14 +159,15 @@
 				
 				<div class="field">
 					<div class="box" style="padding: 15px;">
-						<p style="text-align: center; color: black;">0원</p>
+						<p style="text-align: center; color: black;"><span th:text="${training.trainingFee+'원'}"></span></p>
 					</div>
 				</div>
 
-
+				<div class="field" style="text-align: center;" th:if="${participantCount &gt;= training.trainingMax}">
+				    <input type="submit" name="submit" id="submit" value="강습하기" />
+				</div>
 				<div class="field" style="text-align: center;">
-					<input type="submit" name="submit" id="submit"
-						value="강습하기" />
+					<input type="submit" name="submit" id="submit" value="강습하기" />
 				</div>
 
 			</form>
@@ -185,39 +178,51 @@
 
 	<div class="col-lg-8" style="position: relative; float: right;" id="reservation">
 		<div class="image fit">
-			<img src="/racket/images/reservationPark.jpg" alt="" />
+			<!-- 체육관 사진 -->
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="file : ${stadium.files}">
+						<img th:src="${file.fileStorename[0]}" alt="Stadium Image">
+					</div>
+				       <div th:if="${stadium.files.size() == 0}">
+				           <img src="/racket/images/reservationPark.jpg" alt="Alternative Image">
+			        </div>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-pagination"></div>
+			</div>
 		</div>
+		
+		
+		<!-- 강사 정보 -->
+		<section>
+			<div class="box">
+				<blockquote><h3>강습</h3></blockquote>
+				<p style="color: black;">강사 이름 : <span th:text="${member.memberName}"></span></p>
+				<p style="color: black;">강사 나이 : <span th:text="${member.memberAge}"></span></p>
+				<p style="color: black;">강사 성별 : <span th:text="${member.memberGender}"></span></p>
+				<p style="color: black;">전화번호 : <span th:text="${member.memberPhone}"></span></p>
+				<p style="color: black;">이메일 : <span th:text="${member.memberEmail}"></span></p>
+				<p style="color: black;">강습 수준 : <span th:text="${training.trainingGrade}"></span></p>
+				<p style="color: black;">강의비용 : <span th:text="${training.trainingFee}+'원'"></span></p>
+				<p style="color: black;">강의 소개 : <span th:text="${training.trainingContent}"></span></p>
+			</div>
+		</section>
 		
 		<!-- 체육관 정보 -->
 		<section>
 			<div class="box">
 				<blockquote><h3>체육관 정보</h3></blockquote>
-				<p style="color: black;">이름: 한빛 체육관</p>
-				<p style="color: black;">주소: 서울특별시 광진구</p>
-				<p style="color: black;">전화번호: 010-1234-5678</p>
-				<p style="color: black;">시간당 가격: 20,000원</p>
+				<p style="color: black;">구장 이름 : <span th:text="${stadium.stadiumName}"></span></p>
+				<p style="color: black;">코트 번호 : <span th:text="${stadiumcourt.courtName}"></span></p>
+				<p style="color: black;">구장 주소 : <span th:text="${stadium.stadiumAddr}"></span></p>
+				<p style="color: black;">운영 시간 : <span th:text="${stadium.stadiumTime}"></span></p>
+				<p style="color: black;">전화번호 : <span th:text="${stadium.stadiumPhone}"></span></p>
+				<p style="color: black;">시간당 가격 : <span id="stadiumFee" th:value="${stadium.stadiumFee}" th:text="${stadium.stadiumFee+'원'}">0원</span></p>
+				<p style="color: black;">구장 소개: <span th:text="${stadium.stadiumContent}">구장에 대한 소개가 없습니다.</span></p>
 			</div>
 		</section>
-		
-		<!-- 강사 정보 -->
-		<section>
-			<div class="box" style="margin-bottom: 72px;">
-				<blockquote><h3>강사</h3></blockquote>
-				<p style="color: black;">강사: 이클립</p>
-				<p style="color: black;">전화번호: 010-1234-5678</p>
-				<p style="color: black;">강사 등급: 고수</p>
-				<p style="color: black;">강의비용: 20,000원</p>
-				<p style="color: black;">강의 내용: Felis sagittis eget tempus primis
-					in faucibus vestibulum. Blandit adipiscing eu felis iaculis
-					volutpat ac adipiscing accumsan eu faucibus. Integer ac
-					pellentesque praesent tincidunt felis sagittis eget. tempus
-					euismod. Magna sed etiam ante ipsum primis in faucibus vestibulum.
-					Blandit adipiscing eu ipsum primis in faucibus vestibulum. Blandit
-					adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu
-					faucibus lorem ipsum dolor sit amet nullam.</p>
-			</div>
-		</section>
-		
 		
 	</div>
 	

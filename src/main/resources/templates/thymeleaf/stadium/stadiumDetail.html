@@ -17,18 +17,24 @@
 	</th:block>
 	<th:block layout:fragment="content">
 		<div class="container-fluid px-4 mt-5">
+		
 			<!-- 체육관 사진 -->
 			<div class="swiper mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide" th:each="stadiumfile:${stadiumfile}">
-						<img alt="" th:src="@{'/download/racket/' + ${stadiumfile.fileStorename}}" class="stadiumImg">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" th:each="file : ${stadium.files}">
+							<img th:src="@{'/download/racket/' + ${file.fileStorename}}" alt="Stadium Image">
+						</div>
 					</div>
-				</div>
+					<!-- 대체 이미지 -->
+					<div th:if="${stadium.files.size() == 0}">
+						<div class="swiper-slide" style="width: 86.7%;">
+						   <img src="https://picsum.photos/1321/500">
+						</div>
+					</div>
 				<div class="swiper-button-next"></div>
 				<div class="swiper-button-prev"></div>
 				<div class="swiper-pagination"></div>
 			</div>
-
 
 			<div class="ul-sticky">
 				<div class="col-md-12">
@@ -40,6 +46,7 @@
 									<ul class="stadium_sub_menu">
 										<li class="menu_home on" onclick="go_menu('name')">주요정보</li>
 										<li class="menu_map" onclick="go_menu('map')">지도</li>
+										<li class="menu_conv" onclick="go_menu('review')">코트</li>
 									</ul>
 								</div>
 							</div>
@@ -53,69 +60,120 @@
 					<div class="rounded">
 						<div class="stadium_infos_wrapper">
 							<div class="stadium_info">
-								<div class="stadium_info_header">
-									<div class="name">
-										<h2 th:text="${stadium.stadiumName }"></h2>
+								<div style="padding: 15px;">
+									<div class="stadium_info_header">
+										<div class="name">
+											<h2 th:text="${stadium.stadiumName}"></h2>
+										</div>
 									</div>
-								</div>
-								<div class="stadium_addr" th:text="${ stadium.stadiumAddr }"></div>
-								<div class="stadium_addr" th:text="${ stadium.stadiumName }"></div>
-								<div class="stadium_addr" th:text="${ stadium.stadiumPhone }"></div>
-								<br />
-								<div class="stadium_open">
-									구장주인 : <span th:text="${ stadium.memberId }"></span>
-								</div>
-								<div class="stadium_open">
-									운영시간 : <span th:text="${ stadium.stadiumTime }"></span>
+									<div class="stadium_rate">
+										평점 <span class="star">&#9733;</span> <span class="rate_text">5.0</span>
+									</div>
+									<br />
+									<div class="stadium_addr">
+										구장 이름 : <span th:text="${stadium.stadiumName}"></span>
+									</div>
+									<div class="stadium_addr">
+										구장 주소 : <span th:text="${stadium.stadiumAddr}"></span>
+									</div>
+									<div class="stadium_open">
+										운영시간 : <span th:text="${stadium.stadiumTime}"></span>
+									</div>
+									<div class="stadium_addr">
+										대관료 : <span th:text="${stadium.stadiumFee+'원'}"></span>
+									</div>
+									<div class="stadium_addr">
+										전화번호 : <span th:text="${stadium.stadiumPhone}"></span>
+									</div>
+									<div class="stadium_addr">
+										코트 수 : <span th:text="${participantCount+'코트'}"></span>
+									</div>
 								</div>
 								<hr />
 
-
 							</div>
-							<div class="stadium_info" id="stadium_info_price">
-								<h2>대관료</h2>
-								<div class="stadium_info_contents">
-									<span th:text="${stadium.stadiumFee}"></span> 원 <br />
-
-								</div>
-							</div>
-
-
-							<div class="stadium_info" id="stadium_info_conv">
-								<h2>코트 설명</h2>
+							<div class="stadium_info" id="stadium_info_price"
+								style="padding: 15px;">
+								<h2>구장 소개</h2>
 								<div class="stadium_info_contents">
 									<span th:text="${stadium.stadiumContent}"></span>
 								</div>
-
+								<div
+									th:if="${stadium.stadiumContent == null or stadium.stadiumContent.isEmpty()}">
+									<span>구장에 대한 소개가 없습니다.</span>
+								</div>
 							</div>
-							<hr />
 
+							<hr />
+							<div class="stadium_info" id="stadium_info_conv"
+								style="padding: 15px;">
+								<h2>편의시설</h2>
+								<ul class="stadium_conv_list">
+									<li class="stadium_conv code0001">무료 주차</li>
+									<li class="stadium_conv code0003">샤워실</li>
+									<li class="stadium_conv code0007">정수기</li>
+									<li class="stadium_conv code0008">와이파이</li>
+									<li class="stadium_conv code0012">냉난방</li>
+									<li class="stadium_conv code0014">화장실</li>
+								</ul>
+							</div>
+							<!-- <hr />
+							<div class="stadium_info review" style="padding: 15px;">
+								<h2>사용자 리뷰</h2>
+								<div class="stadium_review_list">
+									<ul></ul>
+								</div>
+								<div class="stadium_review_empty">리뷰가 존재하지 않습니다.</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
+				<!-- 오류가 나는 부분 -->
 				<div class="col-md-6">
-					<div class="rounded">
-						<div class="stadium_info map">
+					<div class="rounded" style="padding: 20px;">
+						
+							<div class="stadium_info review" style="padding: 15px;">
+							<h2>코트</h2>
+							<div th:if="${#session.getAttribute('user').memberAuth > 0}">
+								<div class="row" th:each="court : ${courtlist}">
+									<h5 class="col-md-7 align-self-center">
+										<span th:text="${court.courtName}"></span>
+									</h5>
+									<h5 class="col-md-2" style="margin-right: 10px;">
+										<a th:href="@{'/training/read/' + ${court.courtNo}}"
+											class="button" type="button">강습</a>
+									</h5>
+									<h5 class="col-md-2" style="margin-right: 10px;">
+										<a th:href="@{'/reservation/read/' + ${court.courtNo}}"
+											class="button" type="button">예약</a>
+									</h5>
+								</div>
+							</div>
+							<div th:if="${#session.getAttribute('user').memberAuth == 0}">
+								<div class="row" th:each="court : ${courtlist}">
+									<h5 class="col-md-8 align-self-center">
+										<span th:text="${court.courtName}"></span>
+									</h5>
+									<h5 class="col-md-3">
+										<a th:href="@{'/reservation/read/' + ${court.courtNo}}"
+											class="button" type="button">예약</a>
+									</h5>
+								</div>
+							</div>
+							<div th:if="${courtlist.isEmpty()}">
+								<span>이용 가능한 코트가 없습니다.</span>
+							</div>
+						</div>
+						<hr />
+						<div class="stadium_info map" style="padding: 15px;">
 							<h2>지도</h2>
 							<div id="map" style="width: 100%; height: 400px;"></div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
 
-					<div class="rounded">
-
-						<div class="row">
-							<div class="col-md-10 align-self-center">
-								<p>코트1</p>
-							</div>
-							<div class="col-md-2">
-								<button class="button" type="button">예약</button>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
+
 		</div>
 
 

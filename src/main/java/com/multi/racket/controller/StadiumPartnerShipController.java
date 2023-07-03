@@ -3,6 +3,7 @@ package com.multi.racket.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,11 @@ public class StadiumPartnerShipController {
 	}
 
 	@GetMapping("/associate")
-	public String associate() {
+	public String associate(HttpServletRequest request) {
+		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
+	    if (sessions == null || sessions.getAttribute("user") == null) {
+	        return "redirect:/login";
+	    }
 		return "thymeleaf/signup/associate";
 	}
 	

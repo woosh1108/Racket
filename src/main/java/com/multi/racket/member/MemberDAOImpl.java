@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
+import com.multi.racket.repository.MemberRepository;
 import com.multi.racket.repository.ReservationRepository;
 import com.multi.racket.repository.TrainingRepository;
 

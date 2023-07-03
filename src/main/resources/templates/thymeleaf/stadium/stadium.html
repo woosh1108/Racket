@@ -19,10 +19,11 @@
 		<main class="mt-5">
 			<div class="container-fluid px-4">
 				<h1 class="mt-4">시설 정보보기</h1>
+				<br />
 				<div class="row">
 					<div class="col-md-2">
 						<div class="dropdown float-right">
-							<select name="type">
+							<select name="type" onchange="showCategoryContent(this.value)">
 								<option value="region" selected>지역</option>
 								<option value="seoul">서울</option>
 								<option value="incheon">인천</option>
@@ -41,100 +42,96 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-10 text-end">
-						<form action="/racket/stadium_search" method="post" onsubmit="return validateForm()">
+					<div class="col-md-10 text-end" style="margin-bottom: 10px;">
+						<form th:action="@{/stadiums/search}" method="get"
+							name="search-form" autocomplete="off">
 							<select name="type">
-								<option value="name" selected>구장검색</option>
-								<option value="tel">지역명</option>
-							</select> 
-							
-							<label for="searchBox"></label>
-							<input type="search" id="searchBox" name="data" placeholder="검색할 내용을 입력하세요.">
-							<button type="submit">검색</button>
+								<option value="name" selected>구장이름</option>
+								<option value="addr">지역명</option>
+							</select> <input type="text" name="keyword" value="" size="20"
+								title="검색할 내용을 입력하세요" />
+							<button class="Btn-Gray Xs" type="submit">검색</button>
 						</form>
-						
-						
 					</div>
 				</div>
 				<div>
-					<!-- <div th:each="stadium:${stadiumlist}">
-						
-						<div class="d-block d-md-flex podcast-entry bg-white mb-5"
-							data-aos="fade-up">
-							<div class="image"
-								style="background-image: url('/racket/images/stadiumexam.jpg');"></div>
-								<div class="image" th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
-							<div class="text">
-	
-								<h3 class="font-weight-light">
-									<a th:href="@{/stadium/stadiumDetail(stadium_no=${stadium.stadiumNo }, state='READ')}">
-									<span th:text="${stadium.stadiumName}"></span>
-								</h3>
-								<div class="text-white mb-3">
-									<span class="text-black-opacity-05"> <span th:text="${ stadium.stadiumAddr }" class="time">서울
-											금천구 독산로54길 102-82</span><br /> 운영시간 : <span class="stadium_time" th:text="${ stadium.stadiumTime }"></span><br />
-										코트수 : <span class="court">1</span><br />
-	
-									</span>
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up" th:each="stadium : ${stadiumlist}">
+						<div th:each="file : ${stadium.files}">
+							<!-- <img class="image" th:src="${file.fileStorename[0]}"
+								alt="Stadium Image"> -->
+								<div th:if="${file.stadiumFileNum =='1'}">
+									<img class="stadiumImg" th:src="@{'/download/racket/' + ${file.fileStorename}}" alt="Stadium Image">
 								</div>
-							</div>
 						</div>
-					</div> -->
-						<ul>
-							<li th:each="stadium:${stadiumlist}" class="stadiumtable">
-								<div th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
-								<div th:if="${stadium.stadiumNo == stadiumfile.stadiumNo}">
-									<a th:href="@{/stadium/stadiumDetail(stadiumNo=${stadium.stadiumNo})}" class="stadiumname">
-										<img alt="" th:src="@{'/download/racket/' + ${stadiumfile.fileStorename}}" class="stadiumImg">
-									</a>
-								</div>
-								</div>
-								<div class="stadiumdiv">
-									<a th:href="@{/stadium/stadiumDetail(stadiumNo=${stadium.stadiumNo})}" class="stadiumname">
-							        <span th:text="${stadium.stadiumName}" class="stadiumname font-weight-light"></span><br>
-							        </a>
-								        장소: <span th:text="${stadium.stadiumAddr}"></span><br>
-								        구장 이용시간: <span th:text="${stadium.stadiumTime}"></span><br>
-								        구장 연락처: <span th:text="${stadium.stadiumPhone}"></span><br> 
-								        구장 이용비: <span th:text="${stadium.stadiumFee}"></span> 원<br>
-								        
-							    </div>
-							    <hr/>
-							</li>
-						</ul>
-					
+						<div th:if="${stadium.files.size() == 0}">
+							<img class="image" src="/racket/images/stadiumexam.jpg"
+								alt="Alternative Image">
+						</div>
+						<div class="text">
+
+							<h3 class="font-weight-light">
+								<a
+									th:href="@{/stadium/read/{stadiumNo}(stadiumNo=${stadium.stadiumNo})}"
+									th:text="${stadium.stadiumName}"></a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05"> <small
+									th:text="${'구장주소 : '+stadium.stadiumAddr}"></small> <br /> <small
+									th:text="${'운영시간 : '+stadium.stadiumTime}">/</small> <br /> <small
+									th:text="${'구장요금 : '+stadium.stadiumFee+'원'}"></small>
+								</span>
+							</div>
+
+						</div>
+					</div>
+
+
 				</div>
 				<div class="container" data-aos="fade-up">
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<!-- <div class="site-block-27">
-								<ul>
-									<li><a href="#" class="icon-keyboard_arrow_left"></a></li>
-									<li class="active"><span>1</span></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#" class="icon-keyboard_arrow_right"></a></li>
+							<div class="site-block-27">
+								<ul class="icons" style="margin: 0px;">
+									<li
+										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="@{/stadium/stadiumlist(pageNo=0)}">&laquo;</a>
+									</li>
+									<li
+										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="${currentPage == 0 ? '' : '@{/stadium/stadiumlist(pageNo=' + (currentPage - 1) + ')}'}">&lt;</a>
+									</li>
+
+									<!-- Add page numbers here -->
+									<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
+										th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
+										<a class="page-link"
+										th:href="@{/stadium/stadiumlist(pageNo=${page})}"
+										th:text="${page + 1}"></a>
+									</li>
+									<!-- End of page numbers -->
+									<li
+										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="${currentPage == totalPages - 1 ? '' : '@{/stadium/stadiumlist(pageNo=' + (currentPage + 1) + ')}'}">&gt;</a>
+									</li>
+
+									<li
+										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="@{/stadium/stadiumlist(pageNo=${totalPages - 1})}">&raquo;</a>
+									</li>
 								</ul>
-							</div> -->
-							<div class="pagination">
-							    <ul id="pagination_list">
-								<li th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
-							      <a th:href="@{/stadium(pageNo=${pageNo})}"><span th:text="${pageNo + 1}"></span></a>
-							    </li>
-							    </ul>
 							</div>
-							
-							
 						</div>
 					</div>
 				</div>
 
 			</div>
 		</main>
-		<script type="text/javascript"
-			src="/racket/common/js/stadium/stadium.js"></script>
+		
 	</th:block>
 </body>
 </html>

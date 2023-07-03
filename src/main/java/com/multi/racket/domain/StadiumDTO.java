@@ -1,9 +1,11 @@
 package com.multi.racket.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +28,11 @@ import lombok.NoArgsConstructor;
 public class StadiumDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "stadium_no")
 	private int stadiumNo;
-	private String memberId;
+
+    private String memberId;
+	
 	private String stadiumName;
 	private String stadiumAddr;
 	private String stadiumPhone;
@@ -36,14 +41,17 @@ public class StadiumDTO {
 	private int stadiumStatus;
 	private String stadiumContent;
 	
-//	List<MultipartFile> files;
-//	private List<MultipartFile> stadiumFileDTO;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "stadiumNo", referencedColumnName = "stadium_no") // 외래 키 설정
+    private List<StadiumFileDTO> files = new ArrayList<>();
+    
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<StadiumFileDTO> files = new ArrayList<>();
+
+
 	@Transient
-	@JoinColumn(name = "stadium_no")
-	@OneToMany(fetch = FetchType.EAGER)
-    private List<MultipartFile> stadiumFileDTO;
+	private List<MultipartFile> stadiumFileDTO;
 	
-//	@OneToMany(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "user_id")
-//	private List<StadiumFileDTO> StadiumFileDTO = new ArrayList<>();
+	
+	
 }
