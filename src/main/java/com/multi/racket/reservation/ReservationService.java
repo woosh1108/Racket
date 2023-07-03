@@ -21,4 +21,5 @@ public interface ReservationService {
 	// 예약 참가하기 등록
 	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash) throws Exception;
 
+
 }

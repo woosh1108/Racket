@@ -9,10 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import com.multi.racket.announcement.AnnouncementDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
-import com.multi.racket.member.MemberRepository;
+import com.multi.racket.repository.MemberRepository;
 @Repository
 public class ManageDAOImpl implements ManageDAO {
 	private ManageRepository repository;

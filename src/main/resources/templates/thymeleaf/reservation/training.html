@@ -48,12 +48,58 @@
     font-size: 12px;
     margin-top: 5px;
 }
+.swiper {
+	width: 900px;
+	height: 500px;
+	margin-bottom: 20px;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.stadium_sub_menu {
+	position: sticky;
+	top: 0px;
+	background-color: #aaaaaa;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	z-index: 9999;
+}
+
+.stadium_sub_menu li {
+	list-style: none;
+	margin-right: 10px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.stadium_sub_menu li.on {
+	background-color: #fff;
+	font-weight: bold;
+}
+
 </style>
 
 <script>
 	function updateSliderValue() {
 		var sliderValue = document.getElementById("customRange2").value;
-		document.getElementById("value").textContent = sliderValue;
+		document.getElementById("value").textContent = sliderValue+"명";
 	}
 </script>
 
@@ -121,6 +167,49 @@
   });
 </script>
 
+<script th:inline="javascript">
+document.addEventListener('DOMContentLoaded', function() {
+      var stadiumFeeValue = document.getElementById("amountSpent").textContent;
+      var totalCash = document.getElementById("totalCash").value;
+      var price = stadiumFeeValue*2;
+      var totalAmount = totalCash - price;
+      document.getElementById("totalAmount").value = totalAmount;
+
+    //HTML 요소 가져오기
+    var selectElement = document.getElementById("gradeSetting");
+    var gradeSettingValueElement = document.getElementById("gradeSettingValue");
+    var totalCash = document.getElementById("totalCash").value;
+
+    // 드롭다운 값 변경 시 이벤트 처리
+    selectElement.addEventListener("change", function() {
+      // 선택한 값 가져오기
+      var selectedValue = selectElement.value;
+
+      // 선택한 값 표시
+      gradeSettingValueElement.textContent = selectedValue;
+
+    });
+
+    // HTML 요소 가져오기
+    var trainingFeeInputElement = document.getElementById("trainingFee");
+    var trainingFeeValueElement = document.getElementById("trainingFeeVal");
+
+    // 입력 값 변경 시 이벤트 처리
+    trainingFeeInputElement.addEventListener("input", function() {
+      // 입력된 값 가져오기
+      var enteredValue = trainingFeeInputElement.value;
+      // 값이 없을 경우 "0원"으로 설정
+      if (enteredValue === "") {
+        trainingFeeValueElement.textContent = "0원";
+      } else {
+        trainingFeeValueElement.textContent = enteredValue+"원";
+      }
+    });
+
+})
+</script>
+<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 </head>
 <body class="is-preload">
 
@@ -132,10 +221,12 @@
 			<!-- Form -->
 			<form method="post" action="/racket/training/insert">
 			<!-- 임시 id값 -->
-			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
-			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
-			<input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
-			<input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+            <input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
+            <input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}"><input type="hidden" name="totalCash" id="totalCash" th:value="${totalAmount}">
+            <input type="hidden" name="totalCash" id="totalCash" th:value="${totalAmount}">
+            <input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" > 
+            <input type="hidden" name="reservationFee" id="reservationFee" th:value="${court.stadiumNo.stadiumContent}" onchange="handleRadioChange()" value="0" >
+
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
@@ -152,38 +243,20 @@
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 강습시간 -</option>
-								<option value="1">00:00 ~ 02:00</option>
-								<option value="2">02:00 ~ 04:00</option>
-								<option value="3">04:00 ~ 06:00</option>
-								<option value="4">06:00 ~ 08:00</option>
-								<option value="5">08:00 ~ 10:00</option>
-								<option value="6">10:00 ~ 12:00</option>
-								<option value="7">12:00 ~ 14:00</option>
-								<option value="8">14:00 ~ 16:00</option>
-								<option value="9">16:00 ~ 18:00</option>
-								<option value="10">18:00 ~ 20:00</option>
-								<option value="10">20:00 ~ 22:00</option>
-								<option value="11">22:00 ~ 24:00</option>
+								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}" 
+         							th:sorted="${true}" th:sortby="hour.courtStart" th:value="${hour.courtHourNo}"></option>
 							</select>
 							<span class="error-message" id="errorMessageTrainingHour"></span>
 						</div>
 						<br />
-						<div class="field">
-							<div class="box" style="padding: 15px;">
-								<p style="text-align: center; color: black;">
-									강사
-									<code style="color: #134C43">이클립</code>
-								</p>
-							</div>
-						</div>
 
 						<div class="field">
-							<select name="gradeSetting" id="department"
+							<select name="trainingGrade" id="gradeSetting"
 								style="text-align: center;">
 								<option value="" disabled selected>- 강의수준 -</option>
-								<option value="1">입문</option>
-								<option value="2">초급</option>
-								<option value="3">중급</option>
+								<option value="입문">입문</option>
+								<option value="초급">초급</option>
+								<option value="중급">중급</option>
 							</select>
 							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
@@ -193,7 +266,7 @@
 							<div class="box" style="padding: 15px;">
 								<p style="text-align: center; color: black;">
 									최대 인원
-									<code style="color: #134C43" id="value">1</code>
+									<code style="color: #134C43" id="value">1명</code>
 									<input type="range" class="form-range" min="1" max="10"
 										id="customRange2" onchange="updateSliderValue()" value="1" name="trainingMax">
 								<span class="error-message" id="errorMessagePeople"></span>
@@ -203,7 +276,7 @@
 
 						<div class="field">
 							<div class="box" style="padding: 15px;">
-								<p style="text-align: center; color: black;">강습비용</p>
+								<p style="text-align: center; color: black;">강습비용 <b><span id="trainingFeeVal">0원</span></b></p>
 							</div>
 						</div>
 
@@ -218,32 +291,37 @@
 
 				<div class="col-lg-8" style="position: relative; float: right;"
 					id="reservation">
-
 					<div class="image fit">
-						<img src="/racket/images/reservationPark.jpg" alt="" />
+						<!-- 체육관 사진 -->
+						<div class="swiper mySwiper">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide" th:each="file : ${court.stadiumNo.files}">
+									<img th:src="@{'/download/racket/' + ${file.fileStorename}}" alt="Stadium Image" class="stadiumImg">
+								</div>
+							</div>
+						        <div th:if="${court.stadiumNo.files.size() == 0}">
+						            <img src="/racket/images/reservationPark.jpg" alt="Alternative Image">
+						        </div>
+							
+							
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
 					</div>
-					<!-- 체육관 정보 -->
+					
+					<!-- 강사 정보 -->
 					<section>
 						<div class="box">
 							<blockquote>
-								<h3>체육관 정보</h3>
-							</blockquote>
-							<p style="color: black;">이름: 한빛 체육관</p>
-							<p style="color: black;">주소: 서울특별시 광진구</p>
-							<p style="color: black;">전화번호: 010-1234-5678</p>
-							<p style="color: black;">시간당 가격: 20,000원</p>
-						</div>
-					</section>
-
-					<!-- 강사 정보 -->
-					<section>
-						<div class="box" style="margin-bottom: 88px;">
-							<blockquote>
 								<h3>강사</h3>
 							</blockquote>
-							<p style="color: black;">강사: </p>
-							<p style="color: black;">전화번호: </p>
-							<p style="color: black;">강사 등급: </p>
+							<p style="color: black;">강사 이름 : <span th:text="${#session.getAttribute('user').memberName}"></span></p>
+							<p style="color: black;">강사 나이 : <span th:text="${#session.getAttribute('user').memberAge}+'세'"></span></p>
+							<p style="color: black;">강사 성별 : <span th:text="${#session.getAttribute('user').memberGender}"></span></p>
+							<p style="color: black;">전화번호 : <span th:text="${#session.getAttribute('user').memberPhone}"></span></p>
+							<p style="color: black;">이메일 : <span th:text="${#session.getAttribute('user').memberEmail}"></span></p>
+							<p style="color: black;">강습 수준 : <span id="gradeSettingValue"></span></p>
 							<div class="field">
 								<p style="color: black;">
 									<label for="name">강의비용</label>
@@ -263,6 +341,24 @@
 							</div>
 						</div>
 					</section>
+					
+					<!-- 체육관 정보 -->
+					<section>
+						<div class="box">
+							<blockquote>
+								<h3>체육관 정보</h3>
+							</blockquote>
+							<p style="color: black;">구장 이름: <span th:text="${court.stadiumNo.stadiumName}"></span></p>
+							<p style="color: black;">코트 번호: <span th:text="${court.courtName}"></span></p>
+							<p style="color: black;">구장 주소: <span th:text="${court.stadiumNo.stadiumAddr}"></span></p>
+							<p style="color: black;">운영 시간: <span th:text="${court.stadiumNo.stadiumTime}"></span></p>
+							<p style="color: black;">전화번호: <span th:text="${court.stadiumNo.stadiumPhone}"></span></p>
+							<p style="color: black;">시간당 가격: <span id="amountSpent" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
+							<p style="color: black;">구장 소개: <span th:text="${court.stadiumNo.stadiumContent}">구장에 대한 소개가 없습니다.</span></p>
+						</div>
+					</section>
+
+					
 				</div>
 
 			</form>
@@ -276,7 +372,8 @@
 			<script src="/racket/common/assets/js/util.js"></script>
 			<script src="/racket/common/assets/js/main.js"></script>
 			<script src="/racket/common/assets/js/scroll.js"></script>
-
+			<script type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 			<!-- Note: Only needed for demo purposes. Delete for production sites. -->
 			<script src="/racket/common/assets/js/demo.js"></script>
 
@@ -287,6 +384,24 @@
 			<script src="/racket/common/assets/js/bootstrap.min.js"></script>
 			<script src="/racket/common/assets/js/rome.js"></script>
 			<script src="/racket/common/assets/js/main.js"></script>
+			<script type="text/javascript">
+			var swiper = new Swiper(".mySwiper", {
+			    spaceBetween : 30,
+			    centeredSlides : true,
+			    autoplay : {
+			        delay : 2500,
+			        disableOnInteraction : false,
+			    },
+			    pagination : {
+			        el : ".swiper-pagination",
+			        clickable : true,
+			    },
+			    navigation : {
+			        nextEl : ".swiper-button-next",
+			        prevEl : ".swiper-button-prev",
+			    },
+			});
+			</script>
 		</div>
 	</th:block>
 </body>

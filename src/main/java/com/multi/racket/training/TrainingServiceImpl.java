@@ -36,12 +36,6 @@ public class TrainingServiceImpl implements TrainingService {
         return latestTotalAmount >= reservationFee;
     }
 	
-
-	@Override
-	public TrainingDTO training(int trainingNo) {
-		return null;
-	}
-
 	@Override
 	public void training_insert(String memberId, TrainingDTO training, CashDTO cash) throws Exception {
 		try {
@@ -55,11 +49,6 @@ public class TrainingServiceImpl implements TrainingService {
 	    }
 	}
 
-
-	@Override
-	public TrainingMemberlistDTO trainingMemberlist(int trainingApplyNo) {
-		return null;
-	}
 
 	@Override
 	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist) {

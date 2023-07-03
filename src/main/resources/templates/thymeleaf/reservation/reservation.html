@@ -10,8 +10,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
 <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
 <link rel="stylesheet" href="/racket/common/css/side.css" />
 <noscript>
@@ -53,30 +51,81 @@
     font-size: 12px;
     margin-top: 5px;
 }
+.swiper {
+	width: 900px;
+	height: 500px;
+	margin-bottom: 20px;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.stadium_sub_menu {
+	position: sticky;
+	top: 0px;
+	background-color: #aaaaaa;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	z-index: 9999;
+}
+
+.stadium_sub_menu li {
+	list-style: none;
+	margin-right: 10px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.stadium_sub_menu li.on {
+	background-color: #fff;
+	font-weight: bold;
+}
+
 </style>
 
 
 <script type="text/javascript">
 function handleRadioChange() {
-	  var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
-	  var price = 20000/selectedValue;
-	  document.getElementById("totalAmount").value = 30000-price;
-	  document.getElementById("reservationFee").value = price;
-	  document.getElementById("reservationFeeVal").textContent = 20000/selectedValue+"원";
-	  document.getElementById("peopleNumVal").textContent = selectedValue + "명";
-	  document.getElementById("peopleNum").value = selectedValue;
-	}
+      var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
+      var stadiumFeeValue = document.getElementById("stadiumFeeValue").textContent;
+      var totalCash = document.getElementById("totalCash").value;
+      var price = stadiumFeeValue*2/selectedValue;
+      var totalAmount = totalCash - price;
+      document.getElementById("totalAmount").value = totalAmount;
+      document.getElementById("amountSpent").value = price;
+      document.getElementById("reservationFee").value = price;
+      document.getElementById("reservationFeeVal").textContent = price+"원";
+      document.getElementById("peopleNumVal").textContent = selectedValue + "명";
+      document.getElementById("peopleNum").value = selectedValue;
+      console.log(selectedValue)
+    }
 
-	document.addEventListener('DOMContentLoaded', function() {
-	  var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
-	  radioButtons.forEach(function(radioButton) {
-	    radioButton.addEventListener('change', handleRadioChange);
-	  });
-	  
-	  // 초기 값 설정을 위해 이벤트 핸들러 호출
-	  handleRadioChange();
-	});
-  
+    document.addEventListener('DOMContentLoaded', function() {
+      var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
+      radioButtons.forEach(function(radioButton) {
+        radioButton.addEventListener('change', handleRadioChange);
+      });
+	
+      // 초기 값 설정을 위해 이벤트 핸들러 호출
+      handleRadioChange();
+    });
+
 </script>
 
 <script th:inline="javascript">
@@ -164,7 +213,11 @@ function handleRadioChange() {
       }
     });
   });
+  
+  
 </script>
+<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 </head>
 <body class="is-preload">
 
@@ -175,11 +228,13 @@ function handleRadioChange() {
 			<!-- Form -->
 			<form method="post" action="/racket/reservation/insert">
 			
-			<!-- 임시 id값 -->
-			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
-			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
-			<input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
-			<input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+			 <!-- 임시 id값 -->
+            <input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
+            <input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
+            <input type="hidden" name="totalCash" id="totalCash" th:value="${totalAmount}">
+            <input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
+            <input type="hidden" name="amountSpent" id="amountSpent" onchange="handleRadioChange()" value="0" >
+            <input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
 							
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
@@ -192,24 +247,13 @@ function handleRadioChange() {
 							<span class="error-message" id="errorMessageReservationDate"></span>
 							</div>
 						</div>
-
-
+						
 						<div class="field">
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 대여시간 -</option>
-								<option value="1">00:00 ~ 02:00</option>
-								<option value="2">02:00 ~ 04:00</option>
-								<option value="3">04:00 ~ 06:00</option>
-								<option value="4">06:00 ~ 08:00</option>
-								<option value="5">08:00 ~ 10:00</option>
-								<option value="6">10:00 ~ 12:00</option>
-								<option value="7">12:00 ~ 14:00</option>
-								<option value="8">14:00 ~ 16:00</option>
-								<option value="9">16:00 ~ 18:00</option>
-								<option value="10">18:00 ~ 20:00</option>
-								<option value="10">20:00 ~ 22:00</option>
-								<option value="11">22:00 ~ 24:00</option>
+								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}"
+         							th:sorted="${true}" th:sortby="hour.courtStart" th:value="${hour.courtHourNo}"></option>
 							</select>
 							<span class="error-message" id="errorMessageReservationHour"></span>
 						</div>
@@ -239,9 +283,9 @@ function handleRadioChange() {
 							<select name="gradeSetting" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 등급 제한 -</option>
-								<option value="1">초보</option>
-								<option value="2">중수</option>
-								<option value="3">고수</option>
+								<option value="초보">초보</option>
+								<option value="중수">중수</option>
+								<option value="고수">고수</option>
 							</select>
 							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
@@ -255,6 +299,7 @@ function handleRadioChange() {
 								</p>
 							</div>
 						</div>
+						<input type="hidden" name="peopleNum" id="peopleNum" onchange="handleRadioChange()" value="0" >
 						<input type="hidden" name="reservationStatus" value="매칭중">
 
 						<div class="field">
@@ -262,29 +307,48 @@ function handleRadioChange() {
 								<p style="text-align: center; color: black;" id="reservationFeeVal" onchange="handleRadioChange()">0원</p>
 							</div>
 						</div>
-
 						<div class="field" style="text-align: center;">
 							<input type="submit" name="submit" id="submit" value="예약하기" />
 						</div>
 					</div>
 				</div>
 
-
 				<div class="col-lg-8" style="position: relative; float: right;"
 					id="reservation">
 					<div class="image fit">
-						<img src="/racket/images/reservationPark.jpg" alt="" />
+						<!-- 체육관 사진 -->
+						<div class="swiper mySwiper">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide" th:each="file : ${court.stadiumNo.files}">
+									<img th:src="@{'/download/racket/' + ${file.fileStorename}}" alt="Stadium Image" class="stadiumImg">
+								</div>
+							</div>
+						        <div th:if="${court.stadiumNo.files.size() == 0}">
+						            <img src="/racket/images/reservationPark.jpg" alt="Alternative Image">
+						        </div>
+							
+							
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
 					</div>
+					
+					
+					
+					
 					<section>
-						<div class="box" style="margin-bottom: 30px;">
+						<div class="box">
 							<blockquote>
 								<h3>체육관 정보</h3>
 							</blockquote>
-							<p style="color: black;">이름: </p>
-							<p style="color: black;">주소: </p>
-							<p style="color: black;">운영시간: </p>
-							<p style="color: black;">전화번호: </p>
-							<p style="color: black;">시간당 가격: </p>
+							<p style="color: black;">구장 이름 : <span th:text="${court.stadiumNo.stadiumName}"></span></p>
+							<p style="color: black;">코트 번호 : <span th:text="${court.courtName}"></span></p>
+							<p style="color: black;">구장 주소 : <span th:text="${court.stadiumNo.stadiumAddr}"></span></p>
+							<p style="color: black;">운영 시간 : <span th:text="${court.stadiumNo.stadiumTime}"></span></p>
+							<p style="color: black;">전화번호 : <span th:text="${court.stadiumNo.stadiumPhone}"></span></p>
+							<p style="color: black;">시간당 가격(2인기준 인당) : <span id="stadiumFeeValue" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
+							<p style="color: black;">구장 소개: <span th:text="${court.stadiumNo.stadiumContent}">구장에 대한 소개가 없습니다.</span></p>
 							<div class="field">
 								<p style="color: black;">
 									<label for="message">모집 내용</label>
@@ -295,6 +359,7 @@ function handleRadioChange() {
 						</div>
 
 					</section>
+					
 				</div>
 
 			</form>
@@ -307,17 +372,35 @@ function handleRadioChange() {
 			<script src="/racket/common/assets/js/util.js"></script>
 			<script src="/racket/common/assets/js/main.js"></script>
 			<script src="/racket/common/assets/js/scroll.js"></script>
-
+			<script type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 			<!-- Note: Only needed for demo purposes. Delete for production sites. -->
 			<script src="/racket/common/assets/js/demo.js"></script>
-
-
+			
 			<!-- 달력 -->
 			<script src="/racket/common/assets/js/jquery-3.3.1.min.js"></script>
 			<script src="/racket/common/assets/js/popper.min.js"></script>
 			<script src="/racket/common/assets/js/bootstrap.min.js"></script>
 			<script src="/racket/common/assets/js/rome.js"></script>
 			<script src="/racket/common/assets/js/main.js"></script>
+			<script type="text/javascript">
+			var swiper = new Swiper(".mySwiper", {
+			    spaceBetween : 30,
+			    centeredSlides : true,
+			    autoplay : {
+			        delay : 2500,
+			        disableOnInteraction : false,
+			    },
+			    pagination : {
+			        el : ".swiper-pagination",
+			        clickable : true,
+			    },
+			    navigation : {
+			        nextEl : ".swiper-button-next",
+			        prevEl : ".swiper-button-prev",
+			    },
+			});
+			</script>
 		</div>
 	</th:block>
 </body>
