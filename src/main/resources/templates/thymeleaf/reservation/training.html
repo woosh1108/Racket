@@ -34,7 +34,7 @@
 	href="/racket/common/assets/fonts/icomoon/style.css">
 
 <link rel="stylesheet" href="/racket/common/assets/css/rome.css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="/racket/common/assets/css/bootstrap.min.css">
@@ -106,7 +106,8 @@
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // 폼 요소 선택
-
+    const now = moment().format('yyyy-MM-DD');
+    document.getElementById("cashDate").value=now;
     // 폼 제출 시 이벤트 핸들러
     form.addEventListener('submit', function(event) {
       const trainingDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
@@ -169,7 +170,7 @@
 
 <script th:inline="javascript">
 document.addEventListener('DOMContentLoaded', function() {
-      var stadiumFeeValue = document.getElementById("amountSpent").textContent;
+	  var stadiumFeeValue = document.getElementById("amountSpent").value;
       var totalCash = document.getElementById("totalCash").value;
       var price = stadiumFeeValue*2;
       var totalAmount = totalCash - price;
@@ -226,8 +227,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <input type="hidden" name="totalCash" id="totalCash" th:value="${totalAmount}">
             <input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" > 
             <input type="hidden" name="reservationFee" id="reservationFee" th:value="${court.stadiumNo.stadiumContent}" onchange="handleRadioChange()" value="0" >
-
-			
+			<input type="hidden" name="amountSpent" id="amountSpent" th:value="${court.stadiumNo.stadiumFee}" >
+			<input type="hidden" name="cashDate" id="cashDate" >
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
 					<div class="box" style="padding: 20px; margin: 0px;">
@@ -379,11 +380,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 			<!-- 달력 -->
+			
 			<script src="/racket/common/assets/js/jquery-3.3.1.min.js"></script>
 			<script src="/racket/common/assets/js/popper.min.js"></script>
 			<script src="/racket/common/assets/js/bootstrap.min.js"></script>
 			<script src="/racket/common/assets/js/rome.js"></script>
 			<script src="/racket/common/assets/js/main.js"></script>
+			
 			<script type="text/javascript">
 			var swiper = new Swiper(".mySwiper", {
 			    spaceBetween : 30,

@@ -51,8 +51,16 @@ public class TrainingServiceImpl implements TrainingService {
 
 
 	@Override
-	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist) {
+	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist, CashDTO cash) throws Exception {
+		try {
+	        System.out.println("Service 성공: " + trainingMemberlist + ", " + cash);
 	        tmlRepository.save(trainingMemberlist);
+	        cashRepository.save(cash);
+	    } catch (Exception e) {
+	        System.out.println("Service 실패");
+	        e.printStackTrace();
+	        throw new Exception("Failed to create Reservation with Cash", e);
+	    }
 	}
 
 }

@@ -37,28 +37,31 @@ public class ReservationController {
 		this.cashService = cashService;
 		this.stadiumReadService = stadiumReadService;
 	}
-	
+
 	// 예약하기 상세조회
 	@GetMapping("/reservation/read/{courtNo}")
-	public String getStadiumDetail(@PathVariable int courtNo, Model model, HttpServletRequest request,HttpSession session) {
+	public String getStadiumDetail(@PathVariable int courtNo, Model model, HttpServletRequest request,
+			HttpSession session) {
 		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
-	    if (sessions == null || sessions.getAttribute("user") == null) {
-	        return "redirect:/login";
-	    }
-	    
+		if (sessions == null || sessions.getAttribute("user") == null) {
+			return "redirect:/login";
+		}
+
 		StadiumcourtDTO court = stadiumReadService.getStadiumDetail(courtNo);
 		List<CourtoperatinghoursDTO> hourlist = stadiumReadService.getHourtslistByCourtNo(courtNo);
 		model.addAttribute("court", court);
-        model.addAttribute("hourlist", hourlist);
-		System.out.println("controller court: "+court);
-		System.out.println("controller: "+hourlist);
+		model.addAttribute("hourlist", hourlist);
+		System.out.println("controller court: " + court);
+		System.out.println("controller: " + hourlist);
+
 		// 현재 세션값에서 member_id 가져오기
-        MemberDTO user = (MemberDTO) session.getAttribute("user");
-        String memberId = user.getMemberId();
-        // Cash 테이블에서 현재 사용자의 최신 total_amount 가져오기
-        CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
-        int totalAmount = latestCash.getTotalAmount();
-        model.addAttribute("totalAmount", totalAmount);
+		MemberDTO user = (MemberDTO) session.getAttribute("user");
+		String memberId = user.getMemberId();
+		// Cash 테이블에서 현재 사용자의 최신 total_amount 가져오기
+		CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+		int totalAmount = latestCash.getTotalAmount();
+		model.addAttribute("totalAmount", totalAmount);
+
 		return "thymeleaf/reservation/reservation";
 	}
 
@@ -78,16 +81,20 @@ public class ReservationController {
 			int totalAmount = latestCash.getTotalAmount();
 
 			// Reservation 테이블에서 예약에 필요한 reservation_fee 가져오기
-			int reservationFee = reservation.getReservationFee();
+			CourtoperatinghoursDTO courtoperatinghours = stadiumReadService
+					.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
+			StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
+			StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
+			int stadiumFee = stadium.getStadiumFee();
 
 			// 잔액 비교
-			if (totalAmount >= reservationFee) {
+			if (totalAmount >= stadiumFee) {
 				// Cash 테이블과 Reservation 테이블에 insert
 				service.reservation_insert(memberId, reservation, cash);
 				return "redirect:/mypage/reservation";
 			} else {
 				// 잔액 부족으로 캐시 충전 페이지로 이동
-				return "redirect:/cash/recharge";
+				return "redirect:/mypage/cash";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,29 +104,38 @@ public class ReservationController {
 
 	// 예약 참가하기 상세조회
 	@GetMapping("/matching/read/{reservationNo}")
-	public String getReservationDetail(@PathVariable int reservationNo, Model model, HttpServletRequest request) {
+	public String getReservationDetail(@PathVariable int reservationNo, Model model, HttpServletRequest request, HttpSession session) {
 		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
-	    if (sessions == null || sessions.getAttribute("user") == null) {
-	        return "redirect:/login";
-	    }
-	    
-	    ReservationDTO reservation = stadiumReadService.getReservationDetail(reservationNo);
-	    int participantCount = stadiumReadService.getReservationParticipantCount(reservationNo); // 예약한 인원 수 조회
-	    model.addAttribute("reservation", reservation);
-	    model.addAttribute("participantCount", participantCount); // 모델에 인원 수 추가
+		if (sessions == null || sessions.getAttribute("user") == null) {
+			return "redirect:/login";
+		}
 
-	    CourtoperatinghoursDTO courtoperatinghours = stadiumReadService.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
-	    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
-	    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
-	    MemberDTO member = stadiumReadService.findMemberByMemberId(reservation.getMemberId());
-	    
-	    // 이후에 필요한 작업을 수행하고 필요한 데이터를 모델에 담습니다.
-	    model.addAttribute("stadium", stadium);
-	    model.addAttribute("stadiumcourt", stadiumcourt);
-	    model.addAttribute("courtoperatinghours", courtoperatinghours);
-	    model.addAttribute("member", member);
-	    
-	    return "thymeleaf/reservation/matching";
+		ReservationDTO reservation = stadiumReadService.getReservationDetail(reservationNo);
+		int participantCount = stadiumReadService.getReservationParticipantCount(reservationNo); // 예약한 인원 수 조회
+		model.addAttribute("reservation", reservation);
+		model.addAttribute("participantCount", participantCount); // 모델에 인원 수 추가
+
+		CourtoperatinghoursDTO courtoperatinghours = stadiumReadService
+				.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
+		StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
+		StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
+		MemberDTO member = stadiumReadService.findMemberByMemberId(reservation.getMemberId());
+
+		// 이후에 필요한 작업을 수행하고 필요한 데이터를 모델에 담습니다.
+		model.addAttribute("stadium", stadium);
+		model.addAttribute("stadiumcourt", stadiumcourt);
+		model.addAttribute("courtoperatinghours", courtoperatinghours);
+		model.addAttribute("member", member);
+
+		// 현재 세션값에서 member_id 가져오기
+		MemberDTO user = (MemberDTO) session.getAttribute("user");
+		String memberId = user.getMemberId();
+		// Cash 테이블에서 현재 사용자의 최신 total_amount 가져오기
+		CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+		int totalAmount = latestCash.getTotalAmount();
+		model.addAttribute("totalAmount", totalAmount);
+
+		return "thymeleaf/reservation/matching";
 	}
 
 	// 예약 참가하기 등록
@@ -132,15 +148,16 @@ public class ReservationController {
 			CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
 			int totalAmount = latestCash.getTotalAmount();
 
-			// int reservationFee = reservation.getReservationFee();
-			int reservationFee = 2000;
+			ReservationDTO Reservation = stadiumReadService.getReservationDetail(matching.getReservationNo());
+			int reservationFee = Reservation.getReservationFee();
+			System.out.println(reservationFee);
 
 			// 잔액 비교
 			if (totalAmount >= reservationFee) {
 				service.matching_insert(memberId, matching, cash);
-				return "thymeleaf/reservation/matching";
+				return "redirect:/mypage/matching";
 			} else {
-				return "redirect:/cash/recharge";
+				return "redirect:/mypage/cash";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

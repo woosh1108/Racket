@@ -121,24 +121,17 @@ public class ManageDAOImpl implements ManageDAO {
 	@Override
 	public List<StadiumDTO> search_name(String data) {
 		List<StadiumDTO> stadiumName = repository.findBystadiumNameContaining(data);
-
 		List<StadiumDTO> result = new ArrayList<>();
 		result.addAll(stadiumName);
-
 		List<StadiumDTO> uniqueResult = new ArrayList<>();
-
 		// 글이 중복되어서 출력된다면
 		for (StadiumDTO stadium : result) {
 			if(stadium.getStadiumStatus()==1) {
 	        	if (!uniqueResult.contains(stadium)) {
 					uniqueResult.add(stadium);
-					
 				}
 	        }
-			
-			
 		}
-
 		return uniqueResult;
 	}
 

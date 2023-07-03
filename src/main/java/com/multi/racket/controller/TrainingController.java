@@ -39,7 +39,7 @@ public class TrainingController {
 
 	// 구장번호로 강습하기 상세조회
 	@GetMapping("/training/read/{courtNo}")
-	public String getStadiumDetail(@PathVariable int courtNo, Model model, HttpServletRequest request,HttpSession session) {
+	public String getStadiumDetail(@PathVariable int courtNo, Model model, HttpServletRequest request, HttpSession session) {
 		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
 	    if (sessions == null || sessions.getAttribute("user") == null) {
 	        return "redirect:/login";
@@ -47,15 +47,19 @@ public class TrainingController {
 	    
 		StadiumcourtDTO court = stadiumReadService.getStadiumDetail(courtNo);
 		List<CourtoperatinghoursDTO> hourlist = stadiumReadService.getHourtslistByCourtNo(courtNo);
+
 		model.addAttribute("court", court);
         model.addAttribute("hourlist", hourlist);
-     // 현재 세션값에서 member_id 가져오기
-        MemberDTO user = (MemberDTO) session.getAttribute("user");
-        String memberId = user.getMemberId();
-        // Cash 테이블에서 현재 사용자의 최신 total_amount 가져오기
-        CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
-        int totalAmount = latestCash.getTotalAmount();
-        model.addAttribute("totalAmount", totalAmount);
+        
+		// 현재 세션값에서 member_id 가져오기
+		MemberDTO user = (MemberDTO) session.getAttribute("user");
+		String memberId = user.getMemberId();
+		// Cash 테이블에서 현재 사용자의 최신 total_amount 가져오기
+		CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+		int totalAmount = latestCash.getTotalAmount();
+		model.addAttribute("totalAmount", totalAmount);
+
+        
 		return "thymeleaf/reservation/training";
 	}
 
@@ -72,17 +76,20 @@ public class TrainingController {
 			int totalAmount = latestCash.getTotalAmount();
 
 			// Reservation 테이블에서 예약에 필요한 reservation_fee 가져오기
-			//int trainingFee = stadium.getStadiumFee();
-			int trainingFee = 2000;
+			CourtoperatinghoursDTO courtoperatinghours = stadiumReadService
+								.findCourtoperatinghoursByCourtHourNo(training.getCourtHourNo());
+			StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
+			StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
+			int stadiumFee = stadium.getStadiumFee();
 
 			// 잔액 비교
-			if (totalAmount >= trainingFee) {
+			if (totalAmount >= stadiumFee) {
 				// Cash 테이블과 Reservation 테이블에 insert
 				service.training_insert(memberId, training, cash);
 				return "redirect:/mypage/training";
 			} else {
 				// 잔액 부족으로 캐시 충전 페이지로 이동
-				return "redirect:/cash/recharge";
+				return "redirect:/mypage/cash";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +99,7 @@ public class TrainingController {
 
 	// 강습 참가하기 상세조회
 	@GetMapping("/training/memberlist/read/{trainingNo}")
-	public String getTrainingDetail(@PathVariable int trainingNo, Model model, HttpServletRequest request) {
+	public String getTrainingDetail(@PathVariable int trainingNo, Model model, HttpServletRequest request, HttpSession session) {
 		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
 	    if (sessions == null || sessions.getAttribute("user") == null) {
 	        return "redirect:/login";
@@ -114,16 +121,42 @@ public class TrainingController {
 	    model.addAttribute("stadiumcourt", stadiumcourt);
 	    model.addAttribute("courtoperatinghours", courtoperatinghours);
 	    model.addAttribute("member", member);
-	    
+
+		// 현재 세션값에서 member_id 가져오기
+		MemberDTO user = (MemberDTO) session.getAttribute("user");
+		String memberId = user.getMemberId();
+		// Cash 테이블에서 현재 사용자의 최신 total_amount 가져오기
+		CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+		int totalAmount = latestCash.getTotalAmount();
+		model.addAttribute("totalAmount", totalAmount);
+
 	    return "thymeleaf/reservation/training_memberlist";
 	}
 	
 	// 강습 참가하기 등록
-	@PostMapping(value = "/training/memberlist/insert")
-	public String trainingMemberlistInsert(HttpSession session, TrainingMemberlistDTO trainingMemberlist) {
-		MemberDTO user = (MemberDTO) session.getAttribute("user");
-		String memberId = user.getMemberId();
-		service.trainingMemberlist_insert(memberId, trainingMemberlist);
-		return "thymeleaf/reservation/training_memberlist";
+	@PostMapping(value = "/training/memberlist/insert", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public String trainingMemberlistInsert(HttpSession session, TrainingMemberlistDTO trainingMemberlist, CashDTO cash) {
+		try {
+			MemberDTO user = (MemberDTO) session.getAttribute("user");
+			String memberId = user.getMemberId();
+
+			CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+			int totalAmount = latestCash.getTotalAmount();
+			
+			TrainingDTO training = stadiumReadService.getTrainingDetail(trainingMemberlist.getTrainingNo());
+			int trainingFee = training.getTrainingFee();
+			System.out.println(trainingFee);
+
+			// 잔액 비교
+			if (totalAmount >= trainingFee) {
+				service.trainingMemberlist_insert(memberId, trainingMemberlist, cash);
+				return "redirect:/mypage/trainingAttend";
+			} else {
+				return "redirect:/mypage/cash";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "thymeleaf/main/main_intro";
+		}
 	}
 }

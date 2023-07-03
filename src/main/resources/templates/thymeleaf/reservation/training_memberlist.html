@@ -17,7 +17,7 @@
 <noscript>
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- 달력 -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,7 +53,8 @@
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // 폼 요소 선택
-
+    const now = moment().format('yyyy-MM-DD');
+    document.getElementById("cashDate").value=now;
     // 폼 제출 시 이벤트 핸들러
     form.addEventListener('submit', function(event) {
       const trainingMemberDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
@@ -101,10 +102,13 @@
 			<form method="post" action="/racket/training/memberlist/insert">
 			
 			<!-- 임시 id값 -->
-			<input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
-			<input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
-			<input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
-			<input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
+            <input type="hidden" name="memberId" th:value="${#session.getAttribute('user').memberId}">
+            <input type="hidden" name="memberGender" th:value="${#session.getAttribute('user').memberGender}">
+            <input type="hidden" name="totalCash" id="totalCash" th:value="${totalAmount}">
+            <input type="hidden" name="totalAmount" id="totalAmount"  th:value="${totalAmount-training.trainingFee}" >
+            <input type="hidden" name="amountSpent" id="amountSpent" th:value="${training.trainingFee}" >
+            <input type="hidden" name="trainingNo" id="trainingNo" th:value="${training.trainingNo}" >
+            <input type="text" name="cashDate" id="cashDate" >
 			
 
 				<div class="field">
@@ -127,7 +131,6 @@
 				</div>
 				
 
-				<br />
 				<div class="field">
 					<div class="box" style="padding: 15px;">
 						<p style="text-align: center; color: black;">
