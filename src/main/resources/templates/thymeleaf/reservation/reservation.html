@@ -39,7 +39,7 @@
 
 <!-- Style -->
 <link rel="stylesheet" href="/racket/common/assets/css/style.css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- 추가된 스타일 -->
 <style>
 #scroll {
@@ -132,7 +132,8 @@ function handleRadioChange() {
   document.addEventListener('DOMContentLoaded', function() {
     var memberGender = /*[[${#session.getAttribute('user').memberGender}]]*/ null; // 세션에서 가져온 회원 성별 값
     var radioButtons = document.querySelectorAll('input[type="radio"]'); // 라디오 버튼 요소
-    
+    const now = moment().format('yyyy-MM-DD');
+    document.getElementById("cashDate").value=now;
     radioButtons.forEach(function(radioButton) {
       // 회원 성별 값이 남성인 경우
       if (memberGender === '남성') {
@@ -235,7 +236,7 @@ function handleRadioChange() {
             <input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" >
             <input type="hidden" name="amountSpent" id="amountSpent" onchange="handleRadioChange()" value="0" >
             <input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
-							
+			<input type="hidden" name="cashDate" id="cashDate" >			
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">

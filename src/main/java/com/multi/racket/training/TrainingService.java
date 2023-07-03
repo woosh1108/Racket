@@ -13,6 +13,6 @@ public interface TrainingService {
 	public void training_insert(String memberId,TrainingDTO training, CashDTO cash) throws Exception ;
 
 	// 강습 참가하기 등록
-	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist);
+	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist, CashDTO cash) throws Exception;
 
 }
