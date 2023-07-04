@@ -17,4 +17,8 @@ public interface TrainingRepository extends JpaRepository<TrainingDTO, Integer> 
     List<TrainingDTO> findByTrainingDateAfter(Date trainingDate);
     Page<TrainingDTO> findAllByMemberId(String memberId, Pageable pageable);
 
+    // 예약 목록 검색
+	Page<TrainingDTO> findByTrainingGradeContaining(String keyword, Pageable pageable);
+    Page<TrainingDTO> findByTrainingFeeGreaterThanEqual(int minFee, Pageable pageable);
+    Page<TrainingDTO> findByTrainingFeeLessThanEqual(int maxFee, Pageable pageable);
 }

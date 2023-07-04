@@ -1,4 +1,4 @@
-package com.multi.racket.repository;
+	package com.multi.racket.repository;
 
 import java.sql.Date;
 import java.util.List;
@@ -16,4 +16,13 @@ public interface ReservationRepository extends JpaRepository<ReservationDTO, Int
 	List<ReservationDTO> findByMemberId(String memberId);
     Page<ReservationDTO> findAllByMemberId(String memberId, Pageable pageable);
     List<ReservationDTO> findByReservationDateAfter(Date reservationDate);
+    
+    // 예약 목록 조회
+    Page<ReservationDTO> findAllByReservationStatus(String ReservationStatus, Pageable pageable);
+
+    // 예약 목록 검색
+	Page<ReservationDTO> findByReservationMetContaining(String keyword, Pageable pageable);
+	Page<ReservationDTO> findByReservationGenderContaining(String keyword, Pageable pageable);
+	Page<ReservationDTO> findByGradeSettingContaining(String keyword, Pageable pageable);
+	
 }

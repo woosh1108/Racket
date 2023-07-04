@@ -27,24 +27,6 @@ public class StadiumDAOImpl implements StadiumDAO {
 		this.repository = repository;
 	}
 	
-
-	@Override
-	public List<StadiumDTO> stadiumList(int pageNo) {
-		PageRequest pageRequest = PageRequest.of(pageNo, 5, Sort.by(Sort.Direction.DESC,"stadiumNo")); 
-		Page<StadiumDTO> page = repository.findAllByStadiumStatus(1, pageRequest);
-		System.out.println(page);
-		List<StadiumDTO> list = page.getContent();
-		List<StadiumDTO> statuslist = new ArrayList<StadiumDTO>();
-		System.out.println(list);
-		for(StadiumDTO stadium : list) {
-	        if(stadium.getStadiumStatus()==1) {
-	        	System.out.println("adssasadsad"+repository.findByStadiumStatus(1));
-	            statuslist.add(stadium);
-	        }
-	    }
-		return list;
-	}
-
 	@Override
 	public StadiumDTO getStadium(int stadiumNo) {
 		StadiumDTO stadium = repository.findByStadiumNo(stadiumNo)
@@ -59,31 +41,7 @@ public class StadiumDAOImpl implements StadiumDAO {
 		return stadiumCourtRepository.countStadiumCourtsByStadiumNo(stadiumNo);
 	}
 
-	@Override
-	public int update(StadiumDTO board) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete(String stadium_no) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<StadiumDTO> search(String tag, String data) {
-		return null;
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public List<StadiumDTO> getFileList(String stadium_no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
+	
 	@Override
 	public Page<StadiumDTO> stadiumlist(int pageNo) {
 		int pageSize = 10; // 페이지당 표시할 데이터 수
@@ -91,7 +49,6 @@ public class StadiumDAOImpl implements StadiumDAO {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("stadiumNo").descending());
         return repository.findAllByStadiumStatus(1, pageable);
 	}
-
 
 	@Override
 	public Page<StadiumDTO> searchStadiums(String type, String keyword, int pageNo, int pageSize) {
@@ -106,14 +63,11 @@ public class StadiumDAOImpl implements StadiumDAO {
 	    }
 	}
 
-
 	@Override
 	public List<StadiumcourtDTO> getCourtslistByStadiumNo(int stadiumNo) {
 		StadiumDTO stadium = repository.getById(stadiumNo);
 		List<StadiumcourtDTO> stadiumcourtlist = stadiumCourtRepository.findAllByStadiumNo(stadium);
 		return stadiumcourtlist;
 	}
-
-
 
 }
