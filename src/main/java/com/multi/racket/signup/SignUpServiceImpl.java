@@ -25,4 +25,14 @@ public class SignUpServiceImpl implements SignUpService {
 		return dao.findMemberByMemberId(memberId);
 	}
 
+	@Override
+	public MemberDTO findByMemberEmail(String memberEmail) {
+		return dao.findByMemberEmail(memberEmail);
+	}
+
+	@Override
+	public MemberDTO findByMemberNick(String memberNick) {
+		return dao.findByMemberNick(memberNick);
+	}
+
 }

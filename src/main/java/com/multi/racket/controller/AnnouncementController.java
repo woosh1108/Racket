@@ -77,7 +77,7 @@ public class AnnouncementController {
 		}
 
 		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
-		if (member != null && member.getMemberAuth().equals("2")) {
+		if (member != null && member.getMemberAuth() == 2) {
 			model.addAttribute("isAdmin", true);
 		}
 

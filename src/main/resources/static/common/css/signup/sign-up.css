@@ -4,7 +4,9 @@
 	margin-top: 5px;
 	width: 80px;
 }
-
+.memberAddr{
+	width: 400px;
+}
 #regist {
 	width: 100px;
 }
@@ -28,7 +30,19 @@
 	align-items: center;
 	width: 300px;
 }
-
+.input-group1 {
+	display: flex;
+	align-items: center;
+	width: 1000px;
+}
+.input-group2 {
+	display: flex;
+	align-items: center;
+	width: 1200px;
+}
+.input-group1>.form-control {
+	margin-right: 10px;
+}
 .input-group>.form-control {
 	margin-right: 10px;
 }
@@ -53,6 +67,16 @@ input[type=password] {
 	display: none;
 	margin-left: 10px;
 	color: red;
+}
+.duplicated-nick{
+	display: none;
+	margin-left: 10px;
+	color: red;
+}
+.available-nick{
+	display: none;
+	margin-left: 10px;
+	color: green;
 }
 .available-id{
 	display: none;

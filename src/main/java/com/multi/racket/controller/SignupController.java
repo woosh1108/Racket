@@ -1,5 +1,9 @@
 package com.multi.racket.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,19 +17,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.emailCertified.MailSendService;
+import com.multi.racket.repository.MemberRepository;
 import com.multi.racket.signup.SignUpService;
 
 @Controller
 public class SignupController {
 	SignUpService service;
 	MailSendService mailservice;
+	MemberRepository memberrepository;
 	@Autowired
 	public SignupController(SignUpService service, MailSendService mailservice) {
 		super();
 		this.service = service;
 		this.mailservice = mailservice;
 	}
-
+	
 	// 회원가입 인증
 	@RequestMapping("/signauth")
 	public String signaauth() {
@@ -53,8 +59,13 @@ public class SignupController {
 	}
 	
 	// insert - 회원등록하기 뷰
+	// 메일 인증이 필요없다.
 		@GetMapping("/signup_kakao")
-		public String next_kakao(Model model){
+		public String next_kakao(Model model,HttpServletRequest request){
+//			List<MemberDTO> list =
+//			 String jsonData = request.getParameter("data");
+//			 System.out.println(jsonData);
+			 
 			    return "thymeleaf/signup/signup_kakao";
 		}
 
@@ -84,6 +95,26 @@ public class SignupController {
 	@PostMapping("/check-duplicate-id")
     public ResponseEntity<MemberDTO> checkDuplicateId(@RequestParam String memberId) {
         MemberDTO memberlist = service.findMemberByMemberId(memberId);
+        System.out.println(memberlist);
+        if (memberlist != null) {
+            return ResponseEntity.ok(memberlist); // 중복인 경우
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 중복이 아닌 경우
+        }
+    }
+	@PostMapping("/check-duplicate-Nick")
+    public ResponseEntity<MemberDTO> checkDuplicateNick(@RequestParam String memberNick) {
+        MemberDTO memberlist = service.findByMemberNick(memberNick);
+        System.out.println(memberlist);
+        if (memberlist != null) {
+            return ResponseEntity.ok(memberlist); // 중복인 경우
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 중복이 아닌 경우
+        }
+    }
+	@PostMapping("/check-duplicate-email")
+    public ResponseEntity<MemberDTO> checkDuplicateEmail(@RequestParam String memberEmail) {
+        MemberDTO memberlist = service.findByMemberEmail(memberEmail);
         System.out.println(memberlist);
         if (memberlist != null) {
             return ResponseEntity.ok(memberlist); // 중복인 경우
