@@ -15,7 +15,7 @@ public interface StadiumCourtRepository extends JpaRepository<StadiumcourtDTO, I
 
     @Query("SELECT COUNT(sc) FROM StadiumcourtDTO sc WHERE sc.stadiumNo.stadiumNo = :stadiumNo")
     int countStadiumCourtsByStadiumNo(@Param("stadiumNo") int stadiumNo);
-    
+
     List<StadiumcourtDTO> findAllByStadiumNo(StadiumDTO stadium);
    
 }

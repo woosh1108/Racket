@@ -1,5 +1,7 @@
 package com.multi.racket.reservation;
 
+import org.springframework.data.domain.Page;
+
 import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.ReservationDTO;
@@ -21,5 +23,9 @@ public interface ReservationService {
 	// 예약 참가하기 등록
 	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash) throws Exception;
 
+	// 예약 목록 조회
+	public Page<ReservationDTO> reservationlist(int pageNo);
 
+	// 예약 목록 검색
+	public Page<ReservationDTO> searchReservations(String type, String keyword, int pageNo, int pageSize);
 }

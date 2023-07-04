@@ -19,37 +19,12 @@ public class StadiumServiceImpl implements StadiumService {
 	}
 
 	@Override
-	public List<StadiumDTO> stadiumList(int pageNo) {
-		return dao.stadiumList(pageNo);
-	}
-
-	@Override
 	public StadiumDTO getStadium(int stadiumNo) {
 		return dao.getStadium(stadiumNo);
 	}
 	
 	public int getStadiumCourtCount(int stadiumNo) {
 		return dao.getStadiumCourtCount(stadiumNo);
-	}
-
-	@Override
-	public int update(StadiumDTO board) {
-		return 0;
-	}
-
-	@Override
-	public int delete(String stadium_no) {
-		return 0;
-	}
-
-	@Override
-	public List<StadiumDTO> search(String tag, String data) {
-		return null;
-	}
-
-	@Override
-	public List<StadiumDTO> getFileList(String stadium_no) {
-		return null;
 	}
 
 	@Override

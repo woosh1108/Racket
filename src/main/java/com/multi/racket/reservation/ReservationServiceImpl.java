@@ -1,6 +1,10 @@
 package com.multi.racket.reservation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +74,29 @@ public class ReservationServiceImpl implements ReservationService {
 		        e.printStackTrace();
 		        throw new Exception("Failed to create Reservation with Cash", e);
 		    }
+	}
+
+	@Override
+	public Page<ReservationDTO> reservationlist(int pageNo) {
+		int pageSize = 10; // 페이지당 표시할 데이터 수
+
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("reservationNo").descending());
+		return rRepository.findAllByReservationStatus("매칭중", pageable);
+	}
+
+	@Override
+	public Page<ReservationDTO> searchReservations(String type, String keyword, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("reservationNo").descending());
+
+		if (type.equals("met")) {
+			return rRepository.findByReservationMetContaining(keyword, pageable);
+		} else if (type.equals("gender")) {
+			return rRepository.findByReservationGenderContaining(keyword, pageable);
+		} else if (type.equals("grade")) {
+			return rRepository.findByGradeSettingContaining(keyword, pageable);
+		} else {
+			return Page.empty(); // 빈 페이지 반환
+		}
 	}
 
 

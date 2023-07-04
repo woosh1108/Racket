@@ -1,8 +1,8 @@
 package com.multi.racket.repository;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.multi.racket.domain.MatchingDTO;
 

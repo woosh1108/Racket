@@ -102,7 +102,7 @@
 
 <script type="text/javascript">
 function handleRadioChange() {
-      var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
+      var selectedValue = document.querySelector('input[name="peopleNum"]:checked').value;
       var stadiumFeeValue = document.getElementById("stadiumFeeValue").textContent;
       var totalCash = document.getElementById("totalCash").value;
       var price = stadiumFeeValue*2/selectedValue;
@@ -112,12 +112,17 @@ function handleRadioChange() {
       document.getElementById("reservationFee").value = price;
       document.getElementById("reservationFeeVal").textContent = price+"원";
       document.getElementById("peopleNumVal").textContent = selectedValue + "명";
-      document.getElementById("peopleNum").value = selectedValue;
+      if (selectedValue == 2) {
+     	 document.getElementById("reservationMet").value = "단식";
+      }
+      else if (selectedValue == 4) {
+     	 document.getElementById("reservationMet").value = "복식";
+      }
       console.log(selectedValue)
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
+      var radioButtons = document.querySelectorAll('input[name="peopleNum"]');
       radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', handleRadioChange);
       });
@@ -237,6 +242,8 @@ function handleRadioChange() {
             <input type="hidden" name="amountSpent" id="amountSpent" onchange="handleRadioChange()" value="0" >
             <input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
 			<input type="hidden" name="cashDate" id="cashDate" >			
+			<input type="hidden" name="reservationMet" id="reservationMet" onchange="handleRadioChange()" >
+			<input type="hidden" name="reservationStatus" value="매칭중">
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
@@ -263,20 +270,21 @@ function handleRadioChange() {
 
 						<!-- 경기방식 -->
 						<div class="field" style="text-align: center;">
-							<input type="radio" id="priority-low" name="reservationMet"
+							<input type="radio" id="priority-low" name="peopleNum"
 								 value="2" checked /> <label for="priority-low">단식</label> <input
-								type="radio" id="priority-normal" name="reservationMet"
+								type="radio" id="priority-normal" name="peopleNum"
 								value="4" /> <label for="priority-normal">복식</label>
 						</div>
 						<br />
 
 						<!-- 성별 -->
 						<div class="field" style="text-align: center;">
-							<input type="radio" id="woman" name="reservationGender" value="여성" checked /> <label
-								for="woman" id ="woman">여성</label> <input type="radio" id="man"
-								name="reservationGender" value="남성" /> <label for="man" id="man">남성</label> <input
-								type="radio" id="mixing" name="reservationGender" value="혼합" /> <label
-								for="mixing" id="mixing">혼합</label>
+							<input type="radio" id="man" name="reservationGender" value="남성" />
+							<label for="man" id="man">남성</label>
+							<input type="radio" id="woman" name="reservationGender" value="여성" />
+							<label for="woman" id ="woman">여성</label>
+							<input type="radio" id="mixing" name="reservationGender" value="혼합" />
+							<label for="mixing" id="mixing">혼합</label>
 						</div>
 						<br />
 
@@ -300,8 +308,6 @@ function handleRadioChange() {
 								</p>
 							</div>
 						</div>
-						<input type="hidden" name="peopleNum" id="peopleNum" onchange="handleRadioChange()" value="0" >
-						<input type="hidden" name="reservationStatus" value="매칭중">
 
 						<div class="field">
 							<div class="box" style="padding: 15px;">
@@ -348,7 +354,7 @@ function handleRadioChange() {
 							<p style="color: black;">구장 주소 : <span th:text="${court.stadiumNo.stadiumAddr}"></span></p>
 							<p style="color: black;">운영 시간 : <span th:text="${court.stadiumNo.stadiumTime}"></span></p>
 							<p style="color: black;">전화번호 : <span th:text="${court.stadiumNo.stadiumPhone}"></span></p>
-							<p style="color: black;">시간당 가격(2인기준 인당) : <span id="stadiumFeeValue" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
+							<p style="color: black;">시간당 가격 : <span id="stadiumFeeValue" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
 							<p style="color: black;">구장 소개: <span th:text="${court.stadiumNo.stadiumContent}">구장에 대한 소개가 없습니다.</span></p>
 							<div class="field">
 								<p style="color: black;">

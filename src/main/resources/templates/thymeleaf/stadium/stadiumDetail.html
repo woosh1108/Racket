@@ -151,7 +151,7 @@
 							</div>
 							<div th:if="${#session.getAttribute('user').memberAuth == 0}">
 								<div class="row" th:each="court : ${courtlist}">
-									<h5 class="col-md-8 align-self-center">
+									<h5 class="col-md-9 align-self-center">
 										<span th:text="${court.courtName}"></span>
 									</h5>
 									<h5 class="col-md-3">
