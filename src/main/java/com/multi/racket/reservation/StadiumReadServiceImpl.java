@@ -13,7 +13,7 @@ import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
 import com.multi.racket.domain.TrainingDTO;
-import com.multi.racket.repository.CorutOperatingHoursRepository;
+import com.multi.racket.repository.CourtOperatingHoursRepository;
 import com.multi.racket.repository.MatchingRepository;
 import com.multi.racket.repository.MemberRepository;
 import com.multi.racket.repository.ReservationRepository;
@@ -30,14 +30,14 @@ public class StadiumReadServiceImpl implements StadiumReadService {
 	private TrainingRepository trainingRepository;
 	private MatchingRepository matchingRepository;
 	private TrainingMemberlistRepository trainingMemberlistRepository;
-	private CorutOperatingHoursRepository cohRepository;
+	private CourtOperatingHoursRepository cohRepository;
 	private MemberRepository memberRepository;
 	
 	@Autowired
 	public StadiumReadServiceImpl(StadiumRepository stadiumRepository, StadiumCourtRepository stadiumCourtRepository,
 			ReservationRepository reservationRepository, TrainingRepository trainingRepository,
 			MatchingRepository matchingRepository, TrainingMemberlistRepository trainingMemberlistRepository,
-			CorutOperatingHoursRepository cohRepository, MemberRepository memberRepository) {
+			CourtOperatingHoursRepository cohRepository, MemberRepository memberRepository) {
 		super();
 		this.stadiumRepository = stadiumRepository;
 		this.stadiumCourtRepository = stadiumCourtRepository;
@@ -69,7 +69,9 @@ public class StadiumReadServiceImpl implements StadiumReadService {
 
 	@Override
 	public int getReservationParticipantCount(int reservationNo) {
-		return matchingRepository.getParticipantCount(reservationNo); // 예약한 인원 수 조회 메서드 호출
+		int participantCount = matchingRepository.getParticipantCount(reservationNo)+1; // 예약한 인원 수 조회 메서드 호출
+		System.out.println("예약인원: "+participantCount);
+		return participantCount;
 	}
 
 	@Override
@@ -82,7 +84,9 @@ public class StadiumReadServiceImpl implements StadiumReadService {
 	
 	@Override
     public int getTrainingParticipantCount(int trainingNo) {
-        return trainingMemberlistRepository.getParticipantCount(trainingNo); // 예약한 인원 수 조회 메서드 호출
+		int participantCount = trainingMemberlistRepository.getParticipantCount(trainingNo); // 예약한 인원 수 조회 메서드 호출
+		System.out.println("강습인원: "+participantCount);
+		return participantCount;
     }
 
 
@@ -92,7 +96,6 @@ public class StadiumReadServiceImpl implements StadiumReadService {
 	    return hourlist;
 	}
 	
-	//
 	public StadiumDTO findStadiumByStadiumNo(int stadiumNo) {
         return stadiumRepository.findByStadiumNo(stadiumNo)
                 .orElseThrow(() -> new EntityNotFoundException("Stadium not found with stadiumNo: " + stadiumNo));

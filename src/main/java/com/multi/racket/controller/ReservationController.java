@@ -6,11 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.multi.racket.cash.CashService;
 import com.multi.racket.domain.CashDTO;
@@ -164,5 +167,56 @@ public class ReservationController {
 			return "thymeleaf/main/main_intro";
 		}
 	}
+	
+	
+	// 예약 목록보기
+	@RequestMapping("/reservation/reservationlist")
+	public String reservationlist(Model model, @RequestParam(defaultValue = "0") int pageNo) {
+		Page<ReservationDTO> reservationlistPage = service.reservationlist(pageNo);
+		List<ReservationDTO> reservationlist = reservationlistPage.getContent();
 
+		model.addAttribute("reservationlist", reservationlist);
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", reservationlistPage.getTotalPages());
+		
+		// TrainingDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
+	    for (ReservationDTO reservation : reservationlist) {
+	        // TrainingDTO에 대한 CourtoperatinghoursDTO를 가져옵니다.
+	    	CourtoperatinghoursDTO courtoperatinghours = stadiumReadService.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
+		    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
+		    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
+
+		    model.addAttribute("stadium", stadium);
+		    model.addAttribute("stadiumcourt", stadiumcourt);
+		    model.addAttribute("courtoperatinghours", courtoperatinghours);
+	    }
+			
+		return "thymeleaf/reservation/reservationlist";
+	}
+
+	@GetMapping("/reservations/search")
+    public String searchStadiums(@RequestParam String type, @RequestParam String keyword, @RequestParam(defaultValue = "0") int pageNo, Model model) {
+        int pageSize = 10; // 페이지당 표시할 데이터 수
+
+        Page<ReservationDTO> reservationPage = service.searchReservations(type, keyword, pageNo, pageSize);
+        List<ReservationDTO> reservationlist = reservationPage.getContent();
+
+        model.addAttribute("reservationlist", reservationlist);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", reservationPage.getTotalPages());
+        
+        // TrainingDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
+	    for (ReservationDTO reservation : reservationlist) {
+	        // TrainingDTO에 대한 CourtoperatinghoursDTO를 가져옵니다.
+	    	CourtoperatinghoursDTO courtoperatinghours = stadiumReadService.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
+		    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
+		    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
+
+		    model.addAttribute("stadium", stadium);
+		    model.addAttribute("stadiumcourt", stadiumcourt);
+		    model.addAttribute("courtoperatinghours", courtoperatinghours);
+	    }
+	    
+        return "thymeleaf/reservation/reservationlist";
+    }
 }

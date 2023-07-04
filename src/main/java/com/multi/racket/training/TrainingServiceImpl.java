@@ -1,6 +1,10 @@
 package com.multi.racket.training;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +65,32 @@ public class TrainingServiceImpl implements TrainingService {
 	        e.printStackTrace();
 	        throw new Exception("Failed to create Reservation with Cash", e);
 	    }
+	}
+
+	@Override
+	public Page<TrainingDTO> traininglist(int pageNo) {
+		int pageSize = 10; // 페이지당 표시할 데이터 수
+
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("trainingNo").descending());
+		return tRepository.findAll(pageable);
+	}
+
+
+	@Override
+	public Page<TrainingDTO> searchTrainings(String type, String keyword, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("trainingNo").descending());
+
+		if (type.equals("grade")) {
+			return tRepository.findByTrainingGradeContaining(keyword, pageable);
+		} else if (type.equals("min")) {
+			int minFee = Integer.parseInt(keyword);
+			return tRepository.findByTrainingFeeGreaterThanEqual(minFee, pageable);
+		} else if (type.equals("max")) {
+			int maxFee = Integer.parseInt(keyword);
+			return tRepository.findByTrainingFeeLessThanEqual(maxFee, pageable);
+		} else {
+			return Page.empty(); // 빈 페이지 반환
+		}
 	}
 
 }

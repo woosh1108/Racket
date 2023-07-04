@@ -52,6 +52,4 @@ public class StadiumDTO {
 	@Transient
 	private List<MultipartFile> stadiumFileDTO;
 	
-	
-	
 }
