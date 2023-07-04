@@ -9,6 +9,6 @@ import com.multi.racket.domain.MemberDTO;
 public interface MemberRepository extends JpaRepository<MemberDTO, String> {
 	MemberDTO findByMemberIdAndMemberPass(String memberId,String memberPass);
 	MemberDTO findByMemberNameAndMemberEmail(String memberName, String memeberEmail);
-	
+	boolean existsByMemberEmail(String memberEmail);
 	Optional<MemberDTO> findByMemberId(String memberId);
 }

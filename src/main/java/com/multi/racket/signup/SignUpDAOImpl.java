@@ -21,4 +21,12 @@ public class SignUpDAOImpl implements SignUpDAO {
 	public MemberDTO findMemberByMemberId(String memberId) {
 		return repository.findMemberByMemberId(memberId);
 	}
+	@Override
+	public MemberDTO findByMemberEmail(String memberEmail) {
+		return repository.findByMemberEmail(memberEmail);
+	}
+	@Override
+	public MemberDTO findByMemberNick(String memberNick) {
+		return repository.findByMemberNick(memberNick);
+	}
 }
