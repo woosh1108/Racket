@@ -34,10 +34,10 @@ public class TrainingServiceImpl implements TrainingService {
 
 	// 현재 캐시 잔액 조회
 	@Override
-    public boolean checkSufficientBalance(String memberId, int reservationFee) {
+    public boolean checkSufficientBalance(String memberId, int trainingFee) {
         // 최신 total_amount 조회
         int latestTotalAmount = cashRepository.findLatestTotalAmountByMemberId(memberId);
-        return latestTotalAmount >= reservationFee;
+        return latestTotalAmount >= trainingFee;
     }
 	
 	@Override

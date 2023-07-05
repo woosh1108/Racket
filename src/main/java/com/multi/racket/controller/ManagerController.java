@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +32,7 @@ public class ManagerController {
 
         return "thymeleaf/manager/blacklist";
 	}
-	
+		
 	@GetMapping("/manager/get-reason")
 	@ResponseBody
 	public String getBlacklistReason(@RequestParam("blacklistNo") int blacklistNo) {
@@ -39,4 +40,16 @@ public class ManagerController {
 	    System.out.println(reason);
 	    return reason;
 	}
+
+    @PostMapping("/manager/blacklist/delete")
+    public String deleteSelectedBlacklist(@RequestParam("blacklistNo") List<Integer> blacklistNoList) {
+        for (int blacklistNo : blacklistNoList) {
+            System.out.println("controller: " + blacklistNo);
+            //blacklistService.deleteBlacklist(blacklistNo);
+            // memberId와 member_auth 수정
+            blacklistService.updateMemberAuthAndDeleteBlacklist(blacklistNo);
+        }
+        return "redirect:/manager/blacklist";
+    }
+	
 }

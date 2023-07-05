@@ -29,7 +29,6 @@ public class TrainingMemberlistDTO {
 	private int trainingApplyNo;
 	private int trainingNo;
 	private String memberId;
-	@Column(name = "training_date")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@CreatedDate
 	private Date trainingDate;

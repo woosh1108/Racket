@@ -29,6 +29,10 @@
     <th:block layout:fragment="content">
         <!-- Wrapper -->
         <div id="wrapper" style="margin-top: 110px;">
+        
+			<!-- Form -->
+			<form action="#" th:action="@{/manager/blacklist/delete}" method="post">
+			
             <!-- Table -->
             <div class="col-lg-11" style="position: relative; float: right; margin-right: 60px; margin-top: 60px;">
                 <div class="box" style="padding: 20px; margin: 20px;">
@@ -45,7 +49,8 @@
                             </thead>
                             <tbody>
                                 <tr th:each="blacklist : ${blacklist}">
-                                    <td colspan="1"><input type="checkbox" th:id="${blacklist.blacklistNo}" th:name="${blacklist.blacklistNo}" /><label th:for="${blacklist.blacklistNo}"></label></td>
+                                    <td colspan="1"><input type="checkbox" th:id="${blacklist.blacklistNo}" th:name="blacklistNo" th:value="${blacklist.blacklistNo}" /><label th:for="${blacklist.blacklistNo}"></label></td>
+                            
                                     <td colspan="1" th:text="${blacklist.memberId}"></td>
                                     <td colspan="2" th:text="${blacklist.blackDate}"></td>
                                     <td colspan="2" th:text="${blacklist.blackTime}"></td>
@@ -54,6 +59,7 @@
                                 </tr>
                             </tbody>
                             <tfoot>
+                            <tr><td style="text-align: center;" colspan="7"><button type="submit" class="button small" >블랙리스트 해제</button></td></tr>
                                 <tr>
                                     <td style="text-align: center;" colspan="7">
                                         <ul class="icons" style="margin: 0px;">
@@ -119,8 +125,10 @@ function showReason(event) {
 
             <!-- Note: Only needed for demo purposes. Delete for production sites. -->
             <script src="/racket/common/assets/js/demo.js"></script>
+            </form>
         </div>
     </th:block>
     
 </body>
 </html>
+

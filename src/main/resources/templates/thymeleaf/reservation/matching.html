@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
 <link rel="stylesheet" href="/racket/common/css/side.css" />
@@ -53,37 +53,9 @@
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() { 
     const form = document.querySelector('form'); // 폼 요소 선택
-
-    // 폼 제출 시 이벤트 핸들러
-    form.addEventListener('submit', function(event) {
-      const matchingDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
-      const matchingHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
-
-      const errorMessageMatchingDate = matchingDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
-      const errorMessageMatchingHour = matchingHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
-
-      // 기존 에러 메시지 초기화
-      errorMessageMatchingDate.textContent = '';
-      errorMessageMatchingHour.textContent = '';
-
-      let hasError = false; // 에러 여부를 저장하는 변수
-
-      // 대여 날짜 필드 확인
-      if (matchingDateInput.value === '') {
-        hasError = true;
-        errorMessageMatchingDate.textContent = '* 참여할 날짜를 선택해주세요.'; // 에러 메시지 표시
-      }
-
-      // 대여시간 필드 확인
-      if (matchingHourInput.value === '') {
-        hasError = true;
-        errorMessageMatchingHour.textContent = '* 참여할 시간을 선택해주세요.'; // 에러 메시지 표시
-      }
-
-      if (hasError) {
-        event.preventDefault(); // 폼 제출 방지
-      }
-    });
+    const now = moment().format('yyyy-MM-DD');
+    document.getElementById("cashDate").value=now;
+    document.getElementById("matchDate").value=now;
   });
 </script>
 
@@ -108,6 +80,8 @@
             <input type="hidden" name="amountSpent" id="amountSpent" th:value="${reservation.reservationFee}" >
             <input type="hidden" name="reservationFee" id="reservationFee" th:value="${reservation.reservationFee}" >
             <input type="hidden" name="reservationNo" id="reservationNo" th:value="${reservation.reservationNo}" >
+            <input type="hidden" name="cashDate" id="cashDate" >
+            <input type="hidden" name="matchDate" id="matchDate" >
 			
 				<div class="field">
 					<div class="box" style="padding: 15px;">
@@ -152,14 +126,10 @@
 						<p style="text-align: center; color: black;"><span th:text="${reservation.reservationFee} +'원'"></span></p>
 					</div>
 				</div>
-
-				<div class="field" style="text-align: center;" th:if="${participantCount &gt;= reservation.peopleNum}">
-				    <input type="submit" name="submit" id="submit" value="예약하기" disabled="disabled" />
-				</div>
+				
 				<div class="field" style="text-align: center;">
-					<input type="submit" name="submit" id="submit" value="예약하기" />
+				    <input type="submit" name="submit" value="예약하기" th:attr="disabled=${participantCount >= reservation.peopleNum}" />
 				</div>
-
 			</form>
 
 		</div>

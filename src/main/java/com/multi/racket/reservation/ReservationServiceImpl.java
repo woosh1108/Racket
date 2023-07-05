@@ -1,5 +1,8 @@
 package com.multi.racket.reservation;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,6 +66,7 @@ public class ReservationServiceImpl implements ReservationService {
 		return mRepository.findById(matchingNo).orElseGet(MatchingDTO::new);
 	}
 
+	/*
 	@Override
 	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash) throws Exception {
 		 try {
@@ -74,6 +78,34 @@ public class ReservationServiceImpl implements ReservationService {
 		        e.printStackTrace();
 		        throw new Exception("Failed to create Reservation with Cash", e);
 		    }
+	}
+	*/
+	@Override
+	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash, ReservationDTO reservation) throws Exception {
+	    try {
+	        System.out.println("Service 성공: " + matching + ", " + cash);
+	        
+	        // 매칭 정보 insert
+	        cashRepository.save(cash);
+	        mRepository.save(matching);
+	        
+	        // 해당 예약의 참가 인원수 조회
+	        int participantCount = mRepository.getParticipantCount(matching.getReservationNo());
+	        
+	        // 예약 최대 인원수 조회
+	        int maxCapacity = reservation.getPeopleNum();
+	        System.out.println("service: "+participantCount+1);
+	        System.out.println("service: "+maxCapacity);
+	        
+	        // 예약 최대 인원보다 1명 적을 때 예약 상태를 "매칭완료"로 변경
+	        if (participantCount + 1 == maxCapacity) {
+	        	rRepository.updateReservationStatus(matching.getReservationNo(), "매칭완료");
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Service 실패");
+	        e.printStackTrace();
+	        throw new Exception("Failed to create Reservation with Cash", e);
+	    }
 	}
 
 	@Override
@@ -97,6 +129,16 @@ public class ReservationServiceImpl implements ReservationService {
 		} else {
 			return Page.empty(); // 빈 페이지 반환
 		}
+	}
+
+	@Override
+	public void updateExpiredReservations(LocalDate currentDate) {
+		// 현재 날짜 이후의 예약 데이터를 조회하고 상태를 "경기종료"로 수정하는 로직
+        List<ReservationDTO> expiredReservations = rRepository.findByReservationDateBeforeAndReservationStatus(currentDate, "경기진행중");
+        for (ReservationDTO reservation : expiredReservations) {
+            reservation.setReservationStatus("경기종료");
+        }
+        rRepository.saveAll(expiredReservations);
 	}
 
 
