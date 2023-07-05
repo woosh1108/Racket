@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>결제수단 선택</title>
+<script>
+	function redirectToKakaopay() {
+	  window.location.href = "/racket/cashchoice";
+	}
+</script>
+</head>
+<body>
+	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+		<img src="/racket/images/racket.png" align="middle" height="250px"/>
+	</div>
+	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+		<button style="margin-bottom: 50px" onclick="redirectToKakaopay()">카카오페이</button><br>
+		<button>무통장 입금</button>
+	</div>
+</body>
+</html>
