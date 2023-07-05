@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>결제 금액 선택</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
+	const IMP = window.IMP;
+	IMP.init("imp11533573");
+	function requestPay(won) {
+		IMP.request_pay({
+			pg: "kakaopay",
+			pay_method: "card",
+			merchant_uid: "[[${member.memberId}]]"+new Date().getTime(),
+			name: "Racket 캐쉬 충전",
+			amount: won,
+			buyer_email: "[[${member.memberEmail}]]",
+			buyer_name: "[[${member.memberName}]]",
+			buyer_tel: "[[${member.memberPhone}]]",
+			buyer_addr: "[[${member.memberAddr}]]",
+			buyer_postcode: "123-456"
+		},
+		function (rsp) {
+			// callback
+			//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+			console.log(rsp.imp_uid)
+			if (rsp.success) {   
+      			alert("결제되었습니다.");
+      			$.ajax({
+                    url: "/racket/paycomplete",
+                    type: "POST",
+                    data: {
+                        won: won
+                    },
+	      			success: function(result) {
+	      				alert("[[${session.user.totalAmount}]]")
+	      				opener.document.getElementById("mycash").innerHTML ="[[${session.user.totalAmount}]]";
+	                    window.close(); 
+	                },
+	                error:function(obj,msg,statusmsg){
+	                	alert("실")
+	                }
+                });
+		    }else {
+		    	alert("결제에 실패하였습니다.");
+		    }
+		});
+	}
+</script>
+
+</head>
+<body>
+	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+		<img src="/racket/images/racket.png" align="middle" height="250px"/>
+	</div>
+	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+		<button style="margin-bottom: 50px" name="won" value=10000 onclick="requestPay(this.getAttribute('value'))">10000원</button><br>
+		<button style="margin-bottom: 50px" name="won" value=20000 onclick="requestPay(this.getAttribute('value'))">20000원</button><br>
+		<button style="margin-bottom: 50px" name="won" value=30000 onclick="requestPay(this.getAttribute('value'))">30000원</button><br>
+		<button style="margin-bottom: 50px" name="won" value=40000 onclick="requestPay(this.getAttribute('value'))">40000원</button>
+	</div>
+</body>
+</html>

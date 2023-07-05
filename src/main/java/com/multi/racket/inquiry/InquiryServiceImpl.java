@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.multi.racket.domain.InquiryDTO;
+import com.multi.racket.domain.MemberDTO;
 @Service
 @Transactional
 public class InquiryServiceImpl implements InquiryService {
@@ -37,6 +38,11 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public void update(InquiryDTO dto) {
 		dao.update(dto);
+	}
+
+	@Override
+	public MemberDTO updatecash(String id, int updatecash) {
+		return dao.updatecash(id, updatecash);
 	}
 
 }
