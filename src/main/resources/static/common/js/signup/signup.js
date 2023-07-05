@@ -57,7 +57,7 @@
 	            }
 	        });
 			}else{
-				alert("아이디에 특수문자 및 한글이 포함되어 있습니다.")
+				alert("아이디에 특수문자 및 한글, 혹은 글자수가 맞지 않습니다.")
 				$('#regist').prop('disabled', true); 
 				$('.available-id').hide();
                 $('.duplicated-id').hide();

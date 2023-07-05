@@ -62,6 +62,7 @@
 							<option value="18:00">18:00</option>
 							<option value="20:00">20:00</option>
 							<option value="22:00">22:00</option>
+							<option value="22:00">24:00</option>
 						</select>
 						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
 						<select id="stadiumTimeEnd" name="stadiumTimeEnd" class="form-select">
@@ -84,6 +85,39 @@
 						class="form-control" required>
 				</div>
 				<div class="mb-3">
+					<label for="stadiumContent" class="form-label">코트 이름 : </label> 
+					<input
+						type="text" id="courtName" name="courtName"
+						class="form-control" required>
+				</div>
+				<label for="stadiumTime" class="form-label" style="width:100px;">코트 운영 시간:</label>
+				<div class="TimeContainer">
+						<select id="courtStart" name="courtStart" class="form-select">
+							<option value="06:00">06:00</option>
+							<option value="08:00">08:00</option>
+							<option value="10:00">10:00</option>
+							<option value="12:00">12:00</option>
+							<option value="14:00">14:00</option>
+							<option value="16:00">16:00</option>
+							<option value="18:00">18:00</option>
+							<option value="20:00">20:00</option>
+							<option value="22:00">22:00</option>
+							<option value="22:00">24:00</option>
+						</select>
+						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
+						<select id="courtEnd" name="courtEnd" class="form-select">
+							<option value="08:00">08:00</option>
+							<option value="10:00">10:00</option>
+							<option value="12:00">12:00</option>
+							<option value="14:00">14:00</option>
+							<option value="16:00">16:00</option>
+							<option value="18:00">18:00</option>
+							<option value="20:00">20:00</option>
+							<option value="22:00">22:00</option>
+							<option value="24:00">24:00</option>
+						</select>
+					</div>
+				<div class="mb-3">
 					<label for="stadiumContent" class="form-label">구장 설명 : </label> 
 					<textarea rows="5" cols="30" name="stadiumContent" id="stadiumContent" class="form-control"></textarea>
 				</div>
@@ -92,9 +126,11 @@
                     <input type="file" id="stadiumFiles" name="stadiumFiles" class="form-control" placeholder="파일선택" multiple>
 					
                 </div>
+                
 				<input type="hidden" name="stadiumStatus" value="0">
 				<button type="submit" class="btn btn-primary" id="associate" disabled>구장 제휴서 제출</button>
 		</form>
+		
 		<script type="text/javascript" src="/racket/common/js/signup/associate.js"></script>
 		</div>
 		
