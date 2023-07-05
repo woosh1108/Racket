@@ -151,14 +151,14 @@ public class ReservationController {
 			CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
 			int totalAmount = latestCash.getTotalAmount();
 
-			ReservationDTO Reservation = stadiumReadService.getReservationDetail(matching.getReservationNo());
-			int reservationFee = Reservation.getReservationFee();
+			ReservationDTO reservation = stadiumReadService.getReservationDetail(matching.getReservationNo());
+			int reservationFee = reservation.getReservationFee();
 			System.out.println(reservationFee);
 
 			// 잔액 비교
 			if (totalAmount >= reservationFee) {
-				service.matching_insert(memberId, matching, cash);
-				return "redirect:/mypage/matching";
+				service.matching_insert(memberId, matching, cash, reservation);
+				return "redirect:/mypage/match";
 			} else {
 				return "redirect:/mypage/cash";
 			}
@@ -167,7 +167,6 @@ public class ReservationController {
 			return "thymeleaf/main/main_intro";
 		}
 	}
-	
 	
 	// 예약 목록보기
 	@RequestMapping("/reservation/reservationlist")

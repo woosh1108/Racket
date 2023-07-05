@@ -42,10 +42,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- 추가된 스타일 -->
 <style>
-#scroll {
-	overflow-y: auto;
-	max-height: calc(100vh - 180px); /* footer가 가리지 않도록 최대 높이 설정 */
-}
+
 .error-message {
     color: red;
     font-size: 12px;
@@ -98,7 +95,7 @@
 }
 
 </style>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
 function handleRadioChange() {
@@ -219,9 +216,9 @@ function handleRadioChange() {
       }
     });
   });
-  
-  
 </script>
+
+
 <link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 </head>
@@ -251,7 +248,7 @@ function handleRadioChange() {
 
 						<div class="field">
 							<div class="form-group">
-							<input type="text" class="priority-low" id="input" style="text-align: center;" name="reservationDate" placeholder="대여 날짜">
+							<input type="text" class="priority-low" id="input" style="text-align: center;" name="reservationDate" placeholder="대여 날짜" readonly>
 							<span class="error-message" id="errorMessageReservationDate"></span>
 							</div>
 						</div>
