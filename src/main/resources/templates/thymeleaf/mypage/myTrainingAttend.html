@@ -34,6 +34,14 @@ td label {
 	vertical-align: middle;
 }
 </style>
+<script th:inline="javascript">
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
+
 </head>
 <body class="is-preload">
 	<th:block layout:fragment="content">

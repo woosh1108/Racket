@@ -33,4 +33,8 @@ public interface ReservationService {
 
     // reservation_date가 지난 예약 데이터의 상태를 "경기종료"로 수정하는 메서드
     void updateExpiredReservations(LocalDate currentDate);
+
+    // 해당하는 예약 명단에 내 아이디가 있는지
+    public boolean existsByMemberIdAndReservationNo(String memberId, int reservationNo);
+
 }

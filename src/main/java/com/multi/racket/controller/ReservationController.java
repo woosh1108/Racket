@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.multi.racket.cash.CashService;
 import com.multi.racket.domain.CashDTO;
@@ -44,9 +45,10 @@ public class ReservationController {
 	// 예약하기 상세조회
 	@GetMapping("/reservation/read/{courtNo}")
 	public String getStadiumDetail(@PathVariable int courtNo, Model model, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes redirectAttributes) {
 		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
 		if (sessions == null || sessions.getAttribute("user") == null) {
+			redirectAttributes.addFlashAttribute("alertMessage", "로그인 후 이용 가능합니다.");
 			return "redirect:/login";
 		}
 
@@ -70,7 +72,7 @@ public class ReservationController {
 
 	// 예약하기 등록
 	@PostMapping(value = "/reservation/insert", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
-	public String reservationInsert(HttpSession session, ReservationDTO reservation, CashDTO cash) {
+	public String reservationInsert(HttpSession session, ReservationDTO reservation, CashDTO cash, RedirectAttributes redirectAttributes) {
 		try {
 			// 현재 세션값에서 member_id 가져오기
 			MemberDTO user = (MemberDTO) session.getAttribute("user");
@@ -94,22 +96,26 @@ public class ReservationController {
 			if (totalAmount >= stadiumFee) {
 				// Cash 테이블과 Reservation 테이블에 insert
 				service.reservation_insert(memberId, reservation, cash);
+				redirectAttributes.addFlashAttribute("alertMessage", "구장 예약에 성공했습니다.");
 				return "redirect:/mypage/reservation";
 			} else {
 				// 잔액 부족으로 캐시 충전 페이지로 이동
+				redirectAttributes.addFlashAttribute("alertMessage", "잔액이 부족합니다.");
 				return "redirect:/mypage/cash";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "thymeleaf/main/main_intro";
+			redirectAttributes.addFlashAttribute("alertMessage", "구장 예약에 실패했습니다.");
+			return "redirect:/stadium/stadiumlist";
 		}
 	}
 
 	// 예약 참가하기 상세조회
 	@GetMapping("/matching/read/{reservationNo}")
-	public String getReservationDetail(@PathVariable int reservationNo, Model model, HttpServletRequest request, HttpSession session) {
+	public String getReservationDetail(@PathVariable int reservationNo, Model model, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) {
 		HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
 		if (sessions == null || sessions.getAttribute("user") == null) {
+			redirectAttributes.addFlashAttribute("alertMessage", "로그인 후 이용 가능합니다.");
 			return "redirect:/login";
 		}
 
@@ -143,28 +149,42 @@ public class ReservationController {
 
 	// 예약 참가하기 등록
 	@PostMapping(value = "/matching/insert", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
-	public String matchingInsert(HttpSession session, MatchingDTO matching, CashDTO cash) {
+	public String matchingInsert(HttpSession session, MatchingDTO matching, CashDTO cash, RedirectAttributes redirectAttributes) {
 		try {
 			MemberDTO user = (MemberDTO) session.getAttribute("user");
 			String memberId = user.getMemberId();
-
-			CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
-			int totalAmount = latestCash.getTotalAmount();
-
+			String memberGender = user.getMemberGender();
+			String memberGrade = user.getMemberGrade();
 			ReservationDTO reservation = stadiumReadService.getReservationDetail(matching.getReservationNo());
-			int reservationFee = reservation.getReservationFee();
-			System.out.println(reservationFee);
-
-			// 잔액 비교
-			if (totalAmount >= reservationFee) {
-				service.matching_insert(memberId, matching, cash, reservation);
-				return "redirect:/mypage/match";
-			} else {
-				return "redirect:/mypage/cash";
-			}
+			
+			// 해당 아이디로 이미 예약된 매칭 정보가 있는지 확인
+	        boolean hasExistingReservation = service.existsByMemberIdAndReservationNo(memberId, matching.getReservationNo());
+	        
+	        if (!hasExistingReservation && !memberId.equals(reservation.getMemberId()) && memberGrade.equals(reservation.getGradeSetting()) && (memberGender.equals(reservation.getReservationGender()) || reservation.getReservationGender().equals("혼합"))) {
+				CashDTO latestCash = cashService.getLatestCashByMemberId(memberId);
+				int totalAmount = latestCash.getTotalAmount();
+	
+				int reservationFee = reservation.getReservationFee();
+				System.out.println(reservationFee);
+	
+				// 잔액 비교
+				if (totalAmount >= reservationFee) {
+					service.matching_insert(memberId, matching, cash, reservation);
+					redirectAttributes.addFlashAttribute("alertMessage", "예약 참가에 성공했습니다.");
+					return "redirect:/mypage/match";
+				} else {
+					redirectAttributes.addFlashAttribute("alertMessage", "잔액이 부족합니다.");
+					return "redirect:/mypage/cash";
+				}
+	        } else {
+	            // 이미 예약된 매칭 정보가 있을 경우에 처리할 내용 추가
+				redirectAttributes.addFlashAttribute("alertMessage", "이미 신청한 예약이거나  조건이 맞지 않아 실패했습니다.");
+	            return "redirect:/reservation/reservationlist";
+	        }
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "thymeleaf/main/main_intro";
+			redirectAttributes.addFlashAttribute("alertMessage", "예약 참가에 실패했습니다.");
+			return "redirect:/reservation/reservationlist";
 		}
 	}
 	
@@ -178,9 +198,9 @@ public class ReservationController {
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", reservationlistPage.getTotalPages());
 		
-		// TrainingDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
+		// ReservationDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
 	    for (ReservationDTO reservation : reservationlist) {
-	        // TrainingDTO에 대한 CourtoperatinghoursDTO를 가져옵니다.
+	        // ReservationDTO에 대한 CourtoperatinghoursDTO를 가져옵니다.
 	    	CourtoperatinghoursDTO courtoperatinghours = stadiumReadService.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
 		    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
 		    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());

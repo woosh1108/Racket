@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 강습시간 -</option>
-								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}" 
+								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ' ~ ' + hour.courtEnd}" 
          							th:sorted="${true}" th:sortby="hour.courtStart" th:value="${hour.courtHourNo}"></option>
 							</select>
 							<span class="error-message" id="errorMessageTrainingHour"></span>

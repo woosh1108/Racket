@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
@@ -42,9 +43,10 @@ public class StadiumController {
 	
 	// 구장 상세조회
     @GetMapping("/stadium/read/{stadiumNo}")
-    public String getStadiumDetail(@PathVariable int stadiumNo, Model model, HttpServletRequest request) {
+    public String getStadiumDetail(@PathVariable int stadiumNo, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
     	HttpSession sessions = request.getSession(false); // 세션이 존재하지 않을 경우 null 반환
 	    if (sessions == null || sessions.getAttribute("user") == null) {
+			redirectAttributes.addFlashAttribute("alertMessage", "로그인 후 이용 가능합니다.");
 	        return "redirect:/login";
 	    }
 	    
