@@ -41,6 +41,7 @@ public interface MemberDAO {
 	List<TrainingDTO> trainingDate(Date trainingDate);
 	// 나의 강습목록 페이징처리
 	Page<TrainingDTO> trainingPage(String memberId,int pageNo);
+	// 모든 멤버 정보 가져오기
+    List<MemberDTO> getAllMembers();
 
-	
 }

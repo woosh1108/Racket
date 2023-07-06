@@ -45,11 +45,12 @@ public class StadiumPartnerShipController {
 		return "redirect:/main";
 	}
 	@PostMapping("/associate/test")
-	public String write(StadiumDTO stadium, List<MultipartFile> stadiumFiles,StadiumcourtDTO court,CourtoperatinghoursDTO hours ,HttpSession session) throws IllegalStateException, IOException {
+	public String write(StadiumDTO stadium, List<MultipartFile> stadiumFiles, StadiumcourtDTO court,CourtoperatinghoursDTO hours ,HttpSession session) throws IllegalStateException, IOException {
 		
 //		service.insert(stadium,stadiumfiledtolist);
 		service.partnership_insert(stadium);
 		List<StadiumFileDTO> stadiumfiledtolist = fileservice.uploadFiles(stadiumFiles,stadium);
+		System.out.println(court);
 		service.file_insert(stadiumfiledtolist);
 		service.court_insert(stadium,court);
 		service.hours_insert(hours, court);

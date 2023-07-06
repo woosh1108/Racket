@@ -2,12 +2,7 @@ package com.multi.racket.announcement;
 
 import java.util.List;
 
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.validation.BindingResult;
-
-import com.multi.racket.announcement.AnnouncementDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface AnnouncementDAO {
 

@@ -1,29 +1,26 @@
 package com.multi.racket.domain;
 
 import java.sql.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
 @Entity
 @Table(name = "member2")
 @DynamicInsert
+@DynamicUpdate
 public class MemberDTO {
 	@Id
 	@NonNull
@@ -55,7 +52,7 @@ public class MemberDTO {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@CreatedDate
 	private Date memberReg;
-
+	private int totalAmount;
 	public MemberDTO() {
 		super();
 	}

@@ -1,5 +1,7 @@
 package com.multi.racket.training;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -93,4 +95,8 @@ public class TrainingServiceImpl implements TrainingService {
 		}
 	}
 
+	@Override
+	public List<TrainingMemberlistDTO> getAllTrainingMembers() {
+		return tmlRepository.findAll();
+	}
 }

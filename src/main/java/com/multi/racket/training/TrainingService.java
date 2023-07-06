@@ -1,5 +1,7 @@
 package com.multi.racket.training;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.multi.racket.domain.CashDTO;
@@ -22,4 +24,8 @@ public interface TrainingService {
 	
 	// 예약 목록 검색
 	public Page<TrainingDTO> searchTrainings(String type, String keyword, int pageNo, int pageSize);
+	
+	// 모든 강습신청자 정보 가져오기
+		List<TrainingMemberlistDTO> getAllTrainingMembers();
+
 }

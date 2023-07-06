@@ -43,6 +43,12 @@ menuicon {
 }
 </style>
 
+<script th:inline="javascript">
+  function openPopup() {
+    window.open('/racket/cashpay', '결제창', 'width=700,height=500');
+  }
+</script>
+
 </head>
 <body class="is-preload">
 	<th:block layout:fragment="content">
@@ -51,34 +57,12 @@ menuicon {
 			<div class="col-lg-11"
 				style="position: relative; float: right; margin-top: 130px; margin-left: 150px;">
 				<section>
-					<div class="content">
+					<div class="content" style="margin-left: 20px;">
 						<ul class="actions">
-							<li>
-								<form action="/racket/mypage/info" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">내정보</button>
-								</form>
-							</li>
+							<li><a href="/racket/mypage/info" class="button">내정보</a></li>
 							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
 							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
-							<li>
-								<form action="/racket/mypage/reservation" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">예약</button>
-								</form>
-							</li>
-							<li><a href="/racket/mypage/match" class="button">매치</a></li>
-							<li>
-								<form action="/racket/mypage/training" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">강습</button>
-								</form>
-							</li>
-							<li><a href="/racket/mypage/trainingAttend" class="button">강습
-									참가</a></li>
+							<li><a href="/racket/mypage/match" class="button">매칭</a></li>
 						</ul>
 					</div>
 				</section>
@@ -87,9 +71,9 @@ menuicon {
 					<ul class="actions"
 						style="flex-direction: row; justify-content: space-between;">
 						<li style="display: flex; align-items: center;"><h2
-								style="margin: 0px;">총 캐쉬 : 20,000원</h2></li>
-						<li><a href="#"> <input type="button" name="submit"
-								id="submit" value="캐쉬충전" />
+								style="margin: 0px;">총 캐쉬 : <span th:text="${session.user.totalAmount}"></span></h2></li>
+						<li><a href="#" onclick="openPopup()"> <input type="button" name="submit"
+								id="submit" value="캐쉬충전"/>
 						</a></li>
 					</ul>
 				</div>

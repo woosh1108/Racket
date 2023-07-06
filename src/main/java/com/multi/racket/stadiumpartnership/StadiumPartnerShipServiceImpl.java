@@ -59,4 +59,9 @@ public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService 
 		return dao.hours_insert(hours, court);
 	}
 
+	@Override
+	public StadiumcourtDTO court_insert(StadiumDTO stadium, List<StadiumcourtDTO> court) {
+		return dao.court_insert(stadium, court);
+	}
+
 }

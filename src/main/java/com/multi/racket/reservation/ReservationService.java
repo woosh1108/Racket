@@ -1,6 +1,7 @@
 package com.multi.racket.reservation;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 
@@ -33,4 +34,6 @@ public interface ReservationService {
 
     // reservation_date가 지난 예약 데이터의 상태를 "경기종료"로 수정하는 메서드
     void updateExpiredReservations(LocalDate currentDate);
+    
+    public List<ReservationDTO> getAllReservationInfo();
 }

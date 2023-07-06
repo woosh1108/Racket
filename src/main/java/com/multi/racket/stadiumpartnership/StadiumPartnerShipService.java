@@ -14,5 +14,6 @@ public interface StadiumPartnerShipService {
 	public List<StadiumFileDTO> find_file_grant(StadiumDTO stadium);
 	public List<StadiumFileDTO> find_file(int stadiumNo);
 	public StadiumcourtDTO court_insert(StadiumDTO stadium,StadiumcourtDTO court);
+	public StadiumcourtDTO court_insert(StadiumDTO stadium,List<StadiumcourtDTO> court);
 	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours,StadiumcourtDTO court);
 }
