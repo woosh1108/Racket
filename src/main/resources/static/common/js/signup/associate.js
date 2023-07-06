@@ -82,3 +82,28 @@ function checkId() {
 		$('#associate').prop('disabled', true);
 	}
 }
+
+
+
+
+//function addCourtField() {
+//  var container = document.getElementById("courtContainer");
+//  
+//  var courtDiv = document.createElement("div");
+//  courtDiv.classList.add("mb-3");
+//
+//  var courtLabel = document.createElement("label");
+//  courtLabel.setAttribute("for", "courtName");
+//  courtLabel.classList.add("form-label");
+//  courtLabel.textContent = "코트 이름: ";
+//  
+//  var courtInput = document.createElement("input");
+//  courtInput.setAttribute("type", "text");
+//  courtInput.setAttribute("name", "courtName");
+//  courtInput.classList.add("form-control");
+//  courtInput.required = true;
+//  
+//  courtDiv.appendChild(courtLabel);
+//  courtDiv.appendChild(courtInput);
+//  container.appendChild(courtDiv);
+//}

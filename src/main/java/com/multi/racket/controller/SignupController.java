@@ -55,7 +55,7 @@ public class SignupController {
 	public String signup(MemberDTO member,CashDTO cash) {
 		service.member_insert(member);
 		service.member_signup(member,cash);
-		return "thymeleaf/main/mainpage";
+		return "thymeleaf/login/login";
 	}
 	
 	// insert - 회원등록하기 뷰
@@ -71,9 +71,10 @@ public class SignupController {
 
 		// insert - 회원등록하기 api
 		@PostMapping("/signup_kakao")
-		public String signup_kakao(MemberDTO member) {
+		public String signup_kakao(MemberDTO member,CashDTO cash) {
 			service.member_insert(member);
-			return "thymeleaf/main/mainpage";
+			service.member_signup(member,cash);
+			return "thymeleaf/login/login";
 		}
 	
 	// 회원가입 페이지 이동

@@ -21,7 +21,7 @@
 	<th:block layout:fragment="content">
 		<div class="container mt-5">
 			<!-- <form action="/racket/signup" th:action="@{/submitForm}" method="POST" onsubmit="return validateForm();" class="shadow p-3 mb-5 bg-body rounded"> -->
-			<form action="/racket/associate/test" method="POST" enctype="multipart/form-data"
+			<form action="/racket/associate/test1" method="POST" enctype="multipart/form-data"
 				onsubmit="return validateForm();"
 				class="shadow p-3 mb-5 bg-body rounded">
 				<h2 class="mb-3">구장 제휴 문의</h2>
@@ -87,12 +87,13 @@
 				<div class="mb-3">
 					<label for="stadiumContent" class="form-label">코트 이름 : </label> 
 					<input
-						type="text" id="courtName" name="courtName"
+						type="text" id="courtName" name="courtlist[0].courtName"
 						class="form-control" required>
 				</div>
+				<!-- <button type="button" onclick="addCourtField();" class="btn btn-primary">코트추가</button> -->
 				<label for="stadiumTime" class="form-label" style="width:100px;">코트 운영 시간:</label>
 				<div class="TimeContainer">
-						<select id="courtStart" name="courtStart" class="form-select">
+						<select id="courtStart" name="courtlist[0].courtStart" class="form-select">
 							<option value="06:00">06:00</option>
 							<option value="08:00">08:00</option>
 							<option value="10:00">10:00</option>
@@ -105,7 +106,7 @@
 							<option value="22:00">24:00</option>
 						</select>
 						<label for="stadiumTimeEnd" class="form-label" style="width:100px;">~</label>
-						<select id="courtEnd" name="courtEnd" class="form-select">
+						<select id="courtEnd" name="courtlist[0].courtEnd" class="form-select">
 							<option value="08:00">08:00</option>
 							<option value="10:00">10:00</option>
 							<option value="12:00">12:00</option>

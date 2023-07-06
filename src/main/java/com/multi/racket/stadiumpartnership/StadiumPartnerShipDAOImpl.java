@@ -1,5 +1,6 @@
 package com.multi.racket.stadiumpartnership;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,11 +78,18 @@ public class StadiumPartnerShipDAOImpl implements StadiumPartnerShipDAO {
 	}
 
 	@Override
-	public StadiumcourtDTO court_insert(StadiumDTO stadium, List<StadiumcourtDTO> court) {
-		for(StadiumcourtDTO courtlist:court) {
-			courtlist.setStadiumNo(stadium);
-			courtrepository.save(courtlist);
+	public StadiumcourtDTO court_insert(StadiumDTO stadium, List<StadiumcourtDTO> courts) {
+		List<StadiumcourtDTO> courtlist = new ArrayList<StadiumcourtDTO>();
+		System.out.println(stadium);
+		for (StadiumcourtDTO court : courts) {
+			courtlist.add(new StadiumcourtDTO(0,court.getCourtName(),stadium));
 		}
+		return null;
+	}
+
+	@Override
+	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours, List<StadiumcourtDTO> court) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -16,4 +16,5 @@ public interface StadiumPartnerShipService {
 	public StadiumcourtDTO court_insert(StadiumDTO stadium,StadiumcourtDTO court);
 	public StadiumcourtDTO court_insert(StadiumDTO stadium,List<StadiumcourtDTO> court);
 	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours,StadiumcourtDTO court);
+	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours,List<StadiumcourtDTO> court);
 }
