@@ -87,9 +87,12 @@
 
             <input type="hidden" name="memberStatus" value="0">
             <input type="hidden" name="memberAbsence" value="0">
-
+			<input type="hidden" name="paymentInfoNo" value="0">
+			<input type="hidden" name="totalAmount" value="0">
+			<input type="hidden" name="amountSpent" value="0">
+			<input type="hidden" name="charging" value="0">
             <input type="hidden" id="memberReg" name="memberReg" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
-
+			<input type="hidden" id="cashDate" name="cashDate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
             <button type="submit" class="btn btn-primary" id="regist" disabled>회원가입</button>
         </form>
     </div>
