@@ -1,5 +1,7 @@
 package com.multi.racket.training;
 
+
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -17,15 +19,18 @@ public interface TrainingService {
 	public void training_insert(String memberId,TrainingDTO training, CashDTO cash) throws Exception ;
 
 	// 강습 참가하기 등록
-	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist, CashDTO cash) throws Exception;
+	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist, CashDTO cash, TrainingDTO training) throws Exception;
 
 	// 강습 목록 조회
 	public Page<TrainingDTO> traininglist(int pageNo);
 	
 	// 예약 목록 검색
 	public Page<TrainingDTO> searchTrainings(String type, String keyword, int pageNo, int pageSize);
-	
+
 	// 모든 강습신청자 정보 가져오기
 		List<TrainingMemberlistDTO> getAllTrainingMembers();
+
+	// training_date가 지난 예약 데이터의 상태를 "강습종료"로 수정하는 메서드
+    public void updateExpiredTrainings(LocalDate currentDate);
 
 }
