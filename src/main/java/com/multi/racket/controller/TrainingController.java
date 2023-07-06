@@ -152,7 +152,7 @@ public class TrainingController {
 
 			// 잔액 비교
 			if (totalAmount >= trainingFee) {
-				service.trainingMemberlist_insert(memberId, trainingMemberlist, cash);
+				service.trainingMemberlist_insert(memberId, trainingMemberlist, cash, training);
 				return "redirect:/mypage/trainingAttend";
 			} else {
 				return "redirect:/mypage/cash";

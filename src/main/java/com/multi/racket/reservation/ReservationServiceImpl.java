@@ -66,20 +66,6 @@ public class ReservationServiceImpl implements ReservationService {
 		return mRepository.findById(matchingNo).orElseGet(MatchingDTO::new);
 	}
 
-	/*
-	@Override
-	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash) throws Exception {
-		 try {
-		        System.out.println("Service 성공: " + matching + ", " + cash);
-		        mRepository.save(matching);
-		        cashRepository.save(cash);
-		    } catch (Exception e) {
-		        System.out.println("Service 실패");
-		        e.printStackTrace();
-		        throw new Exception("Failed to create Reservation with Cash", e);
-		    }
-	}
-	*/
 	@Override
 	public void matching_insert(String memberId, MatchingDTO matching, CashDTO cash, ReservationDTO reservation) throws Exception {
 	    try {

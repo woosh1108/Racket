@@ -1,5 +1,8 @@
 package com.multi.racket.training;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.multi.racket.domain.CashDTO;
+import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
 import com.multi.racket.repository.CashRepository;
@@ -55,11 +59,26 @@ public class TrainingServiceImpl implements TrainingService {
 
 
 	@Override
-	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist, CashDTO cash) throws Exception {
+	public void trainingMemberlist_insert(String memberId, TrainingMemberlistDTO trainingMemberlist, CashDTO cash, TrainingDTO training) throws Exception {
 		try {
 	        System.out.println("Service 성공: " + trainingMemberlist + ", " + cash);
+	        
 	        tmlRepository.save(trainingMemberlist);
 	        cashRepository.save(cash);
+	        
+	        // 해당 예약의 참가 인원수 조회
+		     int participantCount = tmlRepository.getParticipantCount(trainingMemberlist.getTrainingNo());
+		        
+		     // 예약 최대 인원수 조회
+		     int maxCapacity = training.getTrainingMax();
+		     System.out.println("service: "+participantCount);
+		     System.out.println("service: "+maxCapacity);
+		     
+		     // 예약 최대 인원보다 1명 적을 때 예약 상태를 "매칭완료"로 변경
+		     if (participantCount == maxCapacity) {
+		    	 tRepository.updateTrainingStatus(trainingMemberlist.getTrainingNo(), "모집완료");
+		     }
+	     
 	    } catch (Exception e) {
 	        System.out.println("Service 실패");
 	        e.printStackTrace();
@@ -91,6 +110,18 @@ public class TrainingServiceImpl implements TrainingService {
 		} else {
 			return Page.empty(); // 빈 페이지 반환
 		}
+	}
+
+
+	@Override
+	public void updateExpiredTrainings(LocalDate currentDate) {
+		// 현재 날짜 이후의 예약 데이터를 조회하고 상태를 "경기종료"로 수정하는 로직
+        List<TrainingDTO> expiredReservations = tRepository.findByTrainingDateBeforeAndTrainingStatus(currentDate, "강습진행중");
+        for (TrainingDTO training : expiredReservations) {
+        	training.setTrainingStatus("강습종료");
+        }
+        tRepository.saveAll(expiredReservations);
+		
 	}
 
 }
