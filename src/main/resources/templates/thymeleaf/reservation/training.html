@@ -232,6 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <input type="hidden" name="reservationFee" id="reservationFee" th:value="${court.stadiumNo.stadiumContent}" onchange="handleRadioChange()" value="0" >
 			<input type="hidden" name="amountSpent" id="amountSpent" th:value="${court.stadiumNo.stadiumFee}" >
 			<input type="hidden" name="cashDate" id="cashDate" >	
+			<input type="hidden" name="trainingStatus" value="모집중">
+			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
 					<div class="box" style="padding: 20px; margin: 0px;">
