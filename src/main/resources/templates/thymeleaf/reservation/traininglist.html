@@ -6,6 +6,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>강습 목록</title>
+<script th:inline="javascript">
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
 </head>
 <body>
 	<th:block layout:fragment="css">
@@ -64,13 +71,13 @@
 							<h3 class="font-weight-light">
 								<a
 									th:href="@{/training/memberlist/read/{trainingNo}(trainingNo=${training.trainingNo})}"
-									th:text="${stadium.stadiumName}"></a>
+									th:text="${stadium.stadiumName+' - '+stadiumcourt.courtName}"></a>
 							</h3>
 							<div class="text-white mb-3">
 								<span class="text-black-opacity-05"> <small
 									th:text="${'강습수준 : '+training.trainingGrade}"></small> <br /> <small
 									th:text="${'강습비 : '+training.trainingFee+'원'}"></small> <br /> <small
-									th:text="${'강습일 : '+training.trainingDate+' '+courtoperatinghours.courtStart+':00 ~ '+courtoperatinghours.courtEnd+':00'}"></small>
+									th:text="${'강습일 : '+training.trainingDate+' '+courtoperatinghours.courtStart+' ~ '+courtoperatinghours.courtEnd}"></small>
 								</span>
 							</div>
 

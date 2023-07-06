@@ -9,4 +9,8 @@ import com.multi.racket.domain.MatchingDTO;
 public interface MatchingRepository extends JpaRepository<MatchingDTO, Integer> {
 	@Query("SELECT COUNT(*) FROM MatchingDTO r WHERE r.reservationNo = :reservationNo")
     int getParticipantCount(@Param("reservationNo") int reservationNo); // 예약한 인원 수 조회 메서드 추가
+	
+	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM MatchingDTO m WHERE m.memberId = :memberId AND m.reservationNo = :reservationNo")
+	boolean existsByMemberIdAndReservationNo(@Param("memberId") String memberId, @Param("reservationNo") int reservationNo);
+
 }

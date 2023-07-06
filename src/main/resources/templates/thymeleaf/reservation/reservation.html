@@ -95,8 +95,6 @@
 }
 
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script type="text/javascript">
 function handleRadioChange() {
       var selectedValue = document.querySelector('input[name="peopleNum"]:checked').value;
@@ -257,7 +255,7 @@ function handleRadioChange() {
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 대여시간 -</option>
-								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}"
+								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ' ~ ' + hour.courtEnd}"
          							th:sorted="${true}" th:sortby="hour.courtStart" th:value="${hour.courtHourNo}"></option>
 							</select>
 							<span class="error-message" id="errorMessageReservationHour"></span>
@@ -284,8 +282,16 @@ function handleRadioChange() {
 							<label for="mixing" id="mixing">혼합</label>
 						</div>
 						<br />
-
 						<div class="field">
+							<div class="box" style="padding: 15px;">
+								<p style="text-align: center; color: black;">
+									등급 제한
+									<code style="color: #134C43"><span th:text="${#session.getAttribute('user').memberGrade}"></span></code>
+								</p>
+							</div>
+						</div>
+						<input type="hidden" name="gradeSetting" th:value="${#session.getAttribute('user').memberGrade}">
+						<!-- <div class="field">
 							<select name="gradeSetting" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 등급 제한 -</option>
@@ -295,16 +301,8 @@ function handleRadioChange() {
 							</select>
 							<span class="error-message" id="errorMessageGradeSetting"></span>
 						</div>
-						<br />
-						<div class="field">
-							<div class="box" style="padding: 15px;">
-								<p style="text-align: center; color: black;">
-									참여 인원
-									<code style="color: #134C43" id="peopleNumVal"
-										onchange="handleRadioChange()">2명</code>
-								</p>
-							</div>
-						</div>
+						<br /> -->
+						<input type="hidden" id="peopleNumVal" onchange="handleRadioChange()"></input>
 
 						<div class="field">
 							<div class="box" style="padding: 15px;">
@@ -337,11 +335,28 @@ function handleRadioChange() {
 							<div class="swiper-pagination"></div>
 						</div>
 					</div>
-					
-					
-					
-					
 					<section>
+					
+					
+					<!-- 예약자 정보 -->
+					<section>
+						<div class="box">
+							<blockquote>
+								<h3>예약자</h3>
+							</blockquote>
+							<p style="color: black;">예약자 : <span th:text="${#session.getAttribute('user').memberNick}"></span></p>
+							<p style="color: black;">예약자 등급 : <span th:text="${#session.getAttribute('user').memberGrade}"></span></p>
+							<p style="color: black;">예약자 성별 : <span th:text="${#session.getAttribute('user').memberGender}"></span></p>
+							<div class="field">
+								<p style="color: black;">
+									<label for="message">모집 내용</label>
+									<textarea name="reservationContent" id="reservationContent"
+										rows="6" placeholder="모집에 대한 내용을 입력해주세요."></textarea>
+										<span class="error-message" id="errorMessagereservationContent"></span>
+							</div>
+						</div>
+					</section>
+					
 						<div class="box">
 							<blockquote>
 								<h3>체육관 정보</h3>
@@ -353,13 +368,7 @@ function handleRadioChange() {
 							<p style="color: black;">전화번호 : <span th:text="${court.stadiumNo.stadiumPhone}"></span></p>
 							<p style="color: black;">시간당 가격 : <span id="stadiumFeeValue" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
 							<p style="color: black;">구장 소개: <span th:text="${court.stadiumNo.stadiumContent}">구장에 대한 소개가 없습니다.</span></p>
-							<div class="field">
-								<p style="color: black;">
-									<label for="message">모집 내용</label>
-									<textarea name="reservationContent" id="reservationContent"
-										rows="6" placeholder="모집에 대한 내용을 입력해주세요."></textarea>
-										<span class="error-message" id="errorMessagereservationContent"></span>
-							</div>
+							
 						</div>
 
 					</section>

@@ -127,5 +127,11 @@ public class ReservationServiceImpl implements ReservationService {
         rRepository.saveAll(expiredReservations);
 	}
 
+	@Override
+	public boolean existsByMemberIdAndReservationNo(String memberId, int reservationNo) {
+		boolean Whether = mRepository.existsByMemberIdAndReservationNo(memberId, reservationNo);
+		return Whether;
+	}
+
 
 }
