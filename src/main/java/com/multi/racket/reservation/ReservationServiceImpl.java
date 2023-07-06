@@ -126,10 +126,17 @@ public class ReservationServiceImpl implements ReservationService {
         }
         rRepository.saveAll(expiredReservations);
 	}
-	
+
 	@Override
 	public List<ReservationDTO> getAllReservationInfo() {
 	    return rRepository.findAll();
 	}
+
+	@Override
+	public boolean existsByMemberIdAndReservationNo(String memberId, int reservationNo) {
+		boolean Whether = mRepository.existsByMemberIdAndReservationNo(memberId, reservationNo);
+		return Whether;
+	}
+
 
 }

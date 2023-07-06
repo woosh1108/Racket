@@ -91,7 +91,7 @@ public class TrainingServiceImpl implements TrainingService {
 		int pageSize = 10; // 페이지당 표시할 데이터 수
 
 		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("trainingNo").descending());
-		return tRepository.findAll(pageable);
+		return tRepository.findAllByTrainingStatus("모집중", pageable);
 	}
 
 
@@ -126,6 +126,13 @@ public class TrainingServiceImpl implements TrainingService {
         }
         tRepository.saveAll(expiredReservations);
 		
+	}
+
+
+	@Override
+	public boolean existsByMemberIdAndTrainingNo(String memberId, int trainingNo) {
+		boolean Whether = tmlRepository.existsByMemberIdAndTrainingNo(memberId, trainingNo);
+		return Whether;
 	}
 
 }

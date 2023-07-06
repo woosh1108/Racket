@@ -33,4 +33,8 @@ public interface TrainingService {
 	// training_date가 지난 예약 데이터의 상태를 "강습종료"로 수정하는 메서드
     public void updateExpiredTrainings(LocalDate currentDate);
 
+    // 해당하는 예약 명단에 내 아이디가 있는지
+    public boolean existsByMemberIdAndTrainingNo(String memberId, int trainingNo);
+
+
 }
