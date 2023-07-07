@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,9 @@ public class CourtoperatinghoursDTO {
 	private String courtStart;
 	private String courtEnd;
 
+	@Transient
+	private int courtcount;
+	
 	
 //	/////////////////////////////////////////////////////////
 //	@ManyToOne
