@@ -54,7 +54,7 @@ public class mypageController {
 		return "thymeleaf/mypage/myInfo_change";
 	}
 
-	// 내정보 수정하기
+
 	// 내정보 수정하기
 	@PostMapping("/change.do")
 	public String infoChange(MemberDTO updateInfo, Model model) {
@@ -143,4 +143,9 @@ public class mypageController {
 	public String myMatch() {
 		return "thymeleaf/mypage/myMatch";
 	}
+	// 내 매치보기 - 신고가능
+		@RequestMapping("/trainingAttend")
+		public String myTrainingAttend() {
+			return "thymeleaf/mypage/myTrainingAttend";
+		}
 }
