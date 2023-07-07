@@ -24,6 +24,7 @@ import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
+import com.multi.racket.inquiry.InquiryService;
 import com.multi.racket.reservation.ReservationService;
 import com.multi.racket.reservation.StadiumReadService;
 
@@ -32,14 +33,16 @@ public class ReservationController {
 	ReservationService service;
 	CashService cashService;
 	StadiumReadService stadiumReadService;
+	InquiryService iservice;
 
 	@Autowired
 	public ReservationController(ReservationService service, CashService cashService,
-			StadiumReadService stadiumReadService) {
+			StadiumReadService stadiumReadService,InquiryService iservice) {
 		super();
 		this.service = service;
 		this.cashService = cashService;
 		this.stadiumReadService = stadiumReadService;
+		this.iservice = iservice;
 	}
 
 	// 예약하기 상세조회
@@ -96,12 +99,20 @@ public class ReservationController {
 			if (totalAmount >= stadiumFee) {
 				// Cash 테이블과 Reservation 테이블에 insert
 				service.reservation_insert(memberId, reservation, cash);
+
+				
+				int ntamount = cash.getTotalAmount(); MemberDTO member =
+				(MemberDTO)session.getAttribute("user"); String id = member.getMemberId();
+				MemberDTO upmem =  iservice.update(id,ntamount);
+				session.setAttribute("user", upmem);
+		        
 				redirectAttributes.addFlashAttribute("alertMessage", "구장 예약에 성공했습니다.");
+				
 				return "redirect:/mypage/reservation";
 			} else {
 				// 잔액 부족으로 캐시 충전 페이지로 이동
 				redirectAttributes.addFlashAttribute("alertMessage", "잔액이 부족합니다.");
-				return "redirect:/mypage/cash";
+				return "redirect:/mypage/cash?pageNo=0";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
