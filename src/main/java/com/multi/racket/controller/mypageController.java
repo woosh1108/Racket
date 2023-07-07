@@ -1,5 +1,4 @@
 package com.multi.racket.controller;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -22,14 +21,13 @@ import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.inquiry.InquiryPageService;
 import com.multi.racket.inquiry.PageDTO;
 import com.multi.racket.member.MemberService;
-
 @Controller
 @RequestMapping("/mypage") // 공유메핑명
 @SessionAttributes("user") // 데이터공유명
 public class mypageController {
 	@Autowired
 	MemberService service;
-
+	
 	@Autowired
 	InquiryPageService service2;
 
@@ -42,9 +40,7 @@ public class mypageController {
 
 	// 내정보보기페이지 - 수정x
 	@RequestMapping("/info")
-	public String myInfo(String memberId, Model model) {
-		MemberDTO user = service.info(memberId);
-		model.addAttribute("user", user);
+	public String myInfo() {
 		return "thymeleaf/mypage/myInfo";
 	}
 
@@ -58,11 +54,11 @@ public class mypageController {
 	// 내정보 수정하기
 	@PostMapping("/change.do")
 	public String infoChange(MemberDTO updateInfo, Model model) {
-		service.update(updateInfo);
-		if (updateInfo != null) {
+    service.update(updateInfo);
+		if(updateInfo!=null) {
 			model.addAttribute("msg", "정보변경이 완료되었습니다.");
 		}
-
+    
 		return "redirect:/main";
 	}
 
@@ -77,8 +73,10 @@ public class mypageController {
 		int totalPageNumber = page.getTotalPageNumber();
 		model.addAttribute("mycash", list);
 		model.addAttribute("totalPageNumber", totalPageNumber);
+		model.addAttribute("member", member);
 		return "thymeleaf/mypage/myCash";
 	}
+
 	
 	// 내 예약 내역보기
 		@RequestMapping("/reservation")
@@ -143,9 +141,10 @@ public class mypageController {
 	public String myMatch() {
 		return "thymeleaf/mypage/myMatch";
 	}
-	// 내 매치보기 - 신고가능
-		@RequestMapping("/trainingAttend")
-		public String myTrainingAttend() {
-			return "thymeleaf/mypage/myTrainingAttend";
-		}
+
+  // 내 매치보기 - 신고가능
+	@RequestMapping("/trainingAttend")
+	public String myTrainingAttend() {
+		return "thymeleaf/mypage/myTrainingAttend";
+	}
 }

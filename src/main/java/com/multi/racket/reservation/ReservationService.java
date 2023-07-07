@@ -1,5 +1,6 @@
 package com.multi.racket.reservation;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public interface ReservationService {
 
 	// 예약하기 등록
 	public void reservation_insert(String memberId, ReservationDTO reservation, CashDTO cash) throws Exception;
+	public void reservationMatching_insert(int reservationNo, String memberId, Date matchDate) throws Exception;
 
 	// 예약 참가하기 상세조회
 	public MatchingDTO matching(int matchingNo);

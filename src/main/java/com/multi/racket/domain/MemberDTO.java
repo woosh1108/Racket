@@ -3,6 +3,7 @@ package com.multi.racket.domain;
 import java.sql.Date;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NonNull;
-@Data
+
 @Entity
 @Table(name = "member2")
 @DynamicInsert
@@ -42,9 +43,9 @@ public class MemberDTO {
 	@NonNull
 	private String memberGrade;
 	@NonNull
-	private Integer memberAuth;
+	private int memberAuth;
 	@NonNull
-	private Integer memberStatus;
+	private int memberStatus;
 	@NonNull
 	private String memberEmail;
 	@NonNull
@@ -83,7 +84,7 @@ public class MemberDTO {
 				+ ", memberAge=" + memberAge + ", memberPhone=" + memberPhone + ", memberNick=" + memberNick
 				+ ", memberGender=" + memberGender + ", memberAddr=" + memberAddr + ", memberGrade=" + memberGrade
 				+ ", memberAuth=" + memberAuth + ", memberStatus=" + memberStatus + ", memberEmail=" + memberEmail
-				+ ", memberReg=" + memberReg + "]";
+				+ ", memberReg=" + memberReg + ", totalAmount=" + totalAmount + "]";
 	}
 
 	public String getMemberId() {
@@ -196,6 +197,44 @@ public class MemberDTO {
 
 	public void setMemberReg(Date memberReg) {
 		this.memberReg = memberReg;
+	}
+
+	public int getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public void setMemberAuth(int memberAuth) {
+		this.memberAuth = memberAuth;
+	}
+
+	public void setMemberStatus(int memberStatus) {
+		this.memberStatus = memberStatus;
+	}
+
+	public MemberDTO(@NonNull String memberId, @NonNull String memberPass, @NonNull String memberName,
+			@NonNull String memberAge, @NonNull String memberPhone, @NonNull String memberNick,
+			@NonNull String memberGender, @NonNull String memberAddr, @NonNull String memberGrade,
+			@NonNull int memberAuth, @NonNull int memberStatus, @NonNull String memberEmail, @NonNull Date memberReg,
+			int totalAmount) {
+		super();
+		this.memberId = memberId;
+		this.memberPass = memberPass;
+		this.memberName = memberName;
+		this.memberAge = memberAge;
+		this.memberPhone = memberPhone;
+		this.memberNick = memberNick;
+		this.memberGender = memberGender;
+		this.memberAddr = memberAddr;
+		this.memberGrade = memberGrade;
+		this.memberAuth = memberAuth;
+		this.memberStatus = memberStatus;
+		this.memberEmail = memberEmail;
+		this.memberReg = memberReg;
+		this.totalAmount = totalAmount;
 	}
 
 }

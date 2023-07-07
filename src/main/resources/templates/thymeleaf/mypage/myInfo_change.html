@@ -12,9 +12,10 @@
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
 <script type="text/javascript">
-let msg = [[${session.user.memberId}]];
-console.log(msg);
+  let msg = "${session.user.memberId}";
+  console.log(msg);
 </script>
+
 </head>
 <body class="is-preload">
 	<th:block layout:fragment="content">
@@ -30,7 +31,7 @@ console.log(msg);
 							</form>
 						</li>
 						<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-						<li><a href="/racket/mypage/cash" class="button">충전</a></li>
+						<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
 						<li>
 							<form action="/racket/mypage/reservation" method="post">
 								<input type="hidden" th:value="${session.user.memberId}"
