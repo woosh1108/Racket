@@ -9,4 +9,5 @@ import com.multi.racket.domain.AbsentDTO;
 public interface AbsentRepository extends JpaRepository<AbsentDTO, Integer> {
 	List<AbsentDTO> findByMemberId(String memberId);
     List<AbsentDTO> findByMemberIdGreaterThanEqual(String memberId);
+	AbsentDTO findByMatchNoAndMemberId(int matchNo, String memberId);
 }

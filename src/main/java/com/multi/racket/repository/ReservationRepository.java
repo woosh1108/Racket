@@ -20,7 +20,8 @@ public interface ReservationRepository extends JpaRepository<ReservationDTO, Int
 	List<ReservationDTO> findByMemberId(String memberId);
     Page<ReservationDTO> findAllByMemberId(String memberId, Pageable pageable);
     List<ReservationDTO> findByReservationDateAfter(Date reservationDate);
-    
+	Page<ReservationDTO> findByReservationNoIn(List<Integer> numberList, Pageable pageable);
+
     // 예약 목록 조회
     Page<ReservationDTO> findAllByReservationStatus(String ReservationStatus, Pageable pageable);
 
@@ -34,5 +35,5 @@ public interface ReservationRepository extends JpaRepository<ReservationDTO, Int
 	@Modifying
     @Query("UPDATE ReservationDTO r SET r.reservationStatus = :status WHERE r.reservationNo = :reservationNo")
     void updateReservationStatus(@Param("reservationNo") int reservationNo, @Param("status") String status);
-	
+
 }

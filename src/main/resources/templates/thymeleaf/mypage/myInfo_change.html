@@ -23,33 +23,44 @@
 			<section>
 				<div class="content">
 					<ul class="actions">
-						<li>
-							<form action="/racket/mypage/info" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">내정보</button>
-							</form>
-						</li>
-						<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-						<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
-						<li>
-							<form action="/racket/mypage/reservation" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">예약</button>
-							</form>
-						</li>
-						<li><a href="/racket/mypage/match" class="button">매치</a></li>
-						<li>
-							<form action="/racket/mypage/training" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">강습</button>
-							</form>
-						</li>
-						<li><a href="/racket/mypage/trainingAttend" class="button">강습
-								참가</a></li>
-					</ul>
+							<li>
+								<form action="/racket/mypage/info" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">내정보</button>
+								</form>
+							</li>
+							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
+							<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
+							<li>
+								<form action="/racket/mypage/reservation" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">나의 예약기록보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/match" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">매칭 기록보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/training" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">나의 강습기록보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/trainingAttend" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">강습참가 기록보기</button>
+								</form>
+							</li>
+						</ul>
 				</div>
 			</section>
 			<div class="content">

@@ -50,6 +50,7 @@ $(document).ready(function(){
 		alert(msg);
 	}
 })
+ 
 </script>
 </head>
 <body class="is-preload">
@@ -62,33 +63,46 @@ $(document).ready(function(){
 			<section>
 				<div class="content">
 					<ul class="actions">
-						<li>
-							<form action="/racket/mypage/info" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">내정보</button>
-							</form>
-						</li>
-						<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-						<li><a href="/racket/mypage/cash" class="button">충전</a></li>
-						<li>
-							<form action="/racket/mypage/reservation" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">예약</button>
-							</form>
-						</li>
-						<li><a href="/racket/mypage/match" class="button">매치</a></li>
-						<li>
-							<form action="/racket/mypage/training" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">강습</button>
-							</form>
-						</li>
-						<li><a href="/racket/mypage/trainingAttend" class="button">강습
-								참가</a></li>
-					</ul>
+							<li>
+								<form action="/racket/mypage/info" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">내정보</button>
+								</form>
+							</li>
+							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
+							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
+							<li>
+								<form action="/racket/mypage/reservation" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">나의 예약기록보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/match" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">매칭 기록보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/training" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">나의 강습기록보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/trainingAttend" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">강습참가 기록보기</button>
+								</form>
+							</li>
+						</ul>
+				</div>
+				<div class="box" style="padding: 20px; margin: 40px;" th:text="${session.user.memberId}+'님의 총 강습 수입은 '+${totalIncome}+'원입니다.'">
 				</div>
 			</section>
 			<div class="box">
@@ -99,39 +113,41 @@ $(document).ready(function(){
 								<th>강습번호</th>
 								<th>강습인원</th>
 								<th>강습내용</th>
-								<th>사용금액</th>
+								<th>강습금액</th>
+								<th>모집상태</th>
 								<th>강습날짜 및 시간</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="training:${training}">
+							<tr th:each="training,status:${training}">
 								<td><span th:text="${training.trainingNo}"></span></td>
-								<td><span th:text="${training.trainingMax}+'명'"></span></td>
+								<td><span th:text="${people[status.index] + '/' + training.trainingMax} +'명'"></span></td>
 								<td style="text-overflow: ellipsis; overflow: hidden; white-space:nowrap; max-width: 300px;"><span th:text="${training.trainingContent}"></span></td>
 								<td><span th:text="${training.trainingFee}+'원'"></span></td>
-								<td><span th:text="${training.trainingDate}"></span> <br />
-									<span th:switch="${training.courtHourNo}"> 
-										<span th:case="1">00:00 ~ 02:00</span>
-										<span th:case="2">02:00 ~ 04:00</span> 
-										<span th:case="3">04:00 ~ 06:00</span> 
-										<span th:case="4">06:00 ~ 08:00</span> 
-										<span th:case="5">08:00 ~ 10:00</span> 
-										<span th:case="6">10:00 ~ 12:00</span> 
-										<span th:case="7">12:00 ~ 14:00</span> 
-										<span th:case="8">14:00 ~ 16:00</span> 
-										<span th:case="9">16:00 ~ 18:00</span> 
-										<span th:case="10">18:00 ~ 20:00</span> 
-										<span th:case="11">20:00 ~ 22:00</span> 
-										<span th:case="12">22:00 ~ 24:00</span>
-									</span>
+								<td th:if="${people[status.index]  != training.trainingMax} and ${training.trainingDate >= #dates.createNow()}">
+									<span>인원 모집중</span>
+								</td>
+								<td th:if="${people[status.index]  == training.trainingMax} and ${training.trainingDate >= #dates.createNow()}">
+									<span>인원마감</span>
+								</td>
+								<td th:if="${training.trainingDate < #dates.createNow()}">
+									<span>강습 종료</span>
+								</td>
+								<td>
+									<span th:text="${training.trainingDate}"></span>
+									<br />
+									<span th:text="${startHour[status.index] + ' ~ ' + endHour[status.index]}"></span>
 								</td>
 								<td th:each="date:${date}" th:if="${training.trainingDate == date.trainingDate} and ${training.courtHourNo == date.courtHourNo} and ${training.trainingNo == date.trainingNo} " >
 									<button type="button" class="button small">강습취소</button>
 								</td>
 							</tr>
+							<tr th:if="${training ==null or training.isEmpty()}"  style="text-align: center;">
+				            	 <td colspan="6">강습 개설정보가 없습니다.</td>
+				            </tr>
 						</tbody>
-						<tfoot>
-                        	<tr th:if="${training!=null}">
+						<tfoot >
+                        	<tr th:if="${training!=null and not #lists.isEmpty(training)}">
                             	<td style="text-align: center;" colspan="7">
                                 	<ul class="icons" style="margin: 0px;">
                                     	<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/training(memberId=${session.user.memberId},pageNo=0)}">&laquo;</a></li>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<title>Insert title here</title>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        var absentMsg = /*[[${absentMsg}]]*/ null;
+        if (absentMsg !== null && absentMsg !== "") {
+            alert(absentMsg);
+        }
+    });
+</script>
+</head>
+<body>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/racket/common/assets/css/main.css" />
+		<link rel="stylesheet" href="/racket/common/assets/css/blacklist.css" />
+		<link rel="stylesheet" href="common/css/styles.css" />
+		<noscript>
+			<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
+		</noscript>
+		<style type="text/css">
+body {
+	font-family: 'ONE-Mobile-POP';
+}
+</style>
+	</th:block>
+	<th:block layout:fragment="content">
+		<div class="container-fluid" style="margin-top: 120px;">
+			<div class="card">
+				<div class="card-body">
+					<div style="margin-top: 20px">
+						<h3 class="card-title fw-semibold mb-4" style="font-size: 30px">불참인원
+							신고하기</h3>
+					</div>
+					<!-- Table -->
+					<div class="col-lg-11"
+						style="position: relative; float: right; margin-right: 60px; margin-top: 40px;">
+						<!-- <form action="/admin/update" method="post"> -->
+						<form id="absentForm" action="/racket/mypage/match/absent"
+							method="post">
+							<div class="box" style="padding: 20px; margin: 20px;">
+								<div class="table-wrapper">
+									<table>
+										<thead>
+											<tr>
+												<th>매치번호</th>
+												<th>아이디</th>
+												<th>예약신청날짜</th>
+												<th>🚨</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="user, stat:${matchingList}">
+												<td><span th:text="${user.matchNo}"></span></td>
+												<td><span th:text="${user.memberId}"></span><br></td>
+												<td><span th:text="${user.matchDate}"></span><br></td>
+												<td>
+													<button type="button" class="button small" id="absentBtn" 
+														th:data-memberId="${user.memberId}" 
+														th:data-matchNo="${user.matchNo}"
+														onclick="showConfirmation(this.getAttribute('data-matchNo'), this.getAttribute('data-memberId'), this)">신고</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function showConfirmation(matchNo, memberId, button) {
+				if (confirm(memberId + "님을 신고하시겠습니까?")) {
+					location.href = '/racket/mypage/match/absent?reservationNo=' + [[${reservationNo}]] + '&matchNo=' + matchNo + '&memberId=' + memberId;
+					// 신고버튼 클릭시 버튼 비활성화
+					button.disabled = true;
+					} else {
+				}
+			}
+		</script>
+	</th:block>
+</body>
+</html>
