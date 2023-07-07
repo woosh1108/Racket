@@ -1,5 +1,6 @@
 package com.multi.racket.reservation;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -52,8 +53,13 @@ public class ReservationServiceImpl implements ReservationService {
 	public void reservation_insert(String memberId, ReservationDTO reservation, CashDTO cash) throws Exception {
 	    try {
 	        System.out.println("Service 성공: " + reservation + ", " + cash);
-	        rRepository.save(reservation);
+	        ReservationDTO savedReservation = rRepository.save(reservation);
 	        cashRepository.save(cash);
+
+            int reservationNo = savedReservation.getReservationNo();
+            LocalDate localDate = LocalDate.now();
+            Date matchDate = java.sql.Date.valueOf(localDate);
+            reservationMatching_insert(reservationNo, memberId, matchDate);
 	    } catch (Exception e) {
 	        System.out.println("Service 실패");
 	        e.printStackTrace();
@@ -61,6 +67,20 @@ public class ReservationServiceImpl implements ReservationService {
 	    }
 	}
 
+	public void reservationMatching_insert(int reservationNo, String memberId, Date matchDate) throws Exception {
+        try {
+            MatchingDTO matching = new MatchingDTO();
+            matching.setReservationNo(reservationNo);
+            matching.setMemberId(memberId);
+            matching.setMatchDate(matchDate);
+
+            mRepository.save(matching);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to create Matching", e);
+        }
+    }
+	
 	@Override
 	public MatchingDTO matching(int matchingNo) {
 		return mRepository.findById(matchingNo).orElseGet(MatchingDTO::new);

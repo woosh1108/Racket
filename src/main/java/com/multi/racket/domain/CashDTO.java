@@ -1,17 +1,13 @@
 package com.multi.racket.domain;
-
 import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 //@Data
 //@AllArgsConstructor
 //@NoArgsConstructor
@@ -20,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class CashDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "court_no")
+	@Column(name = "cash_no")
 	private int cashNo;
 	@Column(name = "member_id")
 	private String memberId;
@@ -33,7 +29,7 @@ public class CashDTO {
 	private int charging;
 	@Column(name = "cash_date")
 	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
-	@CreatedDate
+	@CreationTimestamp
 	private Date cashDate;
 	
 	public CashDTO() {
@@ -50,6 +46,14 @@ public class CashDTO {
 		this.amountSpent = amountSpent;
 		this.charging = charging;
 		this.cashDate = cashDate;
+	}
+	
+	public CashDTO(String memberId, int paymentInfoNo, int totalAmount, int charging) {
+		super();
+		this.memberId = memberId;
+		this.paymentInfoNo = paymentInfoNo;
+		this.totalAmount = totalAmount;
+		this.charging = charging;
 	}
 
 	@Override

@@ -170,18 +170,15 @@ function handleRadioChange() {
       const reservationDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
       const reservationHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
       const reservationContentInput = document.getElementById('reservationContent'); // 모집날짜 입력 필드 선택
-      const gradeSettingInput = document.querySelector('select[name="gradeSetting"]'); // 등급 선택 필드 선택
 
       const errorMessageReservationDate = reservationDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
       const errorMessageReservationHour = reservationHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
       const errorMessageReservationContent = reservationContentInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
-      const errorMessageGradeSetting = gradeSettingInput.nextElementSibling; // 등급 에러 메시지 요소 선택
 
       // 기존 에러 메시지 초기화
       errorMessageReservationDate.textContent = '';
       errorMessageReservationHour.textContent = '';
       errorMessageReservationContent.textContent = '';
-      errorMessageGradeSetting.textContent = '';
 
       let hasError = false; // 에러 여부를 저장하는 변수
 
@@ -203,19 +200,18 @@ function handleRadioChange() {
         errorMessageReservationContent.textContent = '* 모집 내용을 작성해주세요.'; // 에러 메시지 표시
       }
 
-      // 등급 필드 확인
-      if (gradeSettingInput.value === '') {
-        hasError = true;
-        errorMessageGradeSetting.textContent = '* 등급을 선택해주세요.'; // 에러 메시지 표시
-      }
-
       if (hasError) {
         event.preventDefault(); // 폼 제출 방지
-      }
+      }else {
+          // 에러가 없을 경우, 예약 확인 메시지를 표시하고 확인 결과에 따라 양식 제출
+          var confirmed = confirm("예약을 진행하시겠습니까?");
+          if (!confirmed) {
+            event.preventDefault(); // 확인 결과가 false인 경우, 폼 제출 방지
+          }
+     }
     });
   });
 </script>
-
 
 <link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -291,17 +287,7 @@ function handleRadioChange() {
 							</div>
 						</div>
 						<input type="hidden" name="gradeSetting" th:value="${#session.getAttribute('user').memberGrade}">
-						<!-- <div class="field">
-							<select name="gradeSetting" id="department"
-								style="text-align: center;">
-								<option value="" disabled selected>- 등급 제한 -</option>
-								<option value="초보">초보</option>
-								<option value="중수">중수</option>
-								<option value="고수">고수</option>
-							</select>
-							<span class="error-message" id="errorMessageGradeSetting"></span>
-						</div>
-						<br /> -->
+						
 						<input type="hidden" id="peopleNumVal" onchange="handleRadioChange()"></input>
 
 						<div class="field">
