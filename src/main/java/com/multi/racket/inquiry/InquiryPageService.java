@@ -18,6 +18,10 @@ public class InquiryPageService {
 	public PageDTO searchinq(int pageNo, String keyword) {
 		return dao.searchinq(pageNo, keyword);
 	}
+	
+	public PageDTO mycash(int pageNo, String id) {
+		return dao.mycash(pageNo, id);
+	}
 
 	
 }
