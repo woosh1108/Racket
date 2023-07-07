@@ -2,6 +2,7 @@ package com.multi.racket.inquiry;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.InquiryDTO;
 import com.multi.racket.domain.MemberDTO;
 @Repository
@@ -53,6 +54,21 @@ public class InquiryDAOImpl implements InquiryDAO {
 		
 		member.setTotalAmount(member.getTotalAmount()+won);
 		//entityManager.flush();
+		return member;
+	}
+
+	@Override
+	public CashDTO insert(CashDTO cash) {
+		System.out.println(cash);
+		entityManager.persist(cash);
+		return cash;
+	}
+
+	@Override
+	public MemberDTO update(String id, int cash) {
+		MemberDTO member = entityManager.find(MemberDTO.class, id);
+		member.setTotalAmount(cash);
+		entityManager.persist(member);
 		return member;
 	}
 

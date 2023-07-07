@@ -15,15 +15,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NonNull;
-
 @Data
 @Entity
 @Table(name = "member2")
 @DynamicInsert
 @DynamicUpdate
 public class MemberDTO {
-	@Id
 	@NonNull
+	@Id
 	@Column(name = "member_id")
 	private String memberId;
 	@NonNull
@@ -49,7 +48,7 @@ public class MemberDTO {
 	@NonNull
 	private String memberEmail;
 	@NonNull
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
 	@CreatedDate
 	private Date memberReg;
 	private int totalAmount;

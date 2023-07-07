@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourtOperatingHoursListDTO {
+	private int courtNo;
 	private List<CourtoperatinghoursDTO> courtHour;
 }

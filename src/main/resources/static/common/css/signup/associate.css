@@ -49,3 +49,7 @@ input[type=password]{
 	display: flex;
 	text-align: center;
 }
+select[readonly] {
+  background-color: #ddd;
+  pointer-events: none;
+}

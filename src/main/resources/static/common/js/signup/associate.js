@@ -84,26 +84,149 @@ function checkId() {
 }
 
 
+let courtCount = 1; // 초기 코트 수
+let courtHoursCount = 1; // 초기 코트 시간 수
+let courtNameCount = 1;
+function addCourt() {
+  const courtContainer = document.getElementById('courtContainer');
+
+  // courtlist 필드 추가
+  const courtlistDiv = document.createElement('div');
+  courtlistDiv.classList.add('mb-3');
+  courtlistDiv.innerHTML = `
+    <label for="stadiumContent" class="form-label">코트 이름:</label>
+    <input type="text" id="courtName_${courtNameCount}" name="courtlist[${courtNameCount}].courtName" class="form-control" required>
+  `;
+  courtContainer.appendChild(courtlistDiv);
+
+  const courtLabel = document.createElement('label');
+  courtLabel.setAttribute('for', `courtStart_${courtCount}`);
+  courtLabel.setAttribute('class', 'form-label');
+  courtLabel.setAttribute('style', 'width: 100px;');
+  courtLabel.innerText = '코트 운영 시간:';
+  courtContainer.appendChild(courtLabel);
+  
+  // courtHour 필드 추가
+  const courtHourDiv = document.createElement('div');
+  courtHourDiv.classList.add('TimeContainer');
+  courtHourDiv.innerHTML = `
+    <select id="courtStart_${courtCount}" name="courtHour[${courtCount}].courtStart" class="form-select" onchange="updateCourtEnd(${courtCount})">
+      <option value="06:00">06:00</option>
+      <option value="08:00">08:00</option>
+      <option value="10:00">10:00</option>
+      <option value="12:00">12:00</option>
+      <option value="14:00">14:00</option>
+      <option value="16:00">16:00</option>
+      <option value="18:00">18:00</option>
+      <option value="20:00">20:00</option>
+      <option value="22:00">22:00</option>
+    </select>
+    <label for="stadiumTimeEnd" class="form-label" style="width: 100px;">~</label>
+    <select id="courtEnd_${courtCount}" name="courtHour[${courtCount}].courtEnd" class="form-select" readonly>
+      <option value="08:00">08:00</option>
+      <option value="10:00">10:00</option>
+      <option value="12:00">12:00</option>
+      <option value="14:00">14:00</option>
+      <option value="16:00">16:00</option>
+      <option value="18:00">18:00</option>
+      <option value="20:00">20:00</option>
+      <option value="22:00">22:00</option>
+      <option value="24:00">24:00</option>
+    </select>
+  `;
+  courtContainer.appendChild(courtHourDiv);
+  courtNameCount++;
+  courtCount++; // 코트 수 증가
+  courtHoursCount++; //코트 시간 증가
+  console.log(courtHoursCount);
+}
+
+function updateCourtEnd(courtIndex) {
+  const courtStartSelect = document.getElementById(`courtStart_${courtIndex}`);
+  const courtEndSelect = document.getElementById(`courtEnd_${courtIndex}`);
+
+  // 현재 선택된 courtStart의 값
+  const courtStartValue = courtStartSelect.value;
+
+  // courtStart에 따라 courtEnd의 값을 설정
+  if (courtStartValue === '06:00') {
+    courtEndSelect.value = '08:00';
+  } else if (courtStartValue === '08:00') {
+    courtEndSelect.value = '10:00';
+  } else if (courtStartValue === '10:00') {
+    courtEndSelect.value = '12:00';
+  } else if (courtStartValue === '12:00') {
+    courtEndSelect.value = '14:00';
+  } else if (courtStartValue === '14:00') {
+    courtEndSelect.value = '16:00';
+  } else if (courtStartValue === '16:00') {
+    courtEndSelect.value = '18:00';
+  } else if (courtStartValue === '18:00') {
+    courtEndSelect.value = '20:00';
+  } else if (courtStartValue === '20:00') {
+    courtEndSelect.value = '22:00';
+  } else if (courtStartValue === '22:00') {
+    courtEndSelect.value = '24:00';
+  }
+}
 
 
-//function addCourtField() {
-//  var container = document.getElementById("courtContainer");
-//  
-//  var courtDiv = document.createElement("div");
-//  courtDiv.classList.add("mb-3");
-//
-//  var courtLabel = document.createElement("label");
-//  courtLabel.setAttribute("for", "courtName");
-//  courtLabel.classList.add("form-label");
-//  courtLabel.textContent = "코트 이름: ";
-//  
-//  var courtInput = document.createElement("input");
-//  courtInput.setAttribute("type", "text");
-//  courtInput.setAttribute("name", "courtName");
-//  courtInput.classList.add("form-control");
-//  courtInput.required = true;
-//  
-//  courtDiv.appendChild(courtLabel);
-//  courtDiv.appendChild(courtInput);
-//  container.appendChild(courtDiv);
-//}
+
+
+function addCourtHours() {
+  const courtHoursContainer = document.getElementById('courtHoursContainer');
+
+  const courtHoursLabel = document.createElement('label');
+  courtHoursLabel.setAttribute('for', `courtStart_${courtHoursCount}`);
+  courtHoursLabel.setAttribute('class', 'form-label');
+  courtHoursLabel.setAttribute('style', 'width: 100px;');
+  courtHoursLabel.innerText = '코트 운영 시간:';
+  courtHoursContainer.appendChild(courtHoursLabel);
+
+  const timeContainer = document.createElement('div');
+  timeContainer.setAttribute('class', 'TimeContainer');
+  courtHoursContainer.appendChild(timeContainer);
+
+  const courtStartSelect = document.createElement('select');
+  courtStartSelect.setAttribute('id', `courtStart_${courtHoursCount}`);
+  courtStartSelect.setAttribute('name', `courtHour[${courtHoursCount}].courtStart`);
+  courtStartSelect.setAttribute('class', 'form-select');
+  courtStartSelect.setAttribute('onchange', `updateCourtEnd(${courtHoursCount})`);
+  timeContainer.appendChild(courtStartSelect);
+
+  const courtEndLabel = document.createElement('label');
+  courtEndLabel.setAttribute('for', 'courtEnd');
+  courtEndLabel.setAttribute('class', 'form-label');
+  courtEndLabel.setAttribute('style', 'width: 100px;');
+  courtEndLabel.innerText = '~';
+  timeContainer.appendChild(courtEndLabel);
+
+  const courtEndSelect = document.createElement('select');
+  courtEndSelect.setAttribute('id', `courtEnd_${courtHoursCount}`);
+  courtEndSelect.setAttribute('name', `courtHour[${courtHoursCount}].courtEnd`);
+  courtEndSelect.setAttribute('class', 'form-select');
+  courtEndSelect.setAttribute('readonly', '');
+  timeContainer.appendChild(courtEndSelect);
+  
+
+  // 옵션 값 추가
+  const courtStartOptions = ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
+  courtStartOptions.forEach((optionValue) => {
+    const option = document.createElement('option');
+    option.setAttribute('value', optionValue);
+    option.innerText = optionValue;
+    courtStartSelect.appendChild(option);
+  });
+  // 옵션 값 추가
+  const courtEndOptions = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '24:00'];
+  courtEndOptions.forEach((optionValue) => {
+    const option2 = document.createElement('option');
+    option2.setAttribute('value', optionValue);
+    option2.innerText = optionValue;
+    courtEndSelect.appendChild(option2);
+  });
+  courtHoursCount++;
+  courtCount++;
+  console.log(courtHoursCount);
+  
+}

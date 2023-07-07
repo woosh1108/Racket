@@ -7,37 +7,116 @@
 		<title>통계</title>
 		
 		<!-- 제이쿼리 -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- chart.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 		<!-- 멤버차트 js -->
-		<script type="text/javascript" src="/racket/common/js/admin/statistics_member.js"></script>
+		<script type="text/javascript"
+			src="/racket/common/js/admin/statistics_member.js"></script>
 		<!-- 예약차트 js -->
-		<script type="text/javascript" src="/racket/common/js/admin/statistics_reservation.js"></script>
+		<script type="text/javascript"
+			src="/racket/common/js/admin/statistics_reservation.js"></script>
 		<!-- 강습차트 js -->
-		<script type="text/javascript" src="/racket/common/js/admin/statistics_training.js"></script>
+		<script type="text/javascript"
+			src="/racket/common/js/admin/statistics_training.js"></script>
 		<!-- css -->
 		<th:block layout:fragment="css">
 			<link rel="stylesheet"
 				href="/racket/common/css/statistics/statistics.css" />
 		</th:block>
 	</head>
-	<body>	
+	<body>
 		<th:block layout:fragment="content">
 			<div class="statistics_body_container">
 				<div class="memberInfo">
-					<p>가입현황</p>
+					<select id="memberYearSelection">
+						<option th:each="year : ${years}" th:value="${year}"
+							th:text="${year} + '년'"></option>
+					</select>
+					<p>
+						<span id="memberCurrentYear"></span>년도 가입현황
+					</p>
 					<canvas id="bar_chart_member"></canvas>
+					</div>
 				</div>
-				<div class="reservationInfo">
-					<p>예약, 매칭현황</p>
-					<canvas id="bar_chart_reservation"></canvas>
+				<div class="statistics_body_container">
+					<div class="reservationInfo">
+					<select id="reservationYearSelection">
+					    <option th:each="year : ${yearsReservation}" th:value="${year}"
+					        th:text="${year} + '년'"></option>
+					</select>
+						<p>
+							<span id="reservationCurrentYear" data-year="2023"></span>년도 예약,
+							매칭현황
+						</p>
+						<canvas id="bar_chart_reservation"></canvas>
+					</div>
 				</div>
-				<div class="trainingInfo">
-					<p>강습현황</p>
-					<canvas id="bar_chart_training"></canvas>
+				<div class="statistics_body_container">
+					<div class="trainingInfo">
+					 <select id="trainingYearSelection">
+				        <option th:each="year : ${yearsTraining}" th:value="${year}"
+				            th:text="${year} + '년'"></option>
+				    </select>
+						<p>
+							<span id="trainingCurrentYear" data-year="2023"></span>년도 강습현황
+						</p>
+						<canvas id="bar_chart_training"></canvas>
+					</div>
 				</div>
-			</div>
+			<script th:inline="javascript">
+				document.addEventListener("DOMContentLoaded", function() {
+					var memberCurrentYearElement = document
+							.getElementById('memberCurrentYear');
+					var reservationCurrentYearElement = document
+							.getElementById('reservationCurrentYear');
+					var trainingCurrentYearElement = document
+							.getElementById('trainingCurrentYear');
+	
+					var currentYear = new Date().getFullYear();
+					memberCurrentYearElement.textContent = currentYear;
+					reservationCurrentYearElement.textContent = currentYear;
+					trainingCurrentYearElement.textContent = currentYear;
+	
+					var yearSelection = document
+							.getElementById('memberYearSelection');
+					var selectedYear = yearSelection.value;
+					memberCurrentYearElement.textContent = selectedYear;
+	
+					yearSelection.addEventListener('change', function() {
+						selectedYear = yearSelection.value;
+						memberCurrentYearElement.textContent = selectedYear;
+					});
+				});
+				
+				document.addEventListener("DOMContentLoaded", function() {
+				    var reservationCurrentYearElement = document.getElementById('reservationCurrentYear');
+				    var selectedYear = new Date().getFullYear();
+				    reservationCurrentYearElement.textContent = selectedYear;
+	
+				    var yearSelection = document.getElementById('reservationYearSelection');
+				    yearSelection.addEventListener('change', function() {
+				        selectedYear = yearSelection.value;
+				        reservationCurrentYearElement.textContent = selectedYear;
+				    });
+	
+				});
+				
+				document.addEventListener("DOMContentLoaded", function() {
+				    var trainingCurrentYearElement = document.getElementById('trainingCurrentYear');
+				    var selectedYear = new Date().getFullYear();
+				    trainingCurrentYearElement.textContent = selectedYear;
+	
+				    var yearSelection = document.getElementById('trainingYearSelection');
+				    yearSelection.addEventListener('change', function() {
+				        selectedYear = yearSelection.value;
+				        trainingCurrentYearElement.textContent = selectedYear;
+				    });
+				});
+	
+			</script>
 		</th:block>
 	</body>
 </html>
