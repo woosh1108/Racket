@@ -220,7 +220,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return user;
 	}
 
-	
+	@Override
+	public List<MemberDTO> getAllMembers() {
+		 return memberRepository.findAll();
+	}
 
 	
 

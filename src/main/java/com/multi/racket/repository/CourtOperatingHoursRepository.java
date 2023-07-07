@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.multi.racket.domain.CourtoperatinghoursDTO;
 
-public interface CorutOperatingHoursRepository extends JpaRepository<CourtoperatinghoursDTO, Integer>{
+public interface CourtOperatingHoursRepository extends JpaRepository<CourtoperatinghoursDTO, Integer>{
 	List<CourtoperatinghoursDTO> findAllByCourtNo(int courtNo);
     Optional<CourtoperatinghoursDTO> findByCourtHourNo(int courtHourNo);
 }

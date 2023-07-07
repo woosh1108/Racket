@@ -35,6 +35,14 @@ td label {
 }
 </style>
 <script th:inline="javascript">
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
+
+<script th:inline="javascript">
 $(document).ready(function(){
 	let msg = [[${msg}]];
 	if(msg == null){

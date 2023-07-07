@@ -18,16 +18,6 @@
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
 
-<!-- 달력 -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
-	rel="stylesheet">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap"
-	rel="stylesheet">
 
 
 <link rel="stylesheet"
@@ -38,6 +28,16 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="/racket/common/assets/css/bootstrap.min.css">
+<!-- 달력 -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+	rel="stylesheet">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap"
+	rel="stylesheet">
 
 <!-- Style -->
 <link rel="stylesheet" href="/racket/common/assets/css/style.css">
@@ -108,65 +108,74 @@
     const form = document.querySelector('form'); // 폼 요소 선택
     const now = moment().format('yyyy-MM-DD');
     document.getElementById("cashDate").value=now;
+
     // 폼 제출 시 이벤트 핸들러
     form.addEventListener('submit', function(event) {
-      const trainingDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
-      const trainingHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
-      const gradeSettingInput = document.querySelector('select[name="gradeSetting"]'); // 등급 선택 필드 선택
-      const trainingFeeInput = document.getElementById('trainingFee'); // 모집날짜 입력 필드 선택
-      const trainingContentInput = document.getElementById('trainingContent'); // 모집날짜 입력 필드 선택
+      const reservationDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
+      const reservationHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
+      const reservationContentInput = document.getElementById('trainingContent'); // 모집날짜 입력 필드 선택
+      const gradeSettingInput = document.querySelector('select[name="trainingGrade"]'); // 등급 선택 필드 선택
+      var inputElement = document.getElementById('trainingFee');
 
-      const errorMessageTrainingDate = trainingDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
-      const errorMessageTrainingHour = trainingHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
+      const errorMessageTrainingDate = reservationDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
+      const errorMessageTrainingHour = reservationHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
+      const errorMessageTrainingContent = reservationContentInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
       const errorMessageGradeSetting = gradeSettingInput.nextElementSibling; // 등급 에러 메시지 요소 선택
-      const errorMessagetrainingFee = trainingFeeInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
-      const errorMessageTrainingContent = trainingContentInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
-
+      var errorMessageElement = document.getElementById('errorMessageTrainingFee');
+      
       // 기존 에러 메시지 초기화
       errorMessageTrainingDate.textContent = '';
       errorMessageTrainingHour.textContent = '';
-      errorMessageGradeSetting.textContent = '';
-      errorMessagetrainingFee.textContent = '';
       errorMessageTrainingContent.textContent = '';
+      errorMessageGradeSetting.textContent = '';
+      errorMessageElement.innerText = ''; // 에러 메시지를 지움
 
       let hasError = false; // 에러 여부를 저장하는 변수
 
       // 대여 날짜 필드 확인
-      if (trainingDateInput.value === '') {
+      if (reservationDateInput.value === '') {
         hasError = true;
-        errorMessageTrainingDate.textContent = '* 강의 날짜를 선택해주세요.'; // 에러 메시지 표시
+        errorMessageTrainingDate.textContent = '* 날짜를 선택해주세요.'; // 에러 메시지 표시
       }
 
       // 대여시간 필드 확인
-      if (trainingHourInput.value === '') {
+      if (reservationHourInput.value === '') {
         hasError = true;
-        errorMessageTrainingHour.textContent = '* 강의 시간을 선택해주세요.'; // 에러 메시지 표시
+        errorMessageTrainingHour.textContent = '* 시간을 선택해주세요.'; // 에러 메시지 표시
+      }
+
+      // 모집날짜 필드 확인
+      if (reservationContentInput.value === '') {
+        hasError = true;
+        errorMessageTrainingContent.textContent = '* 강의 내용을 작성해주세요.'; // 에러 메시지 표시
       }
 
       // 등급 필드 확인
       if (gradeSettingInput.value === '') {
         hasError = true;
-        errorMessageGradeSetting.textContent = '* 강의 수준을 선택해주세요.'; // 에러 메시지 표시
-      }
-
-      // 강의비 필드 확인
-      if (trainingFeeInput.value === '') {
-        hasError = true;
-        errorMessagetrainingFee.textContent = '* 강의비를 작성해주세요.'; // 에러 메시지 표시
-      }
+        errorMessageGradeSetting.textContent = '* 등급을 선택해주세요.'; // 에러 메시지 표시
+	   }
       
-      // 강의 내용 필드 확인
-      if (trainingContentInput.value === '') {
+	  // 입력값이 없으면 에러 메시지를 표시
+      if (inputElement.value.trim() === '') {
         hasError = true;
-        errorMessageTrainingContent.textContent = '* 강의 내용을 작성해주세요.'; // 에러 메시지 표시
+        errorMessageElement.innerText = '* 강습비를 작성해주세요.';
       }
-
+	  
       if (hasError) {
         event.preventDefault(); // 폼 제출 방지
-      }
+      }else {
+          // 에러가 없을 경우, 예약 확인 메시지를 표시하고 확인 결과에 따라 양식 제출
+          var confirmed = confirm("예약을 진행하시겠습니까?");
+          if (!confirmed) {
+            event.preventDefault(); // 확인 결과가 false인 경우, 폼 제출 방지
+          }
+     }
     });
+    
   });
 </script>
+
 
 <script th:inline="javascript">
 document.addEventListener('DOMContentLoaded', function() {
@@ -228,14 +237,16 @@ document.addEventListener('DOMContentLoaded', function() {
             <input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" > 
             <input type="hidden" name="reservationFee" id="reservationFee" th:value="${court.stadiumNo.stadiumContent}" onchange="handleRadioChange()" value="0" >
 			<input type="hidden" name="amountSpent" id="amountSpent" th:value="${court.stadiumNo.stadiumFee}" >
-			<input type="hidden" name="cashDate" id="cashDate" >
+			<input type="hidden" name="cashDate" id="cashDate" >	
+			<input type="hidden" name="trainingStatus" value="모집중">
+			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
 					<div class="box" style="padding: 20px; margin: 0px;">
 
 						<div class="field">
 							<div class="form-group">
-								<input type="text" class="priority-low" id="input"  style="text-align: center;" name="trainingDate" placeholder="대여 날짜">
+								<input type="text" class="priority-low" id="input"  style="text-align: center;" name="trainingDate" placeholder="대여 날짜" readonly>
 								<span class="error-message" id="errorMessageTrainingDate"></span>
 							</div>
 						</div>
@@ -244,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 강습시간 -</option>
-								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}" 
+								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ' ~ ' + hour.courtEnd}" 
          							th:sorted="${true}" th:sortby="hour.courtStart" th:value="${hour.courtHourNo}"></option>
 							</select>
 							<span class="error-message" id="errorMessageTrainingHour"></span>
@@ -280,10 +291,10 @@ document.addEventListener('DOMContentLoaded', function() {
 								<p style="text-align: center; color: black;">강습비용 <b><span id="trainingFeeVal">0원</span></b></p>
 							</div>
 						</div>
-
 						<div class="field" style="text-align: center;">
-							<input type=submit name="submit" id="submit" value="강습하기" />
+							<input type="submit" name="submit" id="submit" value="강습하기" />
 						</div>
+				
 
 
 					</div>
@@ -327,10 +338,10 @@ document.addEventListener('DOMContentLoaded', function() {
 								<p style="color: black;">
 									<label for="name">강의비용</label>
 								</p>
-								<input type="text" name="trainingFee" id="trainingFee" value=""
+								<input type="text" name="trainingFee" id="trainingFee" 
 									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
 									 placeholder="강습비를 작성해주세요." />
-										<span class="error-message" id="errorMessagetrainingFee"></span>
+										<span class="error-message" id="errorMessageTrainingFee"></span>
 							</div>
 							<br />
 							<div class="field">
@@ -338,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									<label for="message">강의 내용</label>
 									<textarea name="trainingContent" id="trainingContent" rows="6"
 									 placeholder="강습에 대한 내용을 입력해주세요." ></textarea>
-										<span class="error-message" id="errorMessagetrainingContent"></span>
+										<span class="error-message" id="errorMessageTrainingContent"></span>
 							</div>
 						</div>
 					</section>
@@ -387,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			<script src="/racket/common/assets/js/rome.js"></script>
 			<script src="/racket/common/assets/js/main.js"></script>
 			
+			
 			<script type="text/javascript">
 			var swiper = new Swiper(".mySwiper", {
 			    spaceBetween : 30,
@@ -407,5 +419,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			</script>
 		</div>
 	</th:block>
+	
 </body>
 </html>

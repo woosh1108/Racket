@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.racket.common.FileUploadLogicService;
+import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
+import com.multi.racket.domain.StadiumcourtDTO;
+import com.multi.racket.dto.CourtOperatingHoursListDTO;
+import com.multi.racket.dto.StadiumCourtListDTO;
 import com.multi.racket.stadiumpartnership.StadiumPartnerShipService;
 
 @Controller
@@ -37,20 +41,32 @@ public class StadiumPartnerShipController {
 		return "thymeleaf/signup/associate";
 	}
 	
-	@PostMapping("/associate")
-	public String partner_insert(StadiumDTO associate) {
-		service.partnership_insert(associate);
-		return "thymeleaf/signup/associate";
+	@PostMapping("/associate/court")
+	public String court_insert(StadiumDTO stadium,StadiumcourtDTO court) {
+		service.court_insert(stadium,court);
+		return "redirect:/main";
 	}
 	@PostMapping("/associate/test")
-	public String write(StadiumDTO stadium, List<MultipartFile> stadiumFiles ,HttpSession session) throws IllegalStateException, IOException {
+	public String write(StadiumDTO stadium, List<MultipartFile> stadiumFiles, StadiumcourtDTO court,CourtoperatinghoursDTO hours ,HttpSession session) throws IllegalStateException, IOException {
 		
 //		service.insert(stadium,stadiumfiledtolist);
 		service.partnership_insert(stadium);
 		List<StadiumFileDTO> stadiumfiledtolist = fileservice.uploadFiles(stadiumFiles,stadium);
+		System.out.println(court);
 		service.file_insert(stadiumfiledtolist);
+		service.court_insert(stadium,court);
+		service.hours_insert(hours, court);
 		System.out.println("stadiumDTO값 : "+stadium);
 		return "redirect:/main";//컨트롤러를 요청재지정
 	}
-	
+	@PostMapping("/associate/test1")
+	public String write1(StadiumDTO stadium, List<MultipartFile> stadiumFiles,StadiumCourtListDTO court,CourtOperatingHoursListDTO hours ,HttpSession session) throws IllegalStateException, IOException {
+		
+		service.partnership_insert(stadium);
+		List<StadiumFileDTO> stadiumfiledtolist = fileservice.uploadFiles(stadiumFiles,stadium);
+		service.file_insert(stadiumfiledtolist);
+		service.court_insert(stadium, court);
+		service.hours_insert(hours, court);
+		return "redirect:/associate";//컨트롤러를 요청재지정
+	}
 }

@@ -59,4 +59,8 @@ public interface MemberDAO {
 	Page<TrainingDTO> trainingAttendPage(String memberId,int pageNo);
 	// 매칭취소처리
 	TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId);	
+
+	// 모든 멤버 정보 가져오기
+    List<MemberDTO> getAllMembers();
+
 }

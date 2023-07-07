@@ -2,7 +2,9 @@ package com.multi.racket.inquiry;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.InquiryDTO;
+import com.multi.racket.domain.MemberDTO;
 @Repository
 public class InquiryDAOImpl implements InquiryDAO {
 	private EntityManager entityManager;
@@ -28,7 +30,6 @@ public class InquiryDAOImpl implements InquiryDAO {
 	@Override
 	public InquiryDTO reply(InquiryDTO reply) {
 		InquiryDTO inquiry = entityManager.find(InquiryDTO.class, reply.getInquiryNo());
-		System.out.println(inquiry.getInquiryNo());
 		inquiry.setReplyContent(reply.getReplyContent());
 		return inquiry;
 	}
@@ -42,10 +43,33 @@ public class InquiryDAOImpl implements InquiryDAO {
 	@Override
 	public void update(InquiryDTO updatedata) {
 		InquiryDTO inquiry = entityManager.find(InquiryDTO.class, updatedata.getInquiryNo());
-		System.out.println(updatedata.getInqContent());
 		inquiry.setInqCategory(updatedata.getInqCategory());
 		inquiry.setInqTitle(updatedata.getInqTitle());
 		inquiry.setInqContent(updatedata.getInqContent());
+	}
+
+	@Override
+	public MemberDTO updatecash(String id, int won) {
+		MemberDTO member = entityManager.find(MemberDTO.class, id);
+		
+		member.setTotalAmount(member.getTotalAmount()+won);
+		//entityManager.flush();
+		return member;
+	}
+
+	@Override
+	public CashDTO insert(CashDTO cash) {
+		System.out.println(cash);
+		entityManager.persist(cash);
+		return cash;
+	}
+
+	@Override
+	public MemberDTO update(String id, int cash) {
+		MemberDTO member = entityManager.find(MemberDTO.class, id);
+		member.setTotalAmount(cash);
+		entityManager.persist(member);
+		return member;
 	}
 
 }

@@ -154,7 +154,10 @@ public class MemberServiceImpl implements MemberService {
 
 	
 
-	
+	@Override
+	public List<MemberDTO> getAllMembers() {
+		 return dao.getAllMembers();
+	}
 
 
 	

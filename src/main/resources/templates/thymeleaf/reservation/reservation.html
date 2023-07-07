@@ -42,10 +42,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- 추가된 스타일 -->
 <style>
-#scroll {
-	overflow-y: auto;
-	max-height: calc(100vh - 180px); /* footer가 가리지 않도록 최대 높이 설정 */
-}
+
 .error-message {
     color: red;
     font-size: 12px;
@@ -98,11 +95,9 @@
 }
 
 </style>
-
-
 <script type="text/javascript">
 function handleRadioChange() {
-      var selectedValue = document.querySelector('input[name="reservationMet"]:checked').value;
+      var selectedValue = document.querySelector('input[name="peopleNum"]:checked').value;
       var stadiumFeeValue = document.getElementById("stadiumFeeValue").textContent;
       var totalCash = document.getElementById("totalCash").value;
       var price = stadiumFeeValue*2/selectedValue;
@@ -112,12 +107,17 @@ function handleRadioChange() {
       document.getElementById("reservationFee").value = price;
       document.getElementById("reservationFeeVal").textContent = price+"원";
       document.getElementById("peopleNumVal").textContent = selectedValue + "명";
-      document.getElementById("peopleNum").value = selectedValue;
+      if (selectedValue == 2) {
+     	 document.getElementById("reservationMet").value = "단식";
+      }
+      else if (selectedValue == 4) {
+     	 document.getElementById("reservationMet").value = "복식";
+      }
       console.log(selectedValue)
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      var radioButtons = document.querySelectorAll('input[name="reservationMet"]');
+      var radioButtons = document.querySelectorAll('input[name="peopleNum"]');
       radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', handleRadioChange);
       });
@@ -170,18 +170,15 @@ function handleRadioChange() {
       const reservationDateInput = document.getElementById('input'); // 대여 날짜 입력 필드 선택
       const reservationHourInput = document.querySelector('select[name="courtHourNo"]'); // 대여시간 선택 필드 선택
       const reservationContentInput = document.getElementById('reservationContent'); // 모집날짜 입력 필드 선택
-      const gradeSettingInput = document.querySelector('select[name="gradeSetting"]'); // 등급 선택 필드 선택
 
       const errorMessageReservationDate = reservationDateInput.nextElementSibling; // 대여 날짜 에러 메시지 요소 선택
       const errorMessageReservationHour = reservationHourInput.nextElementSibling; // 대여 시간 에러 메시지 요소 선택
       const errorMessageReservationContent = reservationContentInput.nextElementSibling; // 모집 날짜 에러 메시지 요소 선택
-      const errorMessageGradeSetting = gradeSettingInput.nextElementSibling; // 등급 에러 메시지 요소 선택
 
       // 기존 에러 메시지 초기화
       errorMessageReservationDate.textContent = '';
       errorMessageReservationHour.textContent = '';
       errorMessageReservationContent.textContent = '';
-      errorMessageGradeSetting.textContent = '';
 
       let hasError = false; // 에러 여부를 저장하는 변수
 
@@ -203,20 +200,19 @@ function handleRadioChange() {
         errorMessageReservationContent.textContent = '* 모집 내용을 작성해주세요.'; // 에러 메시지 표시
       }
 
-      // 등급 필드 확인
-      if (gradeSettingInput.value === '') {
-        hasError = true;
-        errorMessageGradeSetting.textContent = '* 등급을 선택해주세요.'; // 에러 메시지 표시
-      }
-
       if (hasError) {
         event.preventDefault(); // 폼 제출 방지
-      }
+      }else {
+          // 에러가 없을 경우, 예약 확인 메시지를 표시하고 확인 결과에 따라 양식 제출
+          var confirmed = confirm("예약을 진행하시겠습니까?");
+          if (!confirmed) {
+            event.preventDefault(); // 확인 결과가 false인 경우, 폼 제출 방지
+          }
+     }
     });
   });
-  
-  
 </script>
+
 <link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 </head>
@@ -237,6 +233,8 @@ function handleRadioChange() {
             <input type="hidden" name="amountSpent" id="amountSpent" onchange="handleRadioChange()" value="0" >
             <input type="hidden" name="reservationFee" id="reservationFee" onchange="handleRadioChange()" value="0" >
 			<input type="hidden" name="cashDate" id="cashDate" >			
+			<input type="hidden" name="reservationMet" id="reservationMet" onchange="handleRadioChange()" >
+			<input type="hidden" name="reservationStatus" value="매칭중">
 			
 				<div class="col-lg-4" style="position: relative; float: right;"
 					id="scroll">
@@ -244,7 +242,7 @@ function handleRadioChange() {
 
 						<div class="field">
 							<div class="form-group">
-							<input type="text" class="priority-low" id="input" style="text-align: center;" name="reservationDate" placeholder="대여 날짜">
+							<input type="text" class="priority-low" id="input" style="text-align: center;" name="reservationDate" placeholder="대여 날짜" readonly>
 							<span class="error-message" id="errorMessageReservationDate"></span>
 							</div>
 						</div>
@@ -253,7 +251,7 @@ function handleRadioChange() {
 							<select name="courtHourNo" id="department"
 								style="text-align: center;">
 								<option value="" disabled selected>- 대여시간 -</option>
-								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ':00 ~ ' + hour.courtEnd + ':00'}"
+								<option th:each="hour : ${court.operatingHours}" th:text="${hour.courtStart + ' ~ ' + hour.courtEnd}"
          							th:sorted="${true}" th:sortby="hour.courtStart" th:value="${hour.courtHourNo}"></option>
 							</select>
 							<span class="error-message" id="errorMessageReservationHour"></span>
@@ -263,45 +261,34 @@ function handleRadioChange() {
 
 						<!-- 경기방식 -->
 						<div class="field" style="text-align: center;">
-							<input type="radio" id="priority-low" name="reservationMet"
+							<input type="radio" id="priority-low" name="peopleNum"
 								 value="2" checked /> <label for="priority-low">단식</label> <input
-								type="radio" id="priority-normal" name="reservationMet"
+								type="radio" id="priority-normal" name="peopleNum"
 								value="4" /> <label for="priority-normal">복식</label>
 						</div>
 						<br />
 
 						<!-- 성별 -->
 						<div class="field" style="text-align: center;">
-							<input type="radio" id="woman" name="reservationGender" value="여성" checked /> <label
-								for="woman" id ="woman">여성</label> <input type="radio" id="man"
-								name="reservationGender" value="남성" /> <label for="man" id="man">남성</label> <input
-								type="radio" id="mixing" name="reservationGender" value="혼합" /> <label
-								for="mixing" id="mixing">혼합</label>
-						</div>
-						<br />
-
-						<div class="field">
-							<select name="gradeSetting" id="department"
-								style="text-align: center;">
-								<option value="" disabled selected>- 등급 제한 -</option>
-								<option value="초보">초보</option>
-								<option value="중수">중수</option>
-								<option value="고수">고수</option>
-							</select>
-							<span class="error-message" id="errorMessageGradeSetting"></span>
+							<input type="radio" id="man" name="reservationGender" value="남성" />
+							<label for="man" id="man">남성</label>
+							<input type="radio" id="woman" name="reservationGender" value="여성" />
+							<label for="woman" id ="woman">여성</label>
+							<input type="radio" id="mixing" name="reservationGender" value="혼합" />
+							<label for="mixing" id="mixing">혼합</label>
 						</div>
 						<br />
 						<div class="field">
 							<div class="box" style="padding: 15px;">
 								<p style="text-align: center; color: black;">
-									참여 인원
-									<code style="color: #134C43" id="peopleNumVal"
-										onchange="handleRadioChange()">2명</code>
+									등급 제한
+									<code style="color: #134C43"><span th:text="${#session.getAttribute('user').memberGrade}"></span></code>
 								</p>
 							</div>
 						</div>
-						<input type="hidden" name="peopleNum" id="peopleNum" onchange="handleRadioChange()" value="0" >
-						<input type="hidden" name="reservationStatus" value="매칭중">
+						<input type="hidden" name="gradeSetting" th:value="${#session.getAttribute('user').memberGrade}">
+						
+						<input type="hidden" id="peopleNumVal" onchange="handleRadioChange()"></input>
 
 						<div class="field">
 							<div class="box" style="padding: 15px;">
@@ -334,11 +321,28 @@ function handleRadioChange() {
 							<div class="swiper-pagination"></div>
 						</div>
 					</div>
-					
-					
-					
-					
 					<section>
+					
+					
+					<!-- 예약자 정보 -->
+					<section>
+						<div class="box">
+							<blockquote>
+								<h3>예약자</h3>
+							</blockquote>
+							<p style="color: black;">예약자 : <span th:text="${#session.getAttribute('user').memberNick}"></span></p>
+							<p style="color: black;">예약자 등급 : <span th:text="${#session.getAttribute('user').memberGrade}"></span></p>
+							<p style="color: black;">예약자 성별 : <span th:text="${#session.getAttribute('user').memberGender}"></span></p>
+							<div class="field">
+								<p style="color: black;">
+									<label for="message">모집 내용</label>
+									<textarea name="reservationContent" id="reservationContent"
+										rows="6" placeholder="모집에 대한 내용을 입력해주세요."></textarea>
+										<span class="error-message" id="errorMessagereservationContent"></span>
+							</div>
+						</div>
+					</section>
+					
 						<div class="box">
 							<blockquote>
 								<h3>체육관 정보</h3>
@@ -348,15 +352,9 @@ function handleRadioChange() {
 							<p style="color: black;">구장 주소 : <span th:text="${court.stadiumNo.stadiumAddr}"></span></p>
 							<p style="color: black;">운영 시간 : <span th:text="${court.stadiumNo.stadiumTime}"></span></p>
 							<p style="color: black;">전화번호 : <span th:text="${court.stadiumNo.stadiumPhone}"></span></p>
-							<p style="color: black;">시간당 가격(2인기준 인당) : <span id="stadiumFeeValue" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
+							<p style="color: black;">시간당 가격 : <span id="stadiumFeeValue" th:value="${court.stadiumNo.stadiumFee}" th:text="${court.stadiumNo.stadiumFee}"></span>원</p>
 							<p style="color: black;">구장 소개: <span th:text="${court.stadiumNo.stadiumContent}">구장에 대한 소개가 없습니다.</span></p>
-							<div class="field">
-								<p style="color: black;">
-									<label for="message">모집 내용</label>
-									<textarea name="reservationContent" id="reservationContent"
-										rows="6" placeholder="모집에 대한 내용을 입력해주세요."></textarea>
-										<span class="error-message" id="errorMessagereservationContent"></span>
-							</div>
+							
 						</div>
 
 					</section>

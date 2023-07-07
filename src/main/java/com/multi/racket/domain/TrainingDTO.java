@@ -39,6 +39,6 @@ public class TrainingDTO {
 	private int trainingMax;
 	private int trainingFee;
 	private String trainingGrade;
-	
+	private String trainingStatus;
 
 }

@@ -37,5 +37,23 @@ public class StadiumcourtDTO {
 	///////////////////////////////////////////////////
     @OneToMany(mappedBy = "courtNo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourtoperatinghoursDTO> operatingHours = new ArrayList<>();
+    
+    
+    
+	public StadiumcourtDTO(int courtNo, String courtName, StadiumDTO stadiumNo) {
+		super();
+		this.courtNo = courtNo;
+		this.courtName = courtName;
+		this.stadiumNo = stadiumNo;
+	}
+
+
+
+	public StadiumcourtDTO(int courtNo, String courtName) {
+		super();
+		this.courtNo = courtNo;
+		this.courtName = courtName;
+	}
 	
+    
 }

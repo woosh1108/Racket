@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
+import com.multi.racket.domain.StadiumcourtDTO;
+import com.multi.racket.dto.CourtOperatingHoursListDTO;
+import com.multi.racket.dto.StadiumCourtListDTO;
 @Service
 @Transactional
 public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService {
@@ -46,5 +50,26 @@ public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService 
 	public List<StadiumFileDTO> find_file(int stadiumNo) {
 		return dao.find_file(stadiumNo);
 	}
+
+	@Override
+	public StadiumcourtDTO court_insert(StadiumDTO stadium,StadiumcourtDTO court) {
+		return dao.court_insert(stadium,court);
+	}
+
+	@Override
+	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours, StadiumcourtDTO court) {
+		return dao.hours_insert(hours, court);
+	}
+
+	@Override
+	public StadiumcourtDTO court_insert(StadiumDTO stadium, StadiumCourtListDTO court) {
+		return dao.court_insert(stadium, court);
+	}
+
+	@Override
+	public CourtoperatinghoursDTO hours_insert(CourtOperatingHoursListDTO hours, StadiumCourtListDTO court) {
+		return dao.hours_insert(hours, court);
+	}
+
 
 }

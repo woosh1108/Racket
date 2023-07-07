@@ -14,6 +14,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script th:inline="javascript">
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
+<script th:inline="javascript">
 	let msg = [[${msg}]];
 	if(msg == null){
 	}else{
@@ -50,15 +57,15 @@
 						<button onclick="openAgreementPopup()" id="btnJoin"
 							style="width: 32%" type="reset" class="btn btn-outline-dark">회원가입</button>
 					</div>
-					<div align="center" style="margin-top: 8px">
-						<!-- 지현님메핑경로넣기 -->
+					<!-- <div align="center" style="margin-top: 8px">
+						지현님메핑경로넣기
 						<button id="btnLoginNaver" style="width: 49%" type="reset"
-							class="btn btn-success">네이버로그인</button>
+							class="btn btn-success">네이버로그인</button> -->
 						
 						<!-- 지현님메핑경로넣기 -->
 						<!-- <button id="btnLoginKakao" style="width: 49%" type="reset"
 							class="btn btn-warning">카카오톡로그인</button> -->
-							<a href="javascript:kakaoLogin();"><img src="/racket/images/kakao_signup.png" alt="카카오계정 로그인"/></a>
+							<a href="javascript:kakaoLogin();"><img src="/racket/images/kakao_signup.png" alt="카카오계정 로그인" style="margin-top:8px"/></a>
 					</div>
 				</form>
 					 

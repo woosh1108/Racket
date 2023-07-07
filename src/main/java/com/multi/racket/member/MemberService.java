@@ -52,6 +52,7 @@ public interface MemberService {
 	List<TrainingDTO> trainingDate(Date trainingDate);
 	// 나의 강습목록 페이징처리
 	Page<TrainingDTO> trainingPage(String memberId,int pageNo);
+
 	// 나의 강습 총수입
 	int trainingIncome(String memberId);
 	
@@ -59,4 +60,8 @@ public interface MemberService {
 	Page<TrainingDTO> trainingAttendPage(String memberId,int pageNo);
 	// 매칭취소처리
 	TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId);
+
+	// 모든 멤버 정보 가져오기
+		List<MemberDTO> getAllMembers();
+
 }

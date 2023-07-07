@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+    <title>blacklist</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="/racket/common/assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        th {
+            text-align: center;
+        }
+        tr td {
+            vertical-align: middle;
+        }
+        td a {
+            vertical-align: middle;
+        }
+        td label {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <th:block layout:fragment="content">
+        <!-- Wrapper -->
+        <div id="wrapper" style="margin-top: 110px;">
+        
+			<!-- Form -->
+			<form action="#" th:action="@{/manager/blacklist/delete}" method="post">
+			<h2>블랙리스트</h2>
+            <!-- Table -->
+            <div class="col-lg-11" style="position: relative; float: right; margin-right: 60px; margin-top: 60px;">
+                <div class="box" style="padding: 20px; margin: 20px;">
+                    <div class="table-wrapper">
+                        <table>
+                        <thead>
+                                <tr>
+                                    <th colspan="1">블랙리스트 등록</th>
+                                    <th colspan="1">아이디</th>
+                                    <th colspan="2">제재 시작날짜</th>
+                                    <th colspan="2">제재 종료날짜</th>
+                                    <th colspan="1"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="blacklistTable">
+                            <!-- Initial table content will be loaded by Ajax -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">사유</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="reasonContent"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scripts -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    loadBlacklistData();
+                });
+
+                function loadBlacklistData() {
+                    var pageNo = 0; // Set the initial page number
+                    var url = "/manager/blacklist_ajax?pageNo=" + pageNo;
+
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            console.log("data=", data);
+
+                            var blacklist = JSON.parse(data);
+                            var tableContent = "";
+                            for (var i = 0; i < blacklist.length; i++) {
+                                var item = blacklist[i];
+                                tableContent += "<tr>";
+                                tableContent += "<td colspan='1'><input type='checkbox' id='" + item.blacklistNo + "' name='blacklistNo' value='" + item.blacklistNo + "' /><label for='" + item.blacklistNo + "'></label></td>";
+                                tableContent += "<td colspan='1'>" + item.memberId + "</td>";
+                                tableContent += "<td colspan='2'>" + item.blackDate + "</td>";
+                                tableContent += "<td colspan='2'>" + item.blackTime + "</td>";
+                                tableContent += "<td colspan='1'><button type='button' class='button small' data-bs-toggle='modal' data-bs-target='#exampleModal' data-blacklistno='" + item.blacklistNo + "' onclick='showReason(event)'>사유</button></td>";
+                                tableContent += "</tr>";
+                            }
+
+                            // Update the table with the generated content
+                            $("#blacklistTable").html(tableContent);
+                        },
+                        error: function(error) {
+                        	console.log("실패: ")
+                            console.log("error=", error); // Error output
+                        }
+                    });
+                }
+
+                function showReason(event) {
+                    var element = event.target;
+                    var blacklistNo = element.getAttribute("data-blacklistno");
+                    var url = "/manager/get-reason?blacklistNo=" + blacklistNo;
+
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function(data) {
+                            console.log("data=", data); // Received data output
+                            document.getElementById("reasonContent").innerHTML = data;
+                            $("#exampleModal").modal("show");
+                        },
+                        error: function(error) {
+                            console.log("error=", error); // Error output
+                        }
+                    });
+                }
+            </script>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+            <script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
+            <script src="/racket/common/assets/js/jquery.scrolly.min.js"></script>
+            <script src="/racket/common/assets/js/browser.min.js"></script>
+            <script src="/racket/common/assets/js/breakpoints.min.js"></script>
+            <script src="/racket/common/assets/js/util.js"></script>
+            <script src="/racket/common/assets/js/main.js"></script>
+
+            <!-- Note: Only needed for demo purposes. Delete for production sites. -->
+            <script src="/racket/common/assets/js/demo.js"></script>
+            </form>
+        </div>
+    </th:block>
+    
+</body>
+</html>

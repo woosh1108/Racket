@@ -4,10 +4,12 @@ import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,9 @@ import com.multi.racket.domain.TrainingMemberlistDTO;
 import com.multi.racket.member.MemberService;
 import com.multi.racket.reservation.StadiumReadService;
 
+import com.multi.racket.inquiry.InquiryPageService;
+import com.multi.racket.inquiry.PageDTO;
+import com.multi.racket.member.MemberService;
 @Controller
 @RequestMapping("/mypage") // 공유메핑명
 @SessionAttributes("user") // 데이터공유명
@@ -34,18 +39,18 @@ public class mypageController {
 	MemberService service;
 	@Autowired
 	StadiumReadService stadiumReadService;
+	InquiryPageService service2;
 
 	@Autowired
-	public mypageController(MemberService service) {
+	public mypageController(MemberService service, InquiryPageService service2) {
 		super();
 		this.service = service;
+		this.service2 = service2;
 	}
 
 	// 내정보보기페이지 - 수정x
 	@RequestMapping("/info")
-	public String myInfo(String memberId, Model model) {
-		MemberDTO user = service.info(memberId);
-		model.addAttribute("user", user);
+	public String myInfo() {
 		return "thymeleaf/mypage/myInfo";
 	}
 
@@ -55,23 +60,33 @@ public class mypageController {
 		return "thymeleaf/mypage/myInfo_change";
 	}
 
+
 	// 내정보 수정하기
 	@PostMapping("/change.do")
 	public String infoChange(MemberDTO updateInfo, Model model) {
-		service.update(updateInfo);
-		if (updateInfo != null) {
+    service.update(updateInfo);
+		if(updateInfo!=null) {
 			model.addAttribute("msg", "정보변경이 완료되었습니다.");
 		}
-
-		return "thymeleaf/main/mainpage";
+		return "redirect:/main";
 	}
 
 	// 내 캐쉬내역보기 - 충전가능
 	@RequestMapping("/cash")
-	public String myCash() {
+	public String myCash(Model model, @RequestParam("pageNo") String pageNo, String id, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		id = member.getMemberId();
+		System.out.println(pageNo);
+		PageDTO page = service2.mycash(Integer.parseInt(pageNo), id);
+		List<CashDTO> list = page.getCashlist();
+		int totalPageNumber = page.getTotalPageNumber();
+		model.addAttribute("mycash", list);
+		model.addAttribute("totalPageNumber", totalPageNumber);
+		model.addAttribute("member", member);
 		return "thymeleaf/mypage/myCash";
 	}
 
+	
 	// 내 예약 내역보기
 	@RequestMapping("/reservation")
 	public String myReservation(String memberId, Date reservationDate, Model model,
@@ -128,11 +143,36 @@ public class mypageController {
 
 		return "thymeleaf/mypage/myReservation";
 	}
-	
-	
-	
+		// 내 강의 내역보기
+		@RequestMapping("/training")
+		public String myTraining(String memberId, Date trainingDate, Model model, @RequestParam(defaultValue = "0") int pageNo) {
+			// 현재 날짜 가져오기
+			LocalDate today = LocalDate.now();
+			Date currentDate = Date.valueOf(today);
+			// 3일 후 날짜 계산하기
+			LocalDate threeDaysAgoLocalDate = today.plusDays(2);
+			Date threeDaysAgoDate = Date.valueOf(threeDaysAgoLocalDate);
+			trainingDate = threeDaysAgoDate;
 
-	// 내 매치보기
+			List<TrainingDTO> date = service.trainingDate(trainingDate);
+		    Page<TrainingDTO> trainingPage = service.trainingPage(memberId, pageNo);
+		    List<TrainingDTO> training = trainingPage.getContent();
+			
+			if (training.size() != 0) {
+				model.addAttribute("training", training);
+				model.addAttribute("date", date);
+				model.addAttribute("currentPage", pageNo);
+				model.addAttribute("totalPages", trainingPage.getTotalPages());
+			} else {
+				model.addAttribute("date", date);
+				model.addAttribute("currentPage", pageNo);
+				model.addAttribute("totalPages", trainingPage.getTotalPages());
+				model.addAttribute("msg", "나의 강습 기록이 없습니다.");
+			}
+
+			return "thymeleaf/mypage/myTraining";
+		}
+	// 내 매치보기 - 신고가능
 	@RequestMapping("/match")
 	public String myMatch(String memberId, Date reservationDate, Model model,
 			@RequestParam(defaultValue = "0") int pageNo) {
@@ -248,7 +288,6 @@ public class mypageController {
 		
 		return "thymeleaf/mypage/myMatch";
 	}
-
 	// 내매치보기 - 신고기능
 	@RequestMapping("/match/declaration")
 	public String declaration(String memberId, int reservationNo, Model model) {

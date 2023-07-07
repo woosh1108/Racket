@@ -1,5 +1,6 @@
 package com.multi.racket.repository;
 
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,8 @@ public interface TrainingMemberlistRepository extends JpaRepository<TrainingMemb
 	List<TrainingMemberlistDTO> findByTrainingNo(int trainingNo);
 	List<TrainingMemberlistDTO> findByMemberId(String memberId);
 	TrainingMemberlistDTO findByTrainingNoAndMemberId(int trainingNo, String memberId);
+  
+	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM TrainingMemberlistDTO tml WHERE tml.memberId = :memberId AND tml.trainingNo = :trainingNo")
+	boolean existsByMemberIdAndTrainingNo(@Param("memberId") String memberId, @Param("trainingNo") int trainingNo);
+
 }

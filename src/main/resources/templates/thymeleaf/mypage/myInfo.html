@@ -25,7 +25,7 @@
 								</form>
 							</li>
 							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
+							<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
 							<li>
 								<form action="/racket/mypage/reservation" method="post">
 									<input type="hidden" th:value="${session.user.memberId}"
@@ -87,7 +87,6 @@
 				</div>
 			</div>
 		</section>
-
 		<!-- Scripts -->
 		<script src="/racket/common/assets/js/jquery.min.js"></script>
 		<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>
@@ -96,7 +95,6 @@
 		<script src="/racket/common/assets/js/breakpoints.min.js"></script>
 		<script src="/racket/common/assets/js/util.js"></script>
 		<script src="/racket/common/assets/js/main.js"></script>
-
 		<!-- Note: Only needed for demo purposes. Delete for production sites. -->
 		<script src="/racket/common/assets/js/demo.js"></script>
 	</th:block>

@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,10 +28,16 @@ public class CourtoperatinghoursDTO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "court_hour_no")
 	private int courtHourNo;
+	@JoinColumn(name = "court_no")
 	private int courtNo;
 	private String courtStart;
 	private String courtEnd;
 
+	
+//	/////////////////////////////////////////////////////////
+//	@ManyToOne
+//	@JoinColumn(name = "court_no")
+//	private StadiumcourtDTO courtNo;
 	///////////////////////////////////////////////////
     @OneToMany(mappedBy = "courtHourNo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservationDTO> reservations = new ArrayList<>();

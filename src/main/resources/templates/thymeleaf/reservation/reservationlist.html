@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매칭 목록</title>
+<script th:inline="javascript">
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
+</head>
+<body>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/racket/common/css/stadium/stadium.css" />
+	</th:block>
+	<th:block layout:fragment="script">
+		<link rel="stylesheet" href="/racket/common/css/stadiumDetail.css" />
+	</th:block>
+	<th:block layout:fragment="content">
+		<main class="mt-5">
+			<div class="container-fluid px-4">
+				<h1 class="mt-4">예약 목록</h1>
+				<br />
+				<div class="row">
+					<!-- <div class="col-md-2">
+						<div class="dropdown float-right">
+							<select name="type" onchange="showCategoryContent(this.value)">
+								<option value="region" selected>등급</option>
+								<option value="seoul">초보</option>
+								<option value="incheon">중수</option>
+								<option value="incheon">고수</option>
+							</select>
+						</div>
+					</div> -->
+					<div class="col-md-12 text-end" style="margin-bottom: 10px;">
+						<form th:action="@{/reservations/search}" method="get"
+							name="search-form" autocomplete="off">
+							<select name="type">
+								<option value="met" selected>시합 방식</option>
+								<option value="gender">성별</option>
+								<option value="grade">등급</option>
+							</select> <input type="text" name="keyword" value="" size="20"
+								title="검색할 내용을 입력하세요" />
+							<button class="Btn-Gray Xs" type="submit">검색</button>
+						</form>
+						</div>
+					</div>
+				<div th:if="${reservationlist == null or reservationlist.isEmpty()}" style="text-align: center; padding: 30px; padding-top: 100px;">
+  					  매칭에 대한 내용이 없습니다.
+				</div>
+				
+				<div th:each="reservation : ${reservationlist}">
+					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
+						data-aos="fade-up">
+						<div th:each="file : ${stadium.files}">
+								<div th:if="${file.stadiumFileNum =='1'}">
+									<img class="stadiumImg" th:src="@{'/download/racket/' + ${file.fileStorename}}" alt="Stadium Image">
+								</div>
+						</div>
+						<div th:if="${stadium.files.size() == 0}">
+							<img class="image" src="/racket/images/stadiumexam.jpg"
+								alt="Alternative Image">
+						</div>
+						<div class="text">
+
+							<h3 class="font-weight-light">
+								<a
+									th:href="@{/matching/read/{reservationNo}(reservationNo=${reservation.reservationNo})}"
+									th:text="${stadium.stadiumName+' - '+stadiumcourt.courtName}"></a>
+							</h3>
+							<div class="text-white mb-3">
+								<span class="text-black-opacity-05"> <small
+									th:text="${'등급제한 : '+reservation.gradeSetting}"></small> <br /> <small
+									th:text="${'시합방식 : '+reservation.reservationMet+' / '+reservation.reservationGender}"></small> <br /> <small
+									th:text="${'예약일 : '+reservation.reservationDate+' '+courtoperatinghours.courtStart+' ~ '+courtoperatinghours.courtEnd}"></small>
+								</span>
+							</div>
+							</div>
+						</div>
+					</div>
+
+				<div class="container" data-aos="fade-up" th:if="${reservationlist != null and not #lists.isEmpty(reservationlist)}">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<div class="site-block-27">
+								<ul class="icons" style="margin: 0px;">
+									<li
+										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="@{/reservation/reservationlist(pageNo=0)}">&laquo;</a>
+									</li>
+									<li
+										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="${currentPage == 0 ? '' : '@{/reservation/reservationlist(pageNo=' + (currentPage - 1) + ')}'}">&lt;</a>
+									</li>
+									<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
+										th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
+										<a class="page-link"
+										th:href="@{/reservation/reservationlist(pageNo=${page})}"
+										th:text="${page + 1}"></a>
+									</li>
+									<li
+										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="${currentPage == totalPages - 1 ? '' : '@{/reservation/reservationlist(pageNo=' + (currentPage + 1) + ')}'}">&gt;</a>
+									</li>
+
+									<li
+										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
+										<a class="page-link"
+										th:href="@{/reservation/reservationlist(pageNo=${totalPages - 1})}">&raquo;</a>
+									</li>
+								</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
+		</main>
+		
+	</th:block>
+</body>
+</html>
