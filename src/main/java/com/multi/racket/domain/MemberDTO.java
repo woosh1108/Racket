@@ -3,6 +3,7 @@ package com.multi.racket.domain;
 import java.sql.Date;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NonNull;
-@Data
+
 @Entity
 @Table(name = "member2")
 @DynamicInsert
@@ -42,9 +43,9 @@ public class MemberDTO {
 	@NonNull
 	private String memberGrade;
 	@NonNull
-	private Integer memberAuth;
+	private int memberAuth;
 	@NonNull
-	private Integer memberStatus;
+	private String memberStatus;
 	@NonNull
 	private String memberEmail;
 	@NonNull

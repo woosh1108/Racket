@@ -21,14 +21,13 @@
 	<th:block layout:fragment="script">
 		<link rel="stylesheet" href="/racket/common/css/stadiumDetail.css" />
 	</th:block>
-	컨텐츠 영역
 	<th:block layout:fragment="content">
 		<main class="mt-5">
 			<div class="container-fluid px-4">
 				<h1 class="mt-4">강습 목록</h1>
 				<br />
 				<div class="row">
-					<div class="col-md-2">
+					<!-- <div class="col-md-2">
 						<div class="dropdown float-right">
 							<select name="type" onchange="showCategoryContent(this.value)">
 								<option value="all" selected>강습 수준</option>
@@ -37,8 +36,8 @@
 								<option value="incheon">중급</option>
 							</select>
 						</div>
-					</div>
-					<div class="col-md-10 text-end" style="margin-bottom: 10px;">
+					</div> -->
+					<div class="col-md-12 text-end" style="margin-bottom: 10px;">
 						<form th:action="@{/trainings/search}" method="get"
 							name="search-form" autocomplete="off">
 							<select name="type">

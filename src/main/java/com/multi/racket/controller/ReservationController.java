@@ -107,7 +107,6 @@ public class ReservationController {
 				session.setAttribute("user", upmem);
 		        
 				redirectAttributes.addFlashAttribute("alertMessage", "구장 예약에 성공했습니다.");
-				
 				return "redirect:/mypage/reservation";
 			} else {
 				// 잔액 부족으로 캐시 충전 페이지로 이동
@@ -249,4 +248,5 @@ public class ReservationController {
 	    
         return "thymeleaf/reservation/reservationlist";
     }
+
 }

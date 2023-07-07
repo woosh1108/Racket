@@ -49,12 +49,6 @@ menuicon {
   }
 </script>
 
-<script th:inline="javascript">
-  function openPopup() {
-    window.open('/racket/cashpay', '결제창', 'width=700,height=500');
-  }
-</script>
-
 </head>
 <body class="is-preload">
 	<th:block layout:fragment="content">
@@ -73,6 +67,7 @@ menuicon {
                            <button type="submit">내정보</button>
                         </form>
                      </li>
+
 							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
 							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
 							<li><a href="/racket/mypage/match" class="button">매칭</a></li>
@@ -104,6 +99,7 @@ menuicon {
                            <button type="submit">강습참가 기록보기</button>
                         </form>
                      </li>
+
 						</ul>
 					</div>
 				</section>
@@ -133,6 +129,7 @@ menuicon {
 								</tr>
 							</thead>
 							<tbody>
+
 								<tr th:each="cash:${mycash}" th:if="${cash.charging}!=0">
 									<td>카카오페이</td>
 									<td><span th:text="${cash.charging }"></span></td>
