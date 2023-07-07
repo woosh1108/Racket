@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.multi.racket.domain.AbsentDTO;
+import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
+import com.multi.racket.domain.TrainingMemberlistDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -60,12 +63,9 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		dao.updatePass(updateUser, memberId, memberPass);
 	}
-
-	@Override
-	public List<ReservationDTO> reservationId(String memberId) {
-		// TODO Auto-generated method stub
-		return dao.reservationId(memberId);
-	}
+	
+	//예약
+	
 	
 	@Override
 	public List<ReservationDTO> reservationDate(Date reservationDate) {
@@ -78,12 +78,41 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.reservationPage(memberId, pageNo);
 	}
-
+	
+	
+	//매치참가
+	
 	@Override
-	public List<TrainingDTO> training(String memberId) {
+	public Page<ReservationDTO> matchingPage(String memberId, int pageNo) {
 		// TODO Auto-generated method stub
-		return dao.training(memberId);
+		return dao.matchingPage(memberId, pageNo);
 	}
+	
+	@Override
+	public List<MatchingDTO> matchingUser(int reservationNo) {
+		// TODO Auto-generated method stub
+		return dao.matchingUser(reservationNo);
+	}
+	
+	@Override
+	public AbsentDTO absent(int matchNo, String memberId) {
+		// TODO Auto-generated method stub
+		return dao.absent(matchNo, memberId);
+	}
+	
+	@Override
+	public AbsentDTO absentCheck(int matchNo, String memberId) {
+		// TODO Auto-generated method stub
+		return dao.absentCheck(matchNo, memberId);
+	}
+	
+	@Override
+	public MatchingDTO cancelMatching(int reservationNo, String memberId) {
+		// TODO Auto-generated method stub
+		return dao.cancelMatching(reservationNo, memberId);
+	}
+	
+	//강습
 
 	@Override
 	public List<TrainingDTO> trainingDate(Date trainingDate) {
@@ -96,6 +125,34 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.trainingPage(memberId, pageNo);
 	}
+	
+	@Override
+	public int trainingIncome(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.trainingIncome(memberId);
+	}
+
+	//강습참가
+
+	@Override
+	public Page<TrainingDTO> trainingAttendPage(String memberId, int pageNo) {
+		// TODO Auto-generated method stub
+		return dao.trainingAttendPage(memberId, pageNo);
+	}
+
+	@Override
+	public List<ReservationDTO> reservationDto(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.reservationDto(memberId);
+	}
+
+	@Override
+	public TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId) {
+		// TODO Auto-generated method stub
+		return dao.cancelTraining(trainingNo, memberId);
+	}
+
+	
 
 	
 
@@ -103,8 +160,5 @@ public class MemberServiceImpl implements MemberService {
 	
 
 	
-
-	
-
 
 }

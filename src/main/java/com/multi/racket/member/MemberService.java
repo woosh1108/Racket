@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.multi.racket.bulletin_board.BulletinBoardDTO;
+import com.multi.racket.domain.AbsentDTO;
+import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
+import com.multi.racket.domain.TrainingMemberlistDTO;
 
 public interface MemberService {
 	// 로그인
@@ -26,20 +28,35 @@ public interface MemberService {
 	// 비밀번호 찾기 -> 아이디 확인
 	MemberDTO idCheck(String memberId);
 
-	// 아이디 앚기
+	// 아이디 찾기
 	MemberDTO findId(String memberName, String memberEmail);
 
-	// 나의 예약목록
-	List<ReservationDTO> reservationId(String memberId);
 	// 나의 예약목록  시간
 	List<ReservationDTO> reservationDate(Date reservationDate);
 	// 나의 예약목록 페이징처리
 	Page<ReservationDTO> reservationPage(String memberId,int pageNo);
+	List<ReservationDTO> reservationDto(String memberId);
 	
-	// 나의 강습목록
-	List<TrainingDTO> training(String memberId);
+	// 나의 매치목록 페이징처리
+	Page<ReservationDTO> matchingPage(String memberId,int pageNo);
+	// 매칭들 목록가져오기
+	List<MatchingDTO> matchingUser(int reservationNo);
+	// 신고자처리
+	AbsentDTO absent(int matchNo, String memberId);
+	// 신고자처리 - 확인작업
+	AbsentDTO absentCheck(int matchNo, String memberId);
+	// 매칭취소처리
+	MatchingDTO cancelMatching(int reservationNo, String memberId);
+	
 	// 나의 강습목록  시간
 	List<TrainingDTO> trainingDate(Date trainingDate);
 	// 나의 강습목록 페이징처리
 	Page<TrainingDTO> trainingPage(String memberId,int pageNo);
+	// 나의 강습 총수입
+	int trainingIncome(String memberId);
+	
+	// 나의 강습 참가목록 페이징처리
+	Page<TrainingDTO> trainingAttendPage(String memberId,int pageNo);
+	// 매칭취소처리
+	TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId);
 }

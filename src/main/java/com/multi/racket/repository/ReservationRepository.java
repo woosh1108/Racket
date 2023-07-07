@@ -16,4 +16,6 @@ public interface ReservationRepository extends JpaRepository<ReservationDTO, Int
 	List<ReservationDTO> findByMemberId(String memberId);
     Page<ReservationDTO> findAllByMemberId(String memberId, Pageable pageable);
     List<ReservationDTO> findByReservationDateAfter(Date reservationDate);
+
+	Page<ReservationDTO> findByReservationNoIn(List<Integer> numberList, Pageable pageable);
 }
