@@ -1,5 +1,6 @@
 package com.multi.racket.training;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.multi.racket.domain.CashDTO;
-import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
 import com.multi.racket.repository.CashRepository;
@@ -113,6 +113,10 @@ public class TrainingServiceImpl implements TrainingService {
 	}
 
 
+	@Override
+	public List<TrainingMemberlistDTO> getAllTrainingMembers() {
+		return tmlRepository.findAll();
+	}
 	@Override
 	public void updateExpiredTrainings(LocalDate currentDate) {
 		// 현재 날짜 이후의 예약 데이터를 조회하고 상태를 "경기종료"로 수정하는 로직

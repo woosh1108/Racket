@@ -248,4 +248,5 @@ public class ReservationController {
 	    
         return "thymeleaf/reservation/reservationlist";
     }
+
 }

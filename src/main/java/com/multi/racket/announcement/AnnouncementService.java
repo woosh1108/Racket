@@ -2,14 +2,7 @@ package com.multi.racket.announcement;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-
-import com.multi.racket.announcement.AnnouncementDTO;
-
 public interface AnnouncementService {
-
-	// 게시글 등록
-//	public AnnouncementDTO Announcement_insert(AnnouncementDTO Announcement);
 
 	// 게시글 등록
 	public String Announcement_insert(AnnouncementDTO Announcement);

@@ -11,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import com.multi.racket.announcement.AnnouncementDTO;
-
 @Repository
 public class AnnouncementDAOImpl implements AnnouncementDAO {
 	AnnouncementDTO announcement;

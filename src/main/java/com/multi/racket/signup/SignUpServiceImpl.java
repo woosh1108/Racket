@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MemberDTO;
 @Service
 @Transactional
@@ -33,6 +34,11 @@ public class SignUpServiceImpl implements SignUpService {
 	@Override
 	public MemberDTO findByMemberNick(String memberNick) {
 		return dao.findByMemberNick(memberNick);
+	}
+
+	@Override
+	public CashDTO member_signup(MemberDTO member,CashDTO cash) {
+		return dao.member_signup(member,cash);
 	}
 
 }

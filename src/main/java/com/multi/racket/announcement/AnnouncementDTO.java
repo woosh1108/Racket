@@ -3,7 +3,6 @@ package com.multi.racket.announcement;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,12 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
@@ -37,7 +38,7 @@ public class AnnouncementDTO {
 	private String announcementContent;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(nullable = false, name = "announcement_date")
-	@NotNull // 나중에 import변경해야하나?
+	@NotNull
 	@CreationTimestamp
 	private Date announcementDate;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -45,15 +46,19 @@ public class AnnouncementDTO {
 	@UpdateTimestamp
 	private Date announcementModifyDate;
 	@ColumnDefault("0")
-//	@Builder.Default
 	private Integer announcementViews = 0;
+	@Transient
+	@JoinColumn(name = "announcement_no")
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<MultipartFile> announcementFileDTO;
 
 	public AnnouncementDTO() {
 
 	}
 
 	public AnnouncementDTO(int announcementNo, String memberId, String announcementTitle, String announcementContent,
-			Date announcementDate, Date announcementModifyDate, Integer announcementViews) {
+			Date announcementDate, Date announcementModifyDate, Integer announcementViews,
+			List<MultipartFile> announcementFileDTO) {
 		super();
 		this.announcementNo = announcementNo;
 		this.memberId = memberId;
@@ -62,6 +67,7 @@ public class AnnouncementDTO {
 		this.announcementDate = announcementDate;
 		this.announcementModifyDate = announcementModifyDate;
 		this.announcementViews = announcementViews;
+		this.announcementFileDTO = announcementFileDTO;
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public class AnnouncementDTO {
 		return "AnnouncementDTO [announcementNo=" + announcementNo + ", memberId=" + memberId + ", announcementTitle="
 				+ announcementTitle + ", announcementContent=" + announcementContent + ", announcementDate="
 				+ announcementDate + ", announcementModifyDate=" + announcementModifyDate + ", announcementViews="
-				+ announcementViews + "]";
+				+ announcementViews + ", announcementFileDTO=" + announcementFileDTO + "]";
 	}
 
 	public int getAnnouncementNo() {
@@ -126,6 +132,14 @@ public class AnnouncementDTO {
 
 	public void setAnnouncementViews(Integer announcementViews) {
 		this.announcementViews = announcementViews;
+	}
+
+	public List<MultipartFile> getAnnouncementFileDTO() {
+		return announcementFileDTO;
+	}
+
+	public void setAnnouncementFileDTO(List<MultipartFile> announcementFileDTO) {
+		this.announcementFileDTO = announcementFileDTO;
 	}
 
 }

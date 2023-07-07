@@ -1,7 +1,5 @@
 package com.multi.racket.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.emailCertified.MailSendService;
 import com.multi.racket.repository.MemberRepository;
@@ -53,9 +52,10 @@ public class SignupController {
 
 	// insert - 회원등록하기 api
 	@PostMapping("/signup")
-	public String signup(MemberDTO member) {
+	public String signup(MemberDTO member,CashDTO cash) {
 		service.member_insert(member);
-		return "thymeleaf/main/mainpage";
+		service.member_signup(member,cash);
+		return "thymeleaf/login/login";
 	}
 	
 	// insert - 회원등록하기 뷰
@@ -71,9 +71,10 @@ public class SignupController {
 
 		// insert - 회원등록하기 api
 		@PostMapping("/signup_kakao")
-		public String signup_kakao(MemberDTO member) {
+		public String signup_kakao(MemberDTO member,CashDTO cash) {
 			service.member_insert(member);
-			return "thymeleaf/main/mainpage";
+			service.member_signup(member,cash);
+			return "thymeleaf/login/login";
 		}
 	
 	// 회원가입 페이지 이동

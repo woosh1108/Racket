@@ -59,6 +59,7 @@ menuicon {
 				<section>
 					<div class="content" style="margin-left: 20px;">
 						<ul class="actions">
+							<!-- <li><a href="/racket/mypage/info" class="button">내정보</a></li> -->
 							<li>
                         <form action="/racket/mypage/info" method="post">
                            <input type="hidden" th:value="${session.user.memberId}"
@@ -98,7 +99,7 @@ menuicon {
                            <button type="submit">강습참가 기록보기</button>
                         </form>
                      </li>
-							
+
 						</ul>
 					</div>
 				</section>
@@ -107,7 +108,7 @@ menuicon {
 					<ul class="actions"
 						style="flex-direction: row; justify-content: space-between;">
 						<li style="display: flex; align-items: center;"><h2
-								style="margin: 0px;">총 캐쉬 : <span th:text="${member.totalAmount}"></span></h2></li>
+								style="margin: 0px;">총 캐쉬 : <span th:text="${session.user.totalAmount}"></span></h2></li>
 						<li><a href="#" onclick="openPopup()"> <input type="button" name="submit"
 								id="submit" value="캐쉬충전"/>
 						</a></li>
@@ -128,7 +129,8 @@ menuicon {
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="cash:${mycash}">
+
+								<tr th:each="cash:${mycash}" th:if="${cash.charging}!=0">
 									<td>카카오페이</td>
 									<td><span th:text="${cash.charging }"></span></td>
 									<td><span th:text="${cash.cashDate }"></span></td>
