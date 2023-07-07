@@ -87,6 +87,7 @@ function checkId() {
 let courtCount = 1; // 초기 코트 수
 let courtHoursCount = 1; // 초기 코트 시간 수
 let courtNameCount = 1;
+
 function addCourt() {
   const courtContainer = document.getElementById('courtContainer');
 
@@ -98,7 +99,12 @@ function addCourt() {
     <input type="text" id="courtName_${courtNameCount}" name="courtlist[${courtNameCount}].courtName" class="form-control" required>
   `;
   courtContainer.appendChild(courtlistDiv);
-
+  
+  const courtbutton = document.createElement('div');
+  courtbutton.innerHTML = `
+	  <button type="button" onclick="addCourtHours()">코트 운영 시간 추가</button>
+  `
+	  courtContainer.appendChild(courtbutton);
   const courtLabel = document.createElement('label');
   courtLabel.setAttribute('for', `courtStart_${courtCount}`);
   courtLabel.setAttribute('class', 'form-label');

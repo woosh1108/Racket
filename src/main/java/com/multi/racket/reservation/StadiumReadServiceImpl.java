@@ -69,7 +69,7 @@ public class StadiumReadServiceImpl implements StadiumReadService {
 
 	@Override
 	public int getReservationParticipantCount(int reservationNo) {
-		int participantCount = matchingRepository.getParticipantCount(reservationNo)+1; // 예약한 인원 수 조회 메서드 호출
+		int participantCount = matchingRepository.getParticipantCount(reservationNo); // 예약한 인원 수 조회 메서드 호출
 		System.out.println("예약인원: "+participantCount);
 		return participantCount;
 	}

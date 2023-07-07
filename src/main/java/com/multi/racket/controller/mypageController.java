@@ -1,15 +1,14 @@
 package com.multi.racket.controller;
-
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,18 +18,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.multi.racket.domain.AbsentDTO;
+import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
-import com.multi.racket.member.MemberService;
-import com.multi.racket.reservation.StadiumReadService;
-
 import com.multi.racket.inquiry.InquiryPageService;
 import com.multi.racket.inquiry.PageDTO;
 import com.multi.racket.member.MemberService;
+import com.multi.racket.reservation.StadiumReadService;
 @Controller
 @RequestMapping("/mypage") // 공유메핑명
 @SessionAttributes("user") // 데이터공유명
@@ -143,35 +141,7 @@ public class mypageController {
 
 		return "thymeleaf/mypage/myReservation";
 	}
-		// 내 강의 내역보기
-		@RequestMapping("/training")
-		public String myTraining(String memberId, Date trainingDate, Model model, @RequestParam(defaultValue = "0") int pageNo) {
-			// 현재 날짜 가져오기
-			LocalDate today = LocalDate.now();
-			Date currentDate = Date.valueOf(today);
-			// 3일 후 날짜 계산하기
-			LocalDate threeDaysAgoLocalDate = today.plusDays(2);
-			Date threeDaysAgoDate = Date.valueOf(threeDaysAgoLocalDate);
-			trainingDate = threeDaysAgoDate;
-
-			List<TrainingDTO> date = service.trainingDate(trainingDate);
-		    Page<TrainingDTO> trainingPage = service.trainingPage(memberId, pageNo);
-		    List<TrainingDTO> training = trainingPage.getContent();
-			
-			if (training.size() != 0) {
-				model.addAttribute("training", training);
-				model.addAttribute("date", date);
-				model.addAttribute("currentPage", pageNo);
-				model.addAttribute("totalPages", trainingPage.getTotalPages());
-			} else {
-				model.addAttribute("date", date);
-				model.addAttribute("currentPage", pageNo);
-				model.addAttribute("totalPages", trainingPage.getTotalPages());
-				model.addAttribute("msg", "나의 강습 기록이 없습니다.");
-			}
-
-			return "thymeleaf/mypage/myTraining";
-		}
+		
 	// 내 매치보기 - 신고가능
 	@RequestMapping("/match")
 	public String myMatch(String memberId, Date reservationDate, Model model,
