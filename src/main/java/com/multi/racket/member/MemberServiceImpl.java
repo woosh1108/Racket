@@ -97,7 +97,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.trainingPage(memberId, pageNo);
 	}
 
-	
+	@Override
+	public List<MemberDTO> getAllMembers() {
+		 return dao.getAllMembers();
+	}
 
 
 	

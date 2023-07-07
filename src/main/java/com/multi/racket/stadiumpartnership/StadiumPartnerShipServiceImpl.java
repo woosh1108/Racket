@@ -10,6 +10,8 @@ import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
+import com.multi.racket.dto.CourtOperatingHoursListDTO;
+import com.multi.racket.dto.StadiumCourtListDTO;
 @Service
 @Transactional
 public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService {
@@ -58,5 +60,16 @@ public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService 
 	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours, StadiumcourtDTO court) {
 		return dao.hours_insert(hours, court);
 	}
+
+	@Override
+	public StadiumcourtDTO court_insert(StadiumDTO stadium, StadiumCourtListDTO court) {
+		return dao.court_insert(stadium, court);
+	}
+
+	@Override
+	public CourtoperatinghoursDTO hours_insert(CourtOperatingHoursListDTO hours, StadiumCourtListDTO court) {
+		return dao.hours_insert(hours, court);
+	}
+
 
 }

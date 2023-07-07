@@ -1,7 +1,16 @@
 package com.multi.racket.controller;
 
-import java.util.List;
+import java.io.File;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -77,7 +87,7 @@ public class AnnouncementController {
 		}
 
 		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
-		if (member != null && member.getMemberAuth() == 2) {
+		if (member != null && member.getMemberAuth()==2) {
 			model.addAttribute("isAdmin", true);
 		}
 
@@ -98,6 +108,64 @@ public class AnnouncementController {
 		return "redirect:/announcement";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/announcement/uploadSummernoteImageFiles", method = RequestMethod.POST)
+	public List<Map<String, Object>> uploadSummernoteImageFiles(@RequestParam("files") MultipartFile[] multipartFiles,
+	        HttpServletRequest request) {
+		
+		// jsonObjcet로하면 에러나서 Map으로 바꿔서 작업..
+	    List<Map<String, Object>> resultList = new ArrayList<>();
+
+	    // 파일저장 외부 경로, 파일명, 저장할 파일명
+	    try {
+	        String root = request.getSession().getServletContext().getRealPath("resources");
+	        // 해당 경로는 밑에 url과 똑같이 작업해줘야 에러가 안 뜬다..
+	        // 해보니까 기본 webapp로 잡히고 거기에서 root + savapath + 이미지파일이 된다.
+	        // 그러니까 결국 src/webapp/resources/announcement_fileupload에 파일이 저장된다.
+	        
+	        // **
+	        // 지현씨 src/webapp/resources/announcement_fileupload/ 파일을 이렇게 만들어주시고 보내드린 이미지 전부 이 디렉토리 안에 넣으시면 게시판 사진 전부 보일거에요!!!
+	        // **
+	        
+	        // **추가로 해당 경로 그러니까 src/webapp/resources/announcement_fileupload/에 존재하는 파일들을 삭제하면 기존
+	        // 게시물에 있는 사진들이 안 보이게 된다. 꼭 필요한 경우만 삭제하던가 아니면 게시글 자체를 삭제하는 게 나으려나..?
+	        String savePath = root + "/announcement_fileupload/";
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	        
+	        // 기존에는 이미지파일 1개만 변환돼서 올라갔기에 for문으로 이미지파일이 여러개가 되어도 전부 변환해서 좀 더 잘 돌아가도록 작성함.
+	        // 와 확실히 이렇게 작업하니까 쾌적하네... 430000글자는 좀... 선 넘었지...
+	        for (MultipartFile multipartFile : multipartFiles) {
+	            Map<String, Object> jsonObject = new HashMap<>();
+
+	            String originalFileName = multipartFile.getOriginalFilename();
+	            String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+	            String boardFileRename = sdf.format(new Date(System.currentTimeMillis())) + "." + extension;
+	            File targetFile = new File(savePath);
+
+	            if (!targetFile.exists()) {
+	                targetFile.mkdir();
+	            }
+
+	            multipartFile.transferTo(new File(savePath + boardFileRename));
+	            String contextPath = request.getContextPath();
+	            jsonObject.put("url", contextPath + "/resources/announcement_fileupload/" + boardFileRename);
+	            jsonObject.put("originName", originalFileName);
+	            jsonObject.put("responseCode", "success");
+
+	            resultList.add(jsonObject);
+	        }
+
+	    } catch (IllegalStateException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    return resultList;
+	}
+
+
+
 	// 게시글 상세보기
 	@RequestMapping("/announcement_read")
 	public String announcementRead(Integer announcementNo, String state, Model model, HttpSession session) {
@@ -115,7 +183,7 @@ public class AnnouncementController {
 		}
 
 		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
-		if (member != null && member.getMemberAuth().equals("2")) {
+		if (member != null && member.getMemberAuth()==2) {
 			model.addAttribute("isAdmin", true);
 		}
 

@@ -28,13 +28,45 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 		<!-- 스마트에디터 -->
 		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#summernote').summernote ({
-			        placeholder: '내용을 입력하세요.',
-			        tabsize: 2,
-			        height: 500
-				});
-			});
+		$(document).ready(function() {
+		    $('#summernote').summernote({
+		        placeholder: '내용을 입력하세요.',
+		        height: 500,
+		        focus: true,
+		        lang: "ko-KR",
+		        callbacks: {
+		            onImageUpload: function(files) {
+		                uploadSummernoteImageFiles(files, this);
+		            }
+		        }
+		    });
+		});
+
+		function uploadSummernoteImageFiles(files, editor) {
+		    var formData = new FormData();
+		    for (var i = 0; i < files.length; i++) {
+		        formData.append('files', files[i]);
+		    }
+		    $.ajax({
+		        url: "/racket/bulletin/uploadSummernoteImageFiles",
+		        method: 'POST',
+		        dataType: "JSON",
+		        data: formData,
+		        enctype: "multipart/form-data",
+		        processData: false,
+		        contentType: false,
+		        success: function(response) {
+		            for (var i = 0; i < response.length; i++) {
+		                var imageUrl = response[i].url;
+		                $(editor).summernote('insertImage', imageUrl);
+		            }
+		        },
+		        error: function(xhr, status, error) {
+		            alert("이미지 업로드 실패");
+		            console.log(error);
+		        }
+		    });
+		}
 			//취소버튼 누르면 전체게시판 페이지로 넘어감
 			 function cancel() {
              	window.location.href = "/racket/bulletin";
@@ -61,7 +93,7 @@ layout:decorate="~{thymeleaf/layout/mainLayout}">
 		<div class="bulletin_write_body_container">
 			<strong>전체게시판</strong>
 			<hr/>
-			<form method="post" action="/racket/bulletin" onsubmit="return validateForm()">
+			<form method="post" action="/racket/bulletin" onsubmit="return validateForm()"  enctype="multipart/form-data">
 				<div class="bulletin_write_info">
 	  				<label class="bulletin_writer">작성자: </label>
 	  				<input type="hidden" name="memberId" th:value="${id}">

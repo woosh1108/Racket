@@ -1,5 +1,6 @@
 package com.multi.racket.stadiumpartnership;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumFileDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
+import com.multi.racket.dto.CourtOperatingHoursListDTO;
+import com.multi.racket.dto.StadiumCourtListDTO;
 import com.multi.racket.repository.CourtOperatingHoursRepository;
 import com.multi.racket.repository.StadiumCourtRepository;
 import com.multi.racket.repository.StadiumFileRepository;
@@ -77,13 +80,45 @@ public class StadiumPartnerShipDAOImpl implements StadiumPartnerShipDAO {
 	}
 
 	@Override
-	public StadiumcourtDTO court_insert(StadiumDTO stadium, List<StadiumcourtDTO> court) {
-		for(StadiumcourtDTO courtlist:court) {
-			courtlist.setStadiumNo(stadium);
-			courtrepository.save(courtlist);
+	public StadiumcourtDTO court_insert(StadiumDTO stadium, StadiumCourtListDTO courtlist) {
+//		List<StadiumcourtDTO> courts = new ArrayList<StadiumcourtDTO>();
+		
+		for (StadiumcourtDTO court : courtlist.getCourtlist()) {
+//			courts.add(new StadiumcourtDTO(0,court.getCourtName(),stadium));
+			court.setStadiumNo(stadium);
+			System.out.println("for문으로 받아온 court : "+court);
+			courtrepository.save(court);
+			
 		}
 		return null;
 	}
+	
+	@Override
+	public CourtoperatinghoursDTO hours_insert(CourtOperatingHoursListDTO hours, StadiumCourtListDTO courtlist) {
+		List<StadiumcourtDTO> stadiumCourtList = courtlist.getCourtlist();
+		System.out.println("넘어오는 코트 리스트값 : "+stadiumCourtList);
+		List<CourtoperatinghoursDTO> courtHoursList = hours.getCourtHour();
+		for (int i = 0; i < stadiumCourtList.size(); i++) {
+			StadiumcourtDTO stadiumCourt = stadiumCourtList.get(i);
+			hours.setCourtNo(stadiumCourt.getCourtNo());
+			System.out.println(hours.getCourtNo());
+			
+			System.out.println("넘어오는 코트 시간리스트값 : "+courtHoursList);
+			System.out.println("코트값 넣기 전 코트리스트"+stadiumCourt);
+	        for (int j = 0; j < courtHoursList.size(); j++) {
+	            CourtoperatinghoursDTO courtHours = courtHoursList.get(j);
+	            System.out.println("뜯어낸 코트 시간값"+courtHours);
+	            // courtNo 매칭 및 설정
+	            courtHours.setCourtNo(hours.getCourtNo());
+	            hourrepository.save(courtHours);
+	            System.out.println("마지막 courtHours가 등록되는 값"+courtHours);
+	        }
+	    }
+		
+		return null;
+	}
+
+	
 
 	
 

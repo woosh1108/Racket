@@ -115,7 +115,10 @@ public class MemberDAOImpl implements MemberDAO {
         return trainingRepository.findAllByMemberId(memberId, Pageable);
 	}
 
-	
+	@Override
+	public List<MemberDTO> getAllMembers() {
+		 return memberRepository.findAll();
+	}
 
 	
 

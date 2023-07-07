@@ -48,7 +48,6 @@ public class StadiumDTO {
 //    @OneToMany(cascade = CascadeType.ALL)
 //    private List<StadiumFileDTO> files = new ArrayList<>();
 
-
 	@Transient
 	private List<MultipartFile> stadiumFileDTO;
 	
