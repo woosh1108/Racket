@@ -44,9 +44,9 @@ menuicon {
 </style>
 
 <script th:inline="javascript">
-  function openPopup() {
-    window.open('/racket/cashpay', '결제창', 'width=700,height=500');
-  }
+	function openPopup() {
+		window.open('/racket/cashpay', '결제창', 'width=700,height=500');
+	}
 </script>
 
 </head>
@@ -61,45 +61,45 @@ menuicon {
 						<ul class="actions">
 							<!-- <li><a href="/racket/mypage/info" class="button">내정보</a></li> -->
 							<li>
-                        <form action="/racket/mypage/info" method="post">
-                           <input type="hidden" th:value="${session.user.memberId}"
-                              name="memberId" id="memberId">
-                           <button type="submit">내정보</button>
-                        </form>
-                     </li>
-
+								<form action="/racket/mypage/info" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">내정보</button>
+								</form>
+							</li>
 							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
-							<li><a href="/racket/mypage/match" class="button">매칭</a></li>
-							<li>
-                        <form action="/racket/mypage/reservation" method="post">
-                           <input type="hidden" th:value="${session.user.memberId}"
-                              name="memberId" id="memberId">
-                           <button type="submit">나의 예약기록보기</button>
-                        </form>
-                     </li>
-                     <li>
-                        <form action="/racket/mypage/match" method="post">
-                           <input type="hidden" th:value="${session.user.memberId}"
-                              name="memberId" id="memberId">
-                           <button type="submit">매칭 기록보기</button>
-                        </form>
-                     </li>
-                     <li>
-                        <form action="/racket/mypage/training" method="post">
-                           <input type="hidden" th:value="${session.user.memberId}"
-                              name="memberId" id="memberId">
-                           <button type="submit">나의 강습기록보기</button>
-                        </form>
-                     </li>
-                     <li>
-                        <form action="/racket/mypage/trainingAttend" method="post">
-                           <input type="hidden" th:value="${session.user.memberId}"
-                              name="memberId" id="memberId">
-                           <button type="submit">강습참가 기록보기</button>
-                        </form>
-                     </li>
+							<li><a href="/racket/mypage/passChange" class="button">비밀번호변경</a>
 
+							</li>
+							<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
+							<li>
+								<form action="/racket/mypage/reservation" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">예약보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/match" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">매칭보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/training" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">개설강좌보기</button>
+								</form>
+							</li>
+							<li>
+								<form action="/racket/mypage/trainingAttend" method="post">
+									<input type="hidden" th:value="${session.user.memberId}"
+										name="memberId" id="memberId">
+									<button type="submit">강습보기</button>
+								</form>
+							</li>
 						</ul>
 					</div>
 				</section>
@@ -108,9 +108,11 @@ menuicon {
 					<ul class="actions"
 						style="flex-direction: row; justify-content: space-between;">
 						<li style="display: flex; align-items: center;"><h2
-								style="margin: 0px;">총 캐쉬 : <span th:text="${session.user.totalAmount}"></span></h2></li>
-						<li><a href="#" onclick="openPopup()"> <input type="button" name="submit"
-								id="submit" value="캐쉬충전"/>
+								style="margin: 0px;">
+								총 캐쉬 : <span th:text="${session.user.totalAmount}"></span>
+							</h2></li>
+						<li><a href="#" onclick="openPopup()"> <input
+								type="button" name="submit" id="submit" value="캐쉬충전" />
 						</a></li>
 					</ul>
 				</div>
@@ -139,23 +141,25 @@ menuicon {
 							</tbody>
 						</table>
 						<!-- 페이지네이션 -->
-            <div style="margin-top:10px; margin-bottom: 35px">
-            	<nav aria-label="Page navigation example">
-			  	<ul class="pagination pagination-md justify-content-center">
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Previous">
-			        <span aria-hidden="true"><i class="fas fa-angle-double-left"></i>&laquo;</span>
-			      </a>
-			    </li>
-			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/inquiryboard(pageNo=${i})}" th:if="${i+1}>=1"><span th:text="${i+1}" style="color: navy;" th:if="${i+1}>=1"></span></a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
-			        <span aria-hidden="true"><i class="fas fa-angle-double-right"></i>&raquo;</span>
-			      </a>
-			    </li>
-			  	</ul>
-				</nav>
-            </div>
+						<div style="margin-top: 10px; margin-bottom: 35px">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination pagination-md justify-content-center">
+									<li class="page-item"><a class="page-link" href="#"
+										aria-label="Previous"> <span aria-hidden="true"><i
+												class="fas fa-angle-double-left"></i>&laquo;</span>
+									</a></li>
+									<li class="page-item"
+										th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a
+										class="page-link" th:href="@{/inquiryboard(pageNo=${i})}"
+										th:if="${i+1}>=1"><span th:text="${i+1}"
+											style="color: navy;" th:if="${i+1}>=1"></span></a></li>
+									<li class="page-item"><a class="page-link" href="#"
+										aria-label="Next"> <span aria-hidden="true"><i
+												class="fas fa-angle-double-right"></i>&raquo;</span>
+									</a></li>
+								</ul>
+							</nav>
+						</div>
 					</div>
 				</div>
 			</div>

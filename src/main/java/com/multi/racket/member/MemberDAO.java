@@ -36,6 +36,8 @@ public interface MemberDAO {
 	// 나의 예약목록 페이징처리
 	Page<ReservationDTO> reservationPage(String memberId,int pageNo);
 	List<ReservationDTO> reservationDto(String memberId);
+	// 예약취소처리
+	ReservationDTO cancelReservation(int reservationNo, String memberId, int reservationFee);
 	
 	// 나의 매치목록 페이징처리
 	Page<ReservationDTO> matchingPage(String memberId,int pageNo);	
@@ -46,7 +48,7 @@ public interface MemberDAO {
 	// 신고자처리 - 확인작업
 	AbsentDTO absentCheck(int matchNo, String memberId);
 	// 매칭취소처리
-	MatchingDTO cancelMatching(int reservationNo, String memberId);
+	MatchingDTO cancelMatching(int reservationNo, String memberId, int reservationFee);
 	
 	// 나의 강습목록  시간
 	List<TrainingDTO> trainingDate(Date trainingDate);
@@ -54,12 +56,14 @@ public interface MemberDAO {
 	Page<TrainingDTO> trainingPage(String memberId,int pageNo);
 	// 나의 강습 총수입
 	int trainingIncome(String memberId);
+	// 매칭취소처리
+	TrainingDTO cancelTraining(int trainingNo, String memberId, int trainingFee, int courtHourNo);
 
 	// 나의 강습 참가목록 페이징처리
 	Page<TrainingDTO> trainingAttendPage(String memberId,int pageNo);
 	// 매칭취소처리
-	TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId);	
-
+	TrainingMemberlistDTO cancelTrainingAttend(int trainingNo, String memberId, int trainingFee);
+	
 	// 모든 멤버 정보 가져오기
     List<MemberDTO> getAllMembers();
 

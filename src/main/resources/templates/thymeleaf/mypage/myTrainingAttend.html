@@ -35,11 +35,18 @@ td label {
 }
 </style>
 <script th:inline="javascript">
-$(document).ready(function(){
-	let msg = [[${msg}]];
-	if(msg == null){
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
+<script th:inline="javascript">
+$(document).ready(function() {
+	var cancelMsg = [[${cancelMsg}]];
+	if(cancelMsg == null){
 	}else{
-		alert(msg);
+		alert(cancelMsg);
 	}
 })
 </script>
@@ -54,44 +61,48 @@ $(document).ready(function(){
 			<section>
 				<div class="content">
 					<ul class="actions">
-							<li>
-								<form action="/racket/mypage/info" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">내정보</button>
-								</form>
-							</li>
-							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
-							<li>
-								<form action="/racket/mypage/reservation" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">나의 예약기록보기</button>
-								</form>
-							</li>
-							<li>
-								<form action="/racket/mypage/match" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">매칭 기록보기</button>
-								</form>
-							</li>
-							<li>
-								<form action="/racket/mypage/training" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">나의 강습기록보기</button>
-								</form>
-							</li>
-							<li>
-								<form action="/racket/mypage/trainingAttend" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">강습참가 기록보기</button>
-								</form>
-							</li>
-						</ul>
+						<!-- <li><a href="/racket/mypage/info" class="button">내정보</a></li> -->
+						<li>
+							<form action="/racket/mypage/info" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">내정보</button>
+							</form>
+						</li>
+						<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
+						<li><a href="/racket/mypage/passChange" class="button">비밀번호변경</a>
+
+						</li>
+						<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
+						<li>
+							<form action="/racket/mypage/reservation" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">예약보기</button>
+							</form>
+						</li>
+						<li>
+							<form action="/racket/mypage/match" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">매칭보기</button>
+							</form>
+						</li>
+						<li>
+							<form action="/racket/mypage/training" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">개설강좌보기</button>
+							</form>
+						</li>
+						<li>
+							<form action="/racket/mypage/trainingAttend" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">강습보기</button>
+							</form>
+						</li>
+					</ul>
 				</div>
 			</section>
 			<div class="box">
@@ -110,57 +121,80 @@ $(document).ready(function(){
 						<tbody>
 							<tr th:each="training,status:${trainingList}">
 								<td><span th:text="${training.trainingNo}"></span></td>
-								<td><span th:text="${people[status.index] + '/' + training.trainingMax} +'명'"></span></td>
-								<td style="text-overflow: ellipsis; overflow: hidden; white-space:nowrap; max-width: 300px;"><span th:text="${training.trainingContent}"></span></td>
+								<td><span
+									th:text="${people[status.index] + '/' + training.trainingMax} +'명'"></span></td>
+								<td
+									style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 300px;"><span
+									th:text="${training.trainingContent}"></span></td>
 								<td><span th:text="${training.trainingFee}+'원'"></span></td>
-								<td th:if="${people[status.index]  != training.trainingMax} and ${training.trainingDate >= #dates.createNow()}">
+								<td
+									th:if="${people[status.index]  != training.trainingMax} and ${training.trainingDate >= #dates.createNow()}">
 									<span>인원 모집중</span>
 								</td>
-								<td th:if="${people[status.index]  == training.trainingMax} and ${training.trainingDate >= #dates.createNow()}">
+								<td
+									th:if="${people[status.index]  == training.trainingMax} and ${training.trainingDate >= #dates.createNow()}">
 									<span>인원마감</span>
 								</td>
 								<td th:if="${training.trainingDate < #dates.createNow()}">
 									<span>강습 종료</span>
 								</td>
-								<td>
-									<span th:text="${training.trainingDate}"></span>
-									<br />
-									<span th:text="${startHour[status.index] + ' ~ ' + endHour[status.index]}"></span>
+								<td><span th:text="${training.trainingDate}"></span> <br />
+									<span
+									th:text="${startHour[status.index] + ' ~ ' + endHour[status.index]}"></span>
 								</td>
-								<td th:each="date:${date}" th:if="${training.trainingDate == date.trainingDate} and ${training.trainingNo == date.trainingNo} " >
-									<button type="button" class="button small" th:data-memberId="${session.user.memberId}" th:data-trainingNo="${training.trainingNo}"
-							        onclick="showConfirmation(this.getAttribute('data-trainingNo'), this.getAttribute('data-memberId'))">강습 참가취소</button>
+								<td th:each="date:${date}"
+									th:if="${training.trainingDate == date.trainingDate} and ${training.trainingNo == date.trainingNo} ">
+									<button type="button" class="button small"
+										th:data-memberId="${session.user.memberId}"
+										th:data-trainingNo="${training.trainingNo}"
+										th:data-trainingFee="${training.trainingFee}"
+										onclick="showConfirmation(this.getAttribute('data-trainingNo'), this.getAttribute('data-memberId'), this.getAttribute('data-trainingFee'))">강습
+										참가취소</button>
 								</td>
-								<tr th:if="${trainingList ==null or trainingList.isEmpty()}"  style="text-align: center;">
-				            	 <td colspan="6">강습에  참가한 정보가 없습니다.</td>
-				            </tr>
+							<tr th:if="${trainingList ==null or trainingList.isEmpty()}"
+								style="text-align: center;">
+								<td colspan="6">강습에 참가한 정보가 없습니다.</td>
+							</tr>
 						</tbody>
-						<tfoot >
-                        	<tr th:if="${trainingList!=null and not #lists.isEmpty(trainingList)}">
-                            	<td style="text-align: center;" colspan="7">
-                                	<ul class="icons" style="margin: 0px;">
-                                    	<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=0)}">&laquo;</a></li>
-                                    	<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${currentPage - 1})}">&lt;</a></li>
-                                    	<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
-										    th:class="${currentPage == page}">
-										    <a class="page-link" th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${page})}"
-										        th:text="${page + 1}" th:style="${currentPage == page} ? 'font-weight:bold' : ''">
-										    </a>
-										</li>
-                                    	<li th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${currentPage + 1})}">&gt;</a></li>
-                                    	<li th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${totalPages - 1})}">&raquo;</a></li>
-                                	</ul>
-                            	</td>
-                        	</tr>
-                    	</tfoot>
+						<tfoot>
+							<tr
+								th:if="${trainingList!=null and not #lists.isEmpty(trainingList)}">
+								<td style="text-align: center;" colspan="7">
+									<ul class="icons" style="margin: 0px;">
+										<li
+											th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=0)}">&laquo;</a></li>
+										<li
+											th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${currentPage - 1})}">&lt;</a></li>
+										<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
+											th:class="${currentPage == page}"><a class="page-link"
+											th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${page})}"
+											th:text="${page + 1}"
+											th:style="${currentPage == page} ? 'font-weight:bold' : ''">
+										</a></li>
+										<li
+											th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${currentPage + 1})}">&gt;</a></li>
+										<li
+											th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/trainingAttend(memberId=${session.user.memberId},pageNo=${totalPages - 1})}">&raquo;</a></li>
+									</ul>
+								</td>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 			</div>
 		</div>
 		<script>
-		    function showConfirmation(trainingNo, memberId) {
+		    function showConfirmation(trainingNo, memberId, trainingFee) {
 				if (confirm('강습 참가를 취소하시겠습니까?')) {
-					location.href = '/racket/mypage/training/cancel?trainingNo=' + trainingNo + '&memberId=' + memberId;
+					location.href = '/racket/mypage/trainingAttend/cancel?trainingNo=' + trainingNo + '&memberId=' + memberId + '&trainingFee=' + trainingFee;
 				}
 			}
 		</script>

@@ -36,4 +36,6 @@ public interface ReservationRepository extends JpaRepository<ReservationDTO, Int
     @Query("UPDATE ReservationDTO r SET r.reservationStatus = :status WHERE r.reservationNo = :reservationNo")
     void updateReservationStatus(@Param("reservationNo") int reservationNo, @Param("status") String status);
 
+	ReservationDTO findByReservationNoAndMemberId(int reservationNo, String memberId);
+
 }

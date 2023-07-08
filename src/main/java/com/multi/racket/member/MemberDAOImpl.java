@@ -11,17 +11,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.multi.racket.domain.AbsentDTO;
+import com.multi.racket.domain.CashDTO;
+import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.MatchingDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.ReservationDTO;
+import com.multi.racket.domain.StadiumDTO;
+import com.multi.racket.domain.StadiumcourtDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
 import com.multi.racket.repository.AbsentRepository;
+import com.multi.racket.repository.CashRepository;
+import com.multi.racket.repository.CourtOperatingHoursRepository;
 import com.multi.racket.repository.MatchingRepository;
 import com.multi.racket.repository.MemberRepository;
 import com.multi.racket.repository.ReservationRepository;
+import com.multi.racket.repository.StadiumCourtRepository;
+import com.multi.racket.repository.StadiumRepository;
 import com.multi.racket.repository.TrainingMemberlistRepository;
 import com.multi.racket.repository.TrainingRepository;
 
@@ -39,6 +48,15 @@ public class MemberDAOImpl implements MemberDAO {
 	TrainingMemberlistRepository trainingMemberlistRepository; 
 	@Autowired
 	AbsentRepository absentRepository;
+	@Autowired
+	CourtOperatingHoursRepository courtOperatingHoursRepository;
+	@Autowired
+	StadiumCourtRepository stadiumCourtRepository;
+	@Autowired
+	StadiumRepository stadiumRepository;
+	@Autowired
+	CashRepository cashRepository;
+	
 
 	@Override
 	public MemberDTO login(String memberId, String memberPass) {
@@ -101,6 +119,26 @@ public class MemberDAOImpl implements MemberDAO {
 		return reservationRepository.findAllByMemberId(memberId, Pageable);
 	}
 	
+	@Override
+	public ReservationDTO cancelReservation(int reservationNo, String memberId, int reservationFee) {
+		ReservationDTO reservation = reservationRepository.findByReservationNoAndMemberId(reservationNo, memberId);
+		List<MatchingDTO> matchingList = matchingRepository.findAllByReservationNo(reservationNo);
+		for(MatchingDTO matchingUser : matchingList) {
+			MemberDTO member = memberRepository.findById(matchingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
+			CashDTO cash = cashRepository.findByMemberId(matchingUser.getMemberId());
+			int totalAmount = member.getTotalAmount();
+			int userCash = cash.getTotalAmount();
+			member.setTotalAmount(totalAmount + reservationFee);
+			cash.setTotalAmount(userCash + reservationFee);
+			memberRepository.save(member);
+			cashRepository.save(cash);
+			matchingRepository.delete(matchingUser);
+		}
+		reservationRepository.delete(reservation);
+		
+		return reservation;
+	}
+	
 	//매치 참가
 	
 	@Override
@@ -142,8 +180,16 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public MatchingDTO cancelMatching(int reservationNo, String memberId) {
+	public MatchingDTO cancelMatching(int reservationNo, String memberId, int reservationFee) {
 		MatchingDTO user = matchingRepository.findByReservationNoAndMemberId(reservationNo, memberId);
+		MemberDTO member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		CashDTO cash = cashRepository.findByMemberId(memberId);
+		int totalAmount = member.getTotalAmount();
+		int cashTotalAmount = cash.getTotalAmount();
+		member.setTotalAmount(totalAmount + reservationFee);
+		cash.setTotalAmount(cashTotalAmount + reservationFee);
+		memberRepository.save(member);
+		cashRepository.save(cash);
 		matchingRepository.delete(user);
 		return user;
 	}
@@ -183,9 +229,40 @@ public class MemberDAOImpl implements MemberDAO {
 		return totalIncome;
 	}
 	
-
-	//강습참가
+	@Override
+	public TrainingDTO cancelTraining(int trainingNo, String memberId, int trainingFee, int courtHourNo) {
+		TrainingDTO training = trainingRepository.findByTrainingNoAndMemberId(trainingNo,memberId);
+		MemberDTO member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		CashDTO cash = cashRepository.findByMemberId(memberId);
+		int totalAmount = member.getTotalAmount();
+		int cashTotalAmount = cash.getTotalAmount();
+		//구장비 찾기
+		Optional<CourtoperatinghoursDTO> court = courtOperatingHoursRepository.findById(courtHourNo);
+		Optional<StadiumcourtDTO> satdiumCourt = stadiumCourtRepository.findByCourtNo(court.get().getCourtNo()); 
+		StadiumDTO stadium = satdiumCourt.get().getStadiumNo();
+		//강습 개설할때 사용한 구장금액
+		int stadiumUsePrice = stadium.getStadiumFee();
+		List<TrainingMemberlistDTO> trainingMemberList = trainingMemberlistRepository.findByTrainingNo(trainingNo);
+		for(TrainingMemberlistDTO traingUser : trainingMemberList) {
+			MemberDTO user = memberRepository.findById(traingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
+			CashDTO userCash = cashRepository.findByMemberId(traingUser.getMemberId());
+			int amount = user.getTotalAmount();
+			int UserTotalAmount = userCash.getTotalAmount();
+			user.setTotalAmount(amount + trainingFee);
+			userCash.setTotalAmount(UserTotalAmount + trainingFee);
+			memberRepository.save(user);
+			cashRepository.save(userCash);
+			trainingMemberlistRepository.delete(traingUser);
+		}
+		member.setTotalAmount(totalAmount + stadiumUsePrice);
+		cash.setTotalAmount(cashTotalAmount+stadiumUsePrice);
+		memberRepository.save(member);
+		cashRepository.save(cash);
+		trainingRepository.delete(training);
+		return training;
+	}
 	
+	//강습참가
 	@Override
 	public Page<TrainingDTO> trainingAttendPage(String memberId, int pageNo) {
 		List<TrainingMemberlistDTO> trainingMemberlistDto = trainingMemberlistRepository.findByMemberId(memberId);
@@ -211,24 +288,23 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId) {
-		System.out.println("DAO에여trainingNo : "  + trainingNo);
-		System.out.println("DAO에여memberId : "  + memberId);
-		TrainingMemberlistDTO user = trainingMemberlistRepository.findByTrainingNoAndMemberId(trainingNo, memberId);
-		System.out.println("DAO에여user : "  + user);
-		trainingMemberlistRepository.delete(user);
-		return user;
-	}
-
-	@Override
 	public List<MemberDTO> getAllMembers() {
 		 return memberRepository.findAll();
 	}
 
-	
-
-	
-
-	
+	@Override
+	public TrainingMemberlistDTO cancelTrainingAttend(int trainingNo, String memberId, int trainingFee) {
+		TrainingMemberlistDTO user = trainingMemberlistRepository.findByTrainingNoAndMemberId(trainingNo, memberId);
+		MemberDTO member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		CashDTO cash = cashRepository.findByMemberId(memberId);
+		int totalAmount = member.getTotalAmount();
+		int cashTotalAmount = cash.getTotalAmount();
+		member.setTotalAmount(totalAmount + trainingFee);
+		cash.setTotalAmount(cashTotalAmount + trainingFee);
+		memberRepository.save(member);
+		cashRepository.save(cash);
+		trainingMemberlistRepository.delete(user);
+		return user;
+	}
 
 }

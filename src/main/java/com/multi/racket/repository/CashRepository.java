@@ -10,5 +10,7 @@ public interface CashRepository extends JpaRepository<CashDTO, String> {
     int findLatestTotalAmountByMemberId(@Param("memberId") String memberId);
 	
 	Page<CashDTO> findByMemberId(String id, Pageable pageable);
+
+	CashDTO findByMemberId(String memberId);
 	
 }

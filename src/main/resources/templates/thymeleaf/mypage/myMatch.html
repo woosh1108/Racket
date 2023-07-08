@@ -20,24 +20,27 @@
 th {
 	text-align: center;
 }
+
 tr td {
 	vertical-align: middle;
 }
+
 td a {
 	vertical-align: middle;
 }
+
 td label {
 	vertical-align: middle;
 }
 </style>
 <script th:inline="javascript">
-$(document).ready(function(){
-	let msg = [[${msg}]];
-	if(msg == null){
-	}else{
-		alert(msg);
-	}
-})
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
+<script th:inline="javascript">
 $(document).ready(function() {
 	var cancelMsg = [[${cancelMsg}]];
 	if(cancelMsg == null){
@@ -57,44 +60,48 @@ $(document).ready(function() {
 			<section>
 				<div class="content">
 					<ul class="actions">
-							<li>
-								<form action="/racket/mypage/info" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">내정보</button>
-								</form>
-							</li>
-							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-							<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
-							<li>
-								<form action="/racket/mypage/reservation" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">나의 예약기록보기</button>
-								</form>
-							</li>
-							<li>
-								<form action="/racket/mypage/match" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">매칭 기록보기</button>
-								</form>
-							</li>
-							<li>
-								<form action="/racket/mypage/training" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">나의 강습기록보기</button>
-								</form>
-							</li>
-							<li>
-								<form action="/racket/mypage/trainingAttend" method="post">
-									<input type="hidden" th:value="${session.user.memberId}"
-										name="memberId" id="memberId">
-									<button type="submit">강습참가 기록보기</button>
-								</form>
-							</li>
-						</ul>
+						<!-- <li><a href="/racket/mypage/info" class="button">내정보</a></li> -->
+						<li>
+							<form action="/racket/mypage/info" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">내정보</button>
+							</form>
+						</li>
+						<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
+						<li><a href="/racket/mypage/passChange" class="button">비밀번호변경</a>
+
+						</li>
+						<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
+						<li>
+							<form action="/racket/mypage/reservation" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">예약보기</button>
+							</form>
+						</li>
+						<li>
+							<form action="/racket/mypage/match" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">매칭보기</button>
+							</form>
+						</li>
+						<li>
+							<form action="/racket/mypage/training" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">개설강좌보기</button>
+							</form>
+						</li>
+						<li>
+							<form action="/racket/mypage/trainingAttend" method="post">
+								<input type="hidden" th:value="${session.user.memberId}"
+									name="memberId" id="memberId">
+								<button type="submit">강습보기</button>
+							</form>
+						</li>
+					</ul>
 				</div>
 			</section>
 			<div class="box">
@@ -114,51 +121,71 @@ $(document).ready(function() {
 							<tr th:each="user,status:${reservationList}">
 								<td><span th:text="${user.reservationMet}"></span></td>
 								<td><span th:text="${user.reservationGender}"></span></td>
-								<td><span th:text="${people[status.index] +1  + '/' + user.peopleNum} +'명'"></span>
+								<td><span
+									th:text="${people[status.index] + '/' + user.peopleNum} +'명'"></span>
 								<td><span th:text="${user.reservationFee}+'원'"></span></td>
 								<td><span th:text="${user.reservationStatus}"></span></td>
-								<td>
-									<span th:text="${user.reservationDate}"></span>
-									<br />
-									<span th:text="${startHour[status.index] + ' ~ ' + endHour[status.index]}"></span>
+								<td><span th:text="${user.reservationDate}"></span> <br />
+									<span
+									th:text="${startHour[status.index] + ' ~ ' + endHour[status.index]}"></span>
 								</td>
-								<td th:each="date:${date}" th:if="${user.reservationDate == date.reservationDate} and ${user.reservationNo == date.reservationNo}">
-							        <button type="button" class="button small" th:data-memberId="${session.user.memberId}" th:data-reservationNo="${user.reservationNo}"
-							        onclick="showConfirmation(this.getAttribute('data-reservationNo'), this.getAttribute('data-memberId'))">매치취소</button>
-							    </td>
-								<td th:if="${user.reservationStatus} == '경기종료'" >
-									<button type="button" class="button small" th:onclick="|location.href='@{/mypage/match/declaration(reservationNo=${user.reservationNo})}'|">신고</button>
+								<td th:each="date:${date}"
+									th:if="${user.reservationDate == date.reservationDate} and ${user.reservationNo == date.reservationNo}">
+									<button type="button" class="button small"
+										th:data-memberId="${session.user.memberId}"
+										th:data-reservationNo="${user.reservationNo}"
+										th:data-reservationFee="${user.reservationFee}"
+										onclick="showConfirmation(this.getAttribute('data-reservationNo'), this.getAttribute('data-memberId'), this.getAttribute('data-reservationFee'))">매치취소</button>
 								</td>
-								<tr th:if="${reservationList ==null or reservationList.isEmpty()}"  style="text-align: center;">
-				            	 <td colspan="6">매칭에 참가한 정보가 없습니다.</td>
-				            </tr>
+								<td th:if="${user.reservationStatus} == '경기종료'">
+									<button type="button" class="button small"
+										th:onclick="|location.href='@{/mypage/match/declaration(reservationNo=${user.reservationNo})}'|">신고</button>
+								</td>
+							<tr
+								th:if="${reservationList ==null or reservationList.isEmpty()}"
+								style="text-align: center;">
+								<td colspan="6">매칭에 참가한 정보가 없습니다.</td>
+							</tr>
 						</tbody>
-						<tfoot >
-                        	<tr th:if="${reservationList!=null and not #lists.isEmpty(reservationList)}">
-                            	<td style="text-align: center;" colspan="7">
-                                	<ul class="icons" style="margin: 0px;">
-                                    	<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=0)}">&laquo;</a></li>
-                                    	<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${currentPage - 1})}">&lt;</a></li>
-                                    	<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
-										    th:class="${currentPage == page}">
-										    <a class="page-link" th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${page})}"
-										        th:text="${page + 1}" th:style="${currentPage == page} ? 'font-weight:bold' : ''">
-										    </a>
-										</li>
-                                    	<li th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${currentPage + 1})}">&gt;</a></li>
-                                    	<li th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a class="page-link" th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${totalPages - 1})}">&raquo;</a></li>
-                                	</ul>
-                            	</td>
-                        	</tr>
-                    	</tfoot>
+						<tfoot>
+							<tr
+								th:if="${reservationList!=null and not #lists.isEmpty(reservationList)}">
+								<td style="text-align: center;" colspan="7">
+									<ul class="icons" style="margin: 0px;">
+										<li
+											th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=0)}">&laquo;</a></li>
+										<li
+											th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${currentPage - 1})}">&lt;</a></li>
+										<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
+											th:class="${currentPage == page}"><a class="page-link"
+											th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${page})}"
+											th:text="${page + 1}"
+											th:style="${currentPage == page} ? 'font-weight:bold' : ''">
+										</a></li>
+										<li
+											th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${currentPage + 1})}">&gt;</a></li>
+										<li
+											th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'"><a
+											class="page-link"
+											th:href="@{/mypage/match(memberId=${session.user.memberId},pageNo=${totalPages - 1})}">&raquo;</a></li>
+									</ul>
+								</td>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 			</div>
 		</div>
 		<script>
-		    function showConfirmation(reservationNo, memberId) {
+		    function showConfirmation(reservationNo, memberId, reservationFee) {
 				if (confirm('매치를 취소하시겠습니까?')) {
-					location.href = '/racket/mypage/match/cancel?reservationNo=' + reservationNo + '&memberId=' + memberId;
+					location.href = '/racket/mypage/match/cancel?reservationNo=' + reservationNo + '&memberId=' + memberId + '&reservationFee=' + reservationFee;
 				}
 			}
 		</script>
