@@ -125,9 +125,12 @@ public class MemberDAOImpl implements MemberDAO {
 		List<MatchingDTO> matchingList = matchingRepository.findAllByReservationNo(reservationNo);
 		for(MatchingDTO matchingUser : matchingList) {
 			MemberDTO member = memberRepository.findById(matchingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
-			CashDTO cash = cashRepository.findByMemberId(matchingUser.getMemberId());
+//			CashDTO cash = cashRepository.findByMemberId(matchingUser.getMemberId());
+//			int userCash = cashRepository.findLatestTotalAmountByMemberId(member.getMemberId());
+			int userCash = cashRepository.findLatestTotalAmountByMemberId(memberId);
 			int totalAmount = member.getTotalAmount();
-			int userCash = cash.getTotalAmount();
+//			int userCash = cash.getTotalAmount();
+			CashDTO cash = cashRepository.findLatestByMemberId(memberId);
 			member.setTotalAmount(totalAmount + reservationFee);
 			cash.setTotalAmount(userCash + reservationFee);
 			memberRepository.save(member);

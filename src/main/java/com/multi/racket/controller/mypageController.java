@@ -113,7 +113,7 @@ public class mypageController {
 	// 내 예약 내역보기
 	@RequestMapping("/reservation")
 	public String myReservation(String memberId, Date reservationDate, Model model,
-			@RequestParam(defaultValue = "0") int pageNo) {
+			@RequestParam(defaultValue = "0") int pageNo,HttpSession session) {
 		// 현재 날짜 가져오기
 		LocalDate today = LocalDate.now();
 		Date currentDate = Date.valueOf(today);
@@ -162,14 +162,14 @@ public class mypageController {
 		}
 		model.addAttribute("startHour", startHour);
 		model.addAttribute("endHour", endHour);
-
+		
 		return "thymeleaf/mypage/myReservation";
 	}
 
 	// 내예약보기 - 취소기능
 	@RequestMapping("/reservation/cancel")
 	public String cancelReservation(int reservationNo, String memberId, Date reservationDate, Model model,
-			int reservationFee, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes) {
+			int reservationFee, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes,HttpSession session) {
 		try {
 
 			ReservationDTO cacelUser = service.cancelReservation(reservationNo, memberId, reservationFee);
@@ -224,7 +224,10 @@ public class mypageController {
 			}
 			model.addAttribute("startHour", startHour);
 			model.addAttribute("endHour", endHour);
-
+			MemberDTO member = (MemberDTO) session.getAttribute("user");
+//			System.out.println("-----------------------------------------------------------");
+//			System.out.println(member.getTotalAmount());
+//			System.out.println("-----------------------------------------------------------");
 			return "thymeleaf/mypage/myReservation";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -440,7 +443,7 @@ public class mypageController {
 	// 내강습보기 - 취소기능
 	@RequestMapping("/training/cancel")
 	public String cancelTraining(int trainingNo, String memberId, Date trainingDate, Model model, int trainingFee,
-			int courtHourNo, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes) {
+			int courtHourNo, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes,HttpSession session) {
 		try {
 			TrainingDTO cacelUser = service.cancelTraining(trainingNo, memberId, trainingFee, courtHourNo);
 			if (cacelUser != null) {
@@ -500,6 +503,8 @@ public class mypageController {
 				model.addAttribute("totalPages", trainingPage.getTotalPages());
 				model.addAttribute("totalIncome", totalIncome);
 			}
+			MemberDTO member = (MemberDTO) session.getAttribute("user");
+			System.out.println(member.getTotalAmount());
 			return "thymeleaf/mypage/myTraining";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -558,14 +563,13 @@ public class mypageController {
 			model.addAttribute("currentPage", pageNo);
 			model.addAttribute("totalPages", traingListPage.getTotalPages());
 		}
-
 		return "thymeleaf/mypage/myTrainingAttend";
 	}
 
 	// 강습참가 보기 - 취소기능
 	@RequestMapping("/trainingAttend/cancel")
 	public String cancelTrainingAttend(int trainingNo, String memberId, Date trainingDate, Model model, int trainingFee,
-			@RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes) {
+			@RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes,HttpSession session) {
 		try {
 			TrainingMemberlistDTO cacelUser = service.cancelTrainingAttend(trainingNo, memberId, trainingFee);
 			if (cacelUser != null) {
@@ -618,6 +622,8 @@ public class mypageController {
 				model.addAttribute("currentPage", pageNo);
 				model.addAttribute("totalPages", traingListPage.getTotalPages());
 			}
+			MemberDTO member = (MemberDTO) session.getAttribute("user");
+			System.out.println(member.getTotalAmount());
 			return "thymeleaf/mypage/myTrainingAttend";
 		} catch (Exception e) {
 			e.printStackTrace();

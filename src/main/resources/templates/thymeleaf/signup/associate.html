@@ -86,43 +86,6 @@
 						대여 비용:</label> <input type="number" id="stadiumFee" name="stadiumFee"
 						class="form-control" required>
 				</div>
-				<!-- <div class="mb-3">
-					<label for="stadiumContent" class="form-label">코트 이름 : </label> <input
-						type="text" id="courtName" name="courtlist[0].courtName"
-						class="form-control" required>
-				</div>
-				<label for="stadiumTime" class="form-label" style="width: 100px;">코트
-					운영 시간:</label>
-				<div class="TimeContainer">
-					<select id="courtStart" name="courtHour[0].courtStart"
-						class="form-select" onchange="updateCourtEnd()">
-						<option value="06:00">06:00</option>
-						<option value="08:00">08:00</option>
-						<option value="10:00">10:00</option>
-						<option value="12:00">12:00</option>
-						<option value="14:00">14:00</option>
-						<option value="16:00">16:00</option>
-						<option value="18:00">18:00</option>
-						<option value="20:00">20:00</option>
-						<option value="22:00">22:00</option>
-					</select> <label for="stadiumTimeEnd" class="form-label"
-						style="width: 100px;">~</label> <select id="courtEndVal"
-						name="courtHour[0].courtEndVal" class="form-select" disabled>
-						<option value="08:00">08:00</option>
-						<option value="10:00">10:00</option>
-						<option value="12:00">12:00</option>
-						<option value="14:00">14:00</option>
-						<option value="16:00">16:00</option>
-						<option value="18:00">18:00</option>
-						<option value="20:00">20:00</option>
-						<option value="22:00">22:00</option>
-						<option value="24:00">24:00</option>
-					</select>
-						<input type="hidden" id="courtEnd" name="courtHour[0].courtEnd" value="">
-				</div> -->
-				<!--  -->
-				<!-- <button type="button" onclick="addCourt()">코트 추가</button> -->
-
 				<div id="courtContainer">
 					<div class="mb-3">
 						<label for="stadiumContent" class="form-label">코트 이름:</label> <input
@@ -133,9 +96,10 @@
 					<button type="button" onclick="addCourtHours()">코트 운영 시간 추가</button>
 					<div id="courtHoursContainer"></div>
 					
-					<label for="stadiumTime" class="form-label" style="width: 100px;">코트
-						운영 시간:</label>
+					
 					<div class="TimeContainer">
+						<label for="stadiumTime" class="form-label" style="width: 100px;">코트
+						운영 시간:</label>
 						<select id="courtStart_0" name="courtHour[0].courtStart"
 							class="form-select" onchange="updateCourtEnd(0)">
 							<option value="06:00">06:00</option>
@@ -162,39 +126,7 @@
 						</select> 
 					</div>
 				</div>
-				<!--  -->
-				<!-- <div class="mb-3">
-					<label for="stadiumContent" class="form-label">코트 이름 : </label> <input
-						type="text" id="courtName" name="courtlist[1].courtName"
-						class="form-control" required>
-				</div>
-				<div class="TimeContainer">
-					<select id="courtStart" name="courtHour[1].courtStart"
-						class="form-select">
-						<option value="06:00">06:00</option>
-						<option value="08:00">08:00</option>
-						<option value="10:00">10:00</option>
-						<option value="12:00">12:00</option>
-						<option value="14:00">14:00</option>
-						<option value="16:00">16:00</option>
-						<option value="18:00">18:00</option>
-						<option value="20:00">20:00</option>
-						<option value="22:00">22:00</option>
-						<option value="22:00">24:00</option>
-					</select> <label for="stadiumTimeEnd" class="form-label"
-						style="width: 100px;">~</label> <select id="courtEnd"
-						name="courtHour[1].courtEnd" class="form-select">
-						<option value="08:00">08:00</option>
-						<option value="10:00">10:00</option>
-						<option value="12:00">12:00</option>
-						<option value="14:00">14:00</option>
-						<option value="16:00">16:00</option>
-						<option value="18:00">18:00</option>
-						<option value="20:00">20:00</option>
-						<option value="22:00">22:00</option>
-						<option value="24:00">24:00</option>
-					</select>
-				</div> -->
+				
 				<div class="mb-3">
 					<label for="stadiumContent" class="form-label">구장 설명 : </label>
 					<textarea rows="5" cols="30" name="stadiumContent"
