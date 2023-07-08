@@ -2,6 +2,7 @@ package com.multi.racket.training;
 
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,14 +118,15 @@ public class TrainingServiceImpl implements TrainingService {
 	public List<TrainingMemberlistDTO> getAllTrainingMembers() {
 		return tmlRepository.findAll();
 	}
+	
 	@Override
 	public void updateExpiredTrainings(LocalDate currentDate) {
-		// 현재 날짜 이후의 예약 데이터를 조회하고 상태를 "경기종료"로 수정하는 로직
-        List<TrainingDTO> expiredReservations = tRepository.findByTrainingDateBeforeAndTrainingStatus(currentDate, "강습진행중");
-        for (TrainingDTO training : expiredReservations) {
-        	training.setTrainingStatus("강습종료");
-        }
-        tRepository.saveAll(expiredReservations);
+		// '모집중', '모집완료' 상태의 강습 데이터를 조회하여 상태를 "강습종료"로 수정
+	    List<TrainingDTO> expiredTrainings = tRepository.findByTrainingDateBeforeAndTrainingStatusIn(currentDate, Arrays.asList("모집중", "모집완료"));
+	    for (TrainingDTO training : expiredTrainings) {
+	        training.setTrainingStatus("강습종료");
+	    }
+	    tRepository.saveAll(expiredTrainings);
 		
 	}
 
