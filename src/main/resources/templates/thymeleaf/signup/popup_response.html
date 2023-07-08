@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function redirectParentPage() {
+            window.opener.location.href = "/racket/main";
+            window.close();
+        }
+    </script>
+    <style type="text/css">
+    	*{
+    		justify-content: center;
+    		text-align: center;
+    	}
+    </style>
+</head>
+<body>
+    <script>
+        // 팝업창이 열리면 2초 후에 자동으로 부모 창 리다이렉트 함수 호출
+        setTimeout(redirectParentPage, 2000);
+    </script>
+    <h1>코트가 등록되었습니다.</h1>
+</body>
+</html>

@@ -6,7 +6,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>라켓 - 체육관 정보</title>
-
+<script>
+	function openaddcourt() {
+		var stadiumNo = [[${stadium.stadiumNo}]];
+		 var url = '/racket/associate/addcourt/' + stadiumNo;
+		 window.open(url, "", "width=600,height=500");
+		return false; // 이벤트를 취소하여 더이상 진행되지 않도록 합니다.
+	}
+</script>
 </head>
 <body>
 	<th:block layout:fragment="css">
@@ -64,11 +71,14 @@
 									<div class="stadium_info_header">
 										<div class="name">
 											<h2 th:text="${stadium.stadiumName}"></h2>
+											<div class="stadium_associate">
+												<div th:if="${session.user.memberId} ==${stadium.memberId}">
+												<button onclick="return openaddcourt();" class="header-link">add Court</button>
+												</div>
+											</div>
 										</div>
 									</div>
-									<div class="stadium_rate">
-										평점 <span class="star">&#9733;</span> <span class="rate_text">5.0</span>
-									</div>
+									
 									<br />
 									<div class="stadium_addr">
 										구장 이름 : <span th:text="${stadium.stadiumName}"></span>

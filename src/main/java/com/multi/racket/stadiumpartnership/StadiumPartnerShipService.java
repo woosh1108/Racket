@@ -19,4 +19,6 @@ public interface StadiumPartnerShipService {
 	public StadiumcourtDTO court_insert(StadiumDTO stadium,StadiumCourtListDTO court);
 	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours,StadiumcourtDTO court);
 	public CourtoperatinghoursDTO hours_insert(CourtOperatingHoursListDTO hours,StadiumCourtListDTO court);
+	public StadiumDTO find_stadiumno(int stadiumNo);
+	public void insert_court(int stadiumNo,StadiumcourtDTO court,CourtOperatingHoursListDTO hours);
 }
