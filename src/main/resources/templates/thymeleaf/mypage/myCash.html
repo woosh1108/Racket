@@ -42,11 +42,18 @@ menuicon {
 	
 }
 </style>
-
+<script th:inline="javascript">
+    /* 알림 메시지를 받아서 알림 창을 띄움 */
+    var alertMessage = /*[[${alertMessage}]]*/ "";
+    if (alertMessage && alertMessage !== "") {
+        alert(alertMessage);
+    }
+</script>
 <script th:inline="javascript">
 	function openPopup() {
 		window.open('/racket/cashpay', '결제창', 'width=700,height=500');
 	}
+
 </script>
 
 </head>
@@ -141,25 +148,23 @@ menuicon {
 							</tbody>
 						</table>
 						<!-- 페이지네이션 -->
-						<div style="margin-top: 10px; margin-bottom: 35px">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination pagination-md justify-content-center">
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Previous"> <span aria-hidden="true"><i
-												class="fas fa-angle-double-left"></i>&laquo;</span>
-									</a></li>
-									<li class="page-item"
-										th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a
-										class="page-link" th:href="@{/inquiryboard(pageNo=${i})}"
-										th:if="${i+1}>=1"><span th:text="${i+1}"
-											style="color: navy;" th:if="${i+1}>=1"></span></a></li>
-									<li class="page-item"><a class="page-link" href="#"
-										aria-label="Next"> <span aria-hidden="true"><i
-												class="fas fa-angle-double-right"></i>&raquo;</span>
-									</a></li>
-								</ul>
-							</nav>
-						</div>
+            <div style="margin-top:10px; margin-bottom: 35px">
+            	<nav aria-label="Page navigation example">
+			  	<ul class="pagination pagination-md justify-content-center">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Previous">
+			        <span aria-hidden="true"><i class="fas fa-angle-double-left"></i>&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/mypage/cash(pageNo=${i})}" th:if="${i+1}>=1"><span th:text="${i+1}" style="color: navy;" th:if="${i+1}>=1"></span></a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Next">
+			        <span aria-hidden="true"><i class="fas fa-angle-double-right"></i>&raquo;</span>
+			      </a>
+			    </li>
+			  	</ul>
+				</nav>
+            </div>
 					</div>
 				</div>
 			</div>

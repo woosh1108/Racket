@@ -90,7 +90,7 @@ let courtNameCount = 1;
 
 function addCourt() {
   const courtContainer = document.getElementById('courtContainer');
-
+  
   // courtlist 필드 추가
   const courtlistDiv = document.createElement('div');
   courtlistDiv.classList.add('mb-3');

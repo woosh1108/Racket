@@ -118,6 +118,31 @@ public class StadiumPartnerShipDAOImpl implements StadiumPartnerShipDAO {
 		return null;
 	}
 
+	@Override
+	public StadiumDTO find_stadiumno(int stadiumNo) {
+		return repository.findByStadiumNo(stadiumNo);
+	}
+
+	@Override
+	public StadiumcourtDTO addcourt(int stadiumNo, StadiumcourtDTO court) {
+		court.getStadiumNo().setStadiumNo(stadiumNo);
+		System.out.println("============="+court.getStadiumNo().getStadiumNo());
+		System.out.println(stadiumNo);
+		System.out.println(court);
+		courtrepository.save(court);
+		return null;
+	}
+
+	@Override
+	public CourtoperatinghoursDTO addcourthour(CourtOperatingHoursListDTO hours, StadiumcourtDTO court) {
+		List<CourtoperatinghoursDTO> courtHoursList = hours.getCourtHour();
+		for(CourtoperatinghoursDTO hour : courtHoursList) {
+			hour.setCourtNo(court.getCourtNo());
+			hourrepository.save(hour);
+		}
+		return null;
+	}
+
 	
 
 	

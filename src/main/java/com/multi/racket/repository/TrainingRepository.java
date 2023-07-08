@@ -26,12 +26,14 @@ public interface TrainingRepository extends JpaRepository<TrainingDTO, Integer> 
 	Page<TrainingDTO> findByTrainingGradeContaining(String keyword, Pageable pageable);
     Page<TrainingDTO> findByTrainingFeeGreaterThanEqual(int minFee, Pageable pageable);
     Page<TrainingDTO> findByTrainingFeeLessThanEqual(int maxFee, Pageable pageable);
-    
-	List<TrainingDTO> findByTrainingDateBeforeAndTrainingStatus(LocalDate currentDate, String string);
 
 	@Modifying
     @Query("UPDATE TrainingDTO t SET t.trainingStatus = :status WHERE t.trainingNo = :trainingNo")
     void updateTrainingStatus(@Param("trainingNo") int trainingNo, @Param("status") String status);
 	Page<TrainingDTO> findAllByTrainingStatus(String TrainingStatus, Pageable pageable);
+
 	TrainingDTO findByTrainingNoAndMemberId(int trainingNo, String memberId);
+
+	List<TrainingDTO> findByTrainingDateBeforeAndTrainingStatusIn(LocalDate currentDate, List<String> asList);
+
 }

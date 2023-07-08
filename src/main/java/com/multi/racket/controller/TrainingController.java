@@ -24,6 +24,7 @@ import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
+import com.multi.racket.inquiry.InquiryService;
 import com.multi.racket.reservation.StadiumReadService;
 import com.multi.racket.training.TrainingService;
 
@@ -32,13 +33,16 @@ public class TrainingController {
 	TrainingService service;
 	CashService cashService;
 	StadiumReadService stadiumReadService;
+	InquiryService iservice;
 	
 	@Autowired
-	public TrainingController(TrainingService service, CashService cashService, StadiumReadService stadiumReadService) {
+	public TrainingController(TrainingService service, CashService cashService, StadiumReadService stadiumReadService,
+			InquiryService iservice) {
 		super();
 		this.service = service;
 		this.cashService = cashService;
 		this.stadiumReadService = stadiumReadService;
+		this.iservice = iservice;
 	}
 
 	// 구장번호로 강습하기 상세조회
@@ -88,15 +92,22 @@ public class TrainingController {
 			int stadiumFee = stadium.getStadiumFee();
 
 			// 잔액 비교
-			if (totalAmount >= stadiumFee) {
+			if (totalAmount >= stadiumFee*2) {
 				// Cash 테이블과 Reservation 테이블에 insert
 				service.training_insert(memberId, training, cash);
+				
+				int ntamount = cash.getTotalAmount(); 
+                MemberDTO member = (MemberDTO)session.getAttribute("user"); 
+                String id = member.getMemberId();
+                MemberDTO upmem =  iservice.update(id,ntamount);
+                session.setAttribute("user", upmem);
+				
 				redirectAttributes.addFlashAttribute("alertMessage", "강습 등록에 성공했습니다.");
 				return "redirect:/mypage/training";
 			} else {
 				// 잔액 부족으로 캐시 충전 페이지로 이동
 				redirectAttributes.addFlashAttribute("alertMessage", "잔액이 부족합니다.");
-				return "redirect:/mypage/cash";
+				return "redirect:/mypage/cash?pageNo=0";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,11 +175,18 @@ public class TrainingController {
 				// 잔액 비교
 				if (totalAmount >= trainingFee) {
 					service.trainingMemberlist_insert(memberId, trainingMemberlist, cash, training);
+					
+					int ntamount = cash.getTotalAmount(); 
+	                MemberDTO member = (MemberDTO)session.getAttribute("user"); 
+	                String id = member.getMemberId();
+	                MemberDTO upmem =  iservice.update(id,ntamount);
+	                session.setAttribute("user", upmem);
+					
 					redirectAttributes.addFlashAttribute("alertMessage", "강습 신청에 성공했습니다.");
 					return "redirect:/mypage/trainingAttend";
 				} else {
 					redirectAttributes.addFlashAttribute("alertMessage", "잔액이 부족합니다.");
-					return "redirect:/mypage/cash";
+					return "redirect:/mypage/cash?pageNo=0";
 				}
 	        } else {
 	            // 이미 예약된 매칭 정보가 있을 경우에 처리할 내용 추가

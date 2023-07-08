@@ -3,19 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <title>결제수단 선택</title>
+
 <script>
 	function redirectToKakaopay() {
 	  window.location.href = "/racket/cashchoice";
 	}
 </script>
+<style type="text/css">
+	.btn-hover.color-5 {
+    background-image: linear-gradient(to right, #0ba360, #3cba92, #30dd8a, #2bb673);
+    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.btn-hover {
+    width: 120px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+.back {
+    width: 100%;
+    height: 200%;
+    float: left;
+    background-color: #f7ebeb;
+    border: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    counter-increment: bc;
+    padding: 0% 5% 5% 5%;
+}
+</style>
 </head>
 <body>
-	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
-		<img src="/racket/images/racket.png" align="middle" height="250px"/>
-	</div>
-	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
-		<button style="margin-bottom: 50px" onclick="redirectToKakaopay()">카카오페이</button><br>
-		<button>무통장 입금</button>
+	<div class="back">
+		<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+			<img src="/racket/images/racket.png" align="middle" height="250px"/>
+		</div>
+		<div class="buttons" style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+			<img src="/racket/images/kakaopay.png" style="cursor: pointer;" onclick="redirectToKakaopay()" alt="카카오페이"><br>
+			<button class="btn-hover color-5">무통장 입금</button>
+		</div>
 	</div>
 </body>
 </html>
