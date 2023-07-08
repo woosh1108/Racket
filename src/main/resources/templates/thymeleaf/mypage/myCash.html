@@ -45,7 +45,7 @@ menuicon {
 
 <script th:inline="javascript">
   function openPopup() {
-    window.open('/racket/cashpay', '결제창', 'width=700,height=500');
+    window.open('/racket/cashpay', '결제창', 'width=500,height=500');
   }
 </script>
 
@@ -68,7 +68,7 @@ menuicon {
                      </li>
 
 							<li><a href="/racket/mypage/change" class="button">정보수정</a></li>
-							<li><a href="/racket/mypage/cash" class="button">충전</a></li>
+							<li><a href="/racket/mypage/cash?pageNo=0" class="button">충전</a></li>
 							<li><a href="/racket/mypage/match" class="button">매칭</a></li>
 							<li>
                         <form action="/racket/mypage/reservation" method="post">
@@ -145,7 +145,7 @@ menuicon {
 			        <span aria-hidden="true"><i class="fas fa-angle-double-left"></i>&laquo;</span>
 			      </a>
 			    </li>
-			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/inquiryboard(pageNo=${i})}" th:if="${i+1}>=1"><span th:text="${i+1}" style="color: navy;" th:if="${i+1}>=1"></span></a></li>
+			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/mypage/cash(pageNo=${i})}" th:if="${i+1}>=1"><span th:text="${i+1}" style="color: navy;" th:if="${i+1}>=1"></span></a></li>
 			    <li class="page-item">
 			      <a class="page-link" href="#" aria-label="Next">
 			        <span aria-hidden="true"><i class="fas fa-angle-double-right"></i>&raquo;</span>

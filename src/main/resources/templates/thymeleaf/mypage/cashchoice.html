@@ -34,31 +34,102 @@
                         won: won
                     },
 	      			success: function(result) {
-	      				alert("[[${session.user.totalAmount}]]")
-	      				opener.document.getElementById("mycash").innerHTML ="[[${session.user.totalAmount}]]";
-	                    window.close(); 
+	      				opener.location.href="http://localhost:8088/racket/mypage/cash?pageNo=0";
+	      				window.close();
 	                },
 	                error:function(obj,msg,statusmsg){
-	                	alert("실")
+	                	alert("실패")
 	                }
                 });
 		    }else {
 		    	alert("결제에 실패하였습니다.");
+		    	window.close();
 		    }
 		});
 	}
 </script>
+<style type="text/css">
+body {
+  font-size: 62.5%;
+}
+
+.container {
+  padding: 2em;
+}
+
+button,
+button::after {
+  -webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+button {
+  background: white;
+  border: 3px solid #f5f11d;
+  border-radius: 5px;
+  color: #695840;
+  display: block;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 1em auto;
+  padding: 2em 6em;
+  position: relative;
+  text-transform: uppercase;
+}
+
+button::before,
+button::after {
+  background: #f7ebeb;
+  content: '';
+  position: absolute;
+  z-index: -1;
+}
+
+button:hover {
+  color: white; 
+  background-color: #302a22;
+}
+
+.btn-1::after {
+  height: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.btn-1:hover:after {
+  height: 100%;
+}
+.back {
+    width: 100%;
+    height: 200%;
+    float: left;
+    background-color: #f7ebeb;
+    border: 10px;
+    border-color: #ffffff;
+    border-style: solid;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    counter-increment: bc;
+    padding: 0% 5% 5% 5%;
+}
+</style>
 
 </head>
-<body>
-	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
-		<img src="/racket/images/racket.png" align="middle" height="250px"/>
-	</div>
-	<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
-		<button style="margin-bottom: 50px" name="won" value=10000 onclick="requestPay(this.getAttribute('value'))">10000원</button><br>
-		<button style="margin-bottom: 50px" name="won" value=20000 onclick="requestPay(this.getAttribute('value'))">20000원</button><br>
-		<button style="margin-bottom: 50px" name="won" value=30000 onclick="requestPay(this.getAttribute('value'))">30000원</button><br>
-		<button style="margin-bottom: 50px" name="won" value=40000 onclick="requestPay(this.getAttribute('value'))">40000원</button>
+<body>	
+	<div class="back">
+		<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+			<img src="/racket/images/racket.png" align="middle" height="250px"/>
+		</div>	
+		<div style="display:flex; flex-direction:column; align-items: center; justify-content: center">
+			<button class="btn-1" style="cursor: pointer" name="won" value=10000 onclick="requestPay(this.getAttribute('value'))">10000원</button><br>
+			<button class="btn-1" style="cursor: pointer" name="won" value=20000 onclick="requestPay(this.getAttribute('value'))">20000원</button><br>
+			<button class="btn-1" style="cursor: pointer" name="won" value=30000 onclick="requestPay(this.getAttribute('value'))">30000원</button><br>
+			<button class="btn-1" style="cursor: pointer" name="won" value=40000 onclick="requestPay(this.getAttribute('value'))">40000원</button>
+		</div>
 	</div>
 </body>
 </html>
