@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,4 +71,17 @@ public class StadiumPartnerShipController {
 		service.hours_insert(hours, court);
 		return "redirect:/associate";//컨트롤러를 요청재지정
 	}
+	
+	// 코트 추가
+		@GetMapping("/associate/addcourt/{stadiumNo}")
+		public String addcourt(Model model,@PathVariable int stadiumNo) {
+			StadiumDTO stadium = service.find_stadiumno(stadiumNo);
+			model.addAttribute("stadium",stadium);
+			return "thymeleaf/signup/addcourt";
+		}
+		@PostMapping("/associate/addcourt")
+		public String addcourt(int stadiumNo, StadiumcourtDTO court, CourtOperatingHoursListDTO hours) {
+		    service.insert_court(stadiumNo, court, hours);
+		    return "thymeleaf/signup/popup_response";
+		}
 }

@@ -18,4 +18,7 @@ public interface StadiumPartnerShipDAO {
 	public StadiumcourtDTO court_insert(StadiumDTO stadium,StadiumCourtListDTO courtlist);
 	public CourtoperatinghoursDTO hours_insert(CourtoperatinghoursDTO hours,StadiumcourtDTO court);
 	public CourtoperatinghoursDTO hours_insert(CourtOperatingHoursListDTO hours,StadiumCourtListDTO court);
+	public StadiumDTO find_stadiumno(int stadiumNo);
+	public StadiumcourtDTO addcourt(int stadiumNo,StadiumcourtDTO court);
+	public CourtoperatinghoursDTO addcourthour(CourtOperatingHoursListDTO hours,StadiumcourtDTO court);
 }

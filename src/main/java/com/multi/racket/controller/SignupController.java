@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,22 +16,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.MemberDTO;
+import com.multi.racket.domain.StadiumDTO;
 import com.multi.racket.emailCertified.MailSendService;
+import com.multi.racket.manage.ManageRepository;
 import com.multi.racket.repository.MemberRepository;
 import com.multi.racket.signup.SignUpService;
 
 @Controller
 public class SignupController {
 	SignUpService service;
+	ManageRepository managerepository;
 	MailSendService mailservice;
 	MemberRepository memberrepository;
 	@Autowired
-	public SignupController(SignUpService service, MailSendService mailservice) {
+	public SignupController(SignUpService service, ManageRepository managerepository, MailSendService mailservice,
+			MemberRepository memberrepository) {
 		super();
 		this.service = service;
+		this.managerepository = managerepository;
 		this.mailservice = mailservice;
+		this.memberrepository = memberrepository;
 	}
-	
+
 	// 회원가입 인증
 	@RequestMapping("/signauth")
 	public String signaauth() {
@@ -41,9 +48,9 @@ public class SignupController {
 	public String agreepopup() {
 		return "thymeleaf/signup/sign-agreement";
 	}
-
+	
 	// 회원가입 폼
-
+	
 	// insert - 회원등록하기 뷰
 	@GetMapping("/signup")
 	public String next() {

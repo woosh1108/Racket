@@ -71,5 +71,16 @@ public class StadiumPartnerShipServiceImpl implements StadiumPartnerShipService 
 		return dao.hours_insert(hours, court);
 	}
 
+	@Override
+	public StadiumDTO find_stadiumno(int stadiumNo) {
+		return dao.find_stadiumno(stadiumNo);
+	}
+
+	@Override
+	public void insert_court(int stadiumNo, StadiumcourtDTO court, CourtOperatingHoursListDTO hours) {
+		dao.addcourt(stadiumNo, court);
+		dao.addcourthour(hours, court);
+	}
+
 
 }

@@ -11,7 +11,6 @@ import com.multi.racket.domain.StadiumDTO;
 
 public interface StadiumRepository extends JpaRepository<StadiumDTO, Integer> {
 	Optional<StadiumDTO> findByStadiumNo(int stadiumNo);
-
 	// 구장 목록 조회
 	Page<StadiumDTO> findAllByStadiumStatus(int stadiumStatus, Pageable pageable);
 	
