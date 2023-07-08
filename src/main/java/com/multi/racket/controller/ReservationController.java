@@ -215,14 +215,12 @@ public class ReservationController {
 		model.addAttribute("reservationlist", reservationlist);
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", reservationlistPage.getTotalPages());
-		
 		// ReservationDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
 	    for (ReservationDTO reservation : reservationlist) {
 	        // ReservationDTO에 대한 CourtoperatinghoursDTO를 가져옵니다.
 	    	CourtoperatinghoursDTO courtoperatinghours = stadiumReadService.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
 		    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
 		    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
-
 		    model.addAttribute("stadium", stadium);
 		    model.addAttribute("stadiumcourt", stadiumcourt);
 		    model.addAttribute("courtoperatinghours", courtoperatinghours);

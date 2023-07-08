@@ -180,59 +180,38 @@ function updateCourtEnd(courtIndex) {
 
 
 function addCourtHours() {
-  const courtHoursContainer = document.getElementById('courtHoursContainer');
+	  const courtContainer = document.getElementById('courtContainer');
 
-  const courtHoursLabel = document.createElement('label');
-  courtHoursLabel.setAttribute('for', `courtStart_${courtHoursCount}`);
-  courtHoursLabel.setAttribute('class', 'form-label');
-  courtHoursLabel.setAttribute('style', 'width: 100px;');
-  courtHoursLabel.innerText = '코트 운영 시간:';
-  courtHoursContainer.appendChild(courtHoursLabel);
+	  // courtHour 필드 추가
+	  const courtHourDiv = document.createElement('div');
+	  courtHourDiv.classList.add('TimeContainer');
+	  courtHourDiv.innerHTML = `
+	    <label for="courtStart_${courtHoursCount}" class="form-label" style="width: 100px;">코트 운영 시간:</label>
+	    <select id="courtStart_${courtHoursCount}" name="courtHour[${courtHoursCount}].courtStart" class="form-select" onchange="updateCourtEnd(${courtHoursCount})">
+	      <option value="06:00">06:00</option>
+	      <option value="08:00">08:00</option>
+	      <option value="10:00">10:00</option>
+	      <option value="12:00">12:00</option>
+	      <option value="14:00">14:00</option>
+	      <option value="16:00">16:00</option>
+	      <option value="18:00">18:00</option>
+	      <option value="20:00">20:00</option>
+	      <option value="22:00">22:00</option>
+	    </select>
+	    <label for="stadiumTimeEnd" class="form-label" style="width: 100px;">~</label>
+	    <select id="courtEnd_${courtHoursCount}" name="courtHour[${courtHoursCount}].courtEnd" class="form-select" readonly>
+	      <option value="08:00">08:00</option>
+	      <option value="10:00">10:00</option>
+	      <option value="12:00">12:00</option>
+	      <option value="14:00">14:00</option>
+	      <option value="16:00">16:00</option>
+	      <option value="18:00">18:00</option>
+	      <option value="20:00">20:00</option>
+	      <option value="22:00">22:00</option>
+	      <option value="24:00">24:00</option>
+	    </select>
+	  `;
+	  courtContainer.appendChild(courtHourDiv);
 
-  const timeContainer = document.createElement('div');
-  timeContainer.setAttribute('class', 'TimeContainer');
-  courtHoursContainer.appendChild(timeContainer);
-
-  const courtStartSelect = document.createElement('select');
-  courtStartSelect.setAttribute('id', `courtStart_${courtHoursCount}`);
-  courtStartSelect.setAttribute('name', `courtHour[${courtHoursCount}].courtStart`);
-  courtStartSelect.setAttribute('class', 'form-select');
-  courtStartSelect.setAttribute('onchange', `updateCourtEnd(${courtHoursCount})`);
-  timeContainer.appendChild(courtStartSelect);
-
-  const courtEndLabel = document.createElement('label');
-  courtEndLabel.setAttribute('for', 'courtEnd');
-  courtEndLabel.setAttribute('class', 'form-label');
-  courtEndLabel.setAttribute('style', 'width: 100px;');
-  courtEndLabel.innerText = '~';
-  timeContainer.appendChild(courtEndLabel);
-
-  const courtEndSelect = document.createElement('select');
-  courtEndSelect.setAttribute('id', `courtEnd_${courtHoursCount}`);
-  courtEndSelect.setAttribute('name', `courtHour[${courtHoursCount}].courtEnd`);
-  courtEndSelect.setAttribute('class', 'form-select');
-  courtEndSelect.setAttribute('readonly', '');
-  timeContainer.appendChild(courtEndSelect);
-  
-
-  // 옵션 값 추가
-  const courtStartOptions = ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
-  courtStartOptions.forEach((optionValue) => {
-    const option = document.createElement('option');
-    option.setAttribute('value', optionValue);
-    option.innerText = optionValue;
-    courtStartSelect.appendChild(option);
-  });
-  // 옵션 값 추가
-  const courtEndOptions = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '24:00'];
-  courtEndOptions.forEach((optionValue) => {
-    const option2 = document.createElement('option');
-    option2.setAttribute('value', optionValue);
-    option2.innerText = optionValue;
-    courtEndSelect.appendChild(option2);
-  });
-  courtHoursCount++;
-  courtCount++;
-  console.log(courtHoursCount);
-  
-}
+	  courtHoursCount++; // 코트 시간 수 증가
+	}

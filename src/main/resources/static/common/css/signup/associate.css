@@ -48,6 +48,8 @@ input[type=password]{
 .TimeContainer{
 	display: flex;
 	text-align: center;
+	margin-top:15px;
+	margin_bottom:5px;
 }
 select[readonly] {
   background-color: #ddd;
