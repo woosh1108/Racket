@@ -93,10 +93,11 @@ public class ReservationController {
 					.findCourtoperatinghoursByCourtHourNo(reservation.getCourtHourNo());
 			StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
 			StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
-			int stadiumFee = stadium.getStadiumFee();
+			int reservationFee = reservation.getReservationFee();
+			System.out.println("Controller 구장요금: "+reservationFee);
 
 			// 잔액 비교
-			if (totalAmount >= stadiumFee) {
+			if (totalAmount >= reservationFee) {
 				// Cash 테이블과 Reservation 테이블에 insert
 				service.reservation_insert(memberId, reservation, cash);
 
@@ -180,11 +181,18 @@ public class ReservationController {
 				// 잔액 비교
 				if (totalAmount >= reservationFee) {
 					service.matching_insert(memberId, matching, cash, reservation);
+					
+					int ntamount = cash.getTotalAmount(); 
+	                MemberDTO member = (MemberDTO)session.getAttribute("user"); 
+	                String id = member.getMemberId();
+	                MemberDTO upmem =  iservice.update(id,ntamount);
+	                session.setAttribute("user", upmem);
+					
 					redirectAttributes.addFlashAttribute("alertMessage", "예약 참가에 성공했습니다.");
 					return "redirect:/mypage/match";
 				} else {
 					redirectAttributes.addFlashAttribute("alertMessage", "잔액이 부족합니다.");
-					return "redirect:/mypage/cash";
+					return "redirect:/mypage/cash?pageNo=0";
 				}
 	        } else {
 	            // 이미 예약된 매칭 정보가 있을 경우에 처리할 내용 추가

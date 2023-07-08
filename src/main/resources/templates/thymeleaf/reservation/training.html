@@ -181,8 +181,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 	  var stadiumFeeValue = document.getElementById("amountSpent").value;
       var totalCash = document.getElementById("totalCash").value;
-      var price = stadiumFeeValue*2;
+      var price = stadiumFeeValue;
+      alert(price);
       var totalAmount = totalCash - price;
+      alert(totalAmount);
       document.getElementById("totalAmount").value = totalAmount;
 
     //HTML 요소 가져오기
@@ -236,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <input type="hidden" name="totalCash" id="totalCash" th:value="${totalAmount}">
             <input type="hidden" name="totalAmount" id="totalAmount" onchange="handleRadioChange()" value="0" > 
             <input type="hidden" name="reservationFee" id="reservationFee" th:value="${court.stadiumNo.stadiumContent}" onchange="handleRadioChange()" value="0" >
-			<input type="hidden" name="amountSpent" id="amountSpent" th:value="${court.stadiumNo.stadiumFee}" >
+			<input type="hidden" name="amountSpent" id="amountSpent" th:value="${court.stadiumNo.stadiumFee*2}" >
 			<input type="hidden" name="cashDate" id="cashDate" >	
 			<input type="hidden" name="trainingStatus" value="모집중">
 			

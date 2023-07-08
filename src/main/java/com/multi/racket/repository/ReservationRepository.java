@@ -29,11 +29,11 @@ public interface ReservationRepository extends JpaRepository<ReservationDTO, Int
 	Page<ReservationDTO> findByReservationMetContaining(String keyword, Pageable pageable);
 	Page<ReservationDTO> findByReservationGenderContaining(String keyword, Pageable pageable);
 	Page<ReservationDTO> findByGradeSettingContaining(String keyword, Pageable pageable);
-
-	List<ReservationDTO> findByReservationDateBeforeAndReservationStatus(LocalDate currentDate, String string);
 	
 	@Modifying
     @Query("UPDATE ReservationDTO r SET r.reservationStatus = :status WHERE r.reservationNo = :reservationNo")
     void updateReservationStatus(@Param("reservationNo") int reservationNo, @Param("status") String status);
+
+	List<ReservationDTO> findByReservationDateBeforeAndReservationStatusIn(LocalDate currentDate, List<String> asList);
 
 }

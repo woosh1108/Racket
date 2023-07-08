@@ -2,6 +2,7 @@ package com.multi.racket.reservation;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,12 +140,12 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public void updateExpiredReservations(LocalDate currentDate) {
-		// 현재 날짜 이후의 예약 데이터를 조회하고 상태를 "경기종료"로 수정하는 로직
-        List<ReservationDTO> expiredReservations = rRepository.findByReservationDateBeforeAndReservationStatus(currentDate, "경기진행중");
-        for (ReservationDTO reservation : expiredReservations) {
-            reservation.setReservationStatus("경기종료");
-        }
-        rRepository.saveAll(expiredReservations);
+		// '매칭중', '매칭완료' 상태의 예약 데이터를 조회하여 상태를 "경기종료"로 수정
+	    List<ReservationDTO> expiredReservations = rRepository.findByReservationDateBeforeAndReservationStatusIn(currentDate, Arrays.asList("매칭중", "매칭완료"));
+	    for (ReservationDTO reservation : expiredReservations) {
+	        reservation.setReservationStatus("경기종료");
+	    }
+	    rRepository.saveAll(expiredReservations);
 	}
 
 	@Override
