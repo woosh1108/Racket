@@ -79,6 +79,11 @@ public class MemberServiceImpl implements MemberService {
 		return dao.reservationPage(memberId, pageNo);
 	}
 	
+	@Override
+	public ReservationDTO cancelReservation(int reservationNo, String memberId, int reservationFee) {
+		// TODO Auto-generated method stub
+		return dao.cancelReservation(reservationNo, memberId, reservationFee);
+	}
 	
 	//매치참가
 	
@@ -107,9 +112,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MatchingDTO cancelMatching(int reservationNo, String memberId) {
+	public MatchingDTO cancelMatching(int reservationNo, String memberId, int reservationFee) {
 		// TODO Auto-generated method stub
-		return dao.cancelMatching(reservationNo, memberId);
+		return dao.cancelMatching(reservationNo, memberId, reservationFee);
 	}
 	
 	//강습
@@ -131,6 +136,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.trainingIncome(memberId);
 	}
+	
+	@Override
+	public TrainingDTO cancelTraining(int trainingNo, String memberId, int trainingFee, int courtHourNo) {
+		// TODO Auto-generated method stub
+		return dao.cancelTraining(trainingNo, memberId, trainingFee, courtHourNo);
+	}
 
 	//강습참가
 
@@ -147,9 +158,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public TrainingMemberlistDTO cancelTraining(int trainingNo, String memberId) {
+	public TrainingMemberlistDTO cancelTrainingAttend(int trainingNo, String memberId, int trainingFee) {
 		// TODO Auto-generated method stub
-		return dao.cancelTraining(trainingNo, memberId);
+		return dao.cancelTrainingAttend(trainingNo, memberId, trainingFee);
 	}
 
 	
@@ -158,10 +169,5 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberDTO> getAllMembers() {
 		 return dao.getAllMembers();
 	}
-
-
-	
-
-	
 
 }

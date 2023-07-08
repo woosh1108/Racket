@@ -31,6 +31,9 @@ public interface TrainingRepository extends JpaRepository<TrainingDTO, Integer> 
     @Query("UPDATE TrainingDTO t SET t.trainingStatus = :status WHERE t.trainingNo = :trainingNo")
     void updateTrainingStatus(@Param("trainingNo") int trainingNo, @Param("status") String status);
 	Page<TrainingDTO> findAllByTrainingStatus(String TrainingStatus, Pageable pageable);
-	
+
+	TrainingDTO findByTrainingNoAndMemberId(int trainingNo, String memberId);
+
 	List<TrainingDTO> findByTrainingDateBeforeAndTrainingStatusIn(LocalDate currentDate, List<String> asList);
+
 }
