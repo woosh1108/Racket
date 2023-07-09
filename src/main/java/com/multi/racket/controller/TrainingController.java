@@ -1,5 +1,6 @@
 package com.multi.racket.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.CourtoperatinghoursDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.domain.StadiumDTO;
+import com.multi.racket.domain.StadiumFileDTO;
 import com.multi.racket.domain.StadiumcourtDTO;
 import com.multi.racket.domain.TrainingDTO;
 import com.multi.racket.domain.TrainingMemberlistDTO;
@@ -209,6 +211,11 @@ public class TrainingController {
 		model.addAttribute("traininglist", traininglist);
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", traininglistPage.getTotalPages());
+
+		List<StadiumDTO> stadiumList = new ArrayList<>();
+		List<StadiumcourtDTO> courtList = new ArrayList<>();
+		List<CourtoperatinghoursDTO> hourList = new ArrayList<>();
+		List<StadiumFileDTO> fileList = new ArrayList<>();
 		
 		// TrainingDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
 	    for (TrainingDTO training : traininglist) {
@@ -217,11 +224,55 @@ public class TrainingController {
 		    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
 		    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
 
-		    model.addAttribute("stadium", stadium);
-		    model.addAttribute("stadiumcourt", stadiumcourt);
-		    model.addAttribute("courtoperatinghours", courtoperatinghours);
+		    
+		    stadiumList.add(stadium);
+		    courtList.add(stadiumcourt);
+		    hourList.add(courtoperatinghours);
 	    }
-			
+	    
+		List<String> courtName = new ArrayList<>();
+		List<String> stadiumName = new ArrayList<>();
+		List<String> startHour = new ArrayList<>();
+		List<String> endHour = new ArrayList<>();
+		List<String> fileStorename = new ArrayList<>();
+		
+		for (StadiumDTO stadium : stadiumList) {
+			StadiumFileDTO file = null;
+		    List<StadiumFileDTO> files = stadium.getFiles();
+		    if (files != null && !files.isEmpty()) {
+		        file = files.get(0);
+		        stadiumName.add(stadium.getStadiumName());
+		        fileList.add(file);
+		    } else {
+		        stadiumName.add(stadium.getStadiumName());
+		        fileList.add(null);
+		    }
+			System.out.println(file);
+			stadiumName.add(stadium.getStadiumName());
+
+		    fileList.add(file);
+		}
+		for (StadiumFileDTO file : fileList) {
+		    if (file != null) {
+		        fileStorename.add(file.getFileStorename());
+		    } else {
+		        fileStorename.add(null);
+		    }
+		}
+		for (StadiumcourtDTO court : courtList) {
+			courtName.add(court.getCourtName());
+		}
+		for (CourtoperatinghoursDTO hour : hourList) {
+			startHour.add(hour.getCourtStart());
+			endHour.add(hour.getCourtEnd());
+		}
+
+	    model.addAttribute("fileStorename", fileStorename);
+	    model.addAttribute("stadiumName", stadiumName);
+	    model.addAttribute("courtName", courtName);
+		model.addAttribute("startHour", startHour);
+		model.addAttribute("endHour", endHour);
+		
 		return "thymeleaf/reservation/traininglist";
 	}
 
@@ -235,6 +286,11 @@ public class TrainingController {
         model.addAttribute("traininglist", traininglist);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", trainingPage.getTotalPages());
+
+		List<StadiumDTO> stadiumList = new ArrayList<>();
+		List<StadiumcourtDTO> courtList = new ArrayList<>();
+		List<CourtoperatinghoursDTO> hourList = new ArrayList<>();
+		List<StadiumFileDTO> fileList = new ArrayList<>();
         
         // TrainingDTO 목록을 가져오면서 같이 관련된 정보들을 설정합니다.
 	    for (TrainingDTO training : traininglist) {
@@ -243,10 +299,53 @@ public class TrainingController {
 		    StadiumcourtDTO stadiumcourt = stadiumReadService.findStadiumcourtByCourtNo(courtoperatinghours.getCourtNo());
 		    StadiumDTO stadium = stadiumReadService.findStadiumByStadiumNo(stadiumcourt.getStadiumNo().getStadiumNo());
 
-		    model.addAttribute("stadium", stadium);
-		    model.addAttribute("stadiumcourt", stadiumcourt);
-		    model.addAttribute("courtoperatinghours", courtoperatinghours);
+		    stadiumList.add(stadium);
+		    courtList.add(stadiumcourt);
+		    hourList.add(courtoperatinghours);
 	    }
+
+		List<String> courtName = new ArrayList<>();
+		List<String> stadiumName = new ArrayList<>();
+		List<String> startHour = new ArrayList<>();
+		List<String> endHour = new ArrayList<>();
+		List<String> fileStorename = new ArrayList<>();
+		
+		for (StadiumDTO stadium : stadiumList) {
+			StadiumFileDTO file = null;
+		    List<StadiumFileDTO> files = stadium.getFiles();
+		    if (files != null && !files.isEmpty()) {
+		        file = files.get(0);
+		        stadiumName.add(stadium.getStadiumName());
+		        fileList.add(file);
+		    } else {
+		        stadiumName.add(stadium.getStadiumName());
+		        fileList.add(null);
+		    }
+			System.out.println(file);
+			stadiumName.add(stadium.getStadiumName());
+
+		    fileList.add(file);
+		}
+		for (StadiumFileDTO file : fileList) {
+		    if (file != null) {
+		        fileStorename.add(file.getFileStorename());
+		    } else {
+		        fileStorename.add(null);
+		    }
+		}
+		for (StadiumcourtDTO court : courtList) {
+			courtName.add(court.getCourtName());
+		}
+		for (CourtoperatinghoursDTO hour : hourList) {
+			startHour.add(hour.getCourtStart());
+			endHour.add(hour.getCourtEnd());
+		}
+
+	    model.addAttribute("fileStorename", fileStorename);
+	    model.addAttribute("stadiumName", stadiumName);
+	    model.addAttribute("courtName", courtName);
+		model.addAttribute("startHour", startHour);
+		model.addAttribute("endHour", endHour);
 	    
         return "thymeleaf/reservation/traininglist";
     }
