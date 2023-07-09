@@ -85,6 +85,12 @@ public class MemberServiceImpl implements MemberService {
 		return dao.cancelReservation(reservationNo, memberId, reservationFee);
 	}
 	
+	@Override
+	public int reservationCourtNo(int reservationNo) {
+		// TODO Auto-generated method stub
+		return dao.reservationCourtNo(reservationNo);
+	}
+
 	//매치참가
 	
 	@Override
@@ -141,6 +147,12 @@ public class MemberServiceImpl implements MemberService {
 	public TrainingDTO cancelTraining(int trainingNo, String memberId, int trainingFee, int courtHourNo) {
 		// TODO Auto-generated method stub
 		return dao.cancelTraining(trainingNo, memberId, trainingFee, courtHourNo);
+	}
+	
+	@Override
+	public int trainingCourtNo(int trainingNo) {
+		// TODO Auto-generated method stub
+		return dao.trainingCourtNo(trainingNo);
 	}
 
 	//강습참가

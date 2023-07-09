@@ -101,11 +101,11 @@ public class ReservationServiceImpl implements ReservationService {
 	        
 	        // 예약 최대 인원수 조회
 	        int maxCapacity = reservation.getPeopleNum();
-	        System.out.println("service: "+participantCount+1);
+	        System.out.println("service: "+participantCount);
 	        System.out.println("service: "+maxCapacity);
 	        
 	        // 예약 최대 인원보다 1명 적을 때 예약 상태를 "매칭완료"로 변경
-	        if (participantCount + 1 == maxCapacity) {
+	        if (participantCount == maxCapacity) {
 	        	rRepository.updateReservationStatus(matching.getReservationNo(), "매칭완료");
 	        }
 	    } catch (Exception e) {

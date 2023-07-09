@@ -56,7 +56,7 @@ public class mypageController {
 
 	// 내정보 수정페이지
 	@RequestMapping("/change")
-	public String myInfoChange() {
+	public String myInfoChange(Model model) {
 		return "thymeleaf/mypage/myInfo_change";
 	}
 
@@ -96,29 +96,29 @@ public class mypageController {
 	}
 
 	// 내 캐쉬내역보기 - 충전가능
-    @RequestMapping("/cash")
-    public String myCash(Model model, @RequestParam("pageNo") String pageNo, String id, HttpSession session) {
-        MemberDTO member = (MemberDTO) session.getAttribute("user");
-        id = member.getMemberId();
-        System.out.println(pageNo);
-        PageDTO page = service2.mycash(Integer.parseInt(pageNo), id);
-        List<CashDTO> list = page.getCashlist();
-        int totalPageNumber = page.getTotalPageNumber();
-
-        //원준코드추가
-        MemberDTO user = service.idCheck(id);
-        model.addAttribute("totalAmount", user.getTotalAmount());
-
-        model.addAttribute("mycash", list);
-        model.addAttribute("totalPageNumber", totalPageNumber);
-        model.addAttribute("member", member);
-        return "thymeleaf/mypage/myCash";
-    }
+	@RequestMapping("/cash")
+	public String myCash(Model model, @RequestParam("pageNo") String pageNo, String id, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		id = member.getMemberId();
+		System.out.println(pageNo);
+		PageDTO page = service2.mycash(Integer.parseInt(pageNo), id);
+		List<CashDTO> list = page.getCashlist();
+		int totalPageNumber = page.getTotalPageNumber();
+		
+		//원준코드추가
+		MemberDTO user = service.idCheck(id);
+		model.addAttribute("totalAmount", user.getTotalAmount());
+		
+		model.addAttribute("mycash", list);
+		model.addAttribute("totalPageNumber", totalPageNumber);
+		model.addAttribute("member", member);
+		return "thymeleaf/mypage/myCash";
+	}
 
 	// 내 예약 내역보기
 	@RequestMapping("/reservation")
 	public String myReservation(String memberId, Date reservationDate, Model model,
-			@RequestParam(defaultValue = "0") int pageNo,HttpSession session) {
+			@RequestParam(defaultValue = "0") int pageNo) {
 		// 현재 날짜 가져오기
 		LocalDate today = LocalDate.now();
 		Date currentDate = Date.valueOf(today);
@@ -130,7 +130,14 @@ public class mypageController {
 		List<ReservationDTO> date = service.reservationDate(reservationDate);
 		Page<ReservationDTO> reservationPage = service.reservationPage(memberId, pageNo);
 		List<ReservationDTO> reservationUser = reservationPage.getContent();
-
+		
+		List<Integer> courtNo = new ArrayList<Integer>();
+		for(ReservationDTO reservation : reservationUser) {
+			int number = service.reservationCourtNo(reservation.getReservationNo());
+			courtNo.add(number);
+			model.addAttribute("courtNo", courtNo);
+		}
+		
 		// 참여인원
 		List<Integer> peopleList = new ArrayList<>();
 		for (ReservationDTO reservation : reservationUser) {
@@ -174,7 +181,7 @@ public class mypageController {
 	// 내예약보기 - 취소기능
 	@RequestMapping("/reservation/cancel")
 	public String cancelReservation(int reservationNo, String memberId, Date reservationDate, Model model,
-			int reservationFee, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes,HttpSession session) {
+			int reservationFee, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes) {
 		try {
 
 			ReservationDTO cacelUser = service.cancelReservation(reservationNo, memberId, reservationFee);
@@ -229,10 +236,7 @@ public class mypageController {
 			}
 			model.addAttribute("startHour", startHour);
 			model.addAttribute("endHour", endHour);
-			MemberDTO member = (MemberDTO) session.getAttribute("user");
-//			System.out.println("-----------------------------------------------------------");
-//			System.out.println(member.getTotalAmount());
-//			System.out.println("-----------------------------------------------------------");
+
 			return "thymeleaf/mypage/myReservation";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -448,7 +452,7 @@ public class mypageController {
 	// 내강습보기 - 취소기능
 	@RequestMapping("/training/cancel")
 	public String cancelTraining(int trainingNo, String memberId, Date trainingDate, Model model, int trainingFee,
-			int courtHourNo, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes,HttpSession session) {
+			int courtHourNo, @RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes) {
 		try {
 			TrainingDTO cacelUser = service.cancelTraining(trainingNo, memberId, trainingFee, courtHourNo);
 			if (cacelUser != null) {
@@ -508,8 +512,6 @@ public class mypageController {
 				model.addAttribute("totalPages", trainingPage.getTotalPages());
 				model.addAttribute("totalIncome", totalIncome);
 			}
-			MemberDTO member = (MemberDTO) session.getAttribute("user");
-			System.out.println(member.getTotalAmount());
 			return "thymeleaf/mypage/myTraining";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -568,13 +570,14 @@ public class mypageController {
 			model.addAttribute("currentPage", pageNo);
 			model.addAttribute("totalPages", traingListPage.getTotalPages());
 		}
+
 		return "thymeleaf/mypage/myTrainingAttend";
 	}
 
 	// 강습참가 보기 - 취소기능
 	@RequestMapping("/trainingAttend/cancel")
 	public String cancelTrainingAttend(int trainingNo, String memberId, Date trainingDate, Model model, int trainingFee,
-			@RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes,HttpSession session) {
+			@RequestParam(defaultValue = "0") int pageNo, RedirectAttributes redirectAttributes) {
 		try {
 			TrainingMemberlistDTO cacelUser = service.cancelTrainingAttend(trainingNo, memberId, trainingFee);
 			if (cacelUser != null) {
@@ -627,8 +630,6 @@ public class mypageController {
 				model.addAttribute("currentPage", pageNo);
 				model.addAttribute("totalPages", traingListPage.getTotalPages());
 			}
-			MemberDTO member = (MemberDTO) session.getAttribute("user");
-			System.out.println(member.getTotalAmount());
 			return "thymeleaf/mypage/myTrainingAttend";
 		} catch (Exception e) {
 			e.printStackTrace();

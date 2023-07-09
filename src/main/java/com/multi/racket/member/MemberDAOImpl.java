@@ -131,6 +131,14 @@ public class MemberDAOImpl implements MemberDAO {
 		return reservation;
 	}
 	
+	@Override
+	public int reservationCourtNo(int reservationNo) {
+		Optional<ReservationDTO> reservation = reservationRepository.findByReservationNo(reservationNo);
+		Optional<CourtoperatinghoursDTO> court = courtOperatingHoursRepository.findByCourtHourNo(reservation.get().getCourtHourNo());
+		int courtNo = court.get().getCourtNo();
+		return courtNo;
+	}
+
 	//매치 참가
 	@Override
 	public Page<ReservationDTO> matchingPage(String memberId, int pageNo) {
@@ -175,6 +183,8 @@ public class MemberDAOImpl implements MemberDAO {
 		CashDTO cash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(memberId);
 		int userCash = cash.getTotalAmount();
 		CashDTO myCash = new CashDTO(memberId, 1, userCash + reservationFee , 0 , reservationFee);
+		Optional<ReservationDTO> reservation = reservationRepository.findByReservationNo(reservationNo);
+		reservation.get().setReservationStatus("매칭중");
 		memberRepository.save(member);
 		cashRepository.save(myCash);
 		matchingRepository.delete(user);
@@ -221,7 +231,7 @@ public class MemberDAOImpl implements MemberDAO {
 		Optional<StadiumcourtDTO> satdiumCourt = stadiumCourtRepository.findByCourtNo(court.get().getCourtNo()); 
 		StadiumDTO stadium = satdiumCourt.get().getStadiumNo();
 		//강습 개설할때 사용한 구장금액
-		int stadiumUsePrice = stadium.getStadiumFee()*2;
+		int stadiumUsePrice = stadium.getStadiumFee() * 2;
 		List<TrainingMemberlistDTO> trainingMemberList = trainingMemberlistRepository.findByTrainingNo(trainingNo);
 		for(TrainingMemberlistDTO traingUser : trainingMemberList) {
 			MemberDTO attendUser = memberRepository.findById(traingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
@@ -242,6 +252,14 @@ public class MemberDAOImpl implements MemberDAO {
 		cashRepository.save(trainerCash);
 		trainingRepository.delete(training);
 		return training;
+	}
+	
+	@Override
+	public int trainingCourtNo(int trainingNo) {
+		Optional<TrainingDTO> training = trainingRepository.findByTrainingNo(trainingNo);
+		Optional<CourtoperatinghoursDTO> court = courtOperatingHoursRepository.findByCourtHourNo(training.get().getCourtHourNo());
+		int courtNo = court.get().getCourtNo();
+		return courtNo;
 	}
 	
 	//강습참가
@@ -279,9 +297,12 @@ public class MemberDAOImpl implements MemberDAO {
 		CashDTO attendUserCash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(memberId);
 		int cashTotalAmount = attendUserCash.getTotalAmount();
 		CashDTO myCash = new CashDTO(memberId, 1, cashTotalAmount + trainingFee , 0 , trainingFee);
+		Optional<TrainingDTO> training = trainingRepository.findByTrainingNo(trainingNo);
+		training.get().setTrainingStatus("모집중");
 		memberRepository.save(attendUser);
 		cashRepository.save(myCash);
 		trainingMemberlistRepository.delete(user);
 		return user;
 	}
+
 }

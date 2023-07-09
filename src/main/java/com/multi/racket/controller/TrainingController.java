@@ -248,7 +248,6 @@ public class TrainingController {
 			System.out.println(file);
 			stadiumName.add(stadium.getStadiumName());
 			System.out.println("******"+stadiumName);
-		    fileList.add(file);
 		}
 		for (StadiumFileDTO file : fileList) {
 		    if (file != null) {
@@ -319,8 +318,6 @@ public class TrainingController {
 		    }
 			System.out.println(file);
 			stadiumName.add(stadium.getStadiumName());
-
-		    fileList.add(file);
 		}
 		for (StadiumFileDTO file : fileList) {
 		    if (file != null) {

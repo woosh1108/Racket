@@ -69,8 +69,8 @@
 							onclick="return openAgreementPopup();" class="header-link">회원가입</a>
 						</span>
 						<span th:if="${session.user!=null}">
-							<a th:href="@{/mypage/info(memberId=${session.user.memberId})}" class="header-link" >마이페이지</a>
-						</span>
+                            <a th:href="@{/mypage/info(memberId=${session.user.memberId},memberAuth=${session.user.memberAuth})}" class="header-link" >마이페이지</a>
+                        </span>
 					</h1>
 				</div>
 			</div>

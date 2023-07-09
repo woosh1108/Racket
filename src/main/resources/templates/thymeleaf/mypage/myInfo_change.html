@@ -11,10 +11,6 @@
 <noscript>
 	<link rel="stylesheet" href="/racket/common/assets/css/noscript.css" />
 </noscript>
-<script type="text/javascript">
-	let msg = "${session.user.memberId}";
-	console.log(msg);
-</script>
 </head>
 <body class="is-preload">
 	<th:block layout:fragment="content">
@@ -49,7 +45,7 @@
 								<button type="submit">매칭보기</button>
 							</form>
 						</li>
-						<li>
+						<li th:if="${session.user.memberAuth == 1}">
 							<form action="/racket/mypage/training" method="post">
 								<input type="hidden" th:value="${session.user.memberId}"
 									name="memberId" id="memberId">
@@ -81,15 +77,15 @@
 							style="margin-top: 30px" type="text" readonly class="box"
 							th:value="${session.user.memberNick}">
 						<hr />
-						<label for="memberAge" class="form-label">나이</label> <input
-							type="text" name="memberAge" id="memberAge" class="form-control"
-							th:placeholder="${session.user.memberAge}">
+						<label for="memberAge" class="form-label" style="color: red;">나이</label> <input
+							type="text" name="memberAge" id="memberAge" 
+							class="form-control" th:placeholder="${session.user.memberAge}">
 						<hr />
-						<label for="memberPhone" class="form-label">전화번호</label> <input
+						<label for="memberPhone" class="form-label" style="color: red;">전화번호</label> <input
 							type="text" name="memberPhone" id="memberPhone"
 							class="form-control" th:placeholder="${session.user.memberPhone}">
 						<hr />
-						<label for="memberAddr" class="form-label">주소</label> <input
+						<label for="memberAddr" class="form-label" style="color: red;">주소</label> <input
 							type="text" name="memberAddr" id="memberAddr"
 							class="form-control" th:placeholder="${session.user.memberAddr}">
 						<hr />
@@ -109,7 +105,6 @@
 				</div>
 			</div>
 		</section>
-
 		<!-- Scripts -->
 		<script src="/racket/common/assets/js/jquery.min.js"></script>
 		<script src="/racket/common/assets/js/jquery.scrollex.min.js"></script>

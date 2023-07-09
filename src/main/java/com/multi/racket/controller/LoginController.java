@@ -24,19 +24,27 @@ public class LoginController {
 	}
 
 	@PostMapping("/login.do")
-	public String login(String memberId, String memberPass, Model model, HttpSession session) {
-		MemberDTO user = service.login(memberId, memberPass);
-		if (user != null) {
-			// 로그인 성공
-			// 세션에 데이터 공유하기
-			session.setAttribute("user", user);
-			return "redirect:/main"; // 로그인 후 이동할 페이지 URL
-		} else {
-			// 로그인 실패
-			model.addAttribute("msg", "아이디 비밀번호를 확인해주세요.");
-			return "thymeleaf/login/login"; // 로그인 페이지
-		}
-	}
+    public String login(String memberId, String memberPass, Model model, HttpSession session) {
+        MemberDTO user = service.login(memberId, memberPass);
+        if (user != null) {
+
+            if(user.getMemberStatus() == 0) {
+                // 로그인 성공
+                // 세션에 데이터 공유하기
+                session.setAttribute("user", user);
+                return "redirect:/main"; // 로그인 후 이동할 페이지 URL
+            }else {
+                //1이면 활동정지, 2이면 블랙리스트
+                // 세션에 데이터 공유하기
+                model.addAttribute("statusMsg", "활동정지 혹은 블랙리스트인 아이디입니다.");
+                return "thymeleaf/login/login"; // 로그인 후 이동할 페이지 URL
+            }
+        } else {
+            // 로그인 실패
+            model.addAttribute("msg", "아이디 비밀번호를 확인해주세요.");
+            return "thymeleaf/login/login"; // 로그인 페이지
+        }
+    }
 
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {

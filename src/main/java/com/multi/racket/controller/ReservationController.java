@@ -252,7 +252,6 @@ public class ReservationController {
 		    }
 			System.out.println(file);
 			stadiumName.add(stadium.getStadiumName());
-		    fileList.add(file);
 		}
 		for (StadiumFileDTO file : fileList) {
 		    if (file != null) {
@@ -323,8 +322,6 @@ public class ReservationController {
 		    }
 			System.out.println(file);
 			stadiumName.add(stadium.getStadiumName());
-
-		    fileList.add(file);
 		}
 		for (StadiumFileDTO file : fileList) {
 		    if (file != null) {

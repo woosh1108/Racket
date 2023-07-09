@@ -2,6 +2,8 @@ package com.multi.racket.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import com.multi.racket.manage.ManageService;
 @Controller
 public class ManageController {
 	ManageService service;
+
 	@Autowired
 	public ManageController(ManageService service) {
 		super();
@@ -23,22 +26,38 @@ public class ManageController {
 	}
 
 	@RequestMapping("/admin_user")
-	public String user(Model model) {
+	public String user(Model model, HttpSession session) {
+		MemberDTO adminCheck = (MemberDTO) session.getAttribute("user");
 		List<MemberDTO> list = service.findUser();
-		model.addAttribute("memberlist",list);
-		return "thymeleaf/inq/admin_user";
+		model.addAttribute("memberlist", list);
+
+		if (adminCheck != null && adminCheck.getMemberAuth().equals(2)) {
+
+			return "thymeleaf/inq/admin_user";
+		} else {
+
+			return "thymeleaf/error/access_denied";
+		}
 	}
-	
+
 	@RequestMapping("/admin_register")
-	public String register(Model model) {
+	public String register(Model model, HttpSession session) {
+		MemberDTO adminCheck = (MemberDTO) session.getAttribute("user");
 		List<StadiumDTO> list = service.findAll();
-		model.addAttribute("stadiumlist",list);
-		return "thymeleaf/inq/admin_register";
-	}	
-	
+		model.addAttribute("stadiumlist", list);
+		
+		if (adminCheck != null && adminCheck.getMemberAuth().equals(2)) {
+
+			return "thymeleaf/inq/admin_register";
+		} else {
+
+			return "thymeleaf/error/access_denied";
+		}
+	}
+
 	@PostMapping("/admin/update")
 	public String updateStadiumStatus(@RequestBody List<StadiumDTO> stadiums) {
-	    service.update(stadiums);
-	    return "redirect:/main";
+		service.update(stadiums);
+		return "redirect:/main";
 	}
 }
