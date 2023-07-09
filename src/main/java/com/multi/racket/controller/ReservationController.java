@@ -246,15 +246,12 @@ public class ReservationController {
 		    List<StadiumFileDTO> files = stadium.getFiles();
 		    if (files != null && !files.isEmpty()) {
 		        file = files.get(0);
-		        stadiumName.add(stadium.getStadiumName());
 		        fileList.add(file);
 		    } else {
-		        stadiumName.add(stadium.getStadiumName());
 		        fileList.add(null);
 		    }
 			System.out.println(file);
 			stadiumName.add(stadium.getStadiumName());
-
 		    fileList.add(file);
 		}
 		for (StadiumFileDTO file : fileList) {
@@ -320,10 +317,8 @@ public class ReservationController {
 		    List<StadiumFileDTO> files = stadium.getFiles();
 		    if (files != null && !files.isEmpty()) {
 		        file = files.get(0);
-		        stadiumName.add(stadium.getStadiumName());
 		        fileList.add(file);
 		    } else {
-		        stadiumName.add(stadium.getStadiumName());
 		        fileList.add(null);
 		    }
 			System.out.println(file);
