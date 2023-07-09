@@ -1,7 +1,6 @@
 package com.multi.racket.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.multi.racket.domain.CashDTO;
 import com.multi.racket.domain.InquiryDTO;
 import com.multi.racket.domain.MemberDTO;
 import com.multi.racket.inquiry.InquiryService;
@@ -32,6 +30,16 @@ public class InquiryController {
 		MemberDTO member = (MemberDTO) session.getAttribute("user");
 		model.addAttribute("member", member);	
 		return "thymeleaf/inq/inquiryread";
+	}
+	
+	//관리자
+	@RequestMapping("/inquiryread/admin")
+	public String inqread_admin(int inquiryNo, Model model, HttpSession session) {
+		InquiryDTO inquiry = service.read(inquiryNo);
+		model.addAttribute("inquiry", inquiry);	
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		model.addAttribute("member", member);	
+		return "thymeleaf/inq/inquiryread_admin";
 	}
 	
 	@GetMapping("/inquirywrite")
@@ -76,6 +84,13 @@ public class InquiryController {
 		return "redirect:/inquiryboard?pageNo=0";
 	}
 	
+	//관리자
+	@GetMapping("/inquiry/delete/admin")
+	public String inqdelete_admin(int inquiryNo) {
+		service.delete(inquiryNo);
+		return "redirect:/inquiryboard/admin?pageNo=0";
+	}
+	
 	@RequestMapping("/report")
 	public String report() {
 		return "thymeleaf/inq/report";
@@ -102,10 +117,7 @@ public class InquiryController {
 		String id = member.getMemberId();
 		//int updatecash = member.getTotalAmount();
 		MemberDTO updatemember = service.updatecash(id, won);
-		session.setAttribute("user", updatemember);	
-		MemberDTO member2 = (MemberDTO)session.getAttribute("user");	
-		CashDTO cash = new CashDTO(member.getMemberId(),0,member2.getTotalAmount(),won);
-		service.insert(cash);
+		session.setAttribute("user", updatemember);
 		return "test";
 	}
 	

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout_admin}">
+<head>
+<meta charset="UTF-8">
+<title>문의글 게시판</title>
+<script>
+	function showAlert() {
+		alert("비공개 문의글입니다.");
+	}
+</script>
+<script>
+	function validateSearch() {
+	    var keyword = document.getElementById("keywordInput").value;
+	    if (keyword.trim() === "") {
+	        window.location.href = "/racket/inquiryboard?pageNo=0";
+	        return false; 
+	    }
+	    return true;
+	}
+</script>
+</head>
+<body>	
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" type="text/css" href="common/css/inquirywrite.css"> 
+		<link rel="stylesheet" href="common/css/styles.css"/>
+		<style type="text/css">
+  			table {
+  				border-collapse: separate;
+ 				border-spacing: 50px;
+			}
+			.ti {
+				color:black;
+			}
+		</style>
+		<script>
+			let options = {
+				numberPerPage:5,
+				goBar:true, 
+				pageCounter:true, 
+			};
+				
+			let filterOptions = {
+				el:'#searchBox'
+			};			
+			paginate.init('.table',options,filterOptions); //테이블 클래스
+			
+			
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+		<link rel="icon" href="/racket/images/favicon.png">
+		<!-- 뷰포트 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- js -->
+		<script type="text/javascript" src="/racket/common/js/bulletin_board.js"></script>
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="/racket/common/css/bulletin_board.css">
+		<!-- 부트스트랩 -->
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<!-- 폰트 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Cherry+Bomb+One&family=Noto+Sans+KR:wght@100;500&family=Oswald:wght@200;400&family=Roboto+Slab:wght@200;500&display=swap" rel="stylesheet">
+		<!-- 페이지네이션 -->
+		<link rel="stylesheet" href="/racket/common/css/paginate.css">
+    	<link rel="stylesheet" href="/racket/common/css/ligne.css">
+    	<script type="text/javascript" src="/racket/common/js/paginate.js"></script>		
+		<!-- 헤더 -->
+		<link rel="stylesheet" href="/racket/common/css/header.css">
+    	<style type="text/css"></style>		
+		<!-- 푸터 -->
+		<link rel="stylesheet" type="text/css" href="/racket/common/css/footer.css"/>		
+		<!-- 사이드바 -->
+		<link rel="stylesheet" href="/racket/common/css/side.css">		
+	</th:block>
+	
+	<th:block layout:fragment="content">
+		<div class="container-fluid" style="margin-top: 120px; margin-left: 50px">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title fw-semibold mb-4" style="font-size: 30px">문의</h2>
+            <div>
+            <table class="table table-hover">
+            	<thead>
+	            	<th width="100">No</th>
+	            	<th width="500">제목</th>
+	            	<th width="150">아이디</th>
+	            	<th width="150">작성 시간</th>
+            	</thead>
+            	<tbody>
+            		<tr th:each="inquiry:${inquirylist}">
+            			<td><span th:text="${inquiry.inquiryNo }"></span></td>
+            			<td>           				
+            				<th:block th:if="${session.user}!=null">
+            					<a th:href="@{/inquiryread/admin(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}" class="ti" ><span th:text="${inquiry.inqTitle }"></span></a>
+            				</th:block>
+            				<th:block th:if="${session.user}==null">
+            					<a th:href="@{/inquiryboard(pageNo=0)}" onclick="showAlert()" class="ti" th:if="${inquiry.inqAnonymous == '1'}"><span th:text="${inquiry.inqTitle}"></span><img src="/racket/images/lock.png" style="width:15px; height:15px; margin-left: 10px"></a> 
+            					<a th:href="@{/inquiryread(inquiryNo=${inquiry.inquiryNo },state=${'READ'})}" class="ti" th:unless="${inquiry.inqAnonymous == '1'}"><span th:text="${inquiry.inqTitle }"></span></a>
+            				</th:block>
+            			</td>
+            			<td><span th:text="${inquiry.memberId}"></span></td>
+            			<td><span th:text="${inquiry.inqDate }"></span></td>
+            		</tr>
+            	</tbody>	
+            </table>
+            </div>
+            <!-- 페이지네이션 -->
+            <div style="margin-top:10px; margin-bottom: 35px">
+            	<nav aria-label="Page navigation example">
+			  	<ul class="pagination pagination-md justify-content-center">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Previous">
+			        <span aria-hidden="true"><i class="fas fa-angle-double-left"></i>&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPageNumber-1)}"><a class="page-link" th:href="@{/inquiryboard/admin(pageNo=${i})}" th:if="${i+1}>=1"><span th:text="${i+1}" style="color: navy;" th:if="${i+1}>=1"></span></a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Next">
+			        <span aria-hidden="true"><i class="fas fa-angle-double-right"></i>&raquo;</span>
+			      </a>
+			    </li>
+			  	</ul>
+				</nav>
+            </div>
+            <form action="/racket/inquiry/search/admin?pageNo=0" method="get" onsubmit="return validateSearch()">
+	            <div align="center" style="margin-bottom: 40px">
+	            	<input name="pageNo" type="hidden" value="0">
+	            	<input id="keywordInput" name="keyword" style="height: 40px; width: 250px; font-size: 17px"><span style="margin-left: 15px"><button type="submit" style="border-radius: 6px">검색</button></span>
+	            </div>
+	        </form>
+            <div align="right">
+            	<button type="submit" style="border-radius: 6px; margin-right: 10px" onclick="window.location.href='/racket/inquiryboard/admin?pageNo=0'" th:if="${keyword!=null}">목록</button>
+			</div>
+          </div>
+        </div>
+      </div>
+	</th:block>	
+</body>
+</html>

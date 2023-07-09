@@ -110,6 +110,7 @@ $(document).ready(function() {
 					<table>
 						<thead>
 							<tr>
+								<th>상세보기</th>
 								<th>강습번호</th>
 								<th>강습참가인원</th>
 								<th>강습내용</th>
@@ -120,6 +121,12 @@ $(document).ready(function() {
 						</thead>
 						<tbody>
 							<tr th:each="training,status:${trainingList}">
+								<td>
+									<a th:href="@{/training/memberlist/read(trainingNo=${training.trainingNo})}">
+										<img style="width: 30px; height: 30px; margin-left: 25px"
+										src="https://cdn-icons-png.flaticon.com/512/731/731940.png?w=826&t=st=1688896635~exp=1688897235~hmac=c8c7037e9b7cdccc20c58f17c1fc5bad5f39901f4b7a00bc45d302b469c33de1"> 
+									</a>
+								</td>
 								<td><span th:text="${training.trainingNo}"></span></td>
 								<td><span
 									th:text="${people[status.index] + '/' + training.trainingMax} +'명'"></span></td>

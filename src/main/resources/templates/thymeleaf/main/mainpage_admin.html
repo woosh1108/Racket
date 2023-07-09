@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{thymeleaf/layout/mainLayout_admin}">
+<head>
+<meta charset="UTF-8">
+<title>Racket에 오신것들 환영합니다.</title>
+<th:block layout:fragment="css">
+	<link href="/racket/common/css/mainpage/carousel.css" rel="stylesheet">
+	<link href="/racket/common/css/mainpage/mainpage.css" rel="stylesheet">
+	<link rel="stylesheet" href="/racket/common/css/mainpage/calendar.css">
+</th:block>
+<script th:inline="javascript">
+	let msg = [[${msg}]];
+	if(msg == null){
+	}else{
+		alert(msg);
+	}
+	
+	let change = [[${change}]];
+	if(change == null){
+	}else{
+		alert(change);
+	}
+</script>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<!-- Carousel / 슬라이드바 -->
+		<div id="carouselExampleIndicators" class="carousel slide"
+			data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="0" class="active" aria-current="true"
+					aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="/racket/images/event1.jpg" class="d-block w-100"
+						alt="Image">
+				</div>
+				<div class="carousel-item">
+					<img src="/racket/images/event2.jpg" class="d-block w-100"
+						alt="Image">
+				</div>
+				<div class="carousel-item">
+					<img src="/racket/images/event3.jpg" class="d-block w-100"
+						alt="Image">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+
+		<div class="Calendar">
+			<div class="Calendar-header">
+				<span onClick="prevCalendar();" style="cursor: pointer;">&#60;</span>
+				<span><span id="calYear"></span>년 <span id="calMonth"></span>월</span>
+				<span onClick="nextCalendar();" style="cursor: pointer;">&#62;</span>
+			</div>
+			<table class="Calendar">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- 검색바 -->
+		<div class="container mt-3">
+			<form class="d-flex" th:action="@{/main/search}">
+				<input class="form-control me-2" type="search" name="keyword"  autocomplete="off"
+					placeholder="구장을 검색하세요" aria-label="검색">
+				<button class="btn btn-outline-success" type="submit" id="search">검색</button>
+			</form>
+		</div>
+
+		<!-- 구장 소개 -->
+		<h3 class="stadium-list mt-5">구장 목록</h3>
+		<span class="stadiumshadow">이름을 클릭하면 구장 정보로 넘어갑니다.</span>
+		<hr />
+		<ul>
+			<li th:each="stadium:${stadiumlist}" class="stadiumtable">
+				<div th:each="stadiumfile:${stadiumfile}" class="stadiumdiv">
+				<div th:if="${stadium.stadiumNo == stadiumfile.stadiumNo}">
+					<img alt="" th:src="@{'/download/racket/' + ${stadiumfile.fileStorename}}" class="stadiumImg">
+				</div>
+				</div>
+				<div class="stadiumdiv">
+			        <a th:href="@{/stadium/read/{stadiumNo}(stadiumNo=${stadium.stadiumNo})}" 
+			        	th:text="${stadium.stadiumName}" class="stadiumname"></a><br>
+				        장소: <span th:text="${stadium.stadiumAddr}"></span><br>
+				        구장 이용시간: <span th:text="${stadium.stadiumTime}"></span><br>
+				        구장 이용비: <span th:text="${stadium.stadiumFee}"></span> 원<br>
+			    </div>
+			    <hr/>
+			</li>
+		</ul>
+	</th:block>
+	<th:block layout:fragment="script">
+		<script src="/racket/common/js/mainpage/calendar.js"></script>
+	</th:block>
+</body>
+</html>
