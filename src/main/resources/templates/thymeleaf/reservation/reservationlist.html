@@ -54,30 +54,28 @@
   					  매칭에 대한 내용이 없습니다.
 				</div>
 				
-				<div th:each="reservation : ${reservationlist}">
+				<div th:each="reservation,status : ${reservationlist}">
 					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
 						data-aos="fade-up">
-						<div th:each="file : ${stadium.files}">
-								<div th:if="${file.stadiumFileNum =='1'}">
-									<img class="stadiumImg" th:src="@{'/download/racket/' + ${file.fileStorename}}" alt="Stadium Image">
-								</div>
+						<div th:if="${fileStorename[status.index] != null and fileStorename[status.index].size() > 0}">
+						    <img class="stadiumImg" th:src="@{'/download/racket/' + ${fileStorename[status.index]}}" alt="Stadium Image">
 						</div>
-						<div th:if="${stadium.files.size() == 0}">
-							<img class="image" src="/racket/images/stadiumexam.jpg"
-								alt="Alternative Image">
+						<div th:if="${fileStorename[status.index] == null or fileStorename[status.index].size() <= 0}">
+						    <img class="image" src="/racket/images/stadiumexam.jpg" alt="Alternative Image">
 						</div>
+
 						<div class="text">
 
 							<h3 class="font-weight-light">
 								<a
 									th:href="@{/matching/read/{reservationNo}(reservationNo=${reservation.reservationNo})}"
-									th:text="${stadium.stadiumName+' - '+stadiumcourt.courtName}"></a>
+									th:text="${stadiumName[status.index]+' - '+courtName[status.index]}"></a>
 							</h3>
 							<div class="text-white mb-3">
 								<span class="text-black-opacity-05"> <small
 									th:text="${'등급제한 : '+reservation.gradeSetting}"></small> <br /> <small
 									th:text="${'시합방식 : '+reservation.reservationMet+' / '+reservation.reservationGender}"></small> <br /> <small
-									th:text="${'예약일 : '+reservation.reservationDate+' '+courtoperatinghours.courtStart+' ~ '+courtoperatinghours.courtEnd}"></small>
+									th:text="${'예약일 : '+reservation.reservationDate+' '+startHour[status.index] + ' ~ ' + endHour[status.index]}"></small>
 								</span>
 							</div>
 							</div>
