@@ -83,14 +83,11 @@
 									<li
 										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
 										<a class="page-link"
-										th:href="@{/stadium/stadiumlist(pageNo=0)}">&laquo;</a>
+										th:href="@{/stadium/stadiumlist(pageNo=0)}">&lt;&lt;</a>
 									</li>
-									<li
-										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
-										<a class="page-link"
-										th:href="${currentPage == 0 ? '' : '@{/stadium/stadiumlist(pageNo=' + (currentPage - 1) + ')}'}">&lt;</a>
-									</li>
-
+									<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'">
+                                    	<a class="page-link" th:href="@{/stadium/stadiumlist(pageNo=${currentPage - 1})}">&lt;</a></li>
+									
 									<!-- Add page numbers here -->
 									<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
 										th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
@@ -99,16 +96,14 @@
 										th:text="${page + 1}"></a>
 									</li>
 									<!-- End of page numbers -->
+									
+                                    <li th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'">
+                                    <a class="page-link" th:href="@{/stadium/stadiumlist(pageNo=${currentPage + 1})}">&gt;</a></li>
+									
 									<li
 										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
 										<a class="page-link"
-										th:href="${currentPage == totalPages - 1 ? '' : '@{/stadium/stadiumlist(pageNo=' + (currentPage + 1) + ')}'}">&gt;</a>
-									</li>
-
-									<li
-										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
-										<a class="page-link"
-										th:href="@{/stadium/stadiumlist(pageNo=${totalPages - 1})}">&raquo;</a>
+										th:href="@{/stadium/stadiumlist(pageNo=${totalPages - 1})}">&gt;&gt;</a>
 									</li>
 								</ul>
 							</div>
