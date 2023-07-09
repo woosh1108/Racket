@@ -56,10 +56,10 @@
 				<div th:each="training,status : ${traininglist}">
 					<div class="d-block d-md-flex podcast-entry bg-white mb-5"
 						data-aos="fade-up">
-						<div th:if="${fileStorename[status.index] != null and fileStorename[status.index].size() > 0}">
+						<div th:if="${fileStorename[status.index] != null and fileStorename[status.index] != ''}">
 						    <img class="stadiumImg" th:src="@{'/download/racket/' + ${fileStorename[status.index]}}" alt="Stadium Image">
 						</div>
-						<div th:if="${fileStorename[status.index] == null or fileStorename[status.index].size() <= 0}">
+						<div th:if="${fileStorename[status.index] == null or fileStorename[status.index] == ''}">
 						    <img class="image" src="/racket/images/stadiumexam.jpg" alt="Alternative Image">
 						</div>
 						
@@ -90,14 +90,11 @@
 									<li
 										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
 										<a class="page-link"
-										th:href="@{/training/traininglist(pageNo=0)}">&laquo;</a>
+										th:href="@{/training/traininglist(pageNo=0)}">&lt;&lt;</a>
 									</li>
-									<li
-										th:class="${currentPage == 0 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
-										<a class="page-link"
-										th:href="${currentPage == 0 ? '' : '@{/training/traininglist(pageNo=' + (currentPage - 1) + ')}'}">&lt;</a>
-									</li>
-
+									<li th:class="${currentPage == 0} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'">
+                                    	<a class="page-link" th:href="@{/training/traininglist(pageNo=${currentPage - 1})}">&lt;</a></li>
+									
 									
 									<li th:each="page: ${#numbers.sequence(0, totalPages - 1)}"
 										th:class="${currentPage == page ? 'page-item active' : 'page-item'}">
@@ -105,16 +102,14 @@
 										th:href="@{/training/traininglist(pageNo=${page})}"
 										th:text="${page + 1}"></a>
 									</li>
+									
+                                    <li th:class="${currentPage == totalPages - 1} ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'">
+                                    <a class="page-link" th:href="@{/training/traininglist(pageNo=${currentPage + 1})}">&gt;</a></li>
+									
 									<li
 										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
 										<a class="page-link"
-										th:href="${currentPage == totalPages - 1 ? '' : '@{/training/traininglist(pageNo=' + (currentPage + 1) + ')}'}">&gt;</a>
-									</li>
-
-									<li
-										th:class="${currentPage == totalPages - 1 ? 'icon-angle-double-right disabled' : 'icon-angle-double-right'}">
-										<a class="page-link"
-										th:href="@{/training/traininglist(pageNo=${totalPages - 1})}">&raquo;</a>
+										th:href="@{/training/traininglist(pageNo=${totalPages - 1})}">&gt;&gt;</a>
 									</li>
 								</ul>
 							</div>
