@@ -20,4 +20,6 @@ public interface MemberRepository extends JpaRepository<MemberDTO, String> {
 	@Modifying
     @Query("UPDATE MemberDTO m SET m.memberStatus = 0 WHERE m.memberId = :memberId")
     void updateMemberAuthByMemberId(@Param("memberId") String memberId);
+	
+	
 }

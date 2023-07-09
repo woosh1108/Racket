@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<div th:fragment="header">
+	<div th:fragment="header_admin">
 		<nav class="navbar fixed-top">
 			<div class="nav_logo">
 				<a href="/racket/main"><img src="/racket/images/logo1.png"></a>
@@ -59,18 +59,6 @@
 						<span th:if="${session.user==null}"> <a href="/racket/login" class="header-link">로그인</a>
 						</span>
 						<span th:if="${session.user!=null}"><a href="/racket/logout.do"class="header-link">로그아웃</a> </span>
-					</h1>
-				</div>
-			</div>
-			<div id='group2' class='group2'>
-				<div id='rectangle2' class='rectangle2'>
-					<h1>
-						<span th:if="${session.user==null}"><a href="/test"
-							onclick="return openAgreementPopup();" class="header-link">회원가입</a>
-						</span>
-						<span th:if="${session.user!=null}">
-                            <a th:href="@{/mypage/info(memberId=${session.user.memberId},memberAuth=${session.user.memberAuth})}" class="header-link" >마이페이지</a>
-                        </span>
 					</h1>
 				</div>
 			</div>

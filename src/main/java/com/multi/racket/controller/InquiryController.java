@@ -33,7 +33,15 @@ public class InquiryController {
 		model.addAttribute("member", member);	
 		return "thymeleaf/inq/inquiryread";
 	}
-	
+	//관리자
+		@RequestMapping("/inquiryread/admin")
+		public String inqread_admin(int inquiryNo, Model model, HttpSession session) {
+			InquiryDTO inquiry = service.read(inquiryNo);
+			model.addAttribute("inquiry", inquiry);	
+			MemberDTO member = (MemberDTO) session.getAttribute("user");
+			model.addAttribute("member", member);	
+			return "thymeleaf/inq/inquiryread_admin";
+		}
 	@GetMapping("/inquirywrite")
 	public String inqwrite(Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -75,7 +83,13 @@ public class InquiryController {
 		service.delete(inquiryNo);
 		return "redirect:/inquiryboard?pageNo=0";
 	}
-	
+	//관리자
+		@GetMapping("/inquiry/delete/admin")
+		public String inqdelete_admin(int inquiryNo) {
+			service.delete(inquiryNo);
+			return "redirect:/inquiryboard/admin?pageNo=0";
+		}
+		
 	@RequestMapping("/report")
 	public String report() {
 		return "thymeleaf/inq/report";

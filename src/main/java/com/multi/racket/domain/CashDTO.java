@@ -119,4 +119,12 @@ public class CashDTO {
 		this.cashDate = cashDate;
 	}
 	
+	public CashDTO(String memberId, int paymentInfoNo, int totalAmount, int amountSpent, int charging) {
+        super();
+        this.memberId = memberId;
+        this.paymentInfoNo = paymentInfoNo;
+        this.totalAmount = totalAmount;
+        this.amountSpent = amountSpent;
+        this.charging = charging;
+    }
 }

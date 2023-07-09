@@ -87,13 +87,13 @@ $(document).ready(function() {
 								<button type="submit">매칭보기</button>
 							</form>
 						</li>
-						<li>
-							<form action="/racket/mypage/training" method="post">
-								<input type="hidden" th:value="${session.user.memberId}"
-									name="memberId" id="memberId">
-								<button type="submit">개설강좌보기</button>
-							</form>
-						</li>
+						<li th:if="${session.user.memberAuth == 1}">
+	                        <form action="/racket/mypage/training" method="post">
+	                                <input type="hidden" th:value="${session.user.memberId}"
+	                                    name="memberId" id="memberId">
+	                                <button type="submit">개설강좌보기</button>
+	                         </form>
+	                    </li>
 						<li>
 							<form action="/racket/mypage/trainingAttend" method="post">
 								<input type="hidden" th:value="${session.user.memberId}"
@@ -109,6 +109,7 @@ $(document).ready(function() {
 					<table>
 						<thead>
 							<tr>
+								<th>상세보기</th>
 								<th>경기방식</th>
 								<th>참여성별</th>
 								<th>참여인원</th>
@@ -117,8 +118,14 @@ $(document).ready(function() {
 								<th>경기날짜 및 시간</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr th:each="user,status:${reservationList}">
+						<tbody>	
+							<tr th:each="user,status:${reservationList}" th:if="${session.user.memberId != user.memberId}">
+								<td>
+		                           <a th:href="@{'/matching/read/' + ${user.reservationNo}}">
+		                              <img style="width: 30px; height: 30px; margin-left: 25px"
+		                              src="https://cdn-icons-png.flaticon.com/512/731/731940.png?w=826&t=st=1688896635~exp=1688897235~hmac=c8c7037e9b7cdccc20c58f17c1fc5bad5f39901f4b7a00bc45d302b469c33de1">
+		                           </a>
+		                        </td>
 								<td><span th:text="${user.reservationMet}"></span></td>
 								<td><span th:text="${user.reservationGender}"></span></td>
 								<td><span
@@ -142,8 +149,9 @@ $(document).ready(function() {
 										th:onclick="|location.href='@{/mypage/match/declaration(reservationNo=${user.reservationNo})}'|">신고</button>
 								</td>
 							<tr
-								th:if="${reservationList ==null or reservationList.isEmpty()}"
+								th:if="${reservationList ==null or reservationList.isEmpty()}" 
 								style="text-align: center;">
+								
 								<td colspan="6">매칭에 참가한 정보가 없습니다.</td>
 							</tr>
 						</tbody>

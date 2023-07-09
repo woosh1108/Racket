@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{thymeleaf/layout/mainLayout}">
+	layout:decorate="~{thymeleaf/layout/mainLayout_admin}">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -44,7 +44,6 @@ body {
 												<th>구장</th>
 												<th>닉네임</th>
 												<th>구장운영시간</th>
-												<th>구장 연락처</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -57,7 +56,6 @@ body {
 												<td><span th:text="${stadium.stadiumName}"></span><br></td>
 												<td><span th:text="${stadium.memberId}"></span><br></td>
 												<td><span th:text="${stadium.stadiumTime}"></span><br></td>
-												<td><span th:text="${stadium.stadiumPhone}"></span><br></td>
 											</tr>
 										</tbody>
 									</table>

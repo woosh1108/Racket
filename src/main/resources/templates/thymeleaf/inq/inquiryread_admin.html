@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{thymeleaf/layout/mainLayout}">
+	layout:decorate="~{thymeleaf/layout/mainLayout_admin}">
 <head>
 <meta charset="UTF-8">
 <title>문의글 읽기</title>
 <script th:inline="javascript">
-	function confirmDelete() {
+	function confirmDeleteAdmin() {
     	if (confirm("정말로 삭제하시겠습니까?")) {
-        	window.location.href = "/racket/inquiry/delete?inquiryNo=[[${inquiry.inquiryNo}]]";
+        	window.location.href = "/racket/inquiry/delete/admin?inquiryNo=[[${inquiry.inquiryNo}]]";
     	}
 	}
 </script>
@@ -55,17 +55,14 @@
 					<div style="margin-top: 10px; margin-left: 10px; margin-bottom: 90px"><span th:text="${inquiry.inqContent }"></span></div>
 					<div align="right">
 						<span>
-							<button type="submit" style="border-radius: 6px;" onclick="window.location.href='/racket/inquiryboard?pageNo=0'">목록</button>
+							<button type="submit" style="border-radius: 6px;" onclick="window.location.href='/racket/inquiryboard/admin?pageNo=0'">목록</button>
 						</span> 
 						<th:block th:if="${session.user}!=null">
 							<span>
-								<button type="submit" style="border-radius: 6px" th:onclick="'javascript:window.location.href=\'' + @{/inquiry/updatepage(inquiryNo=${inquiry.inquiryNo})} + '\''" th:if="${member.memberId} == ${inquiry.memberId}">수정</button>
+								<button type="button" style="border-radius: 6px" th:onclick="javascript:confirmDeleteAdmin()">삭제</button>
 							</span> 
 							<span>
-								<button type="button" style="border-radius: 6px" th:onclick="javascript:confirmDelete()" th:if="${member.memberId} == ${inquiry.memberId} or ${member.memberAuth}=='2'">삭제</button>
-							</span> 
-							<span>
-								<button type="submit" style="border-radius: 6px; width:65px; height: 45px; margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:if="${member.memberAuth == '2'}">답변</button>
+								<button type="submit" style="border-radius: 6px; width:65px; height: 45px; margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">답변</button>
 							</span>
 						</th:block>
 						
@@ -101,7 +98,6 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">닫기</button>
 						<button type="submit" class="btn btn-primary">답변 등록</button>
-						<button type="button" class="btn btn-primary">파일 업로드</button>
 					</div>
 				</div>
 			</div>

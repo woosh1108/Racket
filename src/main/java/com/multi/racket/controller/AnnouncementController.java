@@ -57,6 +57,18 @@ public class AnnouncementController {
 		return "thymeleaf/announcement/announcement";
 	}
 
+	// 페이징 자동처리
+	// 관리자
+	@GetMapping("/pagingdata/announcement/admin")
+	public String announcementPage_admin(Model model) {
+		int pageSize = 10; // 페이지 당 공지사항 수 // 추가
+		AnnouncementDTO announcelist = (AnnouncementDTO) announcementService.announcementlist(0); // 0추가
+		long totalPages = announcementService.getTotalPages(pageSize); //
+		model.addAttribute("announcementlist", announcelist);
+		model.addAttribute("totalPages", totalPages); //
+		return "thymeleaf/announcement/announcement";
+	}
+
 	// 공지사항 페이지 - 공지사항 리스트
 	// 동적으로 페이지번호 생성함.
 	@GetMapping("/announcement")
@@ -87,13 +99,52 @@ public class AnnouncementController {
 		}
 
 		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
-		if (member != null && member.getMemberAuth()==2) {
+		if (member != null && member.getMemberAuth() == 2) {
 			model.addAttribute("isAdmin", true);
 		}
 
 		return "thymeleaf/announcement/announcement";
 	}
 
+	// 관리자
+	// 공지사항 페이지 - 공지사항 리스트
+	// 동적으로 페이지번호 생성함.
+	@GetMapping("/announcement/admin")
+	public String announcementPage_page_admin(@RequestParam(defaultValue = "0") String pageNo, Model model,
+			HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		int pageNumber = Integer.parseInt(pageNo);
+		int pageSize = 10; // 페이지 당 공지사항 수
+		if (pageNo == null) {
+			pageNo = "0"; // 기본 페이지 번호 설정
+			pageNumber = Integer.parseInt(pageNo);
+		}
+
+		if (pageNumber > announcementService.getTotalPages(pageSize)) {
+			pageNumber = 0; // 페이지 번호가 총 페이지 수를 초과하는 경우 첫 페이지로 설정
+		}
+
+		List<AnnouncementDTO> announcelist = announcementService.announcementlist(pageNumber);
+		long totalPages = announcementService.getTotalPages(pageSize);
+		model.addAttribute("announcementlist", announcelist);
+		model.addAttribute("totalPages", totalPages);
+
+		// 현재 페이지가 10을 초과할 경우 ">>" 버튼 추가
+		if (pageNumber > 10) {
+			model.addAttribute("hasNextPage", true);
+		} else {
+			model.addAttribute("hasNextPage", false);
+		}
+
+		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
+		if (member != null && member.getMemberAuth() == 2) {
+			model.addAttribute("isAdmin", true);
+		}
+
+		return "thymeleaf/announcement/announcement_admin";
+	}
+
+	// 관리자
 	// 게시글 등록
 	@PostMapping("/announcement")
 	public String announcementWrite(AnnouncementDTO announcement) {
@@ -105,66 +156,66 @@ public class AnnouncementController {
 		}
 
 		announcementService.Announcement_insert(announcement);
-		return "redirect:/announcement";
+		return "redirect:/announcement/admin";
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/announcement/uploadSummernoteImageFiles", method = RequestMethod.POST)
 	public List<Map<String, Object>> uploadSummernoteImageFiles(@RequestParam("files") MultipartFile[] multipartFiles,
-	        HttpServletRequest request) {
-		
+			HttpServletRequest request) {
+
 		// jsonObjcet로하면 에러나서 Map으로 바꿔서 작업..
-	    List<Map<String, Object>> resultList = new ArrayList<>();
+		List<Map<String, Object>> resultList = new ArrayList<>();
 
-	    // 파일저장 외부 경로, 파일명, 저장할 파일명
-	    try {
-	        String root = request.getSession().getServletContext().getRealPath("resources");
-	        // 해당 경로는 밑에 url과 똑같이 작업해줘야 에러가 안 뜬다..
-	        // 해보니까 기본 webapp로 잡히고 거기에서 root + savapath + 이미지파일이 된다.
-	        // 그러니까 결국 src/webapp/resources/announcement_fileupload에 파일이 저장된다.
-	        
-	        // **
-	        // 지현씨 src/webapp/resources/announcement_fileupload/ 파일을 이렇게 만들어주시고 보내드린 이미지 전부 이 디렉토리 안에 넣으시면 게시판 사진 전부 보일거에요!!!
-	        // **
-	        
-	        // **추가로 해당 경로 그러니까 src/webapp/resources/announcement_fileupload/에 존재하는 파일들을 삭제하면 기존
-	        // 게시물에 있는 사진들이 안 보이게 된다. 꼭 필요한 경우만 삭제하던가 아니면 게시글 자체를 삭제하는 게 나으려나..?
-	        String savePath = root + "/announcement_fileupload/";
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	        
-	        // 기존에는 이미지파일 1개만 변환돼서 올라갔기에 for문으로 이미지파일이 여러개가 되어도 전부 변환해서 좀 더 잘 돌아가도록 작성함.
-	        // 와 확실히 이렇게 작업하니까 쾌적하네... 430000글자는 좀... 선 넘었지...
-	        for (MultipartFile multipartFile : multipartFiles) {
-	            Map<String, Object> jsonObject = new HashMap<>();
+		// 파일저장 외부 경로, 파일명, 저장할 파일명
+		try {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			// 해당 경로는 밑에 url과 똑같이 작업해줘야 에러가 안 뜬다..
+			// 해보니까 기본 webapp로 잡히고 거기에서 root + savapath + 이미지파일이 된다.
+			// 그러니까 결국 src/webapp/resources/announcement_fileupload에 파일이 저장된다.
 
-	            String originalFileName = multipartFile.getOriginalFilename();
-	            String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            String boardFileRename = sdf.format(new Date(System.currentTimeMillis())) + "." + extension;
-	            File targetFile = new File(savePath);
+			// **
+			// 지현씨 src/webapp/resources/announcement_fileupload/ 파일을 이렇게 만들어주시고 보내드린 이미지 전부
+			// 이 디렉토리 안에 넣으시면 게시판 사진 전부 보일거에요!!!
+			// **
 
-	            if (!targetFile.exists()) {
-	                targetFile.mkdir();
-	            }
+			// **추가로 해당 경로 그러니까 src/webapp/resources/announcement_fileupload/에 존재하는 파일들을
+			// 삭제하면 기존
+			// 게시물에 있는 사진들이 안 보이게 된다. 꼭 필요한 경우만 삭제하던가 아니면 게시글 자체를 삭제하는 게 나으려나..?
+			String savePath = root + "/announcement_fileupload/";
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-	            multipartFile.transferTo(new File(savePath + boardFileRename));
-	            String contextPath = request.getContextPath();
-	            jsonObject.put("url", contextPath + "/resources/announcement_fileupload/" + boardFileRename);
-	            jsonObject.put("originName", originalFileName);
-	            jsonObject.put("responseCode", "success");
+			// 기존에는 이미지파일 1개만 변환돼서 올라갔기에 for문으로 이미지파일이 여러개가 되어도 전부 변환해서 좀 더 잘 돌아가도록 작성함.
+			// 와 확실히 이렇게 작업하니까 쾌적하네... 430000글자는 좀... 선 넘었지...
+			for (MultipartFile multipartFile : multipartFiles) {
+				Map<String, Object> jsonObject = new HashMap<>();
 
-	            resultList.add(jsonObject);
-	        }
+				String originalFileName = multipartFile.getOriginalFilename();
+				String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+				String boardFileRename = sdf.format(new Date(System.currentTimeMillis())) + "." + extension;
+				File targetFile = new File(savePath);
 
-	    } catch (IllegalStateException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+				if (!targetFile.exists()) {
+					targetFile.mkdir();
+				}
 
-	    return resultList;
+				multipartFile.transferTo(new File(savePath + boardFileRename));
+				String contextPath = request.getContextPath();
+				jsonObject.put("url", contextPath + "/resources/announcement_fileupload/" + boardFileRename);
+				jsonObject.put("originName", originalFileName);
+				jsonObject.put("responseCode", "success");
+
+				resultList.add(jsonObject);
+			}
+
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return resultList;
 	}
-
-
 
 	// 게시글 상세보기
 	@RequestMapping("/announcement_read")
@@ -183,12 +234,40 @@ public class AnnouncementController {
 		}
 
 		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
-		if (member != null && member.getMemberAuth()==2) {
+		if (member != null && member.getMemberAuth() == 2) {
 			model.addAttribute("isAdmin", true);
 		}
 
 		model.addAttribute("announcement", announcement);
 		return view;
+	}
+
+	// 관리자
+	// 게시글 상세보기
+	@RequestMapping("/announcement_read/admin")
+	public String announcementRead_admin(Integer announcementNo, String state, Model model, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		AnnouncementDTO announcement = announcementService.read(announcementNo);
+		// 관리자가 읽어도 조회수가 올라가게 해야하나?? ==> 그렇다면 주석 풀기
+		// 조회수 증가
+//		int views = announcement.getAnnouncementViews();
+//		announcement.setAnnouncementViews(views + 1);
+//		announcementService.save(announcement);
+//		String view = "";
+//		if (state != null && state.equals("READ")) {
+//			view = "thymeleaf/announcement/announcement_read_admin";
+//		} else {
+//			view = "";
+//		}
+
+		// 관리자 아이디 또는 멤버 권한이 2인 경우에 글쓰기 버튼을 보이도록 설정
+		if (member != null && member.getMemberAuth() == 2) {
+			model.addAttribute("isAdmin", true);
+		}
+
+		model.addAttribute("announcement", announcement);
+//		return view;
+		return "thymeleaf/announcement/announcement_read_admin";
 	}
 
 	// 게시글 등록 페이지
@@ -206,13 +285,15 @@ public class AnnouncementController {
 		}
 	}
 
+	// 관리자
 	// 게시글 삭제
 	@PostMapping("/announcement_delete")
 	public String announcementDelete(@RequestParam("announcementNo") int announcementNo) {
 		announcementService.delete(announcementNo);
-		return "redirect:/announcement";
+		return "redirect:/announcement/admin";
 	}
 
+	// 관리자
 	// 공지사항 수정 페이지로 이동
 	@GetMapping("/announcement_update/{announcementNo}")
 	public String showUpdateForm(@PathVariable("announcementNo") int announcementNo, Model model) {
@@ -222,23 +303,38 @@ public class AnnouncementController {
 		return "thymeleaf/announcement/announcement_update";
 	}
 
+	// 관리자
 	// 공지사항 수정 처리
 	@PostMapping("/announcement_update")
 	public String updateAnnouncement(@ModelAttribute("updatedata") AnnouncementDTO updatedata) {
 		announcementService.update(updatedata);
-		return "redirect:/announcement"; // 수정 완료 후 공지사항 목록 페이지로 이동
+		return "redirect:/announcement/admin"; // 수정 완료 후 공지사항 목록 페이지로 이동
 	}
 
 	// 게시글 검색기능
 	@PostMapping("/announcement_search")
 	public String search(String data, Model model, HttpSession session) {
+//		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		List<AnnouncementDTO> searchlist = announcementService.search(data);
+		model.addAttribute("searchlist", searchlist);
+//		if (member != null && member.getMemberId().equals("admin")) {
+//			model.addAttribute("isAdmin", true);
+//		}
+		return "thymeleaf/announcement/announcement_search";
+
+	}
+
+	// 관리자
+	// 게시글 검색기능
+	@PostMapping("/announcement_search/admin")
+	public String search_admin(String data, Model model, HttpSession session) {
 		MemberDTO member = (MemberDTO) session.getAttribute("user");
 		List<AnnouncementDTO> searchlist = announcementService.search(data);
 		model.addAttribute("searchlist", searchlist);
 		if (member != null && member.getMemberId().equals("admin")) {
 			model.addAttribute("isAdmin", true);
 		}
-		return "thymeleaf/announcement/announcement_search";
+		return "thymeleaf/announcement/announcement_search_admin";
 
 	}
 

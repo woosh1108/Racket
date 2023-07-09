@@ -38,6 +38,8 @@ public interface MemberService {
 	List<ReservationDTO> reservationDto(String memberId);
 	// 예약취소처리
 	ReservationDTO cancelReservation(int reservationNo, String memberId, int reservationFee);
+	// 상세보기위해서 코트번호 가져오기
+	int reservationCourtNo(int reservationNo);
 	
 	// 나의 매치목록 페이징처리
 	Page<ReservationDTO> matchingPage(String memberId,int pageNo);
@@ -58,6 +60,8 @@ public interface MemberService {
 	int trainingIncome(String memberId);
 	// 매칭취소처리
 	TrainingDTO cancelTraining(int trainingNo, String memberId, int trainingFee, int courtHourNo);
+	// 상세보기위해서 코트번호 가져오기
+	int trainingCourtNo(int trainingNo);
 	
 	// 나의 강습 참가목록 페이징처리
 	Page<TrainingDTO> trainingAttendPage(String memberId,int pageNo);

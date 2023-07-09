@@ -38,7 +38,7 @@ public class InquiryPageDAO {
 	}
 	
 	public PageDTO mycash(int pageNo, String id) {
-		PageRequest mycash = PageRequest.of(pageNo, 5, Sort.by(Sort.Direction.DESC,"cashDate"));
+		PageRequest mycash = PageRequest.of(pageNo, 5, Sort.by(Sort.Direction.DESC,"cash_no"));
 		Page<CashDTO> page = repository2.findByMemberIdandCharging(id, mycash);
 		List<CashDTO> list = page.getContent();
 		int totalPageNumber = page.getTotalPages();
