@@ -140,11 +140,13 @@ menuicon {
 							<tbody>
 
 								<tr th:each="cash:${mycash}" th:if="${cash.charging}!=0">
-									<td>카카오페이</td>
+									<td th:if="${cash.paymentInfoNo}==0">카카오페이</td>
+									<td th:if="${cash.paymentInfoNo}==1">환불</td>
 									<td><span th:text="${cash.charging }"></span></td>
 									<td><span th:text="${cash.cashDate }"></span></td>
 
 								</tr>
+								
 							</tbody>
 						</table>
 						<!-- 페이지네이션 -->

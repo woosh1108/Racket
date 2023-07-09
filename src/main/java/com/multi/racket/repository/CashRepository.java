@@ -14,4 +14,6 @@ public interface CashRepository extends JpaRepository<CashDTO, String> {
 	CashDTO findByMemberId(String memberId);
 	@Query(value = "SELECT * FROM cash WHERE member_id = :memberId ORDER BY cash_no DESC LIMIT 1", nativeQuery = true)
     CashDTO findLatestByMemberId(@Param("memberId") String memberId);
+	
+	CashDTO findFirstByMemberIdOrderByCashDateDesc(String memberId);
 }

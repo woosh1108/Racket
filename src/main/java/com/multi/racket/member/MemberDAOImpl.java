@@ -57,10 +57,8 @@ public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	CashRepository cashRepository;
 	
-
 	@Override
 	public MemberDTO login(String memberId, String memberPass) {
-		// TODO Auto-generated method stub
 		return memberRepository.findByMemberIdAndMemberPass(memberId, memberPass);
 	}
 
@@ -73,8 +71,6 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void update(MemberDTO updatedata) {
 		MemberDTO user = memberRepository.findById(updatedata.getMemberId()).orElseThrow(() -> new RuntimeException());
-		// save메소드 객체를 새로 만들어서 호출되는 경우 insert문이 만들어지고
-		// 조회한 객체의 setter메소드를 호출해서 값을 셋팅하고 save를 호출하는 경우 update문이 자동으로 만들어진다.
 		user.setMemberNick(updatedata.getMemberNick());
 		user.setMemberAge(updatedata.getMemberAge());
 		user.setMemberPhone(updatedata.getMemberPhone());
@@ -111,11 +107,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public Page<ReservationDTO> reservationPage(String memberId, int pageNo) {
 		int pageSize = 5;
-
 		Pageable Pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "reservationDate"));
-		// ------ -----
-		// 몇 번쨰 한 페이지에
-		// 페이지 보여줄 레코드 갯수
 		return reservationRepository.findAllByMemberId(memberId, Pageable);
 	}
 	
@@ -124,17 +116,14 @@ public class MemberDAOImpl implements MemberDAO {
 		ReservationDTO reservation = reservationRepository.findByReservationNoAndMemberId(reservationNo, memberId);
 		List<MatchingDTO> matchingList = matchingRepository.findAllByReservationNo(reservationNo);
 		for(MatchingDTO matchingUser : matchingList) {
-			MemberDTO member = memberRepository.findById(matchingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
-//			CashDTO cash = cashRepository.findByMemberId(matchingUser.getMemberId());
-//			int userCash = cashRepository.findLatestTotalAmountByMemberId(member.getMemberId());
-			int userCash = cashRepository.findLatestTotalAmountByMemberId(memberId);
-			int totalAmount = member.getTotalAmount();
-//			int userCash = cash.getTotalAmount();
-			CashDTO cash = cashRepository.findLatestByMemberId(memberId);
-			member.setTotalAmount(totalAmount + reservationFee);
-			cash.setTotalAmount(userCash + reservationFee);
-			memberRepository.save(member);
-			cashRepository.save(cash);
+			MemberDTO reservationUser = memberRepository.findById(matchingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
+			int totalAmount = reservationUser.getTotalAmount();
+			reservationUser.setTotalAmount(totalAmount + reservationFee);
+			CashDTO userCash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(matchingUser.getMemberId());
+			int totalCash = userCash.getTotalAmount();
+			CashDTO myCash = new CashDTO(matchingUser.getMemberId(), 1, totalCash + reservationFee , 0 , reservationFee);
+			memberRepository.save(reservationUser);
+			cashRepository.save(myCash);
 			matchingRepository.delete(matchingUser);
 		}
 		reservationRepository.delete(reservation);
@@ -143,7 +132,6 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	//매치 참가
-	
 	@Override
 	public Page<ReservationDTO> matchingPage(String memberId, int pageNo) {
 		List<MatchingDTO> matchingDto = matchingRepository.findByMemberId(memberId);
@@ -155,10 +143,6 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		int pageSize = 5;
 		Pageable Pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "reservationDate"));
-		// ------ -----
-		// 몇 번쨰 한 페이지에
-
-		// 페이지 보여줄 레코드 갯수
 		matchingList = reservationRepository.findByReservationNoIn(numberList, Pageable);
 		return matchingList;
 	}
@@ -186,19 +170,18 @@ public class MemberDAOImpl implements MemberDAO {
 	public MatchingDTO cancelMatching(int reservationNo, String memberId, int reservationFee) {
 		MatchingDTO user = matchingRepository.findByReservationNoAndMemberId(reservationNo, memberId);
 		MemberDTO member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
-		CashDTO cash = cashRepository.findByMemberId(memberId);
 		int totalAmount = member.getTotalAmount();
-		int cashTotalAmount = cash.getTotalAmount();
 		member.setTotalAmount(totalAmount + reservationFee);
-		cash.setTotalAmount(cashTotalAmount + reservationFee);
+		CashDTO cash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(memberId);
+		int userCash = cash.getTotalAmount();
+		CashDTO myCash = new CashDTO(memberId, 1, userCash + reservationFee , 0 , reservationFee);
 		memberRepository.save(member);
-		cashRepository.save(cash);
+		cashRepository.save(myCash);
 		matchingRepository.delete(user);
 		return user;
 	}
 	
 	//강습
-
 	@Override
 	public List<TrainingDTO> trainingDate(Date trainingDate) {
 		List<TrainingDTO> Date = trainingRepository.findByTrainingDateAfter(trainingDate);
@@ -208,11 +191,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public Page<TrainingDTO> trainingPage(String memberId, int pageNo) {
 		int pageSize = 5;
-
 		Pageable Pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "trainingDate"));
-		// ------ -----
-		// 몇 번쨰 한 페이지에
-		// 페이지 보여줄 레코드 갯수
 		return trainingRepository.findAllByMemberId(memberId, Pageable);
 	}
 	
@@ -235,10 +214,8 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public TrainingDTO cancelTraining(int trainingNo, String memberId, int trainingFee, int courtHourNo) {
 		TrainingDTO training = trainingRepository.findByTrainingNoAndMemberId(trainingNo,memberId);
-		MemberDTO member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
-		CashDTO cash = cashRepository.findByMemberId(memberId);
-		int totalAmount = member.getTotalAmount();
-		int cashTotalAmount = cash.getTotalAmount();
+		MemberDTO trainer = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		CashDTO cash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(memberId);
 		//구장비 찾기
 		Optional<CourtoperatinghoursDTO> court = courtOperatingHoursRepository.findById(courtHourNo);
 		Optional<StadiumcourtDTO> satdiumCourt = stadiumCourtRepository.findByCourtNo(court.get().getCourtNo()); 
@@ -247,20 +224,22 @@ public class MemberDAOImpl implements MemberDAO {
 		int stadiumUsePrice = stadium.getStadiumFee();
 		List<TrainingMemberlistDTO> trainingMemberList = trainingMemberlistRepository.findByTrainingNo(trainingNo);
 		for(TrainingMemberlistDTO traingUser : trainingMemberList) {
-			MemberDTO user = memberRepository.findById(traingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
-			CashDTO userCash = cashRepository.findByMemberId(traingUser.getMemberId());
-			int amount = user.getTotalAmount();
-			int UserTotalAmount = userCash.getTotalAmount();
-			user.setTotalAmount(amount + trainingFee);
-			userCash.setTotalAmount(UserTotalAmount + trainingFee);
-			memberRepository.save(user);
-			cashRepository.save(userCash);
+			MemberDTO attendUser = memberRepository.findById(traingUser.getMemberId()).orElseThrow(() -> new RuntimeException());
+			int attendAmount = attendUser.getTotalAmount();
+			attendUser.setTotalAmount(attendAmount + trainingFee);
+			CashDTO attendCash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(traingUser.getMemberId());
+			int UserTotalAmount = attendCash.getTotalAmount();
+			CashDTO attendUserCash = new CashDTO(attendUser.getMemberId(), 1, UserTotalAmount + trainingFee , 0 , trainingFee);
+			memberRepository.save(attendUser);
+			cashRepository.save(attendUserCash);
 			trainingMemberlistRepository.delete(traingUser);
 		}
-		member.setTotalAmount(totalAmount + stadiumUsePrice);
-		cash.setTotalAmount(cashTotalAmount+stadiumUsePrice);
-		memberRepository.save(member);
-		cashRepository.save(cash);
+		int totalAmount = trainer.getTotalAmount();
+		trainer.setTotalAmount(totalAmount + stadiumUsePrice);
+		int trainerUserCsh = cash.getTotalAmount();
+		CashDTO trainerCash = new CashDTO(memberId, 1, trainerUserCsh + stadiumUsePrice , 0 , stadiumUsePrice);
+		memberRepository.save(trainer);
+		cashRepository.save(trainerCash);
 		trainingRepository.delete(training);
 		return training;
 	}
@@ -277,16 +256,12 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		int pageSize = 5;
 		Pageable Pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "trainingDate"));
-		// ------ -----
-		// 몇 번쨰 한 페이지에
-		// 페이지 보여줄 레코드 갯수
 		trainingList = trainingRepository.findByTrainingNoIn(numberList, Pageable);
 		return trainingList;
 	}
 
 	@Override
 	public List<ReservationDTO> reservationDto(String memberId) {
-		// TODO Auto-generated method stub
 		return reservationRepository.findByMemberId(memberId);
 	}
 
@@ -298,16 +273,15 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public TrainingMemberlistDTO cancelTrainingAttend(int trainingNo, String memberId, int trainingFee) {
 		TrainingMemberlistDTO user = trainingMemberlistRepository.findByTrainingNoAndMemberId(trainingNo, memberId);
-		MemberDTO member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
-		CashDTO cash = cashRepository.findByMemberId(memberId);
-		int totalAmount = member.getTotalAmount();
-		int cashTotalAmount = cash.getTotalAmount();
-		member.setTotalAmount(totalAmount + trainingFee);
-		cash.setTotalAmount(cashTotalAmount + trainingFee);
-		memberRepository.save(member);
-		cashRepository.save(cash);
+		MemberDTO attendUser = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException());
+		int totalAmount = attendUser.getTotalAmount();
+		attendUser.setTotalAmount(totalAmount + trainingFee);
+		CashDTO attendUserCash = cashRepository.findFirstByMemberIdOrderByCashDateDesc(memberId);
+		int cashTotalAmount = attendUserCash.getTotalAmount();
+		CashDTO myCash = new CashDTO(memberId, 1, cashTotalAmount + trainingFee , 0 , trainingFee);
+		memberRepository.save(attendUser);
+		cashRepository.save(myCash);
 		trainingMemberlistRepository.delete(user);
 		return user;
 	}
-
 }
