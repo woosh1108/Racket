@@ -51,7 +51,7 @@ menuicon {
 </script>
 <script th:inline="javascript">
 	function openPopup() {
-		window.open('/racket/cashpay', '결제창', 'width=700,height=500');
+		window.open('/racket/cashpay', '결제창', 'width=500,height=500');
 	}
 
 </script>
@@ -139,7 +139,7 @@ menuicon {
 							</thead>
 							<tbody>
 
-								<tr th:each="cash:${mycash}" th:if="${cash.charging}!=0">
+								<tr th:each="cash:${mycash}">
 									<td>카카오페이</td>
 									<td><span th:text="${cash.charging }"></span></td>
 									<td><span th:text="${cash.cashDate }"></span></td>
