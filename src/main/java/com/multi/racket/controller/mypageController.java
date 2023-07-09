@@ -96,19 +96,24 @@ public class mypageController {
 	}
 
 	// 내 캐쉬내역보기 - 충전가능
-	@RequestMapping("/cash")
-	public String myCash(Model model, @RequestParam("pageNo") String pageNo, String id, HttpSession session) {
-		MemberDTO member = (MemberDTO) session.getAttribute("user");
-		id = member.getMemberId();
-		System.out.println(pageNo);
-		PageDTO page = service2.mycash(Integer.parseInt(pageNo), id);
-		List<CashDTO> list = page.getCashlist();
-		int totalPageNumber = page.getTotalPageNumber();
-		model.addAttribute("mycash", list);
-		model.addAttribute("totalPageNumber", totalPageNumber);
-		model.addAttribute("member", member);
-		return "thymeleaf/mypage/myCash";
-	}
+    @RequestMapping("/cash")
+    public String myCash(Model model, @RequestParam("pageNo") String pageNo, String id, HttpSession session) {
+        MemberDTO member = (MemberDTO) session.getAttribute("user");
+        id = member.getMemberId();
+        System.out.println(pageNo);
+        PageDTO page = service2.mycash(Integer.parseInt(pageNo), id);
+        List<CashDTO> list = page.getCashlist();
+        int totalPageNumber = page.getTotalPageNumber();
+
+        //원준코드추가
+        MemberDTO user = service.idCheck(id);
+        model.addAttribute("totalAmount", user.getTotalAmount());
+
+        model.addAttribute("mycash", list);
+        model.addAttribute("totalPageNumber", totalPageNumber);
+        model.addAttribute("member", member);
+        return "thymeleaf/mypage/myCash";
+    }
 
 	// 내 예약 내역보기
 	@RequestMapping("/reservation")

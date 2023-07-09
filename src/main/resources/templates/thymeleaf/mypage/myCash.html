@@ -63,7 +63,7 @@ menuicon {
 		<div id="wrapper">
 			<div class="col-lg-11"
 				style="position: relative; float: right; margin-top: 130px; margin-left: 150px;">
-				<section>
+				<section>	
 					<div class="content" style="margin-left: 20px;">
 						<ul class="actions">
 							<!-- <li><a href="/racket/mypage/info" class="button">내정보</a></li> -->
@@ -112,17 +112,17 @@ menuicon {
 				</section>
 				<div class="box" style="padding: 20px; margin: 20px;">
 
-					<ul class="actions"
-						style="flex-direction: row; justify-content: space-between;">
-						<li style="display: flex; align-items: center;"><h2
-								style="margin: 0px;">
-								총 캐쉬 : <span th:text="${session.user.totalAmount}"></span>
-							</h2></li>
-						<li><a href="#" onclick="openPopup()"> <input
-								type="button" name="submit" id="submit" value="캐쉬충전" />
-						</a></li>
-					</ul>
-				</div>
+					  <ul class="actions"
+                        style="flex-direction: row; justify-content: space-between;">
+                        <li style="display: flex; align-items: center;"><h2
+                                style="margin: 0px;">
+                                총 캐쉬 : <span th:text="${totalAmount}"></span>
+                            </h2></li>
+                        <li><a href="#" onclick="openPopup()"> <input
+                                type="button" name="submit" id="submit" value="캐쉬충전" />
+                        </a></li>
+                    </ul>
+                </div>
 			</div>
 			<!-- Table -->
 			<div class="col-lg-11"

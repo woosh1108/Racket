@@ -221,7 +221,7 @@ public class MemberDAOImpl implements MemberDAO {
 		Optional<StadiumcourtDTO> satdiumCourt = stadiumCourtRepository.findByCourtNo(court.get().getCourtNo()); 
 		StadiumDTO stadium = satdiumCourt.get().getStadiumNo();
 		//강습 개설할때 사용한 구장금액
-		int stadiumUsePrice = stadium.getStadiumFee();
+		int stadiumUsePrice = stadium.getStadiumFee()*2;
 		List<TrainingMemberlistDTO> trainingMemberList = trainingMemberlistRepository.findByTrainingNo(trainingNo);
 		for(TrainingMemberlistDTO traingUser : trainingMemberList) {
 			MemberDTO attendUser = memberRepository.findById(traingUser.getMemberId()).orElseThrow(() -> new RuntimeException());

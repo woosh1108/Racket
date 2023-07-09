@@ -118,7 +118,7 @@ $(document).ready(function() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="user,status:${reservationList}">
+							<tr th:each="user,status:${reservationList}" th:if="${session.user.memberId != user.memberId}">
 								<td><span th:text="${user.reservationMet}"></span></td>
 								<td><span th:text="${user.reservationGender}"></span></td>
 								<td><span
